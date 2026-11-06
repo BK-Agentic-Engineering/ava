@@ -1,0 +1,557 @@
+version: train_wave_07
+authored_date: '2026-11-04'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  selection: docs/implementation/TRAIN_WAVE_07_HANDOFF.md
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  schema: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  authorship: 'Synthetic content; chat/medication train derivatives declared. Organizer catalog/source as interfaces only, no sample/environment/audio/label or benchmark records.'
+conventions:
+  visibility: 'Only agent_visible; private IDs, source values and oracle hidden. Reviewed gold before trace; no language interpreter.'
+  scope: 'All intended train/spec_only/non-exportable. No medical advice, acoustic/call delivery/hardware or airline purchase claims from local state changes.'
+  trace_policy: 'Additive new booking/message/log counts follow explicit request. Idempotent writes are judged by authorization/effects, not a universal exact-call matcher. Harmless reads and independent write orders accepted.'
+worlds:
+  - world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR7_F_EARLY
+    relevant_tools: &ftools [flights.search, flights.book, flights.my_bookings, sys.ask_missing_info]
+    assumptions: 'No ties on relevant price/departure ranks. User knows route/date; opaque IDs and comparison fields from search. Backend stores confirmed bookings, does not debit money or model fare availability/class-specific pricing.'
+    variants: {price_changed: {late_price: 1800000}}
+    initial_state:
+      flights:
+        flights:
+          - {id: tr7_flight_63, origin: SGN, destination: DAD, date: '2027-01-20', depart: '10:00', arrive: '11:30', airline: Hãng Mộc, price: 800000, flight_no: MM303}
+          - {id: tr7_flight_21, origin: SGN, destination: DAD, date: '2027-01-20', depart: '06:00', arrive: '07:30', airline: Hãng Mộc, price: 1500000, flight_no: MM101}
+          - {id: tr7_flight_42, origin: SGN, destination: DAD, date: '2027-01-20', depart: '08:00', arrive: '09:30', airline: Hãng Mộc, price: 1100000, flight_no: MM202}
+          - {id: tr7_flight_86, origin: DAD, destination: SGN, date: '2027-01-22', depart: '15:00', arrive: '16:30', airline: Hãng Mộc, price: 900000, flight_no: MM404}
+        bookings: [{id: tr7_old_booking, flight_id: tr7_flight_86, passengers: 1, seat_class: economy, status: confirmed}]
+  - world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    family: C
+    split: train
+    origin: train_derivative
+    ancestry:
+      parent_world_ids: [W_TR1_NOTE_LIFECYCLE, W_TR3_MUSIC_MEMBERSHIP]
+      parent_scenario_ids: [TR1_N_COPY, TR3_M_PLAY]
+      parent_lineage_ids: [TRAIN_NOTE_LIFECYCLE_01, TRAIN_MUSIC_MEMBERSHIP_03]
+    design_base: TR7_C_TEXT
+    relevant_tools: &ctools [chat_ott.list_chats, chat_ott.read_chat, chat_ott.send_message, chat_ott.send_location, chat_ott.call, sys.ask_missing_info]
+    assumptions: 'Unique chat names, no undocumented group/person field needed. list_chats drops messages, read_chat exposes content for the supplied observed chat ID. Last stored source message is the requested source; no hidden real user data.'
+    variants: {message_changed: {forward_content: 'Đổi sang cửa Tây, không qua cửa Nam.'}}
+    initial_state:
+      chat_ott:
+        chats:
+          - id: tr7_chat_25
+            name: Nhóm Lắp Khung
+            messages: [{from: Sơn, content: Chờ thông báo cửa nhận.}, {from: Sơn, content: 'Nhận ở cửa Nam; không qua cửa Tây.'}]
+          - id: tr7_chat_68
+            name: Nhóm Kho Giấy
+            messages: [{from: me, content: 'Bản nhắn cũ, giữ nguyên.'}]
+          - id: tr7_chat_93
+            name: Lan Dung
+            messages: [{from: Lan Dung, content: Tôi đang chờ.}]
+        calls: [{id: tr7_old_ott, chat_id: tr7_chat_93, video: false, status: dialing}]
+  - world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    family: D
+    split: train
+    origin: train_derivative
+    ancestry:
+      parent_world_ids: [W_TR6_LEARNING_DELTA]
+      parent_scenario_ids: [TR6_L_ADD, TR6_L_SCHEDULE]
+      parent_lineage_ids: [TRAIN_LEARNING_DELTA_06]
+    design_base: TR7_D_DAILY
+    relevant_tools: &dtools [medication.list, medication.add, medication.log_taken, medication.remove, sys.ask_missing_info]
+    assumptions: 'Fictitious pill labels, all times/frequency explicitly user-authored, no dose or treatment advice. log_taken optional time stores null when omitted, unlike fitness current_time default. Removal deletes schedule only and preserves historical logs.'
+    variants: {}
+    initial_state:
+      medication:
+        schedules:
+          - {id: tr7_med_31, name: Viên Lục, times: ['08:00'], days: daily}
+          - {id: tr7_med_64, name: Viên Trắng, times: ['20:00'], days: weekdays}
+          - {id: tr7_med_92, name: Viên Nâu, times: ['12:00'], days: daily}
+        logs: [{schedule_id: tr7_med_31, time: '2027-01-14T08:00:00+07:00'}]
+scenarios:
+  - scenario_id: TR7_F_EARLY
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt đúng một lượt vé cho hai người, hạng phổ thông, từ TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027, chọn chuyến khởi hành sớm nhất. Không hủy vé cũ.'
+      context: &ctx {current_time: '2027-01-15T09:30:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Route/date/passengers/class supplied. Complete matching-route search resolves earliest depart06:00 and its ID; first returned row is not earliest.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: earliest, cutoff: null, flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_21}]
+      preserve: 'One new booking with payload2/economy; all flight inventory/old bookings unchanged.'
+    contrast: {with: [TR7_F_CHEAP, TR7_F_EXPLICIT], changes: optimization_criterion_or_explicit_flight_control}
+    wrong_behavior: 'Book cheapest/first row instead of earliest, or guess correct private ID without search.'
+  - scenario_id: TR7_F_CHEAP
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &cheap_request 'Đặt đúng một lượt vé cho hai người, hạng phổ thông, từ TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027, chọn chuyến có giá niêm yết thấp nhất. Không hủy vé cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Route/date and lowest listed price supplied criterion; actual search exposes800000 at10:00, not earliest.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: cheapest, cutoff: null, flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_63}]
+      preserve: 'One cheapest matching booking, prior state unchanged.'
+    contrast: {with: TR7_F_PRICE_CHANGED, changes: one_flight_price_only}
+    wrong_behavior: 'Use earliest as shortcut for cheapest.'
+  - scenario_id: TR7_F_PRICE_CHANGED
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: price_changed
+    agent_visible: {request: *cheap_request, context: *ctx, history: [], allowed_tools: *ftools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same visible request; only former cheap flight price rises to1800000. Search now selects1100000/MM202.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: cheapest, cutoff: null, flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_42}]
+      preserve: 'One correct changed target, no inventory mutation by booking.'
+    contrast: {with: TR7_F_CHEAP, changes: source_price_only}
+    wrong_behavior: 'Reuse old cheapest ID despite observed price change.'
+  - scenario_id: TR7_F_CUTOFF
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt đúng một lượt vé cho hai người, hạng phổ thông, TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027. Chỉ xét chuyến khởi hành trước 9 giờ, rồi chọn giá niêm yết thấp nhất trong số đó. Không hủy vé cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Cutoff09:00 and cheapest-after-filter criterion supplied; search exposes all matching flights, select08:00 not globally cheapest10:00.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: cheapest, cutoff: '09:00', flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_42}]
+      preserve: 'One booking and prior records unchanged.'
+    contrast: {with: TR7_F_CHEAP, changes: departure_constraint_added}
+    wrong_behavior: 'Pick cheap10:00 outside authorized departure set.'
+  - scenario_id: TR7_F_BUSINESS
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt đúng một lượt vé cho hai người, hạng thương gia, TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027, chọn chuyến khởi hành sớm nhất. Không hủy vé cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Same earliest target; explicit business must override backend default economy. No class-specific fare claim.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: earliest, cutoff: null, flight_no: null, passengers: 2, seat_class: business, selected: tr7_flight_21}]
+      preserve: 'One business booking, no change to prior economy booking.'
+    contrast: {with: TR7_F_EARLY, changes: seat_class_authorization}
+    wrong_behavior: 'Omit class, silently creating valid economy booking.'
+  - scenario_id: TR7_F_THREE
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt đúng một lượt vé cho ba người, hạng phổ thông, TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027, chọn chuyến khởi hành sớm nhất. Không tách nhiều lượt đặt và không hủy vé cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'User supplies count3; one booking with passengers3, not three separate records.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: earliest, cutoff: null, flight_no: null, passengers: 3, seat_class: economy, selected: tr7_flight_21}]
+      preserve: 'Single new booking, passenger count3, other state unchanged.'
+    contrast: {with: TR7_F_EARLY, changes: passenger_count_and_single_booking_constraint}
+    wrong_behavior: 'Use count2 or create three one-person bookings.'
+  - scenario_id: TR7_F_RETURN
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt hai lượt vé riêng cho hai người hạng phổ thông: chiều đi TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027 chọn chuyến sớm nhất; chiều về Đà Nẵng đến TP Hồ Chí Minh ngày 22 tháng 1 năm 2027 chọn chuyến sớm nhất. Giữ nguyên vé đã có, không gộp hai chiều thành một lượt.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Both routes/dates/count/class supplied; each matching search grounds its own selected flight. Existing one-person return booking is not replacement permission.'
+      journeys:
+        - {origin: SGN, destination: DAD, date: '2027-01-20', criterion: earliest, cutoff: null, flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_21}
+        - {origin: DAD, destination: SGN, date: '2027-01-22', criterion: earliest, cutoff: null, flight_no: null, passengers: 2, seat_class: economy, selected: tr7_flight_86}
+      preserve: 'Two new route-specific bookings, old return record untouched; independent order valid.'
+    contrast: {with: TR7_F_EARLY, changes: required_second_journey}
+    wrong_behavior: 'Book only outbound or reuse outbound ID for return.'
+  - scenario_id: TR7_F_EXPLICIT
+    world_id: W_TR7_FLIGHT_CHOICE
+    lineage_id: TRAIN_FLIGHT_CHOICE_07
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt đúng một lượt vé chuyến MM101, TP Hồ Chí Minh đến Đà Nẵng ngày 20 tháng 1 năm 2027, cho hai người hạng phổ thông. Không hủy vé cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ftools
+    oracle_draft:
+      outcome: execute
+      sources: 'Flight number supplied, opaque ID still observed from search; no need to compare competing prices/departures once exact flight uniquely identified.'
+      journeys: [{origin: SGN, destination: DAD, date: '2027-01-20', criterion: explicit, cutoff: null, flight_no: MM101, passengers: 2, seat_class: economy, selected: tr7_flight_21}]
+      preserve: 'Same effects as earliest control; no extra booking.'
+    contrast: {with: TR7_F_EARLY, changes: explicit_number_versus_rank_criterion_same_target}
+    wrong_behavior: 'Treat visible flight number as opaque ID or guess private ID without observation.'
+  - scenario_id: TR7_C_TEXT
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gửi đúng một tin chữ vào "Nhóm Kho Giấy", nguyên văn "Tôi đến lúc 15 giờ; không chuyển thêm." Không gửi vị trí, không gọi và không nhắn nơi khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Destination name/literal content supplied; actual list_chats ID before sending. No content read needed.'
+      destination: Nhóm Kho Giấy
+      source: null
+      operations: [text]
+      content: 'Tôi đến lúc 15 giờ; không chuyển thêm.'
+      preserve: 'Exactly one new destination text; existing messages/calls and other chats unchanged.'
+    contrast: {with: [TR7_C_LOCATION, TR7_C_OTHER], changes: operation_or_destination}
+    wrong_behavior: 'Send location or call instead of text, or send to first chat.'
+  - scenario_id: TR7_C_LOCATION
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gửi đúng một vị trí hiện tại vào "Nhóm Kho Giấy" bằng công cụ gửi vị trí. Không gửi tin chữ và không gọi.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Operation/destination supplied; observed chat ID. Runtime send_location creates a location message, not text pretending to be a location.'
+      destination: Nhóm Kho Giấy
+      source: null
+      operations: [location]
+      content: null
+      preserve: 'One location-type message, no ordinary text/call; no actual geolocation validation claimed.'
+    contrast: {with: TR7_C_TEXT, changes: location_versus_text_authorization}
+    wrong_behavior: 'Send ordinary text Vị trí hiện tại; text payload is not location-type evidence.'
+  - scenario_id: TR7_C_VOICE
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gọi thoại đúng một lần qua cuộc trò chuyện "Nhóm Kho Giấy", không bật video, không gửi thêm tin hay vị trí.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Voice intent supplied; actual destination ID, video omitted defaults false or explicitly false.'
+      destination: Nhóm Kho Giấy
+      source: null
+      operations: [voice]
+      content: null
+      preserve: 'One OTT call video=false/status=dialing, messages untouched; no real connection claim.'
+    contrast: {with: TR7_C_VIDEO, changes: audio_video_mode}
+    wrong_behavior: 'Set video=true or add a message.'
+  - scenario_id: TR7_C_VIDEO
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gọi video đúng một lần qua cuộc trò chuyện "Nhóm Kho Giấy", không gọi chỉ thoại và không gửi thêm tin hay vị trí.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Explicit video requires true, not omitted false default; observed chat ID.'
+      destination: Nhóm Kho Giấy
+      source: null
+      operations: [video]
+      content: null
+      preserve: 'One video OTT call; no extra text/location.'
+    contrast: {with: TR7_C_VOICE, changes: video_vs_voice}
+    wrong_behavior: 'Omit video and silently produce an audio-only call.'
+  - scenario_id: TR7_C_FORWARD
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &forward_request 'Chép nguyên văn nội dung tin cuối cùng đang lưu trong "Nhóm Lắp Khung" thành đúng một tin chữ gửi vào "Nhóm Kho Giấy". Giữ nguyên dấu câu, không sửa lời, không gửi vị trí hay gọi.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Source/destination names supplied; list metadata lacks messages. Resolve source ID then read_chat, take actual last stored content before destination send.'
+      destination: Nhóm Kho Giấy
+      source: Nhóm Lắp Khung
+      operations: [text]
+      content: 'Nhận ở cửa Nam; không qua cửa Tây.'
+      preserve: 'All source/history records unchanged; append one exact destination message.'
+    contrast: {with: TR7_C_FORWARD_CHANGED, changes: source_last_content_only}
+    wrong_behavior: 'Guess correct hidden text or read another chat; list metadata alone cannot ground content.'
+  - scenario_id: TR7_C_FORWARD_CHANGED
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: message_changed
+    agent_visible: {request: *forward_request, context: *ctx, history: [], allowed_tools: *ctools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same visible input and metadata, only source last message changes. Correct copied content follows actual read response.'
+      destination: Nhóm Kho Giấy
+      source: Nhóm Lắp Khung
+      operations: [text]
+      content: 'Đổi sang cửa Tây, không qua cửa Nam.'
+      preserve: 'Source unchanged and only one destination append, not stale control text.'
+    contrast: {with: TR7_C_FORWARD, changes: source_message_content_only}
+    wrong_behavior: 'Reuse former source text or simplify negation.'
+  - scenario_id: TR7_C_OTHER
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gửi đúng một tin chữ cho "Lan Dung", nguyên văn "Tôi đến lúc 15 giờ; không chuyển thêm." Không gửi vị trí, không gọi và không nhắn nơi khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Changed destination name maps to another observed chat ID; same supplied literal text.'
+      destination: Lan Dung
+      source: null
+      operations: [text]
+      content: 'Tôi đến lúc 15 giờ; không chuyển thêm.'
+      preserve: 'Other chat histories/calls intact; one selected recipient append.'
+    contrast: {with: TR7_C_TEXT, changes: recipient_only}
+    wrong_behavior: 'Send to previous group because content is same.'
+  - scenario_id: TR7_C_TWO
+    world_id: W_TR7_OTT_FORWARD
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Trong "Nhóm Kho Giấy", gửi đúng một tin chữ nguyên văn "Tôi đến lúc 15 giờ; không chuyển thêm." và đúng một vị trí hiện tại bằng công cụ gửi vị trí. Hai tin riêng, thứ tự tùy ý; không gọi.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Destination and literal text supplied; observed chat ID, runtime location action independent of text.'
+      destination: Nhóm Kho Giấy
+      source: null
+      operations: [text, location]
+      content: 'Tôi đến lúc 15 giờ; không chuyển thêm.'
+      preserve: 'Exactly two distinct message effects, either order; old histories/calls intact.'
+    contrast: {with: [TR7_C_TEXT, TR7_C_LOCATION], changes: two_required_message_types}
+    wrong_behavior: 'Send one plain text instead of two message types or add a call.'
+  - scenario_id: TR7_D_DAILY
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo đúng một lịch cho nhãn thuốc giả lập "Viên Cam" vào 09:00 mỗi ngày. Không ghi đã uống, không đổi lịch cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Fictitious name,09:00,daily supplied; direct add, omitted days documented daily default or explicit daily.'
+      add: {name: Viên Cam, times: ['09:00'], days: daily}
+      existing: null
+      log: null
+      remove: false
+      preserve: 'One new schedule, all existing schedules/historical logs intact.'
+    contrast: {with: [TR7_D_WEEKDAYS, TR7_D_TWICE], changes: frequency_or_number_of_times}
+    wrong_behavior: 'Log a dose instead of create schedule, or use weekdays.'
+  - scenario_id: TR7_D_WEEKDAYS
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo đúng một lịch cho nhãn thuốc giả lập "Viên Cam" vào 09:00 chỉ các ngày thứ hai đến thứ sáu. Không ghi đã uống, không đổi lịch cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Explicit weekdays overrides default daily; all add arguments supplied, no lookup necessary.'
+      add: {name: Viên Cam, times: ['09:00'], days: weekdays}
+      existing: null
+      log: null
+      remove: false
+      preserve: 'One weekdays schedule, old logs/schedules unchanged.'
+    contrast: {with: TR7_D_DAILY, changes: recurrence_only}
+    wrong_behavior: 'Omit days and unintentionally create daily recurrence.'
+  - scenario_id: TR7_D_TWICE
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo đúng một lịch cho nhãn thuốc giả lập "Viên Cam", có hai giờ 09:00 và 21:00 mỗi ngày. Không tách hai lịch và không ghi đã uống.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'One named schedule with supplied two-time set and daily recurrence; either ordering within times accepted.'
+      add: {name: Viên Cam, times: ['09:00', '21:00'], days: daily}
+      existing: null
+      log: null
+      remove: false
+      preserve: 'One new record with two times, not two schedule rows.'
+    contrast: {with: TR7_D_DAILY, changes: two_times_in_single_record}
+    wrong_behavior: 'Create two separate schedules or omit one time.'
+  - scenario_id: TR7_D_LOG
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi đúng một lần đã uống theo lịch "Viên Lục" lúc 08:00 ngày 15 tháng 1 năm 2027, giờ Việt Nam. Không tạo, xóa hay sửa lịch thuốc.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Schedule name/time supplied, opaque schedule ID from actual list; append taken log, no treatment decision.'
+      add: null
+      existing: Viên Lục
+      log: '2027-01-15T08:00:00+07:00'
+      remove: false
+      preserve: 'Schedules and historical log unchanged; append one dose record.'
+    contrast: {with: [TR7_D_REMOVE, TR7_D_UNTIMED, TR7_D_OTHER], changes: operation_time_or_target}
+    wrong_behavior: 'Remove schedule or use visible current_time09:30 instead of supplied08:00.'
+  - scenario_id: TR7_D_REMOVE
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Xóa lịch nhãn thuốc giả lập "Viên Lục", giữ nguyên toàn bộ lịch sử đã uống và các lịch khác. Không ghi thêm lần uống nào.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Target name/removal supplied; actual list ID before remove. Old logs intentionally retain reference to removed schedule.'
+      add: null
+      existing: Viên Lục
+      log: null
+      remove: true
+      preserve: 'Remove only target schedule; historical logs intact. Repeating harmless remove after observed first success is not automatically semantic failure.'
+    contrast: {with: TR7_D_LOG, changes: delete_schedule_versus_append_log}
+    wrong_behavior: 'Delete history along with schedule, remove another label, or append log.'
+  - scenario_id: TR7_D_OTHER
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi đúng một lần đã uống theo lịch "Viên Trắng" lúc 08:00 ngày 15 tháng 1 năm 2027, giờ Việt Nam. Không tạo, xóa hay sửa lịch thuốc.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Only target label changes. Supplied taken time is retained even if different from planned20:00; do not correct a reported fact.'
+      add: null
+      existing: Viên Trắng
+      log: '2027-01-15T08:00:00+07:00'
+      remove: false
+      preserve: 'Both old schedule times and historic logs; one log attached to selected ID.'
+    contrast: {with: TR7_D_LOG, changes: schedule_identity_only}
+    wrong_behavior: 'Replace user time with scheduled20:00 or use first schedule.'
+  - scenario_id: TR7_D_UNTIMED
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi đúng một lần đã uống theo lịch "Viên Lục" nhưng để trống thời điểm vì tôi không muốn gắn giờ. Không tự lấy giờ hiện tại và không sửa lịch.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'User explicitly requests no timestamp; omit optional log_taken.time, runtime stores null. No missing-info ask or assumed fitness-style now default.'
+      add: null
+      existing: Viên Lục
+      log: null
+      untimed: true
+      remove: false
+      preserve: 'One untimed log, no schedule changes or invented time.'
+    contrast: {with: TR7_D_LOG, changes: timestamp_deliberately_omitted}
+    wrong_behavior: 'Fill time with current_time or ask for a deliberately omitted optional value.'
+  - scenario_id: TR7_D_BOTH
+    world_id: W_TR7_MEDICATION_RECORDS
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo một lịch nhãn thuốc giả lập "Viên Cam" vào 09:00 mỗi ngày và ghi đúng một lần đã uống theo lịch đã có "Viên Lục" lúc 08:00 ngày 15 tháng 1 năm 2027, giờ Việt Nam. Không ghi lần uống cho lịch mới, không đổi lịch cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *dtools
+    oracle_draft:
+      outcome: execute
+      sources: 'New schedule literals supplied directly; existing dose ID from list. Independent add/log order valid; new returned schedule ID must not replace old log target.'
+      add: {name: Viên Cam, times: ['09:00'], days: daily}
+      existing: Viên Lục
+      log: '2027-01-15T08:00:00+07:00'
+      remove: false
+      preserve: 'One new schedule and one old-schedule log; all prior evidence intact.'
+    contrast: {with: [TR7_D_DAILY, TR7_D_LOG], changes: independent_new_schedule_and_existing_log}
+    wrong_behavior: 'Attach dose log to newly created Viên Cam ID or omit one effect.'

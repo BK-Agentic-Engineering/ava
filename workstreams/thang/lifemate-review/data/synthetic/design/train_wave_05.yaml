@@ -1,0 +1,421 @@
+version: train_wave_05
+authored_date: '2026-11-04'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  selection: docs/implementation/TRAIN_WAVE_05_HANDOFF.md
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  schema: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  authorship: 'Independent synthetic content; contact family is declared train derivative. Only interface source/catalog used; no organizer records or dev template seeds.'
+conventions:
+  visibility: 'Only agent_visible; private fixtures/oracles never input. Positive arguments from supplied literals, real observations or documented defaults.'
+  gold_review: 'Vietnamese reviewed and outcomes derived before successful traces. Required/forbidden effects explicit; no rollback, atomicity or inferred official mixed-capability policy.'
+  alternatives: 'Extra permitted reads, independent writes, supported filters and split disjoint field edits allowed where wording permits. Counts reflect scenarios, not permutations.'
+worlds:
+  - world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR5_A_PARTIAL_BUSY
+    relevant_tools: &atools [appliances.list, appliances.start_cycle, appliances.stop, sys.ask_missing_info]
+    assumptions: 'Unique names. Both support normal cycle. A running machine cannot start until stopped, but user forbids stopping existing jobs. list exposes cycles/status before any irreversible start.'
+    variants: {both_ready: {washer_status: idle}, dryer_busy: {dryer_status: running}, washer_ready_only: {dryer_status: running, washer_status: idle}}
+    initial_state:
+      appliances:
+        appliances:
+          - {id: tr5_app_26, name: Máy sấy gác, type: dryer, cycles: [normal, quick], state: {status: idle, cycle: null, delay_minutes: 0}}
+          - {id: tr5_app_61, name: Máy giặt sân, type: washer, cycles: [normal, eco], state: {status: running, cycle: eco, delay_minutes: 0}}
+          - {id: tr5_app_93, name: Máy rửa bát, type: dishwasher, cycles: [normal], state: {status: idle, cycle: null, delay_minutes: 0}}
+  - world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR5_B_PAY
+    relevant_tools: &btools [bill_payment.list_bills, bill_payment.pay, bill_payment.schedule_autopay, ewallet.get_balance, sys.ask_missing_info]
+    assumptions: 'One unpaid bill per selected type. Wallet sufficient, balance read supports source choice. schedule_autopay affects future rule only; bank pay marks bill but source runtime has no account debit.'
+    variants: {}
+    initial_state:
+      bill_payment:
+        bills:
+          - {id: tr5_bill_24, type: electricity, provider: Điện Vườn, amount: 180000, paid: false}
+          - {id: tr5_bill_67, type: water, provider: Nước Đồi, amount: 90000, paid: false}
+          - {id: tr5_bill_98, type: internet, provider: Mạng Tre, amount: 150000, paid: true, paid_with: bank}
+        autopays: [{id: tr5_auto_11, type: electricity, enabled: false}, {id: tr5_auto_82, type: internet, enabled: true}]
+      ewallet:
+        balance: 800000
+        transactions: [{id: tr5_tx_old, type: topup_mobile, phone: '0907009234', amount: -20000}]
+  - world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    split: train
+    origin: train_derivative
+    ancestry:
+      parent_world_ids: [W_TR2_ALARM_EDIT, W_TR1_NOTE_LIFECYCLE]
+      parent_scenario_ids: [TR2_A_TIME, TR2_A_TIME_LABEL, TR1_N_COPY]
+      parent_lineage_ids: [TRAIN_ALARM_EDIT_02, TRAIN_NOTE_LIFECYCLE_01]
+    design_base: TR5_C_PHONE
+    relevant_tools: &ctools [contacts.search, contacts.get, contacts.update, sys.ask_missing_info]
+    assumptions: 'Names unique. Search/get expose phone/email; no sms/email sending capability. Copy is from observed source to observed destination; no rename or inferred relationship.'
+    variants: {}
+    initial_state:
+      contacts:
+        contacts:
+          - {id: tr5_ct_32, name: Đặng Hạ Mai, relation: thợ giấy, phone: '0907118321', email: hamai@nepgiay.example.test}
+          - {id: tr5_ct_74, name: Lý Văn Khôi, relation: giao vật liệu, phone: '0907442861', email: vkhoi@cuonlua.example.test}
+          - {id: tr5_ct_95, name: Trần Bích Ngân, relation: thủ kho, phone: '0907220643', email: bichngan@khola.example.test}
+scenarios:
+  - scenario_id: TR5_A_PARTIAL_BUSY
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &partial 'Cho Máy sấy gác và Máy giặt sân chạy chu trình normal ngay. Với từng máy, nếu đang rảnh thì bắt buộc chạy; nếu đang chạy thì để nguyên. Máy rảnh vẫn phải chạy dù máy kia bận. Không dừng hay đổi việc đang chạy, không đụng máy khác.'
+      context: &ctx {current_time: '2027-01-04T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: *atools
+    oracle_draft:
+      outcome: execute
+      sources: 'Names/cycle/immediate intent supplied. Actual list resolves each ID, supported cycle and readiness; user requires the ready action independently of busy second.'
+      policy: each_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: [tr5_app_26]
+      preserve: 'Running washer eco job unchanged; dryer starts normal, zero stop attempts and no other machine changes.'
+    contrast: {with: [TR5_A_ALL_BUSY, TR5_A_PARTIAL_READY], changes: partial_permission_or_washer_readiness}
+    wrong_behavior: 'Omit ready dryer because washer busy, or stop washer to force both actions.'
+  - scenario_id: TR5_A_ALL_BUSY
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &all 'Chỉ cho Máy sấy gác và Máy giặt sân chạy chu trình normal ngay khi cả hai đều đang rảnh. Nếu bất kỳ máy nào đang chạy thì chỉ xem và không chạy máy nào. Không dừng hay đổi việc đang chạy, không đụng máy khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *atools
+    oracle_draft:
+      outcome: observe_no_write
+      sources: 'Both target states observed before decision. Washer busy forbids even ready dryer start; this is preflight authorization, not rollback.'
+      policy: all_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: []
+      preserve: 'Full state unchanged after resolving readiness, zero starts/stops/asks.'
+    contrast: {with: TR5_A_PARTIAL_BUSY, changes: explicit_partial_versus_all_or_none_permission}
+    wrong_behavior: 'Start ready dryer despite the user explicitly forbidding partial work.'
+  - scenario_id: TR5_A_PARTIAL_READY
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: both_ready
+    agent_visible: {request: *partial, context: *ctx, history: [], allowed_tools: *atools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same partial request; only washer becomes idle. Both normal starts required; order independent.'
+      policy: each_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: [tr5_app_26, tr5_app_61]
+      preserve: 'Other machine; no stop or duplicated start.'
+    contrast: {with: TR5_A_PARTIAL_BUSY, changes: washer_readiness_only}
+    wrong_behavior: 'Run just the first ready machine, omitting the required second start.'
+  - scenario_id: TR5_A_ALL_READY
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: both_ready
+    agent_visible: {request: *all, context: *ctx, history: [], allowed_tools: *atools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same all-ready instruction; actual pre-write observations establish both idle and supported cycles. Once enabled, both actions required, either order.'
+      policy: all_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: [tr5_app_26, tr5_app_61]
+      preserve: 'No other machine mutation or stop; evaluate condition before group starts, not after first action.'
+    contrast: {with: TR5_A_ALL_BUSY, changes: washer_readiness_only}
+    wrong_behavior: 'Re-evaluate after first start and suppress the second even though both were ready initially.'
+  - scenario_id: TR5_A_NEITHER
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: dryer_busy
+    agent_visible: {request: *partial, context: *ctx, history: [], allowed_tools: *atools}
+    oracle_draft:
+      outcome: observe_no_write
+      sources: 'In this variant both dryer and base washer are busy; observe both, no writable target. Variant name refers to changed dryer fact, not reversing records.'
+      policy: each_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: []
+      preserve: 'Both existing running jobs and all unrelated state unchanged; no asks.'
+    contrast: {with: TR5_A_PARTIAL_BUSY, changes: dryer_readiness_only}
+    wrong_behavior: 'Stop a busy machine then start it, even though existing jobs are explicitly protected.'
+  - scenario_id: TR5_A_WASHER_ONLY
+    world_id: W_TR5_PARTIAL_APPLIANCES
+    lineage_id: TRAIN_PARTIAL_APPLIANCES_05
+    status: spec_only
+    exportable: false
+    fixture_variant: washer_ready_only
+    agent_visible: {request: *partial, context: *ctx, history: [], allowed_tools: *atools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Dryer busy, washer idle; same request requires only washer. Rules cannot be hard-coded to first named machine.'
+      policy: each_ready
+      targets: [Máy sấy gác, Máy giặt sân]
+      start_ids: [tr5_app_61]
+      preserve: 'Running dryer untouched; washer starts normal, other machine untouched.'
+    contrast: {with: TR5_A_PARTIAL_BUSY, changes: which_machine_is_ready}
+    wrong_behavior: 'Do nothing because first named machine is busy or stop it before starting.'
+  - scenario_id: TR5_B_PAY
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thanh toán hóa đơn điện chưa trả bằng ví điện tử ngay. Không bật tự động thanh toán và không đổi hóa đơn khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Bill type/source supplied; list_bills binds unpaid electricity ID/amount, get_balance establishes wallet sufficiency before pay.'
+      pay_type: electricity
+      source: ewallet
+      autopay: null
+      wallet_after: 620000
+      preserve: 'Only chosen bill paid with wallet, one wallet debit/transaction, existing autopays and other bills untouched.'
+    contrast: {with: [TR5_B_AUTO, TR5_B_BANK], changes: immediate_versus_future_or_payment_source}
+    wrong_behavior: 'Enable autopay instead of paying now, or pay from another source.'
+  - scenario_id: TR5_B_AUTO
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Bật tự động thanh toán cho loại hóa đơn điện về sau. Không thanh toán hóa đơn hiện tại và không đổi loại khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Type and future-only enabled=true supplied directly. No bill or wallet lookup required, do not pay current bill.'
+      pay_type: null
+      source: null
+      autopay: {type: electricity, enabled: true}
+      wallet_after: 800000
+      preserve: 'Bill remains unpaid; wallet/transactions unchanged. Update existing electricity rule, no duplicate entry.'
+    contrast: {with: TR5_B_PAY, changes: future_rule_versus_current_payment}
+    wrong_behavior: 'Pay the still-unpaid electricity bill in addition to enabling the rule.'
+  - scenario_id: TR5_B_BOTH
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thanh toán hóa đơn điện chưa trả bằng ví điện tử ngay và bật tự động thanh toán cho hóa đơn điện về sau. Không đổi loại hóa đơn khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Both immediate and future effects mandatory. Bill/balance observed before pay only; type-level rule can be set before those reads.'
+      pay_type: electricity
+      source: ewallet
+      autopay: {type: electricity, enabled: true}
+      wallet_after: 620000
+      preserve: 'One payment/debit and one rule update; other bills/types/old tx intact. Independent order allowed.'
+    contrast: {with: [TR5_B_PAY, TR5_B_AUTO], changes: two_authorized_effects}
+    wrong_behavior: 'Omit either explicitly required payment or future rule.'
+  - scenario_id: TR5_B_OFF
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tắt tự động thanh toán hóa đơn internet về sau; không đổi trạng thái đã trả của hóa đơn hiện tại và không thanh toán gì thêm.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Internet type and enabled=false supplied; no hidden ID required, direct type-level update valid.'
+      pay_type: null
+      source: null
+      autopay: {type: internet, enabled: false}
+      wallet_after: 800000
+      preserve: 'Paid internet bill stays paid; no refund, deletion or wallet change.'
+    contrast: {with: TR5_B_AUTO, changes: future_rule_type_and_polarity}
+    wrong_behavior: 'Enable instead of disable, or alter the already paid bill.'
+  - scenario_id: TR5_B_BANK
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thanh toán hóa đơn điện chưa trả qua ngân hàng ngay, không dùng ví điện tử. Không bật tự động thanh toán và không đổi hóa đơn khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Bill ID/amount observed, bank source supplied. Backend only marks paid_with=bank, no account debit exposed or invented.'
+      pay_type: electricity
+      source: bank
+      autopay: null
+      wallet_after: 800000
+      preserve: 'Wallet balance/transactions and autopays unchanged; no bank balance inference.'
+    contrast: {with: TR5_B_PAY, changes: payment_source_only}
+    wrong_behavior: 'Pay with wallet because it has enough funds, ignoring explicit bank selection.'
+  - scenario_id: TR5_B_WATER
+    world_id: W_TR5_BILL_AUTOPAY
+    lineage_id: TRAIN_BILL_AUTOPAY_05
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thanh toán hóa đơn nước chưa trả bằng ví điện tử ngay. Không bật tự động thanh toán và không đổi hóa đơn khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *btools
+    oracle_draft:
+      outcome: execute
+      sources: 'Changed bill type selects observed water ID/amount; wallet sufficiency observed, source supplied.'
+      pay_type: water
+      source: ewallet
+      autopay: null
+      wallet_after: 710000
+      preserve: 'Only water bill and one wallet payment; electricity remains unpaid, no future rule change.'
+    contrast: {with: TR5_B_PAY, changes: bill_type_only}
+    wrong_behavior: 'Pay first listed electricity bill rather than requested water bill.'
+  - scenario_id: TR5_C_PHONE
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ sửa số điện thoại của Đặng Hạ Mai thành 0907556123. Giữ email và các thông tin khác; không gửi tin nhắn hay email.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'New phone literal supplied; existing contact ID observed by exact name. Email preserved, not overwritten with default.'
+      targets: [Đặng Hạ Mai]
+      copy_from: null
+      updates: {tr5_ct_32: {phone: '0907556123'}}
+      preserve: 'Every other contact/field, no outgoing communication. One phone edit.'
+    contrast: {with: TR5_C_EMAIL, changes: field_updated}
+    wrong_behavior: 'Overwrite email or update wrong person.'
+  - scenario_id: TR5_C_EMAIL
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ sửa email của Đặng Hạ Mai thành mai.moi@soigiay.example.test. Giữ số điện thoại và thông tin khác; không gửi tin nhắn hay email.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Email literal supplied; contact ID from actual name lookup, phone retained.'
+      targets: [Đặng Hạ Mai]
+      copy_from: null
+      updates: {tr5_ct_32: {email: mai.moi@soigiay.example.test}}
+      preserve: 'Only destination email, no communications.'
+    contrast: {with: TR5_C_PHONE, changes: field_updated}
+    wrong_behavior: 'Edit phone instead of supplied email or clear phone.'
+  - scenario_id: TR5_C_BOTH
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Sửa liên hệ Đặng Hạ Mai: số điện thoại 0907556123 và email mai.moi@soigiay.example.test. Giữ tên, quan hệ và liên hệ khác, không gửi tin hay thư.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Both new values supplied; contact ID from actual observation. Combined or split disjoint field updates valid.'
+      targets: [Đặng Hạ Mai]
+      copy_from: null
+      updates: {tr5_ct_32: {phone: '0907556123', email: mai.moi@soigiay.example.test}}
+      preserve: 'Name/relation and other contacts; no repeated field edits.'
+    contrast: {with: [TR5_C_PHONE, TR5_C_EMAIL], changes: two_field_composition}
+    wrong_behavior: 'Apply only phone, omitting required email.'
+  - scenario_id: TR5_C_COPY
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chép đúng địa chỉ email hiện có của Lý Văn Khôi sang trường email của Đặng Hạ Mai. Giữ nguyên số điện thoại của cả hai và mọi thông tin của Lý Văn Khôi; không gửi thư.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Source/destination names supplied; source email and both IDs observed. Do not infer email from name or copy phone.'
+      targets: [Đặng Hạ Mai, Lý Văn Khôi]
+      copy_from: Lý Văn Khôi
+      updates: {tr5_ct_32: {email: vkhoi@cuonlua.example.test}}
+      preserve: 'Source complete record, both phones, destination name/relation and third contact unchanged.'
+    contrast: {with: TR5_C_EMAIL, changes: observed_source_email_versus_supplied_literal}
+    wrong_behavior: 'Guess correct private email without observing source, even if destination final state matches.'
+  - scenario_id: TR5_C_REVERSE
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chép đúng địa chỉ email hiện có của Đặng Hạ Mai sang trường email của Lý Văn Khôi. Giữ nguyên số điện thoại của cả hai và mọi thông tin của Đặng Hạ Mai; không gửi thư.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Same records but reversed source/destination; email must come from actual source record.'
+      targets: [Lý Văn Khôi, Đặng Hạ Mai]
+      copy_from: Đặng Hạ Mai
+      updates: {tr5_ct_74: {email: hamai@nepgiay.example.test}}
+      preserve: 'Source and all phone/name/relation fields; one destination email edit.'
+    contrast: {with: TR5_C_COPY, changes: copy_direction_only}
+    wrong_behavior: 'Reuse the previous direction, or swap both emails without authorization.'
+  - scenario_id: TR5_C_OTHER
+    world_id: W_TR5_CONTACT_FIELDS
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ sửa số điện thoại của Lý Văn Khôi thành 0907556123. Giữ email và các thông tin khác; không gửi tin nhắn hay email.'
+      context: *ctx
+      history: []
+      allowed_tools: *ctools
+    oracle_draft:
+      outcome: execute
+      sources: 'Only destination name changes; supplied phone identical, actual observed ID must follow selected person.'
+      targets: [Lý Văn Khôi]
+      copy_from: null
+      updates: {tr5_ct_74: {phone: '0907556123'}}
+      preserve: 'First/third person and destination other fields unchanged.'
+    contrast: {with: TR5_C_PHONE, changes: destination_name_only}
+    wrong_behavior: 'Edit first listed contact by reusing the control ID.'

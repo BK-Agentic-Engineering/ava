@@ -1,0 +1,494 @@
+# Authoring design only; agent sees agent_visible, never fixture/oracle or private IDs.
+version: train_wave_01
+authored_date: '2026-11-03'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  selection_before_authoring: docs/implementation/TRAIN_WAVE_01_HANDOFF.md
+  source_policy: 'Independent Vietnamese requests, fixtures and gold. Catalog/runtime are interface specifications only; no organizer records, benchmark seeds or dev-template instantiation.'
+  interface_release: v3.2.0
+  catalog_schema_version: '2.7.0'
+  archive: 'D:/Downloads/train+public_test.zip'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+authoring_conventions:
+  status: 'Train is intended split only; no export/model/harness/template validation. execution_verified remains 0.'
+  visibility: 'Context, request, history and permissions only. Runtime materializer adds installed_apps from allowed_tools; opaque fixture IDs are private until actual lookup.'
+  semantics: 'Author reviewed each request before replay implementation. All quoted content requested verbatim; no general fuzzy-text or Vietnamese interpreter. No ambiguous cases silently counted.'
+  alternatives: 'Extra permitted non-mutating reads and independent write order allowed. Optional omitted cc and explicit [] equivalent. Exact write count is task-specific, not a universal failure rule.'
+worlds:
+  - world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    independence: 'Outgoing draft/send collections versus reply-linked incoming state; no dev contact-availability or body-time construction. Closest B02_E and B04_E share email tools only.'
+    design_base: TR1_E_DRAFT
+    relevant_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    assumptions: 'Two incoming threads uniquely identified by title, same sender intentionally. No body extraction needed. Existing sent/draft records must survive.'
+    variants: {}
+    initial_state:
+      email:
+        emails:
+          - {id: tr1_mail_14, from: desk@laco.example.test, subject: Kiểm kê khay, body: Xin xác nhận đã nhận bảng kê., unread: true, replied: false, folder: inbox}
+          - {id: tr1_mail_58, from: desk@laco.example.test, subject: Bàn giao nhãn, body: Xin xác nhận đã nhận nhãn., unread: true, replied: false, folder: inbox}
+        sent: [{id: tr1_sent_07, to: [luu@laco.example.test], cc: [], subject: Hồ sơ cũ, body: Đã lưu bản đầu.}]
+        drafts: [{id: tr1_draft_09, to: [kho@laco.example.test], cc: [], subject: Đợi duyệt, body: Chưa được gửi.}]
+  - world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    independence: 'Two persistent note contents with directional copying and retained prefixes; not a dev reminder-create or email-time template. New-record versus in-place append is an explicit authorized-effect contrast.'
+    design_base: TR1_N_APPEND
+    relevant_tools: [notes.list, notes.create, notes.append]
+    assumptions: 'Initial titles unique. List exposes full content. Create may intentionally reuse a title when the user explicitly requests a separate note; never merge or overwrite.'
+    variants: {}
+    initial_state:
+      notes:
+        notes:
+          - {id: tr1_note_26, title: Sổ đóng kiện, content: 'Dùng dây đay, không dùng ghim.', color: brown}
+          - {id: tr1_note_73, title: Bảng vật liệu, content: 'Giữ lại ba tấm lót.', color: green}
+          - {id: tr1_note_81, title: Danh mục riêng, content: Chưa được sửa mục này., color: gray}
+  - world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    independence: 'Purchase-mark retains quantity, removal deletes identity, separate addition retains the old row even with same name. Not dev state-selected light switching or menu-backed order creation.'
+    design_base: TR1_S_CHECK
+    relevant_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    assumptions: 'Each initial name unique, all initially unchecked. A new same-name row remains distinct and unchecked. Mixed actions bind each verb to its named old row; independent action order permitted.'
+    variants: {}
+    initial_state:
+      shopping_list:
+        items:
+          - {id: tr1_item_35, name: mì gạo, quantity: 3, checked: false}
+          - {id: tr1_item_62, name: gừng, quantity: 1, checked: false}
+          - {id: tr1_item_94, name: nấm khô, quantity: 4, checked: false}
+scenarios:
+  - scenario_id: TR1_E_DRAFT
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ lưu một email nháp, chưa gửi, tới dieu@laco.example.test, tiêu đề "Phiếu khay", nội dung nguyên văn "Tôi nhận bốn khay, không nhận thêm." Không đồng gửi ai.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'To, subject, body, no CC, save-only permission.'
+      required_observations: []
+      writes: [{name: email.create_draft, arguments: {to: [dieu@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.', cc: []}}]
+      effects: {new_drafts: [{to: [dieu@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}], new_sent: [], incoming_updates: {}}
+      preserve: 'All initial state unchanged; exactly one new draft; no delivery.'
+    contrast: {with: TR1_E_SEND, changes: draft_versus_send_authorization}
+    wrong_behavior: 'email.send succeeds but violates save-only authorization.'
+  - scenario_id: TR1_E_SEND
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gửi ngay một email tới dieu@laco.example.test, tiêu đề "Phiếu khay", nội dung nguyên văn "Tôi nhận bốn khay, không nhận thêm." Không đồng gửi ai, không lưu thêm bản nháp.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'To, subject, body, no CC, immediate delivery.'
+      required_observations: []
+      writes: [{name: email.send, arguments: {to: [dieu@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.', cc: []}}]
+      effects: {new_drafts: [], new_sent: [{to: [dieu@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}], incoming_updates: {}}
+      preserve: 'Initial mail collections; exactly one delivery, no draft.'
+    contrast: {with: TR1_E_DRAFT, changes: delivery_authorization}
+    wrong_behavior: 'Only create a draft, leaving the requested send undone.'
+  - scenario_id: TR1_E_REPLY
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Trả lời ngay đúng thư "Kiểm kê khay" trong hộp thư của tôi, nội dung nguyên văn "Tôi đã nhận bảng kê." Không gửi một thư mới rời luồng và không đồng gửi.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Target title, body, reply authorization; sender and ID require observed metadata.'
+      required_observations: [{app: email, collection: emails, id: tr1_mail_14, field: subject, value: Kiểm kê khay}]
+      writes: [{name: email.reply, arguments: {email_id: tr1_mail_14, body: Tôi đã nhận bảng kê.}}]
+      effects: {new_drafts: [], new_sent: [{to: [desk@laco.example.test], cc: [], subject: 'Re: Kiểm kê khay', body: Tôi đã nhận bảng kê., in_reply_to: tr1_mail_14}], incoming_updates: {tr1_mail_14: {unread: false, replied: true}}}
+      preserve: 'Other incoming thread and all existing drafts/sent unchanged.'
+    contrast: {with: TR1_E_REPLY_OTHER, changes: selected_thread_only}
+    wrong_behavior: 'Send a detached message to the right sender without in_reply_to.'
+  - scenario_id: TR1_E_REPLY_OTHER
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Trả lời ngay đúng thư "Bàn giao nhãn" trong hộp thư của tôi, nội dung nguyên văn "Tôi đã nhận bảng kê." Không gửi một thư mới rời luồng và không đồng gửi.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Target title and literal body, even if body wording seems unusual; do not correct it.'
+      required_observations: [{app: email, collection: emails, id: tr1_mail_58, field: subject, value: Bàn giao nhãn}]
+      writes: [{name: email.reply, arguments: {email_id: tr1_mail_58, body: Tôi đã nhận bảng kê.}}]
+      effects: {new_drafts: [], new_sent: [{to: [desk@laco.example.test], cc: [], subject: 'Re: Bàn giao nhãn', body: Tôi đã nhận bảng kê., in_reply_to: tr1_mail_58}], incoming_updates: {tr1_mail_58: {unread: false, replied: true}}}
+      preserve: 'Other incoming thread and all existing drafts/sent unchanged.'
+    contrast: {with: TR1_E_REPLY, changes: selected_thread_only}
+    wrong_behavior: 'Reply to first thread because sender is identical.'
+  - scenario_id: TR1_E_DRAFT_CC
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ lưu một email nháp, chưa gửi, tới dieu@laco.example.test, CC soat@laco.example.test, tiêu đề "Phiếu khay", nội dung nguyên văn "Tôi nhận bốn khay, không nhận thêm."'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Distinct To and CC roles; save-only, all literal fields supplied.'
+      required_observations: []
+      writes: [{name: email.create_draft, arguments: {to: [dieu@laco.example.test], cc: [soat@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}}]
+      effects: {new_drafts: [{to: [dieu@laco.example.test], cc: [soat@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}], new_sent: [], incoming_updates: {}}
+      preserve: 'All existing state; no send.'
+    contrast: {with: TR1_E_DRAFT, changes: explicit_CC_scope}
+    wrong_behavior: 'Put CC address in To or swap recipient roles.'
+  - scenario_id: TR1_E_SEND_CC
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Gửi ngay một email tới dieu@laco.example.test, CC soat@laco.example.test, tiêu đề "Phiếu khay", nội dung nguyên văn "Tôi nhận bốn khay, không nhận thêm." Không lưu thêm bản nháp.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Distinct To/CC roles and immediate send; all fields supplied.'
+      required_observations: []
+      writes: [{name: email.send, arguments: {to: [dieu@laco.example.test], cc: [soat@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}}]
+      effects: {new_drafts: [], new_sent: [{to: [dieu@laco.example.test], cc: [soat@laco.example.test], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}], incoming_updates: {}}
+      preserve: 'All initial state; one delivery only.'
+    contrast: {with: TR1_E_DRAFT_CC, changes: delivery_authorization_with_CC}
+    wrong_behavior: 'Save the CC draft but never deliver.'
+  - scenario_id: TR1_E_TWO_DRAFTS
+    world_id: W_TR1_MAIL_DISPOSITION
+    lineage_id: TRAIN_MAIL_DISPOSITION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Lưu hai email nháp riêng biệt, chưa gửi: một tới dieu@laco.example.test và một tới soat@laco.example.test. Cả hai cùng tiêu đề "Phiếu khay", nội dung nguyên văn "Tôi nhận bốn khay, không nhận thêm." Không CC, không gộp người nhận.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, email.create_draft, email.send, email.reply]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Two separate recipient-specific drafts, no delivery; independent order allowed.'
+      required_observations: []
+      writes:
+        - {name: email.create_draft, arguments: {to: [dieu@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}}
+        - {name: email.create_draft, arguments: {to: [soat@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}}
+      effects: {new_drafts: [{to: [dieu@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}, {to: [soat@laco.example.test], cc: [], subject: Phiếu khay, body: 'Tôi nhận bốn khay, không nhận thêm.'}], new_sent: [], incoming_updates: {}}
+      preserve: 'All initial records; exactly two new drafts, no combined To or sent item.'
+    contrast: {with: TR1_E_DRAFT_CC, changes: separate_messages_versus_one_CC_message}
+    wrong_behavior: 'Create one combined draft instead of two separate drafts.'
+  - scenario_id: TR1_N_APPEND
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm nguyên văn dòng "Chừa lối bên trái." vào cuối ghi chú "Sổ đóng kiện" hiện có; giữ nguyên nội dung cũ, không tạo ghi chú mới.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Destination title and literal appended line. Existing ID and retained prefix require lookup.'
+      required_observations: [{app: notes, collection: notes, id: tr1_note_26, field: title, value: Sổ đóng kiện}]
+      writes: [{name: notes.append, arguments: {note_id: tr1_note_26, content: Chừa lối bên trái.}}]
+      effects: {contents_after: {tr1_note_26: "Dùng dây đay, không dùng ghim.\nChừa lối bên trái."}, new_notes: []}
+      preserve: 'All other fields, notes and original content prefix; exactly one append.'
+    contrast: {with: TR1_N_CREATE, changes: existing_append_versus_separate_creation}
+    wrong_behavior: 'Create a new note instead of appending to the observed existing note.'
+  - scenario_id: TR1_N_CREATE
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo một ghi chú mới riêng biệt cũng tên "Sổ đóng kiện", chỉ chứa nguyên văn "Chừa lối bên trái." Không thêm vào hay sửa ghi chú cũ cùng tên.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'New title, full content, explicit separate-record instruction. Direct create valid.'
+      required_observations: []
+      writes: [{name: notes.create, arguments: {title: Sổ đóng kiện, content: Chừa lối bên trái.}}]
+      effects: {contents_after: {}, new_notes: [{title: Sổ đóng kiện, content: Chừa lối bên trái.}]}
+      preserve: 'All original notes unchanged despite title collision; one new note only.'
+    contrast: {with: TR1_N_APPEND, changes: separate_creation_versus_append}
+    wrong_behavior: 'Append to existing same-title note rather than create separately.'
+  - scenario_id: TR1_N_COPY
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chép nguyên văn toàn bộ nội dung ghi chú "Bảng vật liệu" vào cuối ghi chú "Sổ đóng kiện" hiện có. Giữ cả nội dung cũ ở đích và ghi chú nguồn, không tạo bản mới.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Source/destination titles, full-copy direction; content must come from observed source.'
+      required_observations:
+        - {app: notes, collection: notes, id: tr1_note_26, field: title, value: Sổ đóng kiện}
+        - {app: notes, collection: notes, id: tr1_note_73, field: content, value: Giữ lại ba tấm lót., source_title: Bảng vật liệu, role: copy_source}
+      writes: [{name: notes.append, arguments: {note_id: tr1_note_26, content: Giữ lại ba tấm lót.}}]
+      effects: {contents_after: {tr1_note_26: "Dùng dây đay, không dùng ghim.\nGiữ lại ba tấm lót."}, new_notes: []}
+      preserve: 'Source content/title and all unrelated notes/fields unchanged.'
+    contrast: {with: TR1_N_REVERSE, changes: copy_direction}
+    wrong_behavior: 'Copy destination into source, reversing the relationship.'
+  - scenario_id: TR1_N_REVERSE
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chép nguyên văn toàn bộ nội dung ghi chú "Sổ đóng kiện" vào cuối ghi chú "Bảng vật liệu" hiện có. Giữ cả nội dung cũ ở đích và ghi chú nguồn, không tạo bản mới.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Source/destination titles swapped; copy includes original negation, not a summary.'
+      required_observations:
+        - {app: notes, collection: notes, id: tr1_note_73, field: title, value: Bảng vật liệu}
+        - {app: notes, collection: notes, id: tr1_note_26, field: content, value: 'Dùng dây đay, không dùng ghim.', source_title: Sổ đóng kiện, role: copy_source}
+      writes: [{name: notes.append, arguments: {note_id: tr1_note_73, content: 'Dùng dây đay, không dùng ghim.'}}]
+      effects: {contents_after: {tr1_note_73: "Giữ lại ba tấm lót.\nDùng dây đay, không dùng ghim."}, new_notes: []}
+      preserve: 'Source Sổ đóng kiện and all unrelated records unchanged.'
+    contrast: {with: TR1_N_COPY, changes: copy_direction}
+    wrong_behavior: 'Drop không from copied source, or retain the previous copy direction.'
+  - scenario_id: TR1_N_COPY_NEW
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tạo ghi chú mới tên "Bản mang theo", nội dung là nguyên văn toàn bộ ghi chú "Bảng vật liệu". Giữ nguyên mọi ghi chú đã có, không thêm nội dung vào chúng.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'New destination title; source content must be read, not invented.'
+      required_observations: [{app: notes, collection: notes, id: tr1_note_73, field: content, value: Giữ lại ba tấm lót., source_title: Bảng vật liệu, role: copy_source}]
+      writes: [{name: notes.create, arguments: {title: Bản mang theo, content: Giữ lại ba tấm lót.}}]
+      effects: {contents_after: {}, new_notes: [{title: Bản mang theo, content: Giữ lại ba tấm lót.}]}
+      preserve: 'All initial notes unchanged; new note contains only source content.'
+    contrast: {with: TR1_N_COPY, changes: new_destination_versus_existing_prefix}
+    wrong_behavior: 'Create with source title or with destination prefix mixed into content.'
+  - scenario_id: TR1_N_TWO_APPEND
+    world_id: W_TR1_NOTE_LIFECYCLE
+    lineage_id: TRAIN_NOTE_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm nguyên văn "Chừa lối bên trái." vào cuối "Sổ đóng kiện" và nguyên văn "Đếm lại tấm lót." vào cuối "Bảng vật liệu". Giữ nội dung cũ, không gộp hai dòng vào cùng một ghi chú, không tạo mới.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [notes.list, notes.create, notes.append]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Two literal lines assigned to two different destinations; action order free.'
+      required_observations:
+        - {app: notes, collection: notes, id: tr1_note_26, field: title, value: Sổ đóng kiện}
+        - {app: notes, collection: notes, id: tr1_note_73, field: title, value: Bảng vật liệu}
+      writes:
+        - {name: notes.append, arguments: {note_id: tr1_note_26, content: Chừa lối bên trái.}}
+        - {name: notes.append, arguments: {note_id: tr1_note_73, content: Đếm lại tấm lót.}}
+      effects: {contents_after: {tr1_note_26: "Dùng dây đay, không dùng ghim.\nChừa lối bên trái.", tr1_note_73: "Giữ lại ba tấm lót.\nĐếm lại tấm lót."}, new_notes: []}
+      preserve: 'Third note and all fields except two appended contents unchanged.'
+    contrast: {with: TR1_N_APPEND, changes: second_destination_effect}
+    wrong_behavior: 'Append both supplied lines to the first note.'
+  - scenario_id: TR1_S_CHECK
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đánh dấu dòng mì gạo trong danh sách mua sắm là đã mua, giữ dòng và số lượng cũ. Không xóa hay thêm món.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Name and mark-only action; old ID and quantity observed, not user-supplied.'
+      required_observations: [{app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}]
+      writes: [{name: shopping_list.check, arguments: {item_id: tr1_item_35}}]
+      effects: {checked_ids: [tr1_item_35], removed_ids: [], new_items: []}
+      preserve: 'All rows and quantities retained; only one checked flag changes.'
+    contrast: {with: TR1_S_REMOVE, changes: mark_versus_remove}
+    wrong_behavior: 'Remove the row instead of marking it bought.'
+  - scenario_id: TR1_S_REMOVE
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Xóa hẳn dòng mì gạo khỏi danh sách mua sắm, không chỉ đánh dấu đã mua. Không thêm món.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Name and deletion authorization; exact existing ID from get.'
+      required_observations: [{app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}]
+      writes: [{name: shopping_list.remove, arguments: {item_id: tr1_item_35}}]
+      effects: {checked_ids: [], removed_ids: [tr1_item_35], new_items: []}
+      preserve: 'Every other item and quantity unchanged; no new row.'
+    contrast: {with: TR1_S_CHECK, changes: remove_versus_mark}
+    wrong_behavior: 'Check the row, leaving it in the list.'
+  - scenario_id: TR1_S_ADD
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm riêng một dòng mì gạo số lượng 2, chưa mua, vào danh sách mua sắm. Giữ nguyên dòng mì gạo cũ, không cộng gộp số lượng.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'New row name, quantity 2, keep old row. Direct add valid.'
+      required_observations: []
+      writes: [{name: shopping_list.add, arguments: {name: mì gạo, quantity: 2}}]
+      effects: {checked_ids: [], removed_ids: [], new_items: [{name: mì gạo, quantity: 2, checked: false}]}
+      preserve: 'Old mì gạo remains quantity 3 unchecked; no merging.'
+    contrast: {with: TR1_S_ADD_CHECK, changes: added_marking_of_old_row}
+    wrong_behavior: 'Add quantity 5, confusing a separate row with a merged total.'
+  - scenario_id: TR1_S_CHECK_REMOVE
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Trong danh sách mua sắm, đánh dấu mì gạo đã mua nhưng giữ dòng đó; xóa hẳn dòng gừng. Giữ nguyên những món khác và không thêm món.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Two different verbs bound to two names, not an ordered sequence requirement.'
+      required_observations:
+        - {app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}
+        - {app: shopping_list, collection: items, id: tr1_item_62, field: name, value: gừng}
+      writes:
+        - {name: shopping_list.check, arguments: {item_id: tr1_item_35}}
+        - {name: shopping_list.remove, arguments: {item_id: tr1_item_62}}
+      effects: {checked_ids: [tr1_item_35], removed_ids: [tr1_item_62], new_items: []}
+      preserve: 'Mì gạo quantity retained, nấm khô untouched; no new items.'
+    contrast: {with: TR1_S_REMOVE_CHECK, changes: verb_to_record_assignment}
+    wrong_behavior: 'Apply the two verbs to the opposite records.'
+  - scenario_id: TR1_S_REMOVE_CHECK
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Trong danh sách mua sắm, xóa hẳn dòng mì gạo; đánh dấu gừng đã mua nhưng giữ dòng đó. Giữ nguyên những món khác và không thêm món.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Same two records, reversed verb assignment; observations supply IDs.'
+      required_observations:
+        - {app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}
+        - {app: shopping_list, collection: items, id: tr1_item_62, field: name, value: gừng}
+      writes:
+        - {name: shopping_list.remove, arguments: {item_id: tr1_item_35}}
+        - {name: shopping_list.check, arguments: {item_id: tr1_item_62}}
+      effects: {checked_ids: [tr1_item_62], removed_ids: [tr1_item_35], new_items: []}
+      preserve: 'Gừng quantity retained, nấm khô untouched; no new items.'
+    contrast: {with: TR1_S_CHECK_REMOVE, changes: verb_to_record_assignment}
+    wrong_behavior: 'Reuse the preceding scenario action assignment.'
+  - scenario_id: TR1_S_ADD_CHECK
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm riêng một dòng mì gạo số lượng 2, chưa mua; đồng thời đánh dấu dòng mì gạo đã có sẵn là đã mua và giữ số lượng cũ. Không gộp hai dòng, không xóa món.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'New quantity and old/new distinction; old ID observed before check, not necessarily before add.'
+      required_observations: [{app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}]
+      writes:
+        - {name: shopping_list.add, arguments: {name: mì gạo, quantity: 2}}
+        - {name: shopping_list.check, arguments: {item_id: tr1_item_35}}
+      effects: {checked_ids: [tr1_item_35], removed_ids: [], new_items: [{name: mì gạo, quantity: 2, checked: false}]}
+      preserve: 'Old row quantity 3, new row quantity 2; only old row checked. Other items unchanged.'
+    contrast: {with: TR1_S_ADD, changes: marking_old_not_new}
+    wrong_behavior: 'Mark the newly created row instead of the previously existing row.'
+  - scenario_id: TR1_S_CHECK_TWO
+    world_id: W_TR1_SHOP_LIFECYCLE
+    lineage_id: TRAIN_SHOP_LIFECYCLE_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đánh dấu cả mì gạo và gừng trong danh sách mua sắm là đã mua; giữ cả hai dòng cùng số lượng cũ, không xóa, không thêm và không đổi nấm khô.'
+      context: {current_time: '2026-12-15T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [shopping_list.get, shopping_list.add, shopping_list.check, shopping_list.remove]
+    oracle_draft:
+      outcome: execute
+      supplied: 'Two named marking targets, explicit retention and excluded third item.'
+      required_observations:
+        - {app: shopping_list, collection: items, id: tr1_item_35, field: name, value: mì gạo}
+        - {app: shopping_list, collection: items, id: tr1_item_62, field: name, value: gừng}
+      writes:
+        - {name: shopping_list.check, arguments: {item_id: tr1_item_35}}
+        - {name: shopping_list.check, arguments: {item_id: tr1_item_62}}
+      effects: {checked_ids: [tr1_item_35, tr1_item_62], removed_ids: [], new_items: []}
+      preserve: 'All records and quantities, nấm khô checked=false; exactly two checks.'
+    contrast: {with: TR1_S_CHECK_REMOVE, changes: second_verb_is_mark_not_remove}
+    wrong_behavior: 'Mark only the first requested item or mark the excluded third item too.'

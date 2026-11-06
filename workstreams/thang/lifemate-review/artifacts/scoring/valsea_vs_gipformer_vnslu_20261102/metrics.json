@@ -1,0 +1,1749 @@
+{
+  "overall": {
+    "gipformer": {
+      "n": 2401,
+      "wer_whitespace": 0.20296126858520602,
+      "cer": 0.17774560820063381,
+      "failure_rate": 0.0,
+      "word_errors": 6566,
+      "words": 32351,
+      "char_errors": 18172,
+      "chars": 102236,
+      "duration_seconds": 11768.119625,
+      "successful": 2401,
+      "errors": 0,
+      "empty_successful": 0
+    },
+    "valsea": {
+      "n": 2401,
+      "wer_whitespace": 0.17498686284813453,
+      "cer": 0.1250831409679565,
+      "failure_rate": 0.0,
+      "word_errors": 5661,
+      "words": 32351,
+      "char_errors": 12788,
+      "chars": 102236,
+      "duration_seconds": 11768.119625,
+      "successful": 2401,
+      "errors": 0,
+      "empty_successful": 0
+    },
+    "delta_wer_percentage_points": -2.7974405737071493,
+    "delta_cer_percentage_points": -5.266246723267731,
+    "valsea_edit_counts_relative_to_gipformer": {
+      "word": {
+        "lower": 1068,
+        "equal": 653,
+        "higher": 680
+      },
+      "character": {
+        "lower": 1283,
+        "equal": 450,
+        "higher": 668
+      }
+    }
+  },
+  "by_intent": {
+    "bật nhạc": {
+      "gipformer": {
+        "n": 176,
+        "wer_whitespace": 0.27303323517038286,
+        "cer": 0.2299987320907823,
+        "failure_rate": 0.0,
+        "word_errors": 649,
+        "words": 2377,
+        "char_errors": 1814,
+        "chars": 7887,
+        "duration_seconds": 903.2978125,
+        "successful": 176,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 176,
+        "wer_whitespace": 0.20109381573411864,
+        "cer": 0.13744135919868136,
+        "failure_rate": 0.0,
+        "word_errors": 478,
+        "words": 2377,
+        "char_errors": 1084,
+        "chars": 7887,
+        "duration_seconds": 903.2978125,
+        "successful": 176,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -7.193941943626422,
+      "delta_cer_percentage_points": -9.255737289210094,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 105,
+          "equal": 38,
+          "higher": 33
+        },
+        "character": {
+          "lower": 129,
+          "equal": 17,
+          "higher": 30
+        }
+      }
+    },
+    "bật thiết bị": {
+      "gipformer": {
+        "n": 91,
+        "wer_whitespace": 0.16666666666666666,
+        "cer": 0.1468189233278956,
+        "failure_rate": 0.0,
+        "word_errors": 165,
+        "words": 990,
+        "char_errors": 450,
+        "chars": 3065,
+        "duration_seconds": 340.86,
+        "successful": 91,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 91,
+        "wer_whitespace": 0.1505050505050505,
+        "cer": 0.10114192495921696,
+        "failure_rate": 0.0,
+        "word_errors": 149,
+        "words": 990,
+        "char_errors": 310,
+        "chars": 3065,
+        "duration_seconds": 340.86,
+        "successful": 91,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -1.6161616161616155,
+      "delta_cer_percentage_points": -4.567699836867862,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 31,
+          "equal": 33,
+          "higher": 27
+        },
+        "character": {
+          "lower": 39,
+          "equal": 26,
+          "higher": 26
+        }
+      }
+    },
+    "giảm mức độ của thiết bị": {
+      "gipformer": {
+        "n": 9,
+        "wer_whitespace": 0.27184466019417475,
+        "cer": 0.22955974842767296,
+        "failure_rate": 0.0,
+        "word_errors": 28,
+        "words": 103,
+        "char_errors": 73,
+        "chars": 318,
+        "duration_seconds": 39.84,
+        "successful": 9,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 9,
+        "wer_whitespace": 0.17475728155339806,
+        "cer": 0.13522012578616352,
+        "failure_rate": 0.0,
+        "word_errors": 18,
+        "words": 103,
+        "char_errors": 43,
+        "chars": 318,
+        "duration_seconds": 39.84,
+        "successful": 9,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -9.70873786407767,
+      "delta_cer_percentage_points": -9.433962264150944,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 7,
+          "equal": 0,
+          "higher": 2
+        },
+        "character": {
+          "lower": 5,
+          "equal": 1,
+          "higher": 3
+        }
+      }
+    },
+    "giảm nhiệt độ của thiết bị": {
+      "gipformer": {
+        "n": 10,
+        "wer_whitespace": 0.2962962962962963,
+        "cer": 0.3247422680412371,
+        "failure_rate": 0.0,
+        "word_errors": 40,
+        "words": 135,
+        "char_errors": 126,
+        "chars": 388,
+        "duration_seconds": 53.88,
+        "successful": 10,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 10,
+        "wer_whitespace": 0.15555555555555556,
+        "cer": 0.07474226804123711,
+        "failure_rate": 0.0,
+        "word_errors": 21,
+        "words": 135,
+        "char_errors": 29,
+        "chars": 388,
+        "duration_seconds": 53.88,
+        "successful": 10,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -14.074074074074073,
+      "delta_cer_percentage_points": -25.0,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 7,
+          "equal": 2,
+          "higher": 1
+        },
+        "character": {
+          "lower": 8,
+          "equal": 1,
+          "higher": 1
+        }
+      }
+    },
+    "giảm âm lượng của thiết bị": {
+      "gipformer": {
+        "n": 3,
+        "wer_whitespace": 0.4473684210526316,
+        "cer": 0.35555555555555557,
+        "failure_rate": 0.0,
+        "word_errors": 17,
+        "words": 38,
+        "char_errors": 48,
+        "chars": 135,
+        "duration_seconds": 19.080000000000002,
+        "successful": 3,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 3,
+        "wer_whitespace": 0.15789473684210525,
+        "cer": 0.11851851851851852,
+        "failure_rate": 0.0,
+        "word_errors": 6,
+        "words": 38,
+        "char_errors": 16,
+        "chars": 135,
+        "duration_seconds": 19.080000000000002,
+        "successful": 3,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -28.947368421052634,
+      "delta_cer_percentage_points": -23.703703703703706,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 2,
+          "equal": 1,
+          "higher": 0
+        },
+        "character": {
+          "lower": 3,
+          "equal": 0,
+          "higher": 0
+        }
+      }
+    },
+    "giảm độ sáng của thiết bị": {
+      "gipformer": {
+        "n": 56,
+        "wer_whitespace": 0.3960720130932897,
+        "cer": 0.38926174496644295,
+        "failure_rate": 0.0,
+        "word_errors": 242,
+        "words": 611,
+        "char_errors": 754,
+        "chars": 1937,
+        "duration_seconds": 229.86,
+        "successful": 56,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 56,
+        "wer_whitespace": 0.18003273322422259,
+        "cer": 0.11874032008260196,
+        "failure_rate": 0.0,
+        "word_errors": 110,
+        "words": 611,
+        "char_errors": 230,
+        "chars": 1937,
+        "duration_seconds": 229.86,
+        "successful": 56,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -21.60392798690671,
+      "delta_cer_percentage_points": -27.0521424883841,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 39,
+          "equal": 7,
+          "higher": 10
+        },
+        "character": {
+          "lower": 44,
+          "equal": 3,
+          "higher": 9
+        }
+      }
+    },
+    "gọi taxi": {
+      "gipformer": {
+        "n": 145,
+        "wer_whitespace": 0.18863879957127547,
+        "cer": 0.15637997005489934,
+        "failure_rate": 0.0,
+        "word_errors": 352,
+        "words": 1866,
+        "char_errors": 940,
+        "chars": 6011,
+        "duration_seconds": 736.1329375,
+        "successful": 145,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 145,
+        "wer_whitespace": 0.16881028938906753,
+        "cer": 0.11612044584927633,
+        "failure_rate": 0.0,
+        "word_errors": 315,
+        "words": 1866,
+        "char_errors": 698,
+        "chars": 6011,
+        "duration_seconds": 736.1329375,
+        "successful": 145,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -1.9828510182207937,
+      "delta_cer_percentage_points": -4.025952420562301,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 66,
+          "equal": 36,
+          "higher": 43
+        },
+        "character": {
+          "lower": 79,
+          "equal": 26,
+          "higher": 40
+        }
+      }
+    },
+    "gợi ý phim": {
+      "gipformer": {
+        "n": 180,
+        "wer_whitespace": 0.20516551473263006,
+        "cer": 0.18121572212065815,
+        "failure_rate": 0.0,
+        "word_errors": 564,
+        "words": 2749,
+        "char_errors": 1586,
+        "chars": 8752,
+        "duration_seconds": 985.9626875,
+        "successful": 180,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 180,
+        "wer_whitespace": 0.1549654419789014,
+        "cer": 0.12042961608775136,
+        "failure_rate": 0.0,
+        "word_errors": 426,
+        "words": 2749,
+        "char_errors": 1054,
+        "chars": 8752,
+        "duration_seconds": 985.9626875,
+        "successful": 180,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -5.020007275372865,
+      "delta_cer_percentage_points": -6.078610603290678,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 104,
+          "equal": 39,
+          "higher": 37
+        },
+        "character": {
+          "lower": 116,
+          "equal": 23,
+          "higher": 41
+        }
+      }
+    },
+    "gợi ý địa điểm": {
+      "gipformer": {
+        "n": 126,
+        "wer_whitespace": 0.1893973719981876,
+        "cer": 0.14929289983962676,
+        "failure_rate": 0.0,
+        "word_errors": 418,
+        "words": 2207,
+        "char_errors": 1024,
+        "chars": 6859,
+        "duration_seconds": 760.9668125,
+        "successful": 126,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 126,
+        "wer_whitespace": 0.16855459900317174,
+        "cer": 0.11401078874471497,
+        "failure_rate": 0.0,
+        "word_errors": 372,
+        "words": 2207,
+        "char_errors": 782,
+        "chars": 6859,
+        "duration_seconds": 760.9668125,
+        "successful": 126,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -2.0842772995015855,
+      "delta_cer_percentage_points": -3.528211109491179,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 58,
+          "equal": 28,
+          "higher": 40
+        },
+        "character": {
+          "lower": 66,
+          "equal": 23,
+          "higher": 37
+        }
+      }
+    },
+    "hỏi thông tin": {
+      "gipformer": {
+        "n": 76,
+        "wer_whitespace": 0.12527716186252771,
+        "cer": 0.11575016972165648,
+        "failure_rate": 0.0,
+        "word_errors": 113,
+        "words": 902,
+        "char_errors": 341,
+        "chars": 2946,
+        "duration_seconds": 346.589625,
+        "successful": 76,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 76,
+        "wer_whitespace": 0.1674057649667406,
+        "cer": 0.1296673455532926,
+        "failure_rate": 0.0,
+        "word_errors": 151,
+        "words": 902,
+        "char_errors": 382,
+        "chars": 2946,
+        "duration_seconds": 346.589625,
+        "successful": 76,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 4.212860310421288,
+      "delta_cer_percentage_points": 1.391717583163611,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 23,
+          "equal": 26,
+          "higher": 27
+        },
+        "character": {
+          "lower": 28,
+          "equal": 23,
+          "higher": 25
+        }
+      }
+    },
+    "hủy hoạt cảnh": {
+      "gipformer": {
+        "n": 21,
+        "wer_whitespace": 0.14028776978417265,
+        "cer": 0.1261574074074074,
+        "failure_rate": 0.0,
+        "word_errors": 39,
+        "words": 278,
+        "char_errors": 109,
+        "chars": 864,
+        "duration_seconds": 85.8,
+        "successful": 21,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 21,
+        "wer_whitespace": 0.16546762589928057,
+        "cer": 0.1087962962962963,
+        "failure_rate": 0.0,
+        "word_errors": 46,
+        "words": 278,
+        "char_errors": 94,
+        "chars": 864,
+        "duration_seconds": 85.8,
+        "successful": 21,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 2.5179856115107926,
+      "delta_cer_percentage_points": -1.7361111111111118,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 5,
+          "equal": 10,
+          "higher": 6
+        },
+        "character": {
+          "lower": 8,
+          "equal": 7,
+          "higher": 6
+        }
+      }
+    },
+    "kiểm tra tình trạng thiết bị": {
+      "gipformer": {
+        "n": 88,
+        "wer_whitespace": 0.13936651583710408,
+        "cer": 0.11027058481233634,
+        "failure_rate": 0.0,
+        "word_errors": 154,
+        "words": 1105,
+        "char_errors": 379,
+        "chars": 3437,
+        "duration_seconds": 350.16,
+        "successful": 88,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 88,
+        "wer_whitespace": 0.18009049773755656,
+        "cer": 0.1239453011347105,
+        "failure_rate": 0.0,
+        "word_errors": 199,
+        "words": 1105,
+        "char_errors": 426,
+        "chars": 3437,
+        "duration_seconds": 350.16,
+        "successful": 88,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 4.072398190045249,
+      "delta_cer_percentage_points": 1.3674716322374159,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 20,
+          "equal": 32,
+          "higher": 36
+        },
+        "character": {
+          "lower": 25,
+          "equal": 20,
+          "higher": 43
+        }
+      }
+    },
+    "kích hoạt cảnh": {
+      "gipformer": {
+        "n": 39,
+        "wer_whitespace": 0.1245136186770428,
+        "cer": 0.10265700483091787,
+        "failure_rate": 0.0,
+        "word_errors": 64,
+        "words": 514,
+        "char_errors": 170,
+        "chars": 1656,
+        "duration_seconds": 181.38,
+        "successful": 39,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 39,
+        "wer_whitespace": 0.05058365758754864,
+        "cer": 0.030193236714975844,
+        "failure_rate": 0.0,
+        "word_errors": 26,
+        "words": 514,
+        "char_errors": 50,
+        "chars": 1656,
+        "duration_seconds": 181.38,
+        "successful": 39,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -7.392996108949417,
+      "delta_cer_percentage_points": -7.246376811594203,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 17,
+          "equal": 16,
+          "higher": 6
+        },
+        "character": {
+          "lower": 16,
+          "equal": 16,
+          "higher": 7
+        }
+      }
+    },
+    "mở thiết bị": {
+      "gipformer": {
+        "n": 86,
+        "wer_whitespace": 0.16228070175438597,
+        "cer": 0.13032210292484264,
+        "failure_rate": 0.0,
+        "word_errors": 148,
+        "words": 912,
+        "char_errors": 352,
+        "chars": 2701,
+        "duration_seconds": 311.7,
+        "successful": 86,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 86,
+        "wer_whitespace": 0.15350877192982457,
+        "cer": 0.09663087745279526,
+        "failure_rate": 0.0,
+        "word_errors": 140,
+        "words": 912,
+        "char_errors": 261,
+        "chars": 2701,
+        "duration_seconds": 311.7,
+        "successful": 86,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -0.8771929824561403,
+      "delta_cer_percentage_points": -3.369122547204738,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 30,
+          "equal": 32,
+          "higher": 24
+        },
+        "character": {
+          "lower": 32,
+          "equal": 23,
+          "higher": 31
+        }
+      }
+    },
+    "tra công thức nấu ăn": {
+      "gipformer": {
+        "n": 161,
+        "wer_whitespace": 0.16988727858293076,
+        "cer": 0.14343536554515557,
+        "failure_rate": 0.0,
+        "word_errors": 422,
+        "words": 2484,
+        "char_errors": 1134,
+        "chars": 7906,
+        "duration_seconds": 941.959125,
+        "successful": 161,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 161,
+        "wer_whitespace": 0.1461352657004831,
+        "cer": 0.10713382241335695,
+        "failure_rate": 0.0,
+        "word_errors": 363,
+        "words": 2484,
+        "char_errors": 847,
+        "chars": 7906,
+        "duration_seconds": 941.959125,
+        "successful": 161,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -2.375201288244766,
+      "delta_cer_percentage_points": -3.6301543131798617,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 73,
+          "equal": 53,
+          "higher": 35
+        },
+        "character": {
+          "lower": 88,
+          "equal": 37,
+          "higher": 36
+        }
+      }
+    },
+    "tra cứu lịch": {
+      "gipformer": {
+        "n": 113,
+        "wer_whitespace": 0.18734939759036146,
+        "cer": 0.1771138449521578,
+        "failure_rate": 0.0,
+        "word_errors": 311,
+        "words": 1660,
+        "char_errors": 907,
+        "chars": 5121,
+        "duration_seconds": 585.9469375,
+        "successful": 113,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 113,
+        "wer_whitespace": 0.19518072289156627,
+        "cer": 0.15309509861355203,
+        "failure_rate": 0.0,
+        "word_errors": 324,
+        "words": 1660,
+        "char_errors": 784,
+        "chars": 5121,
+        "duration_seconds": 585.9469375,
+        "successful": 113,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 0.7831325301204811,
+      "delta_cer_percentage_points": -2.4018746338605763,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 42,
+          "equal": 29,
+          "higher": 42
+        },
+        "character": {
+          "lower": 57,
+          "equal": 19,
+          "higher": 37
+        }
+      }
+    },
+    "tra cứu thời tiết": {
+      "gipformer": {
+        "n": 147,
+        "wer_whitespace": 0.16968541468064824,
+        "cer": 0.1500738552437223,
+        "failure_rate": 0.0,
+        "word_errors": 356,
+        "words": 2098,
+        "char_errors": 1016,
+        "chars": 6770,
+        "duration_seconds": 746.6693125,
+        "successful": 147,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 147,
+        "wer_whitespace": 0.16968541468064824,
+        "cer": 0.12909896602658788,
+        "failure_rate": 0.0,
+        "word_errors": 356,
+        "words": 2098,
+        "char_errors": 874,
+        "chars": 6770,
+        "duration_seconds": 746.6693125,
+        "successful": 147,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 0.0,
+      "delta_cer_percentage_points": -2.097488921713442,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 61,
+          "equal": 36,
+          "higher": 50
+        },
+        "character": {
+          "lower": 74,
+          "equal": 25,
+          "higher": 48
+        }
+      }
+    },
+    "tra cứu đường đi": {
+      "gipformer": {
+        "n": 124,
+        "wer_whitespace": 0.2721417069243156,
+        "cer": 0.21541242195202104,
+        "failure_rate": 0.0,
+        "word_errors": 507,
+        "words": 1863,
+        "char_errors": 1311,
+        "chars": 6086,
+        "duration_seconds": 672.40425,
+        "successful": 124,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 124,
+        "wer_whitespace": 0.2436929683306495,
+        "cer": 0.14837331580676963,
+        "failure_rate": 0.0,
+        "word_errors": 454,
+        "words": 1863,
+        "char_errors": 903,
+        "chars": 6086,
+        "duration_seconds": 672.40425,
+        "successful": 124,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -2.844873859366612,
+      "delta_cer_percentage_points": -6.703910614525141,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 65,
+          "equal": 22,
+          "higher": 37
+        },
+        "character": {
+          "lower": 81,
+          "equal": 17,
+          "higher": 26
+        }
+      }
+    },
+    "tăng mức độ của thiết bị": {
+      "gipformer": {
+        "n": 7,
+        "wer_whitespace": 0.20430107526881722,
+        "cer": 0.15932203389830507,
+        "failure_rate": 0.0,
+        "word_errors": 19,
+        "words": 93,
+        "char_errors": 47,
+        "chars": 295,
+        "duration_seconds": 33.12,
+        "successful": 7,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 7,
+        "wer_whitespace": 0.12903225806451613,
+        "cer": 0.08135593220338982,
+        "failure_rate": 0.0,
+        "word_errors": 12,
+        "words": 93,
+        "char_errors": 24,
+        "chars": 295,
+        "duration_seconds": 33.12,
+        "successful": 7,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -7.526881720430109,
+      "delta_cer_percentage_points": -7.796610169491524,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 4,
+          "equal": 1,
+          "higher": 2
+        },
+        "character": {
+          "lower": 5,
+          "equal": 0,
+          "higher": 2
+        }
+      }
+    },
+    "tăng nhiệt độ của thiết bị": {
+      "gipformer": {
+        "n": 14,
+        "wer_whitespace": 0.23076923076923078,
+        "cer": 0.234006734006734,
+        "failure_rate": 0.0,
+        "word_errors": 45,
+        "words": 195,
+        "char_errors": 139,
+        "chars": 594,
+        "duration_seconds": 70.98,
+        "successful": 14,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 14,
+        "wer_whitespace": 0.12307692307692308,
+        "cer": 0.0707070707070707,
+        "failure_rate": 0.0,
+        "word_errors": 24,
+        "words": 195,
+        "char_errors": 42,
+        "chars": 594,
+        "duration_seconds": 70.98,
+        "successful": 14,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -10.76923076923077,
+      "delta_cer_percentage_points": -16.32996632996633,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 8,
+          "equal": 5,
+          "higher": 1
+        },
+        "character": {
+          "lower": 11,
+          "equal": 2,
+          "higher": 1
+        }
+      }
+    },
+    "tăng âm lượng của thiết bị": {
+      "gipformer": {
+        "n": 5,
+        "wer_whitespace": 0.25,
+        "cer": 0.19337016574585636,
+        "failure_rate": 0.0,
+        "word_errors": 14,
+        "words": 56,
+        "char_errors": 35,
+        "chars": 181,
+        "duration_seconds": 21.0,
+        "successful": 5,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 5,
+        "wer_whitespace": 0.375,
+        "cer": 0.20441988950276244,
+        "failure_rate": 0.0,
+        "word_errors": 21,
+        "words": 56,
+        "char_errors": 37,
+        "chars": 181,
+        "duration_seconds": 21.0,
+        "successful": 5,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 12.5,
+      "delta_cer_percentage_points": 1.1049723756906076,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 2,
+          "equal": 0,
+          "higher": 3
+        },
+        "character": {
+          "lower": 2,
+          "equal": 0,
+          "higher": 3
+        }
+      }
+    },
+    "tăng độ sáng của thiết bị": {
+      "gipformer": {
+        "n": 62,
+        "wer_whitespace": 0.4230769230769231,
+        "cer": 0.43208751139471285,
+        "failure_rate": 0.0,
+        "word_errors": 297,
+        "words": 702,
+        "char_errors": 948,
+        "chars": 2194,
+        "duration_seconds": 271.38,
+        "successful": 62,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 62,
+        "wer_whitespace": 0.13817663817663817,
+        "cer": 0.0861440291704649,
+        "failure_rate": 0.0,
+        "word_errors": 97,
+        "words": 702,
+        "char_errors": 189,
+        "chars": 2194,
+        "duration_seconds": 271.38,
+        "successful": 62,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -28.49002849002849,
+      "delta_cer_percentage_points": -34.5943482224248,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 49,
+          "equal": 7,
+          "higher": 6
+        },
+        "character": {
+          "lower": 52,
+          "equal": 5,
+          "higher": 5
+        }
+      }
+    },
+    "tắt thiết bị": {
+      "gipformer": {
+        "n": 80,
+        "wer_whitespace": 0.15018773466833543,
+        "cer": 0.1180975413139863,
+        "failure_rate": 0.0,
+        "word_errors": 120,
+        "words": 799,
+        "char_errors": 293,
+        "chars": 2481,
+        "duration_seconds": 289.1306875,
+        "successful": 80,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 80,
+        "wer_whitespace": 0.16270337922403003,
+        "cer": 0.11729141475211609,
+        "failure_rate": 0.0,
+        "word_errors": 130,
+        "words": 799,
+        "char_errors": 291,
+        "chars": 2481,
+        "duration_seconds": 289.1306875,
+        "successful": 80,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 1.2515644555694594,
+      "delta_cer_percentage_points": -0.08061265618702074,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 20,
+          "equal": 33,
+          "higher": 27
+        },
+        "character": {
+          "lower": 23,
+          "equal": 25,
+          "higher": 32
+        }
+      }
+    },
+    "xóa lịch": {
+      "gipformer": {
+        "n": 109,
+        "wer_whitespace": 0.23681936041486604,
+        "cer": 0.21976838136277943,
+        "failure_rate": 0.0,
+        "word_errors": 274,
+        "words": 1157,
+        "char_errors": 816,
+        "chars": 3713,
+        "duration_seconds": 469.3016875,
+        "successful": 109,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 109,
+        "wer_whitespace": 0.27398444252376836,
+        "cer": 0.2213843253433881,
+        "failure_rate": 0.0,
+        "word_errors": 317,
+        "words": 1157,
+        "char_errors": 822,
+        "chars": 3713,
+        "duration_seconds": 469.3016875,
+        "successful": 109,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 3.716508210890232,
+      "delta_cer_percentage_points": 0.16159439806086584,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 42,
+          "equal": 22,
+          "higher": 45
+        },
+        "character": {
+          "lower": 59,
+          "equal": 10,
+          "higher": 40
+        }
+      }
+    },
+    "đóng thiết bị": {
+      "gipformer": {
+        "n": 96,
+        "wer_whitespace": 0.14106280193236714,
+        "cer": 0.11328367473618871,
+        "failure_rate": 0.0,
+        "word_errors": 146,
+        "words": 1035,
+        "char_errors": 365,
+        "chars": 3222,
+        "duration_seconds": 347.16,
+        "successful": 96,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 96,
+        "wer_whitespace": 0.18164251207729468,
+        "cer": 0.11607697082557418,
+        "failure_rate": 0.0,
+        "word_errors": 188,
+        "words": 1035,
+        "char_errors": 374,
+        "chars": 3222,
+        "duration_seconds": 347.16,
+        "successful": 96,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 4.057971014492753,
+      "delta_cer_percentage_points": 0.2793296089385472,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 24,
+          "equal": 32,
+          "higher": 40
+        },
+        "character": {
+          "lower": 31,
+          "equal": 22,
+          "higher": 43
+        }
+      }
+    },
+    "đặt lịch": {
+      "gipformer": {
+        "n": 124,
+        "wer_whitespace": 0.22459016393442624,
+        "cer": 0.21369331215810836,
+        "failure_rate": 0.0,
+        "word_errors": 411,
+        "words": 1830,
+        "char_errors": 1211,
+        "chars": 5667,
+        "duration_seconds": 659.093,
+        "successful": 124,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 124,
+        "wer_whitespace": 0.15245901639344261,
+        "cer": 0.10446444326804305,
+        "failure_rate": 0.0,
+        "word_errors": 279,
+        "words": 1830,
+        "char_errors": 592,
+        "chars": 5667,
+        "duration_seconds": 659.093,
+        "successful": 124,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -7.2131147540983624,
+      "delta_cer_percentage_points": -10.92288688900653,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 70,
+          "equal": 32,
+          "higher": 22
+        },
+        "character": {
+          "lower": 86,
+          "equal": 21,
+          "higher": 17
+        }
+      }
+    },
+    "đặt vé": {
+      "gipformer": {
+        "n": 123,
+        "wer_whitespace": 0.17857142857142858,
+        "cer": 0.1644404332129964,
+        "failure_rate": 0.0,
+        "word_errors": 325,
+        "words": 1820,
+        "char_errors": 911,
+        "chars": 5540,
+        "duration_seconds": 687.0164375,
+        "successful": 123,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 123,
+        "wer_whitespace": 0.1554945054945055,
+        "cer": 0.1187725631768953,
+        "failure_rate": 0.0,
+        "word_errors": 283,
+        "words": 1820,
+        "char_errors": 658,
+        "chars": 5540,
+        "duration_seconds": 687.0164375,
+        "successful": 123,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": -2.307692307692308,
+      "delta_cer_percentage_points": -4.566787003610109,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 50,
+          "equal": 41,
+          "higher": 32
+        },
+        "character": {
+          "lower": 63,
+          "equal": 29,
+          "higher": 31
+        }
+      }
+    },
+    "đặt đồ ăn": {
+      "gipformer": {
+        "n": 130,
+        "wer_whitespace": 0.18397291196388263,
+        "cer": 0.15843920145190563,
+        "failure_rate": 0.0,
+        "word_errors": 326,
+        "words": 1772,
+        "char_errors": 873,
+        "chars": 5510,
+        "duration_seconds": 627.4483125,
+        "successful": 130,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "valsea": {
+        "n": 130,
+        "wer_whitespace": 0.20090293453724606,
+        "cer": 0.1618874773139746,
+        "failure_rate": 0.0,
+        "word_errors": 356,
+        "words": 1772,
+        "char_errors": 892,
+        "chars": 5510,
+        "duration_seconds": 627.4483125,
+        "successful": 130,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "delta_wer_percentage_points": 1.6930022573363428,
+      "delta_cer_percentage_points": 0.34482758620689724,
+      "valsea_edit_counts_relative_to_gipformer": {
+        "word": {
+          "lower": 44,
+          "equal": 40,
+          "higher": 46
+        },
+        "character": {
+          "lower": 53,
+          "equal": 29,
+          "higher": 48
+        }
+      }
+    }
+  },
+  "normalizer": "nfc-lower-punctuation-space-v1",
+  "scoring": {
+    "wer": "corpus whitespace-token Levenshtein edits / summed reference tokens",
+    "cer": "corpus Unicode code-point edits / summed reference characters, normalized spaces removed",
+    "normalization": "NFC; lowercase; Unicode P* punctuation to spaces; split/join whitespace collapse",
+    "number_normalization": false,
+    "diacritics_fillers_repetitions": "preserved",
+    "failure_policy": "error hypotheses scored as empty; full reference denominators retained",
+    "empty_successful_policy": "included unchanged; full reference denominators retained",
+    "python": "3.14.2",
+    "unicode": "16.0.0"
+  },
+  "uncertainty": {
+    "available": false,
+    "protocol": "established speaker-cluster bootstrap",
+    "reason": "Official release supplies no speaker/region metadata; no invented clusters or utterance bootstrap."
+  },
+  "coverage": {
+    "gipformer": {
+      "expected": 2401,
+      "recorded": 2401,
+      "remaining": 0,
+      "coverage_complete": true,
+      "successful": 2401,
+      "errors": 0,
+      "empty_successful_count": 0,
+      "empty_successful_transcripts": [],
+      "all_successful_inference": true
+    },
+    "valsea": {
+      "expected": 2401,
+      "recorded": 2401,
+      "remaining": 0,
+      "coverage_complete": true,
+      "successful": 2401,
+      "errors": 0,
+      "empty_successful_count": 0,
+      "empty_successful_transcripts": [],
+      "all_successful_inference": true
+    }
+  },
+  "delta_definition": "VALSEA minus GIPFormer; percentage points; negative favors VALSEA",
+  "validation": {
+    "gipformer": {
+      "expected": 2401,
+      "recorded": 2401,
+      "remaining": 0,
+      "coverage_complete": true,
+      "successful": 2401,
+      "errors": 0,
+      "empty_successful_count": 0,
+      "empty_successful_transcripts": [],
+      "all_successful_inference": true
+    },
+    "smoke": {
+      "run_id": "valsea_vnslu_dev_smoke_20261102_01",
+      "coverage": {
+        "expected": 6,
+        "attempted_samples": 6,
+        "request_attempts": 6,
+        "successful": 6,
+        "failed_attempts": 0,
+        "unresolved_attempts": 0,
+        "historical_unknown_remote_outcomes": 0,
+        "source_error_events": 0,
+        "blocked_sample_ids": [],
+        "remaining": 0,
+        "empty_successful_transcripts": [],
+        "coverage_complete": true,
+        "review_status": "pending_human_review",
+        "exactly_once_remote_processing": "not guaranteed"
+      },
+      "events": {
+        "started": 6,
+        "ok": 6
+      },
+      "sessions": [
+        {
+          "started_utc": "2026-11-02T09:04:53.391067+00:00",
+          "mode": "smoke",
+          "resume": false,
+          "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+          "packages": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "soundfile": "0.13.1",
+            "pyarrow": "23.0.1",
+            "fsspec": "2026.2.0",
+            "aiohttp": "3.13.3"
+          },
+          "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+          "account_model_confirmed": "glot-transcribe",
+          "status": "completed",
+          "ended_utc": "2026-11-02T09:05:47.701005+00:00"
+        },
+        {
+          "started_utc": "2026-11-02T09:06:17.369986+00:00",
+          "mode": "smoke",
+          "resume": true,
+          "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+          "packages": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "soundfile": "0.13.1",
+            "pyarrow": "23.0.1",
+            "fsspec": "2026.2.0",
+            "aiohttp": "3.13.3"
+          },
+          "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+          "account_model_confirmed": "glot-transcribe",
+          "status": "completed",
+          "ended_utc": "2026-11-02T09:06:17.376230+00:00"
+        }
+      ],
+      "historical_outcomes": []
+    },
+    "full": {
+      "run_id": "valsea_vnslu_test_20261102_01",
+      "coverage": {
+        "expected": 2401,
+        "attempted_samples": 2401,
+        "request_attempts": 2402,
+        "successful": 2401,
+        "failed_attempts": 0,
+        "unresolved_attempts": 0,
+        "historical_unknown_remote_outcomes": 1,
+        "source_error_events": 0,
+        "blocked_sample_ids": [],
+        "remaining": 0,
+        "empty_successful_transcripts": [],
+        "coverage_complete": true,
+        "review_status": "pending_human_review",
+        "exactly_once_remote_processing": "not guaranteed"
+      },
+      "events": {
+        "started": 2402,
+        "ok": 2401,
+        "unresolved": 1,
+        "retry_authorized": 1
+      },
+      "sessions": [
+        {
+          "started_utc": "2026-11-02T09:07:10.999343+00:00",
+          "mode": "full",
+          "resume": false,
+          "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+          "packages": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "soundfile": "0.13.1",
+            "pyarrow": "23.0.1",
+            "fsspec": "2026.2.0",
+            "aiohttp": "3.13.3"
+          },
+          "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+          "account_model_confirmed": "glot-transcribe",
+          "status": "stopped",
+          "error_type": "RuntimeError",
+          "message": "Stopped; inspect attempt log and completion summary. No automatic retry.",
+          "ended_utc": "2026-11-02T11:47:18.505932+00:00"
+        },
+        {
+          "started_utc": "2026-11-02T13:39:13.637210+00:00",
+          "mode": "full",
+          "resume": true,
+          "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+          "packages": {
+            "numpy": "2.4.3",
+            "scipy": "1.17.1",
+            "soundfile": "0.13.1",
+            "pyarrow": "23.0.1",
+            "fsspec": "2026.2.0",
+            "aiohttp": "3.13.3"
+          },
+          "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+          "account_model_confirmed": "glot-transcribe",
+          "status": "completed",
+          "ended_utc": "2026-11-02T13:43:36.426609+00:00"
+        }
+      ],
+      "historical_outcomes": [
+        {
+          "event": "unresolved",
+          "sample_id": "VN-SLU/test/659d1013ff471bbe244b9ccd",
+          "attempt": 2340,
+          "timestamp": "2026-11-02T11:47:18.467572+00:00",
+          "http_status": 502,
+          "error_type": "server_outcome_unknown",
+          "note": null
+        },
+        {
+          "event": "retry_authorized",
+          "sample_id": "VN-SLU/test/659d1013ff471bbe244b9ccd",
+          "attempt": 2340,
+          "timestamp": "2026-11-02T13:39:13.648909+00:00",
+          "http_status": null,
+          "error_type": null,
+          "note": "Operator authorizes retry after HTTP 502; previous remote outcome remains unknown and possible duplicate billing is accepted."
+        }
+      ]
+    }
+  },
+  "api_provenance": {
+    "smoke": {
+      "engine": [
+        {
+          "value": "valsea-4",
+          "count": 5,
+          "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+          "last_observed_utc": "2026-11-02T09:05:45.221231+00:00"
+        },
+        {
+          "value": "valsea-6",
+          "count": 1,
+          "first_observed_utc": "2026-11-02T09:05:47.687736+00:00",
+          "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+        }
+      ],
+      "model_version": [
+        {
+          "value": null,
+          "count": 6,
+          "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+          "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+        }
+      ],
+      "exposed_provider_version": [
+        {
+          "value": null,
+          "count": 6,
+          "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+          "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+        }
+      ],
+      "returned_model": [
+        {
+          "value": null,
+          "count": 6,
+          "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+          "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+        }
+      ],
+      "request_ids_present": 6,
+      "distinct_request_ids": 6,
+      "sessions": [
+        {
+          "started_utc": "2026-11-02T09:04:53.391067+00:00",
+          "ended_utc": "2026-11-02T09:05:47.701005+00:00",
+          "status": "completed",
+          "successful_outcomes": 6,
+          "engine_counts": {
+            "valsea-4": 5,
+            "valsea-6": 1
+          },
+          "provider_version_counts": {
+            "None": 6
+          }
+        },
+        {
+          "started_utc": "2026-11-02T09:06:17.369986+00:00",
+          "ended_utc": "2026-11-02T09:06:17.376230+00:00",
+          "status": "completed",
+          "successful_outcomes": 0,
+          "engine_counts": {},
+          "provider_version_counts": {}
+        }
+      ],
+      "immutable_provider_revision": "not exposed; no revision invented"
+    },
+    "full": {
+      "engine": [
+        {
+          "value": "valsea-4",
+          "count": 802,
+          "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+          "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+        },
+        {
+          "value": "valsea-6",
+          "count": 1599,
+          "first_observed_utc": "2026-11-02T09:07:50.721533+00:00",
+          "last_observed_utc": "2026-11-02T13:43:19.449757+00:00"
+        }
+      ],
+      "model_version": [
+        {
+          "value": null,
+          "count": 2401,
+          "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+          "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+        }
+      ],
+      "exposed_provider_version": [
+        {
+          "value": null,
+          "count": 2401,
+          "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+          "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+        }
+      ],
+      "returned_model": [
+        {
+          "value": null,
+          "count": 2401,
+          "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+          "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+        }
+      ],
+      "request_ids_present": 2401,
+      "distinct_request_ids": 2401,
+      "sessions": [
+        {
+          "started_utc": "2026-11-02T09:07:10.999343+00:00",
+          "ended_utc": "2026-11-02T11:47:18.505932+00:00",
+          "status": "stopped",
+          "successful_outcomes": 2339,
+          "engine_counts": {
+            "valsea-4": 780,
+            "valsea-6": 1559
+          },
+          "provider_version_counts": {
+            "None": 2339
+          }
+        },
+        {
+          "started_utc": "2026-11-02T13:39:13.637210+00:00",
+          "ended_utc": "2026-11-02T13:43:36.426609+00:00",
+          "status": "completed",
+          "successful_outcomes": 62,
+          "engine_counts": {
+            "valsea-4": 22,
+            "valsea-6": 40
+          },
+          "provider_version_counts": {
+            "None": 62
+          }
+        }
+      ],
+      "immutable_provider_revision": "not exposed; no revision invented"
+    }
+  },
+  "provenance": {
+    "dataset": {
+      "dataset": "VN-SLU",
+      "author_repository": "https://github.com/tuyen-tran1/VN-SLU",
+      "repository_revision": "aad93e560f8ec4ab979e76d5dfe36528160b797f",
+      "download_folder": "https://drive.google.com/drive/folders/1BDKK8vg-tByTY2EUWi6aYDjqG1NIFG8H",
+      "retrieved_utc": "2026-11-02T04:18:29.627357+00:00",
+      "annotation_sources": {
+        "train.jsonl": {
+          "drive_id": "1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP",
+          "url": "https://drive.usercontent.google.com/download?id=1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP&export=download",
+          "bytes": 5168518
+        },
+        "dev.jsonl": {
+          "drive_id": "1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7",
+          "url": "https://drive.usercontent.google.com/download?id=1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7&export=download",
+          "bytes": 604017
+        },
+        "test.jsonl": {
+          "drive_id": "1SU0j995v8Ue_0BRYSac3wMdryctlSrU-",
+          "url": "https://drive.usercontent.google.com/download?id=1SU0j995v8Ue_0BRYSac3wMdryctlSrU-&export=download",
+          "bytes": 1084071
+        }
+      },
+      "archive": {
+        "name": "data.zip",
+        "drive_id": "1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB",
+        "url": "https://drive.usercontent.google.com/download?id=1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB&export=download",
+        "bytes": 1805174687,
+        "central_directory_offset": 1803286411,
+        "central_directory_sha256": "de4f8321203695c883dba4351c2ce5b98378f2e60e9cdab669006ef303f69adb",
+        "revision": null,
+        "identity_note": "Mutable author-linked Drive download; directory fingerprint and supplied ZIP CRCs, not a full archive checksum.",
+        "acquisition": "HTTP ranges for test member intervals; no train/dev WAV export"
+      },
+      "license": "not found",
+      "split_assignment": "Author-linked test.jsonl; no reconstruction from IDs or paper sampling algorithm"
+    },
+    "gipformer_run_id": "gip15_vnslu_test_fp16_20261102_06",
+    "valsea_run_id": "valsea_vnslu_test_20261102_01",
+    "smoke_run_id": "valsea_vnslu_dev_smoke_20261102_01",
+    "gipformer_revisions": {
+      "gipformer": "0cac5b183d2e1a9e3429ff69080e09cc62ebdf9b",
+      "icefall": "9c966762e058bd7ba79d9da71e42fc06b64b703e",
+      "model": "dd9227dcd8705c13f33bdbe59728d546ab94480f"
+    },
+    "gipformer_sessions": [
+      {
+        "started_utc": "2026-11-02T07:13:06Z",
+        "ended_utc": "2026-11-02T07:25:16Z",
+        "resume": false,
+        "restored_from": null,
+        "stage": "child_completed",
+        "child_exit_code": 0,
+        "elapsed_seconds": 730.0
+      }
+    ],
+    "valsea_configuration": {
+      "mode": "full",
+      "endpoint": "https://api.glotlabs.ai/v1/audio/transcriptions",
+      "fields": {
+        "model": "glot-transcribe",
+        "language": "vietnamese",
+        "enable_correction": "false",
+        "enable_tags": "false",
+        "diarize": "false",
+        "response_format": "verbose_json"
+      },
+      "upload": "FLOAT32 WAV mono 16000 Hz",
+      "connect_timeout_seconds": 15,
+      "read_timeout_seconds": 120,
+      "requests_per_minute": 60.0,
+      "automatic_retries": false,
+      "idempotency": "not documented; not used",
+      "docs_checked": "2026-11-02",
+      "provider_revision": "alias only; immutable remote revision not exposed in documentation",
+      "packages": {
+        "numpy": "2.4.3",
+        "scipy": "1.17.1",
+        "soundfile": "0.13.1",
+        "pyarrow": "23.0.1",
+        "fsspec": "2026.2.0",
+        "aiohttp": "3.13.3"
+      },
+      "dataset_revision": null,
+      "dataset_provenance": {
+        "dataset": "VN-SLU",
+        "author_repository": "https://github.com/tuyen-tran1/VN-SLU",
+        "repository_revision": "aad93e560f8ec4ab979e76d5dfe36528160b797f",
+        "download_folder": "https://drive.google.com/drive/folders/1BDKK8vg-tByTY2EUWi6aYDjqG1NIFG8H",
+        "retrieved_utc": "2026-11-02T04:18:29.627357+00:00",
+        "annotation_sources": {
+          "train.jsonl": {
+            "drive_id": "1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP",
+            "url": "https://drive.usercontent.google.com/download?id=1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP&export=download",
+            "bytes": 5168518
+          },
+          "dev.jsonl": {
+            "drive_id": "1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7",
+            "url": "https://drive.usercontent.google.com/download?id=1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7&export=download",
+            "bytes": 604017
+          },
+          "test.jsonl": {
+            "drive_id": "1SU0j995v8Ue_0BRYSac3wMdryctlSrU-",
+            "url": "https://drive.usercontent.google.com/download?id=1SU0j995v8Ue_0BRYSac3wMdryctlSrU-&export=download",
+            "bytes": 1084071
+          }
+        },
+        "archive": {
+          "name": "data.zip",
+          "drive_id": "1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB",
+          "url": "https://drive.usercontent.google.com/download?id=1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB&export=download",
+          "bytes": 1805174687,
+          "central_directory_offset": 1803286411,
+          "central_directory_sha256": "de4f8321203695c883dba4351c2ce5b98378f2e60e9cdab669006ef303f69adb",
+          "revision": null,
+          "identity_note": "Mutable author-linked Drive download; directory fingerprint and supplied ZIP CRCs, not a full archive checksum.",
+          "acquisition": "HTTP ranges for test member intervals; no train/dev WAV export"
+        },
+        "license": "not found",
+        "split_assignment": "Author-linked test.jsonl; no reconstruction from IDs or paper sampling algorithm"
+      },
+      "dataset": "VN-SLU",
+      "split": "test",
+      "request_order": "frozen manifest order",
+      "scoring_field": "text"
+    }
+  }
+}

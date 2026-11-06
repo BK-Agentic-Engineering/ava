@@ -1,0 +1,4185 @@
+{
+  "created_utc": "2026-11-03T14:06:14.140410+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "unique_scenarios_replayed": 4,
+    "positive_runtime_paths": 13,
+    "negative_runtime_traces": 12,
+    "verifier_only_checks": 2,
+    "all_expectations_met": true,
+    "spec_only": 4,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "provenance": {
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "design": "data\\synthetic\\design\\expansion_batch_03.yaml",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/banking.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "world_ancestry": {
+    "parent_world_ids": [
+      "W_TRANSFER"
+    ],
+    "parent_scenario_ids": [
+      "T1",
+      "T2"
+    ],
+    "parent_lineage_ids": [
+      "DEV_TRANSFER_REPAIR_01"
+    ],
+    "contribution": "Giữ direct/amount controls và thêm trục recipient repair, rồi joint repair. WORLD mới không là lineage độc lập."
+  },
+  "fixtures": {
+    "A/original": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          },
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "A/beneficiaries_reversed": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          },
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "B/original": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          },
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "B/beneficiaries_reversed": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          },
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "C/original": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          },
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "C/beneficiaries_reversed": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          },
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "D/original": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          },
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    },
+    "D/beneficiaries_reversed": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "ex3_acc_26",
+            "name": "Ngân sách xưởng",
+            "balance": 5000000
+          },
+          {
+            "id": "ex3_acc_91",
+            "name": "Dự trữ dài hạn",
+            "balance": 8000000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ex3_ben_37",
+            "name": "Phạm Gia Lâm"
+          },
+          {
+            "id": "ex3_ben_64",
+            "name": "Đào Minh Uyên"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "ex3_tx_keep_73",
+            "account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -110000,
+            "note": "lần chuyển trước độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-07T10:20:00+07:00"
+      }
+    }
+  },
+  "agent_visible": {
+    "A/original": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "A/beneficiaries_reversed": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B/original": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B/beneficiaries_reversed": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C/original": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C/beneficiaries_reversed": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D/original": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D/beneficiaries_reversed": {
+      "request": "Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.",
+      "context": {
+        "current_time": "2026-12-07T10:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "beneficiaries_reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A/beneficiaries_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              },
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            },
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "reverse_reads",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_B",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_B",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "beneficiaries_reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B/beneficiaries_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              },
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            },
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_B",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "reverse_reads",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_C",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_C",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "beneficiaries_reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C/beneficiaries_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              },
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            },
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_C",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "reverse_reads",
+      "initial_fixture_ref": "C/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "beneficiaries_reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D/beneficiaries_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              },
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            },
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "reverse_reads",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "repeated_reads",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX3_T_B",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "old_beneficiary",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_beneficiary",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "transaction_beneficiary_id"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_beneficiary"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_C",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "old_amount",
+      "initial_fixture_ref": "C/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_amount",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 620000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -620000,
+              "note": null
+            },
+            "balance": 4380000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4380000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -620000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_amount"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_amount"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "old_beneficiary",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_beneficiary",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "transaction_beneficiary_id"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_beneficiary"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "old_amount",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_amount",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 620000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -620000,
+              "note": null
+            },
+            "balance": 4380000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4380000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -620000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_amount"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_amount"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "old_both",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_beneficiary",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": 620000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -620000,
+              "note": null
+            },
+            "balance": 4380000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4380000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -620000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_amount",
+          "transaction_beneficiary_id"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_amount",
+          "wrong_beneficiary"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_D",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "obsolete_then_final",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": 620000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -620000,
+              "note": null
+            },
+            "balance": 4380000
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_03",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4030000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4030000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -620000,
+              "note": null
+            },
+            {
+              "id": "tx_03",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_amount",
+          "transaction_beneficiary_id",
+          "transaction_count"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "write_count",
+          "wrong_amount",
+          "wrong_beneficiary"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "wrong_source",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_source",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 7650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 5000000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 7650000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_account_id"
+        ],
+        "frame_reasons": [
+          "unrelated_state_or_source_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_source"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "guess_IDs",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_source_ID",
+      "calls": [
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_beneficiary_ID",
+          "unobserved_source_ID"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "unobserved_beneficiary",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_beneficiary_ID",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_beneficiary_ID"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "extra_mutation",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_91",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": 110000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_03",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": null
+            },
+            "balance": 7890000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 7890000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            {
+              "id": "tx_03",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_account_id",
+          "transaction_amount",
+          "transaction_beneficiary_id",
+          "transaction_count"
+        ],
+        "frame_reasons": [
+          "unrelated_state_or_source_fields_changed"
+        ],
+        "trace_reasons": [
+          "write_count",
+          "wrong_amount",
+          "wrong_beneficiary",
+          "wrong_source"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "unpermitted_mutation",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "additional_write_attempt",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        },
+        {
+          "name": "banking.open_savings",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "amount": 350000,
+            "term_months": 3
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'banking.open_savings' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "additional_write_attempt",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [
+            3
+          ],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_03",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4300000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4300000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            {
+              "id": "tx_03",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "account_balances",
+          "transaction_count"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "prior_transaction_snapshot",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "existing_transactions_changed",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "Verifier-only tampering"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [
+          "existing_transactions_changed"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_diagnostic_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "EX3_T_A",
+      "lineage_id": "DEV_TRANSFER_REPAIR_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "changed_expected_beneficiary",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_beneficiary",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "ex3_acc_26",
+                "name": "Ngân sách xưởng",
+                "balance": 5000000
+              },
+              {
+                "id": "ex3_acc_91",
+                "name": "Dự trữ dài hạn",
+                "balance": 8000000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ex3_ben_64",
+                "name": "Đào Minh Uyên"
+              },
+              {
+                "id": "ex3_ben_37",
+                "name": "Phạm Gia Lâm"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_64",
+            "amount": 350000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            },
+            "balance": 4650000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "ex3_acc_26",
+              "name": "Ngân sách xưởng",
+              "balance": 4650000
+            },
+            {
+              "id": "ex3_acc_91",
+              "name": "Dự trữ dài hạn",
+              "balance": 8000000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ex3_ben_64",
+              "name": "Đào Minh Uyên"
+            },
+            {
+              "id": "ex3_ben_37",
+              "name": "Phạm Gia Lâm"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "ex3_tx_keep_73",
+              "account_id": "ex3_acc_91",
+              "beneficiary_id": "ex3_ben_37",
+              "amount": -110000,
+              "note": "lần chuyển trước độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "ex3_acc_26",
+              "beneficiary_id": "ex3_ben_64",
+              "amount": -350000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "transaction_beneficiary_id"
+        ],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "wrong_beneficiary"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "verifier_only_expectation",
+      "construction": "deliberate_diagnostic_may_use_private_IDs",
+      "verifier_expected_oracle": {
+        "outcome": "execute",
+        "final_transfer": {
+          "source_account_name": "Ngân sách xưởng",
+          "from_account_id": "ex3_acc_26",
+          "beneficiary_name": "Phạm Gia Lâm",
+          "beneficiary_id": "ex3_ben_37",
+          "amount": 350000
+        },
+        "superseded": {},
+        "required_evidence": "Final names và 350000 VND từ request; source/beneficiary opaque IDs từ actual reads trước transfer. Áp shared observations/effects/frame.",
+        "required_effects": {
+          "new_transaction_count": 1,
+          "total_write_count": 1,
+          "ask_count": 0,
+          "account_balance_after": {
+            "ex3_acc_26": 4650000,
+            "ex3_acc_91": 8000000
+          },
+          "transaction": {
+            "account_id": "ex3_acc_26",
+            "beneficiary_id": "ex3_ben_37",
+            "amount": -350000
+          }
+        },
+        "forbidden_changes": [
+          "Không wrong source/recipient, duplicate/extra mutation, ask hoặc credit destination; giữ shared frame."
+        ],
+        "acceptable_trajectories": "Hai read đảo thứ tự hoặc lặp vô hại, rồi một transfer theo final IDs/amount; không đòi note."
+      }
+    }
+  ],
+  "reproduction_command": "python scripts/replay_expansion_batch_03.py",
+  "limitations": [
+    "No NLP correction parser or model evaluation; request meanings come from authored specification, not runtime success.",
+    "Independent semantic review, team harness/serialization, official acceptance and training export remain unverified.",
+    "Failed/no-op attempts are retained; authored effect/trace/frame rules decide verdicts."
+  ]
+}

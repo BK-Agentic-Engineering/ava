@@ -1,0 +1,284 @@
+{
+  "scenario": {
+    "scenario_id": "TR16_APP_KEEP",
+    "world_id": "W_TR16_APP",
+    "lineage_id": "TRAIN_PARTIAL_APPLIANCES_05",
+    "fixture_variant": "busy",
+    "status": "spec_only",
+    "exportable": false,
+    "agent_visible": {
+      "request": "Máy giặt hiên rảnh thì chạy quick giúp tôi. Đang chạy thì cứ để vậy.",
+      "context": {
+        "current_time": "2027-10-05T08:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "appliances.list",
+        "appliances.start_cycle",
+        "appliances.stop",
+        "reminders.create"
+      ]
+    },
+    "oracle_draft": {
+      "outcome": "observe_no_write",
+      "sequences": [
+        []
+      ],
+      "primary": [
+        "appliances.start_cycle",
+        {
+          "appliance_id": "w16_washer",
+          "cycle": "quick"
+        }
+      ],
+      "fallback": null,
+      "reader": "appliances.list",
+      "ground_primary": "w16_washer",
+      "trigger_read": {
+        "id": "w16_washer",
+        "state": {
+          "status": "running",
+          "cycle": "eco",
+          "delay_minutes": 0
+        }
+      },
+      "noop_message": "w16_washer đang chạy chu trình 'eco', cần dừng trước",
+      "require_trigger": true
+    },
+    "traces": {
+      "standard": {
+        "calls": [
+          [
+            "appliances.list",
+            {
+              "type": "washer"
+            }
+          ]
+        ]
+      },
+      "no_read": {
+        "calls": [],
+        "reject": [
+          "trigger_evidence"
+        ]
+      },
+      "needless_attempt": {
+        "calls": [
+          [
+            "appliances.list",
+            {
+              "type": "washer"
+            }
+          ],
+          [
+            "appliances.start_cycle",
+            {
+              "appliance_id": "w16_washer",
+              "cycle": "quick"
+            }
+          ]
+        ],
+        "reject": [
+          "branch"
+        ]
+      }
+    }
+  },
+  "initial_state": {
+    "appliances": {
+      "appliances": [
+        {
+          "cycles": [
+            "eco",
+            "normal",
+            "quick"
+          ],
+          "id": "w16_washer",
+          "name": "Máy giặt hiên",
+          "state": {
+            "cycle": "eco",
+            "delay_minutes": 0,
+            "status": "running"
+          },
+          "type": "washer"
+        },
+        {
+          "cycles": [
+            "normal",
+            "quick"
+          ],
+          "id": "w16_dryer",
+          "name": "Máy sấy kho",
+          "state": {
+            "cycle": "normal",
+            "delay_minutes": 0,
+            "status": "running"
+          },
+          "type": "dryer"
+        }
+      ]
+    },
+    "reminders": {
+      "reminders": []
+    },
+    "sys": {}
+  },
+  "final_state": {
+    "appliances": {
+      "appliances": [
+        {
+          "cycles": [
+            "eco",
+            "normal",
+            "quick"
+          ],
+          "id": "w16_washer",
+          "name": "Máy giặt hiên",
+          "state": {
+            "cycle": "eco",
+            "delay_minutes": 0,
+            "status": "running"
+          },
+          "type": "washer"
+        },
+        {
+          "cycles": [
+            "normal",
+            "quick"
+          ],
+          "id": "w16_dryer",
+          "name": "Máy sấy kho",
+          "state": {
+            "cycle": "normal",
+            "delay_minutes": 0,
+            "status": "running"
+          },
+          "type": "dryer"
+        }
+      ]
+    },
+    "reminders": {
+      "reminders": []
+    },
+    "sys": {}
+  },
+  "visible": {
+    "request": "Máy giặt hiên rảnh thì chạy quick giúp tôi. Đang chạy thì cứ để vậy.",
+    "context": {
+      "current_time": "2027-10-05T08:00:00+07:00",
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "history": [],
+    "allowed_tools": [
+      "appliances.list",
+      "appliances.start_cycle",
+      "appliances.stop",
+      "reminders.create"
+    ]
+  },
+  "reference_calls": [
+    {
+      "name": "appliances.list",
+      "arguments": {
+        "type": "washer"
+      },
+      "result": {
+        "ok": true,
+        "appliances": [
+          {
+            "cycles": [
+              "eco",
+              "normal",
+              "quick"
+            ],
+            "id": "w16_washer",
+            "name": "Máy giặt hiên",
+            "state": {
+              "cycle": "eco",
+              "delay_minutes": 0,
+              "status": "running"
+            },
+            "type": "washer"
+          }
+        ]
+      },
+      "state_after": {
+        "appliances": {
+          "appliances": [
+            {
+              "cycles": [
+                "eco",
+                "normal",
+                "quick"
+              ],
+              "id": "w16_washer",
+              "name": "Máy giặt hiên",
+              "state": {
+                "cycle": "eco",
+                "delay_minutes": 0,
+                "status": "running"
+              },
+              "type": "washer"
+            },
+            {
+              "cycles": [
+                "normal",
+                "quick"
+              ],
+              "id": "w16_dryer",
+              "name": "Máy sấy kho",
+              "state": {
+                "cycle": "normal",
+                "delay_minutes": 0,
+                "status": "running"
+              },
+              "type": "dryer"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "validation": {
+        "ok": true,
+        "error": null
+      }
+    }
+  ],
+  "events": {},
+  "gold_actions": [],
+  "oracle": {
+    "outcome": "observe_no_write",
+    "sequences": [
+      []
+    ],
+    "primary": [
+      "appliances.start_cycle",
+      {
+        "appliance_id": "w16_washer",
+        "cycle": "quick"
+      }
+    ],
+    "fallback": null,
+    "reader": "appliances.list",
+    "ground_primary": "w16_washer",
+    "trigger_read": {
+      "id": "w16_washer",
+      "state": {
+        "status": "running",
+        "cycle": "eco",
+        "delay_minutes": 0
+      }
+    },
+    "noop_message": "w16_washer đang chạy chu trình 'eco', cần dừng trước",
+    "require_trigger": true
+  },
+  "canonical_local_verdict": {
+    "verdict": "pass",
+    "reasons": [],
+    "sequence": []
+  }
+}

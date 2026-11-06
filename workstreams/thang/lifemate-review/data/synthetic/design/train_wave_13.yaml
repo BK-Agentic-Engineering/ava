@@ -1,0 +1,1225 @@
+version: train_wave_13
+split: train
+status: spec_only
+exportable: false
+history_materialization: Reexecute historical_turns and verify the frozen agent_visible.history against actual results.
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR10_REM_MOVE","TR11_CAL_FINAL"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01","TRAIN_ALARM_EDIT_02"]
+    design_base: "TR13_REM_AB"
+    variants: {}
+    relevant_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    initial_state:
+      reminders:
+        reminders:
+          - {"id":"rem_99","content":"Giữ lịch cũ","time":"2027-07-15T13:00:00+07:00","repeat":"once","done":false}
+
+  - world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR10_APPL_RESTART","TR5_A_PARTIAL_BUSY"]
+      parent_lineage_ids: ["TRAIN_PARTIAL_APPLIANCES_05"]
+    design_base: "TR13_APP_A"
+    relevant_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+    variants:
+      opposite:
+        appliances:
+          appliances: {"hist_washer":{"state":{"status":"running","cycle":"eco","delay_minutes":0}},"hist_dryer":{"state":{"status":"idle","cycle":null,"delay_minutes":0}}}
+    initial_state:
+      appliances:
+        appliances:
+          - {"id":"hist_washer","name":"Máy Giặt Sậy","type":"washer","cycles":["eco","quick","normal"],"state":{"status":"idle","cycle":null,"delay_minutes":0}}
+          - {"id":"hist_dryer","name":"Máy Sấy Ván","type":"dryer","cycles":["eco","quick","normal"],"state":{"status":"running","cycle":"eco","delay_minutes":0}}
+          - {"id":"hist_guard","name":"Máy Giặt Cũ","type":"washer","cycles":["eco"],"state":{"status":"running","cycle":"eco","delay_minutes":0}}
+
+  - world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_C_COPY","TR11_CHORE_COPY"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR13_CONTACT_OLD_EMAIL"
+    relevant_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    variants:
+      other_old:
+        contacts:
+          contacts: {"hist_contact_A":{"email":"khac.cu@daymoc.example.test"}}
+    initial_state:
+      contacts:
+        contacts:
+          - {"id":"hist_contact_A","name":"Đặng Minh Thu","relation":"đồng nghiệp","email":"thu.cu@daymoc.example.test","phone":"0900001301"}
+          - {"id":"hist_contact_B","name":"Lê An Vân","relation":"bạn","email":"van@daymoc.example.test","phone":"0900001302"}
+      notes:
+        notes:
+          - {"id":"note_guard_99","title":"Giữ Chữ","content":"Không sửa."}
+
+  - world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR12_BANK_AN","TR9_BANK_FLOOR"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05"]
+    design_base: "TR13_BANK_A"
+    relevant_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    variants: {}
+    initial_state:
+      banking:
+        accounts:
+          - {"id":"hist_fund_A","name":"Quỹ Ca Kẹp","balance":450000}
+          - {"id":"hist_fund_B","name":"Quỹ Rìa","balance":700000}
+        beneficiaries:
+          - {"id":"hist_ben_A","name":"Lê Thanh Mộc","bank":"Sậy","account_number":"13000001"}
+          - {"id":"hist_ben_B","name":"Trần Yến Trúc","bank":"Mành","account_number":"13000002"}
+        transactions:
+          - {"id":"tx_99","account_id":"hist_fund_A","beneficiary_id":"hist_ben_A","amount":-100000,"note":"Giữ giao dịch cũ"}
+        savings: []
+scenarios:
+  - scenario_id: "TR13_REM_AB"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi cái vừa tạo sau cùng nửa tiếng nhé."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "last_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_BA"
+      changes: "successful historical execution order only"
+
+  - scenario_id: "TR13_REM_BA"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi cái vừa tạo sau cùng nửa tiếng nhé."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}, {"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}},{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "last_created"
+      target_event: "alpha"
+      other_event: "beta"
+      minutes: 30
+      expected_identity:
+        content: "Soát Cuộn Mây"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "successful historical execution order only"
+
+  - scenario_id: "TR13_REM_FIRST_AB"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi cái tạo trước trong hai cái vừa rồi nửa tiếng nhé."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "first_created"
+      target_event: "alpha"
+      other_event: "beta"
+      minutes: 30
+      expected_identity:
+        content: "Soát Cuộn Mây"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_FIRST_BA"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi cái tạo trước trong hai cái vừa rồi nửa tiếng nhé."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}, {"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}},{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "first_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_BA"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_DONE"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi cái vừa tạo sau cùng nửa tiếng, vẫn giữ dấu đã xong và lịch lặp của nó."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}, {"role": "user", "audio_text": "Đánh dấu nhắc Gom Nẹp Tre vừa tạo là đã xong."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.complete", "arguments": {"reminder_id": "rem_03"}}], "tool_results": [{"ok": true, "item": {"id": "rem_03", "repeat": "weekly", "done": true, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+      - {"user":"Đánh dấu nhắc Gom Nẹp Tre vừa tạo là đã xong.","calls":[{"tag":"finished","name":"reminders.complete","arguments":{"reminder_id":"$beta.id"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "last_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_DELETE"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa cái vừa tạo sau cùng thôi, giữ cái còn lại."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "delete"
+      selection: "last_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_DELETE_FIRST"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa cái tạo trước trong hai cái vừa rồi, giữ cái sau."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "delete"
+      selection: "first_created"
+      target_event: "alpha"
+      other_event: "beta"
+      minutes: 30
+      expected_identity:
+        content: "Soát Cuộn Mây"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_NAMED"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lùi riêng Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 nửa tiếng. Giữ nhắc Gom Nẹp Tre."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "move"
+      selection: "named"
+      target_event: "alpha"
+      other_event: "beta"
+      minutes: 30
+      expected_identity:
+        content: "Soát Cuộn Mây"
+      requires_history: false
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_READ"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đọc lại danh sách hiện tại để kiểm tra nhắc vừa tạo sau cùng còn ở giờ nào. Đừng sửa."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+      fresh_required: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_REM_COMPLETE"
+    world_id: "W_TR13_REMINDER_HISTORY"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu cái vừa tạo sau cùng đã xong, giữ nội dung, giờ và lịch lặp."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "reminders.create", "arguments": {"content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00", "repeat": "daily"}}, {"name": "reminders.create", "arguments": {"content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00", "repeat": "weekly"}}], "tool_results": [{"ok": true, "id": "rem_02", "item": {"id": "rem_02", "repeat": "daily", "done": false, "content": "Soát Cuộn Mây", "time": "2027-07-15T09:00:00+07:00"}}, {"ok": true, "id": "rem_03", "item": {"id": "rem_03", "repeat": "weekly", "done": false, "content": "Gom Nẹp Tre", "time": "2027-07-15T10:30:00+07:00"}}]}]
+      allowed_tools: ["reminders.create","reminders.delete","reminders.complete","reminders.list"]
+    historical_turns:
+      - {"user":"Tạo hai nhắc riêng: Soát Cuộn Mây lúc 09:00 ngày 15/7/2027 giờ Việt Nam, lặp hằng ngày; và Gom Nẹp Tre lúc 10:30 cùng ngày, lặp hằng tuần. Làm cả hai, thứ tự nào cũng được.","calls":[{"tag":"alpha","name":"reminders.create","arguments":{"content":"Soát Cuộn Mây","time":"2027-07-15T09:00:00+07:00","repeat":"daily"}},{"tag":"beta","name":"reminders.create","arguments":{"content":"Gom Nẹp Tre","time":"2027-07-15T10:30:00+07:00","repeat":"weekly"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "complete"
+      selection: "last_created"
+      target_event: "beta"
+      other_event: "alpha"
+      minutes: 30
+      expected_identity:
+        content: "Gom Nẹp Tre"
+      requires_history: true
+    contrast:
+      with: "TR13_REM_AB"
+      changes: "latest referent/effect or explicit history completion"
+
+  - scenario_id: "TR13_APP_A"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Dừng máy vừa khởi động được, giữ máy đã báo bận."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "stop"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+
+  - scenario_id: "TR13_APP_B"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "opposite"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}}, {"ok": true, "done": false, "message": "hist_washer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Dừng máy vừa khởi động được, giữ máy đã báo bận."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "stop"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Sấy Ván"
+      other_name: "Máy Giặt Sậy"
+
+  - scenario_id: "TR13_APP_ATTEMPT"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Dừng máy vừa thử khởi động sau cùng nhưng báo bận. Giữ máy chạy được trước đó."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "stop"
+      selection: "last_attempt"
+      target_event: "busy"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Sấy Ván"
+      other_name: "Máy Giặt Sậy"
+
+  - scenario_id: "TR13_APP_RESTART"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Chuyển máy vừa khởi động được sang quick. Nếu máy đang chạy thì dừng trước, nếu đang rảnh thì chạy quick ngay."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "restart"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+      cycle: "quick"
+      ordered: true
+
+  - scenario_id: "TR13_APP_STOPPED"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}, {"role": "user", "audio_text": "Dừng máy đã khởi động được, giữ máy đã báo bận."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.stop", "arguments": {"appliance_id": "hist_washer"}}], "tool_results": [{"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Chuyển máy vừa khởi động được sang quick. Nếu máy đang chạy thì dừng trước, nếu đang rảnh thì chạy quick ngay."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+      - {"user":"Dừng máy đã khởi động được, giữ máy đã báo bận.","calls":[{"tag":"stopped","name":"appliances.stop","arguments":{"appliance_id":"$started.item.id"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "restart"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+      cycle: "quick"
+      ordered: true
+
+  - scenario_id: "TR13_APP_FAILED_RESTART"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Chuyển máy vừa báo bận sang normal: dừng máy đó trước rồi chạy normal."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "restart"
+      selection: "last_attempt"
+      target_event: "busy"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Sấy Ván"
+      other_name: "Máy Giặt Sậy"
+      cycle: "normal"
+      ordered: true
+
+  - scenario_id: "TR13_APP_READ"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Đọc lại trạng thái hiện tại của máy vừa khởi động được. Không dừng hay chạy thêm."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+      fresh_required: true
+
+  - scenario_id: "TR13_APP_KEEP_STOPPED"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}, {"role": "user", "audio_text": "Dừng máy đã khởi động được, giữ máy đã báo bận."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.stop", "arguments": {"appliance_id": "hist_washer"}}], "tool_results": [{"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Máy vừa khởi động được đã được dừng theo yêu cầu tiếp đó. Giữ nguyên trạng thái ấy, đừng chạy lại."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+      - {"user":"Dừng máy đã khởi động được, giữ máy đã báo bận.","calls":[{"tag":"stopped","name":"appliances.stop","arguments":{"appliance_id":"$started.item.id"}}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: true
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+
+  - scenario_id: "TR13_APP_NAMED"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Dừng Máy Sấy Ván, không chọn máy theo kết quả vừa khởi động."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "stop"
+      selection: "last_attempt"
+      target_event: "busy"
+      replay_event: "started"
+      requires_history: false
+      expected_identity:
+        name: "Máy Sấy Ván"
+      other_name: "Máy Giặt Sậy"
+
+  - scenario_id: "TR13_APP_BOTH"
+    family: "appliances"
+    world_id: "W_TR13_APPLIANCE_HISTORY"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "appliances.list", "arguments": {}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_washer", "cycle": "eco"}}, {"name": "appliances.start_cycle", "arguments": {"appliance_id": "hist_dryer", "cycle": "eco"}}], "tool_results": [{"ok": true, "appliances": [{"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": null, "delay_minutes": 0, "status": "idle"}, "type": "washer"}, {"cycles": ["eco", "quick", "normal"], "id": "hist_dryer", "name": "Máy Sấy Ván", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "dryer"}, {"cycles": ["eco"], "id": "hist_guard", "name": "Máy Giặt Cũ", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}]}, {"ok": true, "item": {"cycles": ["eco", "quick", "normal"], "id": "hist_washer", "name": "Máy Giặt Sậy", "state": {"cycle": "eco", "delay_minutes": 0, "status": "running"}, "type": "washer"}}, {"ok": true, "done": false, "message": "hist_dryer đang chạy chu trình 'eco', cần dừng trước"}]}]
+      allowed_tools: ["appliances.list","appliances.start_cycle","appliances.stop"]
+      request: "Dừng cả hai máy tôi vừa yêu cầu thử khởi động. Giữ máy cũ ngoài yêu cầu."
+    historical_turns:
+      - {"user":"Thử chạy eco trên Máy Giặt Sậy và Máy Sấy Ván. Nếu máy đã bận thì giữ nguyên máy đó, không dừng để chạy lại.","calls":[{"tag":"inventory","name":"appliances.list","arguments":{}},{"tag":"started","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Giặt Sậy"},"field":"id"},"cycle":"eco"},"expect":"success"},{"tag":"busy","name":"appliances.start_cycle","arguments":{"appliance_id":{"observed":"inventory","collection":"appliances","match":{"name":"Máy Sấy Ván"},"field":"id"},"cycle":"eco"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "stop_both"
+      selection: "last_successful_start"
+      target_event: "started"
+      replay_event: "started"
+      requires_history: false
+      expected_identity:
+        name: "Máy Giặt Sậy"
+      other_name: "Máy Sấy Ván"
+      requested_names: ["Máy Giặt Sậy","Máy Sấy Ván"]
+
+  - scenario_id: "TR13_CONTACT_OLD_EMAIL"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu email của Đặng Minh Thu trước lần đổi vừa rồi vào ghi chú mới tên Địa chỉ đã thấy. Không sửa liên hệ."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "old_read"
+      record_match:
+        name: "Đặng Minh Thu"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_CONTACT_OLD_PAIR"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "other_old"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu email của Đặng Minh Thu trước lần đổi vừa rồi vào ghi chú mới tên Địa chỉ đã thấy. Không sửa liên hệ."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "khac.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "old_read"
+      record_match:
+        name: "Đặng Minh Thu"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_CONTACT_NOW_EMAIL"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu email hiện tại của Đặng Minh Thu vào ghi chú mới tên Địa chỉ đã thấy."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "updated"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: false
+      replay_event: "updated"
+      wrong_event: "old_read"
+
+  - scenario_id: "TR13_CONTACT_OLD_PHONE"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi số điện thoại của Đặng Minh Thu trước lần đổi vừa rồi vào ghi chú Địa chỉ đã thấy."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ rồi đổi riêng điện thoại Đặng Minh Thu thành 0900001391. Giữ email và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "phone": "0900001391"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001391", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ rồi đổi riêng điện thoại Đặng Minh Thu thành 0900001391. Giữ email và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"phone":"0900001391"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "old_read"
+      record_match:
+        name: "Đặng Minh Thu"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["phone"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_CONTACT_NOW_PHONE"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi số điện thoại hiện tại của Đặng Minh Thu vào ghi chú Địa chỉ đã thấy."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ rồi đổi riêng điện thoại Đặng Minh Thu thành 0900001391. Giữ email và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "phone": "0900001391"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001391", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ rồi đổi riêng điện thoại Đặng Minh Thu thành 0900001391. Giữ email và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"phone":"0900001391"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "updated"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["phone"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: false
+      replay_event: "updated"
+      wrong_event: "old_read"
+
+  - scenario_id: "TR13_CONTACT_OLD_TWO"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi email rồi điện thoại cũ của Đặng Minh Thu, trước lần đổi vừa rồi, vào ghi chú Địa chỉ đã thấy. Ngăn hai giá trị bằng đúng chuỗi ' | '."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc liên hệ, rồi đổi email Đặng Minh Thu thành thu.moi@daymoc.example.test và điện thoại thành 0900001391. Giữ người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test", "phone": "0900001391"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001391", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc liên hệ, rồi đổi email Đặng Minh Thu thành thu.moi@daymoc.example.test và điện thoại thành 0900001391. Giữ người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test","phone":"0900001391"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "old_read"
+      record_match:
+        name: "Đặng Minh Thu"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email","phone"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+      separator: " | "
+
+  - scenario_id: "TR13_CONTACT_INTERMEDIATE"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu email Đặng Minh Thu ở giữa hai lần đổi vừa rồi vào ghi chú Địa chỉ đã thấy. Không lấy giá trị ban đầu hay cuối."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc liên hệ, đổi email Đặng Minh Thu thành thu.giua@daymoc.example.test, sau đó đổi tiếp thành thu.moi@daymoc.example.test."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.giua@daymoc.example.test"}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.giua@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc liên hệ, đổi email Đặng Minh Thu thành thu.giua@daymoc.example.test, sau đó đổi tiếp thành thu.moi@daymoc.example.test.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"intermediate","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.giua@daymoc.example.test"}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "intermediate"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_CONTACT_CURRENT_CHECK"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đọc lại liên hệ Đặng Minh Thu bây giờ rồi ghi email hiện tại vào ghi chú Địa chỉ đã thấy."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "updated"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: false
+      replay_event: "updated"
+      wrong_event: "old_read"
+      fresh_required: true
+
+  - scenario_id: "TR13_CONTACT_INSPECT"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc lại email cũ của Đặng Minh Thu từ kết quả đọc lúc nãy, không ghi chú và không sửa liên hệ."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      target_event: "old_read"
+      record_match:
+        name: "Đặng Minh Thu"
+      expected_identity:
+        name: "Đặng Minh Thu"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: true
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_CONTACT_OTHER"
+    family: "contacts"
+    world_id: "W_TR13_CONTACT_SNAPSHOTS"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi email hiện tại của Lê An Vân vào ghi chú Địa chỉ đã thấy. Không chọn Đặng Minh Thu theo thao tác vừa làm."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "contacts.search", "arguments": {}}, {"name": "contacts.update", "arguments": {"contact_id": "hist_contact_A", "email": "thu.moi@daymoc.example.test"}}], "tool_results": [{"ok": true, "contacts": [{"email": "thu.cu@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}, {"email": "van@daymoc.example.test", "id": "hist_contact_B", "name": "Lê An Vân", "phone": "0900001302", "relation": "bạn"}]}, {"ok": true, "item": {"email": "thu.moi@daymoc.example.test", "id": "hist_contact_A", "name": "Đặng Minh Thu", "phone": "0900001301", "relation": "đồng nghiệp"}}]}]
+      allowed_tools: ["contacts.search","contacts.update","notes.create","notes.list"]
+    historical_turns:
+      - {"user":"Đọc các liên hệ, rồi đổi riêng email của Đặng Minh Thu thành thu.moi@daymoc.example.test. Giữ điện thoại và người khác.","calls":[{"tag":"old_read","name":"contacts.search","arguments":{}},{"tag":"updated","name":"contacts.update","arguments":{"contact_id":{"observed":"old_read","collection":"contacts","match":{"name":"Đặng Minh Thu"},"field":"id"},"email":"thu.moi@daymoc.example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "note"
+      target_event: "old_read"
+      record_match:
+        name: "Lê An Vân"
+      expected_identity:
+        name: "Lê An Vân"
+      value_fields: ["email"]
+      note_title: "Địa chỉ đã thấy"
+      requires_history: false
+      replay_event: "updated"
+      wrong_event: "updated"
+
+  - scenario_id: "TR13_BANK_A"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thêm đúng một lần khoản vừa chuyển thành công, cùng quỹ, người nhận, số tiền và nội dung. Đừng lặp khoản bị từ chối."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+
+  - scenario_id: "TR13_BANK_B"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thêm đúng một lần khoản vừa chuyển thành công, cùng quỹ, người nhận, số tiền và nội dung. Đừng lặp khoản bị từ chối."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Trần Yến Trúc, rồi thử 500.000 đồng cho Lê Thanh Mộc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Trần Yến Trúc, rồi thử 500.000 đồng cho Lê Thanh Mộc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+
+  - scenario_id: "TR13_BANK_FAILED"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đọc lại số dư hiện tại để xem có đủ thử lại khoản vừa bị báo thiếu tiền không. Nếu vẫn thiếu thì giữ nguyên, không chuyển khoản khác."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_failed_transfer"
+      target_event: "failed"
+      expected_identity: {}
+      requires_history: true
+      replay_event: "committed"
+      fresh_required: true
+
+  - scenario_id: "TR13_BANK_NOTE"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển thêm một lần đúng khoản đã thành công, nhưng nội dung mới là Đợt bổ sung. Giữ người nhận, quỹ và số tiền."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat_changed_note"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      note: "Đợt bổ sung"
+
+  - scenario_id: "TR13_BANK_AMOUNT"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển thêm cho người vừa nhận khoản thành công nhưng chỉ 50.000 đồng, cùng quỹ và nội dung cũ."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat_changed_amount"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      amount: 50000
+
+  - scenario_id: "TR13_BANK_INSPECT"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc lại khoản nào trong hai lần vừa rồi đã chuyển được, không chuyển thêm."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+
+  - scenario_id: "TR13_BANK_BALANCE"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đọc lại số dư hiện tại của quỹ vừa dùng, không chuyển thêm."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "observe_no_write"
+      operation: "inspect"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      fresh_required: true
+
+  - scenario_id: "TR13_BANK_CHECK_REPEAT"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đọc lại số dư quỹ trước, nếu vẫn đủ thì làm thêm đúng một lần khoản đã thành công, cùng người, số tiền và nội dung."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      fresh_required: true
+
+  - scenario_id: "TR13_BANK_SOURCE"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển thêm đúng khoản đã thành công nhưng lấy từ Quỹ Rìa. Giữ người nhận, số tiền và nội dung của khoản thành công."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat_changed_source"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      source_name: "Quỹ Rìa"
+
+  - scenario_id: "TR13_BANK_BENEFICIARY"
+    family: "banking"
+    world_id: "W_TR13_FINANCIAL_HISTORY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển từ cùng quỹ cho người ở lần bị từ chối, nhưng chỉ số tiền của lần đã thành công, dùng nội dung cũ."
+      context:
+        current_time: "2027-07-15T08:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role": "user", "audio_text": "Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ."}, {"role": "assistant", "text": "", "tool_calls": [{"name": "banking.get_balance", "arguments": {}}, {"name": "banking.list_beneficiaries", "arguments": {}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": 100000, "note": "Đợt trước"}}, {"name": "banking.transfer", "arguments": {"from_account_id": "hist_fund_A", "beneficiary_id": "hist_ben_B", "amount": 500000, "note": "Đợt trước"}}], "tool_results": [{"ok": true, "accounts": [{"balance": 450000, "id": "hist_fund_A", "name": "Quỹ Ca Kẹp"}, {"balance": 700000, "id": "hist_fund_B", "name": "Quỹ Rìa"}]}, {"ok": true, "beneficiaries": [{"account_number": "13000001", "bank": "Sậy", "id": "hist_ben_A", "name": "Lê Thanh Mộc"}, {"account_number": "13000002", "bank": "Mành", "id": "hist_ben_B", "name": "Trần Yến Trúc"}]}, {"ok": true, "transaction": {"id": "tx_02", "account_id": "hist_fund_A", "beneficiary_id": "hist_ben_A", "amount": -100000, "note": "Đợt trước"}, "balance": 350000}, {"ok": true, "done": false, "message": "số dư không đủ"}]}]
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.list_transactions","banking.transfer"]
+    historical_turns:
+      - {"user":"Thử từ Quỹ Ca Kẹp chuyển 100.000 đồng cho Lê Thanh Mộc, rồi thử 500.000 đồng cho Trần Yến Trúc, nội dung Đợt trước. Nếu không đủ tiền thì giữ nguyên lần đó, không đổi quỹ.","calls":[{"tag":"inventory","name":"banking.get_balance","arguments":{}},{"tag":"beneficiaries","name":"banking.list_beneficiaries","arguments":{}},{"tag":"committed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Lê Thanh Mộc"},"field":"id"},"amount":100000,"note":"Đợt trước"},"expect":"success"},{"tag":"failed","name":"banking.transfer","arguments":{"from_account_id":{"observed":"inventory","collection":"accounts","match":{"name":"Quỹ Ca Kẹp"},"field":"id"},"beneficiary_id":{"observed":"beneficiaries","collection":"beneficiaries","match":{"name":"Trần Yến Trúc"},"field":"id"},"amount":500000,"note":"Đợt trước"},"expect":"noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      operation: "repeat_changed_beneficiary"
+      selection: "last_successful_transfer"
+      target_event: "committed"
+      expected_identity:
+        amount: -100000
+      requires_history: true
+      replay_event: "committed"
+      beneficiary_event: "failed"

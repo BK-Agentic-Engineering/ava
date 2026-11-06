@@ -1,0 +1,4098 @@
+{
+  "created_utc": "2026-11-03T15:40:08.523156+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "unique_scenarios_replayed": 4,
+    "positive_runtime_paths": 13,
+    "negative_runtime_traces": 14,
+    "verifier_only_checks": 3,
+    "all_expectations_met": true,
+    "spec_only": 4,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "static_validation": {
+    "global_scenarios": 58,
+    "global_world_instances": 18,
+    "named_lineage_ids": 12,
+    "essential_contrast_ancestry_visibility_checks": "passed",
+    "history_resolution": "reviewed_specification_not_Executor_or_NLP"
+  },
+  "provenance": {
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "design": "data\\synthetic\\design\\expansion_batch_04.yaml",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/calendar.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "world_ancestry": {
+    "parent_world_ids": [
+      "W_B03_HISTORY_EVENT"
+    ],
+    "parent_scenario_ids": [
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "parent_lineage_ids": [
+      "DEV_B03_HISTORY_EVENT_01"
+    ],
+    "contribution": "Thêm explicit preparatory selection, cùng incidental later exchange và paired explicit controls; không independent lineage do rename."
+  },
+  "fixtures": {
+    "A/original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "A/reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "B/original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "B/reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "C/original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "C/reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "D/original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    },
+    "D/reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "ex4_evt_91",
+            "title": "Soát bản in hộp",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Trúc",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_67",
+            "title": "Kiểm mẫu quai túi",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Sậy",
+            "status": "confirmed"
+          },
+          {
+            "id": "ex4_evt_23",
+            "title": "Duyệt phối màu bìa",
+            "start": "2026-12-10T10:30:00+07:00",
+            "end": "2026-12-10T11:15:00+07:00",
+            "location": "Phòng Liễu",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-12-09T08:45:00+07:00"
+      }
+    }
+  },
+  "agent_visible": {
+    "A/original": {
+      "request": "Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Duyệt phối màu bìa\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "A/reversed": {
+      "request": "Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Duyệt phối màu bìa\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B/original": {
+      "request": "Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Kiểm mẫu quai túi\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B/reversed": {
+      "request": "Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Kiểm mẫu quai túi\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C/original": {
+      "request": "Bây giờ hủy sự kiện \"Duyệt phối màu bìa\" giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Duyệt phối màu bìa\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C/reversed": {
+      "request": "Bây giờ hủy sự kiện \"Duyệt phối màu bìa\" giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Duyệt phối màu bìa\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D/original": {
+      "request": "Bây giờ hủy sự kiện \"Kiểm mẫu quai túi\" giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Kiểm mẫu quai túi\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D/reversed": {
+      "request": "Bây giờ hủy sự kiện \"Kiểm mẫu quai túi\" giúp tôi.",
+      "context": {
+        "current_time": "2026-12-09T08:45:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Tôi chọn sự kiện \"Kiểm mẫu quai túi\" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu."
+        },
+        {
+          "role": "assistant",
+          "text": "Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào."
+        },
+        {
+          "role": "user",
+          "text": "Nhân tiện, tên sự kiện \"Soát bản in hộp\" có nghĩa là kiểm tra bản in phải không?"
+        },
+        {
+          "role": "assistant",
+          "text": "Đúng, \"Soát bản in hộp\" nói về việc kiểm tra bản in."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A/reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-12-09"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B/reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-12-09"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_C",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_C",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C/reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_C",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "C/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-12-09"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_D",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_D",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D/reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_D",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "D/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-12-09"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "repeated_reads",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "other_candidate",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "incidental_C",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_91"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "both_candidates",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count",
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "target_then_C",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_91"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count",
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "hidden_ID",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "ID_not_observed_before_cancel",
+      "calls": [
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ID_not_observed_before_cancel"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "late_read",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "ID_not_observed_before_cancel",
+      "calls": [
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "cancelled"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ID_not_observed_before_cancel"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "other_candidate",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "incidental_C",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_91"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "both_candidates",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count",
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "target_then_C",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_91"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count",
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "hidden_ID",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "ID_not_observed_before_cancel",
+      "calls": [
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ID_not_observed_before_cancel"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "late_read",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "ID_not_observed_before_cancel",
+      "calls": [
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "cancelled"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ID_not_observed_before_cancel"
+        ],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "cancel_count",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "frame_reasons": [],
+        "trace_reasons": [
+          "cancel_count",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_diagnostic_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "cross_against_B",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "verifier_only_cross_contrast",
+      "construction": "deliberate_diagnostic_may_use_private_IDs",
+      "verifier_expected_scenario_id": "EX4_H_B"
+    },
+    {
+      "scenario_id": "EX4_H_B",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "cross_against_A",
+      "initial_fixture_ref": "B/original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_67"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "verifier_only_cross_contrast",
+      "construction": "deliberate_diagnostic_may_use_private_IDs",
+      "verifier_expected_scenario_id": "EX4_H_A"
+    },
+    {
+      "scenario_id": "EX4_H_A",
+      "lineage_id": "DEV_B03_HISTORY_EVENT_01",
+      "fixture_variant": "base",
+      "ordering": "original",
+      "trace_case": "incidental_field_snapshot",
+      "initial_fixture_ref": "A/original",
+      "expected_verdict": "reject",
+      "required_reason": "non_target_or_other_fields_changed",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "ex4_evt_23",
+                "title": "Duyệt phối màu bìa",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Liễu",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_67",
+                "title": "Kiểm mẫu quai túi",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Sậy",
+                "status": "confirmed"
+              },
+              {
+                "id": "ex4_evt_91",
+                "title": "Soát bản in hộp",
+                "start": "2026-12-10T10:30:00+07:00",
+                "end": "2026-12-10T11:15:00+07:00",
+                "location": "Phòng Trúc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "ex4_evt_23"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Verifier-only tampering",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_effect_mismatch"
+        ],
+        "frame_reasons": [
+          "non_target_or_other_fields_changed"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "attempt_diagnostics": {
+          "failed_call_indices": [],
+          "noop_call_indices": []
+        }
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_diagnostic_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "ex4_evt_23",
+              "title": "Duyệt phối màu bìa",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Liễu",
+              "status": "cancelled"
+            },
+            {
+              "id": "ex4_evt_67",
+              "title": "Kiểm mẫu quai túi",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Sậy",
+              "status": "confirmed"
+            },
+            {
+              "id": "ex4_evt_91",
+              "title": "Soát bản in hộp",
+              "start": "2026-12-10T10:30:00+07:00",
+              "end": "2026-12-10T11:15:00+07:00",
+              "location": "Phòng Trúc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    }
+  ],
+  "reproduction_command": "python scripts/replay_expansion_batch_04.py",
+  "limitations": [
+    "Executor does not consume history; reviewed oracle supplies intended target, not an NLP resolver.",
+    "No model comprehension, official semantic acceptance, team harness or training/export validation.",
+    "Attempts remain diagnostic; authored target/count/evidence/frame requirements decide verdict."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "TR15_PLANNING_TOMORROW",
+  "run_id": "prepared-tr15_planning_tomorrow-v01",
+  "execution": {
+    "tool_calls": [
+      {
+        "call_id": "prepared-tr15_planning_tomorrow-v01/latest/0",
+        "name": "calendar.create_event",
+        "arguments": {
+          "title": "Rà dây neo",
+          "start": "2027-09-18T08:20:00+07:00"
+        }
+      }
+    ],
+    "tool_results": [
+      {
+        "result_id": "prepared-tr15_planning_tomorrow-v01/latest/0/result",
+        "call_id": "prepared-tr15_planning_tomorrow-v01/latest/0",
+        "payload": {
+          "ok": true,
+          "id": "evt_02",
+          "item": {
+            "id": "evt_02",
+            "status": "confirmed",
+            "title": "Rà dây neo",
+            "start": "2027-09-18T08:20:00+07:00",
+            "end": "2027-09-18T09:20:00+07:00"
+          }
+        }
+      }
+    ]
+  },
+  "final_text": null,
+  "termination": {
+    "status": "completed",
+    "origin": "proposed_from_recorded_behavior"
+  },
+  "task_outcome": {
+    "source_outcome": "execute",
+    "status": "local_expected"
+  },
+  "private_final_state_ref": {
+    "path": "private/TR15_PLANNING_TOMORROW.json",
+    "selector": "/final_state"
+  },
+  "local_verification": {
+    "tool_state": {
+      "verdict": "pass",
+      "reasons": [],
+      "official_call_matching": "not_evaluated"
+    },
+    "answer_content": {
+      "status": "not_evaluated",
+      "reason": "final_text_not_captured"
+    },
+    "official_scoring": "not_evaluated"
+  },
+  "provenance": {
+    "kind": "prepared_from_canonical_local_execution",
+    "input_file": "TR15_PLANNING_TOMORROW.input.json",
+    "canonical_project_locator": "artifacts/synthetic/train_wave_15_replay/replay.json#/replays/0",
+    "reference_trace_ref": {
+      "path": "private/TR15_PLANNING_TOMORROW.json",
+      "selector": "/reference_calls"
+    }
+  },
+  "availability": {
+    "final_text": "not_captured",
+    "model_run": "not_performed",
+    "tokens_latency_timestamps": "not_captured"
+  }
+}

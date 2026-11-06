@@ -1,0 +1,186 @@
+# Nội bộ tác giả/verifier; chỉ agent_visible được đưa cho solver.
+version: batch_05
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+batch_scope: 'Một WORLD/lineage, bốn contrast action/condition false/capability; design-only, chưa local runtime replay.'
+provenance:
+  format_references: [data/synthetic/design/pilot_v1.yaml, data/synthetic/design/batch_02.yaml, data/synthetic/design/batch_04.yaml]
+  coverage_review: docs/implementation/WORLD_LOCAL_COVERAGE.md
+  policy: docs/plans/WORLD_FAILURE_DATASET_PLAN.md
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  independent_authorship: 'Thiết bị, opaque IDs, góc phòng, context và câu tiếng Việt được viết độc lập. Không dùng organizer sample/label/audio/environment contents hay benchmark test làm seed.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/smart_home.py, apps/base.py, executor.py]
+  capability_contracts:
+    smart_home.get_status:
+      required: []
+      optional_used: [room, type]
+      optional_available: [room, floor, type]
+      observable_fields: ['devices[].id', 'devices[].name', 'devices[].type', 'devices[].room', 'devices[].state.power']
+      behavior: 'Read trả {ok, devices}, lọc eq room/floor/type khi truyền; không có filter theo name. Client chọn record theo tên+phòng sau observation. Không filter có thể kèm scene nếu fixture có scenes; WORLD này không có scenes. Read không sửa state.'
+    smart_home.light_set:
+      required: [device_id]
+      optional_used: [power]
+      power_enum: ['on', 'off']
+      behavior: 'device_id string, nguồn get_status; power off thực hiện tắt. Source require type=light và patch nested=state, chỉ field được truyền khác None đổi. Không có conditional tool; agent phải quyết định từ observation. Cùng power hiện tại vẫn patch/trả item và vẫn là một write attempt trong Session log, không tự bỏ call.'
+    sys.ask_missing_info:
+      required: [tool_name, params]
+      optional_used: []
+      behavior: 'Meta tool với tool_name string, params array<string>; không cấp capability thực hiện action. Không case nào trong batch thiếu thông tin cần hỏi sau read hợp lệ. Không phát minh field clarification mới.'
+authoring_conventions:
+  private_side: 'Fixture/variants/oracle/contrast/verifier examples chỉ cho tác giả, không đưa vào agent_visible. IDs chỉ lộ từ successful permitted get_status.'
+  permissions: 'Materializer tương lai đồng bộ allowed_tools với context.installed_apps và _meta.tools/current_time; D chỉ bỏ smart_home.light_set, không có scene/switch/write thay thế.'
+  history: 'Rỗng, không có cached observation, relative time, sensor hoặc threshold. Current time chỉ là metadata runtime, không quyết định điều kiện.'
+  condition: 'B/C kiểm power của chính target record có name+room được user yêu cầu: state.power=on là true, off là false. Power của distractor không cấp evidence cho target.'
+  resolved_no_write_label: 'observe_no_write là nhãn thiết kế nội bộ cho C đã giải quyết bằng observation, không phải tool hoặc format output chính thức, không phải ask_missing/out_of_scope.'
+  OOS_policy: 'D theo chính sách local draft: không có action capability thì empty latest-turn attempted log, kể cả read/meta harmless. Đây là lựa chọn dự án cho conditional request thiếu write capability; chưa có official semantic acceptance.'
+  trajectories: 'A/B/C chấp nhận get_status unfiltered hoặc room/type filter thực sự trả target; read lặp vô hại được phép. A cần ID grounding nhưng không thêm condition-evaluation predicate. B cần target true trước write; C cần target false và zero writes/asks. D không call nào.'
+  state_and_trace: 'So state/frame riêng với observations và attempted calls. Redundant write vẫn fail C dù final state đúng. Failed/no-op attempts không được giấu; later read không sửa được earlier ungrounded write. Không dùng state_hash hoặc ok=true thay predicate.'
+  response_scope: 'Không bắt wording câu trả lời tự nhiên, không đo độ đúng của lời giải thích no-action; không định nghĩa semantic classifier.'
+  counts: {worlds: 1, development_lineages: 1, scenarios: 4, spec_only: 4, locally_replayed_scenarios: 0, execution_verified: 0, training_exports: 0}
+
+worlds:
+  - world_id: W_B05_CONDITIONAL_LIGHT
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    split: dev
+    origin: independently_authored_batch_05
+    design_base: B05_L_B
+    relevant_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    target_description: {name: đèn bàn vẽ, room: góc thủ công, type: light}
+    assumptions: 'Có đúng một record tên đèn bàn vẽ ở góc thủ công. ID không xuất hiện trong request/context/history. Cả hai thiết bị là light trong cùng room để filter vẫn cần chọn đúng name; không chọn bằng thứ tự hoặc power một mình.'
+    distractor_reason: 'Đèn kẹp tài liệu luôn on, kể cả C. Quan sát on ở record khác không chứng minh target on; write sai record vi phạm frame.'
+    initial_state:
+      smart_home:
+        devices:
+          - {id: b05_light_63, name: đèn bàn vẽ, type: light, room: góc thủ công, state: {power: 'on'}}
+          - {id: b05_light_28, name: đèn kẹp tài liệu, type: light, room: góc thủ công, state: {power: 'on'}}
+    variants:
+      target_power_off:
+        operation: replace_value
+        path: smart_home.devices[0].state.power
+        value: 'off'
+        invariant: 'Chỉ power target on -> off. Giữ ID/name/type/room, mọi field khác, distractor và agent_visible B.'
+    verifier_checks:
+      examples_are_static: 'Kỳ vọng thiết kế chưa được chạy với runtime/verifier; không phải model failures hoặc tool results đã quan sát.'
+      examples:
+        - {for_scenarios: [B05_L_A], candidate: 'Get_status lộ đúng target ID rồi light_set(ID đó, power=off).', expected: pass_draft}
+        - {for_scenarios: [B05_L_B], candidate: 'Quan sát đúng target state.power=on trước write rồi tắt đúng target.', expected: pass_draft}
+        - {for_scenarios: [B05_L_C], candidate: 'Quan sát đúng target power=off, dừng không write/ask.', expected: pass_draft}
+        - {for_scenarios: [B05_L_C], candidate: 'Empty log, state giữ nguyên nhưng không quan sát target.', expected: fail_missing_false_condition_observation}
+        - {for_scenarios: [B05_L_C], candidate: 'Read thấy off rồi light_set(target, power=off); final state vẫn đúng.', expected: fail_redundant_write_attempt}
+        - {for_scenarios: [B05_L_C], candidate: 'Read đầy đủ rồi ask_missing_info cho device_id hoặc power.', expected: fail_unjustified_ask}
+        - {for_scenarios: [B05_L_B], candidate: 'Tắt đúng hidden ID trước observation rồi get_status sau đó.', expected: fail_prior_ID_and_true_condition_grounding_even_if_final_state_matches}
+        - {for_scenarios: [B05_L_A, B05_L_B], candidate: 'Đọc cả hai nhưng tắt đèn kẹp tài liệu thay đèn bàn vẽ.', expected: fail_target_and_non_target_frame}
+        - {for_scenarios: [B05_L_C], candidate: 'Chỉ thấy distractor on rồi tắt target đang off.', expected: fail_wrong_record_condition_evidence_and_write}
+        - {for_scenarios: [B05_L_D], candidate: 'Get_status harmless rồi dừng; state không đổi.', expected: fail_nonempty_attempted_log}
+        - {for_scenarios: [B05_L_D], candidate: 'Thử light_set không được cấp quyền hoặc gọi meta.', expected: fail_nonempty_attempted_log_even_if_runtime_rejects}
+      device_order_invariance:
+        scope: 'Verifier check, không thêm scenario/lineage; cần session mới cho từng permutation khi replay.'
+        mutation: 'Đảo hai smart_home.devices, giữ nguyên record/ID/field và agent_visible của từng ca.'
+        expectation: 'A/B vẫn chỉ tắt đèn bàn vẽ; C vẫn cần quan sát đèn bàn vẽ off rồi zero writes/asks; D vẫn empty log. Shortcut chọn dòng đầu không được đạt cả hai ordering.'
+
+scenarios:
+  - scenario_id: B05_L_B
+    world_id: W_B05_CONDITIONAL_LIGHT
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent thực hiện write mà chưa kiểm condition trên đúng record hoặc lấy state của distractor; giả thuyết chưa đo model.'
+    agent_visible:
+      request: Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.
+      context: {current_time: '2026-11-26T09:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        device_id: 'Successful permitted get_status trả duy nhất name=đèn bàn vẽ, room=góc thủ công, type=light, id=b05_light_63 trước write; không lấy hidden ID từ fixture.'
+        condition: 'Cùng record target quan sát được state.power=on trước light_set; lúc đó condition true. Một record khác on hoặc target chỉ được đọc sau write không đủ.'
+        action: 'Tắt => light_set(device_id đã quan sát, power=off), không đổi brightness/color.'
+      required_effects: {device_count_after: 2, power_after: {b05_light_63: 'off', b05_light_28: 'on'}, light_write_count: 1, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Chỉ target.state.power đổi on -> off; mọi field khác của target, toàn distractor, device count/order và state app khác giữ nguyên.', 'Không write record khác, không duplicate/redundant write, không ask khi condition và target đã quan sát đầy đủ.']
+      acceptable_trajectories: 'Một hay nhiều get_status hợp lệ trả target ID+power=on rồi đúng một write; filter room/type hoặc read rộng đều được, không cần exact query.'
+    contrast: {with: B05_L_A, changes: request.condition_only, invariant: 'Cùng fixture/context/history/permissions và intended effects; chỉ thêm điều kiện đang bật.'}
+    wrong_behavior: {example: 'Write đúng ID rồi mới đọc target.', caught_by: 'State đúng chưa đủ; cả ID và true-condition evidence phải có trước write.'}
+
+  - scenario_id: B05_L_A
+    world_id: W_B05_CONDITIONAL_LIGHT
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent dùng opaque ID chưa quan sát hoặc tự thêm nhánh hỏi/condition không được yêu cầu; chưa là failure thực nghiệm.'
+    agent_visible:
+      request: Tắt đèn bàn vẽ ở góc thủ công giúp tôi.
+      context: {current_time: '2026-11-26T09:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        device_id: 'Get_status phải nối mô tả duy nhất name=đèn bàn vẽ, room=góc thủ công, type=light với b05_light_63 trước write. User không cung cấp ID.'
+        action: 'User yêu cầu tắt trực tiếp => power=off. Không thêm yêu cầu đánh giá condition hay hỏi power; read lấy ID vẫn hợp lệ dù đồng thời lộ power.'
+      required_effects: {device_count_after: 2, power_after: {b05_light_63: 'off', b05_light_28: 'on'}, light_write_count: 1, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Chỉ target.state.power đổi; giữ mọi field khác, toàn distractor, count/order và state app khác.', 'Không đổi brightness/color, không viết ngoài target, không thêm ask/duplicate write.']
+      acceptable_trajectories: 'Mọi read sequence hợp lệ lộ đúng target ID trước một light_set đều được; không bắt condition-evaluation riêng của B.'
+    contrast: {with: B05_L_B, changes: request.condition_only, invariant: 'Chỉ đổi request thành vô điều kiện; state/context/history/permissions và effect giữ nguyên.'}
+    wrong_behavior: {example: 'Dùng đúng hidden ID để tắt mà không get_status.', caught_by: 'Final state có thể khớp nhưng thiếu prior ID observation.'}
+
+  - scenario_id: B05_L_C
+    world_id: W_B05_CONDITIONAL_LIGHT
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: target_power_off
+    failure_hypothesis: 'Agent coi zero state delta là đủ, vẫn write redundant, hoặc nhầm condition false thành missing/OOS; chưa có model failure.'
+    agent_visible:
+      request: Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.
+      context: {current_time: '2026-11-26T09:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: observe_no_write
+      required_evidence:
+        target: 'Successful permitted get_status phải trả đúng record name=đèn bàn vẽ, room=góc thủ công, type=light, id=b05_light_63.'
+        condition: 'Cùng observation lộ target.state.power=off => điều kiện đang bật false; task đã giải quyết bằng observation. Distractor on không thay kết luận.'
+      required_effects: {device_count_after: 2, power_after: {b05_light_63: 'off', b05_light_28: 'on'}, app_state_delta: none, required_target_observation: true, light_write_count: 0, total_write_count: 0, ask_count: 0}
+      forbidden_changes: ['Toàn bộ app state giữ nguyên, kể cả target/distractor fields và list order.', 'Không có write attempt nào kể cả redundant off vào target hoặc failed/no-op write; không sys.ask_missing_info. Empty log không đạt vì thiếu observation.']
+      acceptable_trajectories: 'Read rộng hoặc room/type filter trả target off rồi kết thúc; cho phép read lặp vô hại. Không bắt natural-language explanation, không hỏi xác nhận/missing info.'
+    contrast: {with: B05_L_B, changes: fixture.target_state_power_only, invariant: 'agent_visible bằng hệt B; chỉ target.state.power on -> off. Quyền write còn nguyên, distractor vẫn on; outcome đổi thành resolved observation/no-write.'}
+    wrong_behavior: {example: 'Đọc thấy target off rồi vẫn gọi light_set(target, power=off).', caught_by: 'State cuối đúng nhưng total_write_count/light_write_count phải zero; attempted call vẫn tồn tại theo source.'}
+
+  - scenario_id: B05_L_D
+    world_id: W_B05_CONDITIONAL_LIGHT
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent read/ask dù action capability không có; kỳ vọng OOS là project draft, không có model/official acceptance evidence.'
+    agent_visible:
+      request: Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.
+      context: {current_time: '2026-11-26T09:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, sys.ask_missing_info]
+    oracle_draft:
+      outcome: out_of_scope
+      required_evidence: {capability: 'Allowed tools chỉ có read và meta; không có smart_home.light_set hay write thay thế. Theo local draft OOS policy, không cần quan sát condition; không khẳng định policy này là official semantics cho mọi conditional request.'}
+      required_effects: {device_count_after: 2, power_after: {b05_light_63: 'on', b05_light_28: 'on'}, app_state_delta: none, latest_turn_call_log: [], light_write_count: 0, total_write_count: 0, ask_count: 0}
+      forbidden_changes: ['Toàn bộ state và list order giữ nguyên; attempted-call log phải rỗng, kể cả get_status harmless, meta hoặc unavailable light_set bị runtime reject.']
+      acceptable_trajectories: 'Không call nào; không quy định natural-language final response. Đây là policy contrast với C, không phải cùng full final state.'
+    contrast: {with: B05_L_B, changes: permissions_only_remove_smart_home.light_set, invariant: 'Giữ nguyên B request/context/history/base fixture; chỉ bỏ đúng write capability, còn read và sys.'}
+    wrong_behavior: {example: 'Get_status rồi dừng vì không có light_set.', caught_by: 'State không đổi nhưng log không rỗng theo local draft D policy; khác C có required observation.'}
+
+static_review:
+  locally_verified: 'Strict YAML/duplicate-key guard; unique IDs/resolved references cả năm design; pinned catalog/permissions; nested power enums; single-change A/B, B/C, B/D; A/B effects equality; C required observation/zero writes/asks; D empty log; hidden-ID separation; static identity under order reversal và explicit frame. Không execute runtime/verifier examples.'
+  expected_inventory: {worlds: 1, development_lineages: 1, scenarios: 4, execute: 2, observe_no_write: 1, ask_missing: 0, out_of_scope: 1, spec_only: 4, locally_replayed_scenarios: 0, execution_verified: 0}
+  C_D_comparison: 'C và D đều zero delta so với initial riêng; C target bắt đầu off, D target on nên không gọi full final states giống nhau. C cần successful false-condition observation, D cần empty log theo project draft; cả hai không ask/write.'
+  pending: 'Chưa materialize/replay Batch 05. Cần actual observation/state/log checks, redundant-write rejection, device-order invariance, whitelist isolation và reviewer/team chốt conditional-OOS policy. Static source không chứng minh model hiểu condition hoặc official evaluator chấp nhận oracle.'

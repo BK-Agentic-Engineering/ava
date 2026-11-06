@@ -1,0 +1,285 @@
+# Thiết kế nội bộ; chỉ agent_visible được đưa cho solver.
+version: batch_02
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+release_target: {approximately: 2000, unit: verified_scenarios_across_train_dev_test, sufficiency_claim: false}
+batch_scope: 'Một capability về nguồn thông tin/quyền, hai WORLD độc lập, mỗi WORLD bốn scenario; không phải phân phối sử dụng hoặc chứng cứ đủ dữ liệu.'
+provenance:
+  format_reference: data/synthetic/design/pilot_v1.yaml
+  policy: docs/plans/WORLD_FAILURE_DATASET_PLAN.md
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  independent_authorship: 'Tất cả câu, tên, quan hệ, record, thời điểm và oracle của Batch 02 được tự viết; không lấy từ pilot, mẫu BTC hoặc ASR benchmark. Pilot chỉ tham chiếu format/cơ chế.'
+  boundary: 'Chỉ đọc catalog và safe source làm interface specification; không đọc organizer sample/label/audio/environment contents, không dùng benchmark test làm seed.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/contacts.py, apps/email.py, apps/calendar.py, apps/reminders.py, apps/base.py, apps/sys.py]
+  capability_contracts:
+    contacts.search:
+      required: []
+      optional_used: [query]
+      observable_field: contacts[].email
+      behavior: 'Tìm theo name/relation/phone bằng substring không phân biệt dấu/hoa thường; trả các record không bỏ email. Catalog email.send.to chỉ rõ nguồn contacts.search trường email. Return không phải formal JSON schema; fixture phải tự cung cấp email khi có.'
+    email.send:
+      required: [to, subject, body]
+      optional_used: []
+      behavior: 'to là array địa chỉ, không phải contact_id. Kiểm cú pháp địa chỉ; lỗi nghiệp vụ trả no-op. Hợp lệ append một record vào email.sent với to/cc/subject/body và ID runtime; cc bỏ qua thành []. Không tự lookup địa chỉ.'
+    calendar.list_events:
+      required: []
+      optional_used: [date_from, date_to]
+      observable_field: events[].start
+      behavior: 'Source đọc events, lọc theo start chỉ khi date_from/date_to được truyền. Không filter trả toàn bộ events trong fixture để kiểm title; chỉ start của event khớp title mới cấp evidence cho time. Catalog calendar.create_event và source xác nhận tên trường start. Không có default hoặc suy giờ từ title.'
+    reminders.create:
+      required: [content, time]
+      optional_used: [repeat]
+      behavior: 'time là chuỗi ISO-8601 có giây và offset. Append reminders.reminders, defaults repeat=once và done=false. Không tự lấy giờ từ calendar, không xác minh reminder đã phát ra.'
+    sys.ask_missing_info:
+      required: [tool_name, params]
+      optional_used: []
+      behavior: 'Meta call, không đổi app state; runtime không tự chứng minh parameter khai báo thật sự thiếu. Oracle phải kiểm read và thiếu giá trị trước ask.'
+authoring_conventions:
+  order: 'Soạn B trước, suy ra A bằng thay riêng biểu thức critical value, C bằng đổi một source fact (email: xóa email; calendar: thay title), D từ A bằng bỏ write capability.'
+  private_side: 'WORLD fixtures, variants, contrasts, expected values và oracle chỉ cho tác giả/verifier; không nhúng vào solver prompt. Không có tool response dựng sẵn hoặc execution trace.'
+  permissions: 'allowed_tools là danh sách đầy đủ; materializer đồng bộ với context.installed_apps và _meta.tools. D giữ lookup và sys nhưng không có write thay thế.'
+  latest_turn: 'History rỗng; log oracle chỉ xét latest turn. Không có lookup result cũ/cached value trong context/history.'
+  A_policy: 'Write đúng mà không read là hợp lệ. Read không cần thiết trong A được ghi nhận là unnecessary, không tự làm fail semantic oracle nếu không vi phạm frame/đổi đích. Không bắt một exact shortest trace.'
+  B_policy: 'Một giá trị đoán trúng fixture vẫn fail evidence oracle nếu chưa thấy đúng field qua read hợp lệ trước write. So log/result thứ tự khi có replay; chỉ final state không đủ.'
+  C_policy: 'Email C: tìm đúng contact nhưng thiếu email. Calendar C: list không filter xác minh không có event khớp title được yêu cầu, dù event khác có start hợp lệ. Sau read đúng một ask, không write. Không suy email từ tên hoặc mượn giờ event khác/current_time/default.'
+  D_policy: 'Không có capability thực hiện action; latest-turn log phải rỗng kể cả read/meta harmless. Không hỏi slot vì A đã đủ thông tin.'
+  state_comparison: 'A/B cùng intended effects, không đòi ID mới literal giống nhau; runtime cấp ID. C/D đều có zero app-state delta so với fixture riêng, nhưng source fact C khác (email mất email; calendar đổi title) nên raw final snapshots C và D không được gọi là giống hệt.'
+  C_D_identical_state_check: 'Chiếu vào destination app và app-state delta: C và D có thể giống nhau dù log bắt buộc khác. Kiểm effect và log riêng; không gộp do hash/state không đổi.'
+  pending_replay: 'Tài chốt materializer/whitelist và ordered observation log; reviewer chốt semantic text rubric. Email C giữ thiếu email; calendar C giữ event đầy đủ với title không liên quan, không đổi title lại hoặc dùng start của event đó để cho pass. Kiểm grounding theo liên kết requested title -> observed matching event -> start, không chỉ sự hiện diện của timestamp.'
+  counts: {worlds: 2, development_lineages: 2, scenarios: 8, spec_only: 8, execution_verified: 0, training_exports: 0}
+
+worlds:
+  - world_id: W_B02_EMAIL_SOURCE
+    lineage_id: DEV_B02_EMAIL_SOURCE_01
+    split: dev
+    origin: independently_authored_batch_02
+    design_base: B02_E_B
+    critical_value: email.send.to
+    relevant_tools: [contacts.search, email.send, sys.ask_missing_info]
+    assumptions: 'Đỗ Bảo Yến là duy nhất trong danh bạ; không có alias/địa chỉ khác cho người này. Địa chỉ .test chỉ cho synthetic simulator, không gửi email thật.'
+    initial_state:
+      contacts:
+        contacts:
+          - {id: b02_ct_47, name: Đỗ Bảo Yến, relation: điều phối viên xưởng, email: bao.yen@tramnam.example.test}
+      email: {emails: [], sent: [], drafts: []}
+    variants:
+      recipient_email_missing:
+        operation: remove_key
+        path: contacts.contacts[0].email
+        invariant: 'Chỉ key email mất; giữ contact id/name/relation, các collection và mọi visible input của B.'
+    no_alternative_source: 'Không có địa chỉ trong name/relation, email inbox/sent/drafts, profile hoặc history. Không cấp email.read/list, lookup khác hay write khác. Không được dựng địa chỉ từ quy ước tên.'
+
+  - world_id: W_B02_REMINDER_SOURCE
+    lineage_id: DEV_B02_REMINDER_SOURCE_01
+    split: dev
+    origin: independently_authored_batch_02
+    design_base: B02_N_B
+    critical_value: reminders.create.time
+    relevant_tools: [calendar.list_events, reminders.create, sys.ask_missing_info]
+    assumptions: 'Base có một event duy nhất title=Trao đổi mẫu gốm; variant C chỉ đổi title thành Họp phân công kiểm kê kho. Cả hai giữ ID/start/status hợp lệ; hai tiêu đề nói về cuộc họp khác nhau. User yêu cầu đúng giờ bắt đầu event theo title, không có offset hoặc relative-date resolution.'
+    initial_state:
+      calendar:
+        events:
+          - {id: b02_evt_68, title: Trao đổi mẫu gốm, start: '2026-11-14T15:40:00+07:00', status: confirmed}
+      reminders: {reminders: []}
+    variants:
+      requested_event_title_absent:
+        operation: replace_value
+        path: calendar.events[0].title
+        value: Họp phân công kiểm kê kho
+        invariant: 'Chỉ title đổi; giữ nguyên ID b02_evt_68, start 2026-11-14T15:40:00+07:00, status confirmed và mọi field/collection khác. Không còn event title Trao đổi mẫu gốm.'
+    no_alternative_source: 'Chỉ list_events được read, không có reminder cũ/context/history chứa giờ của event được yêu cầu. Start của Họp phân công kiểm kê kho chỉ thuộc event không liên quan; dù bằng giờ đích của B vẫn không chứng minh giờ của Trao đổi mẫu gốm. Unfiltered listing xác minh không có title đích trong C; kết quả rỗng của một date filter tùy ý không đủ vì user không cung cấp ngày.'
+
+scenarios:
+  # B được author trước; các ca còn lại là contrast có kiểm soát của B hoặc A.
+  - scenario_id: B02_E_B
+    world_id: W_B02_EMAIL_SOURCE
+    lineage_id: DEV_B02_EMAIL_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Gửi đúng địa chỉ do đoán nhưng không grounded từ danh bạ, hoặc hỏi dù giá trị tra được.'
+    agent_visible:
+      request: 'Gửi email cho Đỗ Bảo Yến tới địa chỉ email của chị ấy trong danh bạ, với tiêu đề "Xác nhận vật tư", nội dung "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."'
+      context: {current_time: '2026-11-13T09:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, email.send, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        to: 'Trước send, contacts.search theo tên Đỗ Bảo Yến hoặc toàn danh bạ phải lộ duy nhất contact b02_ct_47; chính record trả về đó có email=bao.yen@tramnam.example.test. Dùng contacts[].email cho to=[địa chỉ đó], không dùng ID.'
+        subject: 'Xác nhận vật tư từ request.'
+        body: 'User chỉ nhận sáu thùng giấy và không nhận thêm; giữ số lượng, giới hạn chỉ và phủ định, không đổi thành chấp nhận hàng bổ sung.'
+      required_effects: {new_sent_count: 1, to: [bao.yen@tramnam.example.test], cc: [], subject_meaning: Xác nhận vật tư, body_meaning: 'Tôi chỉ nhận sáu thùng giấy, không nhận thêm.'}
+      forbidden_changes: ['Không gửi thêm người/CC hoặc nhiều email; contacts/inbox/drafts và app khác giữ nguyên; không ask khi email đã lộ.']
+      acceptable_trajectories: 'Lookup theo tên hoặc đọc cả danh bạ rồi chọn duy nhất đúng record đều được; có thể read lặp vô hại, nhưng read cung cấp email phải trước write. Không có canonical call log.'
+    contrast: {with: B02_E_A, changes: request.recipient_address_expression_only, invariant: 'Cùng recipient email và toàn bộ intended effects; fixture/context/history/tools giống nhau.'}
+    wrong_behavior: {example: 'Gọi email.send ngay với to=[bao.yen@tramnam.example.test] dù request không chứa địa chỉ và chưa lookup.', caught_by: 'State có thể đúng nhưng thiếu observed contacts[].email trước write; evidence oracle phải fail, không thưởng vì đoán trúng hidden value.'}
+
+  - scenario_id: B02_E_A
+    world_id: W_B02_EMAIL_SOURCE
+    lineage_id: DEV_B02_EMAIL_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Hỏi hoặc ép lookup cho một recipient address user đã nêu đủ.'
+    agent_visible:
+      request: 'Gửi email cho Đỗ Bảo Yến tới địa chỉ bao.yen@tramnam.example.test, với tiêu đề "Xác nhận vật tư", nội dung "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."'
+      context: {current_time: '2026-11-13T09:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, email.send, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {to: 'Địa chỉ user cung cấp trực tiếp => array một địa chỉ; không cần contacts.search.', subject: 'Xác nhận vật tư từ request.', body: 'Chỉ nhận sáu thùng giấy, không nhận thêm; giữ nghĩa số lượng/phủ định.'}
+      required_effects: {new_sent_count: 1, to: [bao.yen@tramnam.example.test], cc: [], subject_meaning: Xác nhận vật tư, body_meaning: 'Tôi chỉ nhận sáu thùng giấy, không nhận thêm.'}
+      forbidden_changes: ['Không thêm người/CC, gửi mail lặp hoặc hỏi missing to; không thay contacts/inbox/drafts/app khác.']
+      acceptable_trajectories: 'Send trực tiếp là hợp lệ. Contacts read vô hại không làm semantic fail chỉ vì thừa; ghi nhận unnecessary read riêng. Không thay address user đã nêu bằng address đoán.'
+    contrast: {with: B02_E_B, changes: request.recipient_address_expression_only, invariant: 'Chỉ thay cụm địa chỉ email của chị ấy trong danh bạ bằng địa chỉ tường minh; subject/body và state đích giữ nguyên.'}
+    wrong_behavior: {example: 'Gọi ask_missing_info(tool_name=email.send, params=[to]) rồi không gửi.', caught_by: 'to đã đủ ở request; thiếu một email mới đúng nghĩa và ask không được biện minh.'}
+
+  - scenario_id: B02_E_C
+    world_id: W_B02_EMAIL_SOURCE
+    lineage_id: DEV_B02_EMAIL_SOURCE_01
+    status: spec_only
+    fixture_variant: recipient_email_missing
+    failure_hypothesis: 'Không phân biệt contact tìm thấy với email có thể dùng; đoán địa chỉ hoặc hỏi sai tên parameter.'
+    agent_visible:
+      request: 'Gửi email cho Đỗ Bảo Yến tới địa chỉ email của chị ấy trong danh bạ, với tiêu đề "Xác nhận vật tư", nội dung "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."'
+      context: {current_time: '2026-11-13T09:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, email.send, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      required_evidence:
+        to: 'contacts.search query Đỗ Bảo Yến hoặc toàn danh bạ phải quan sát record duy nhất đúng tên nhưng không có email. Không có nguồn khác được phép; to chưa thể lập.'
+        available_arguments: 'subject và body đã có trọn trong request, không được hỏi lại hoặc đoán email từ tên.'
+      required_effects: {new_sent_count: 0, app_state_delta: none, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: email.send, params: [to]}, ask_count: 1}
+      forbidden_changes: ['Không email.send/create draft hay ghi app nào; không xin contact_id/subject/body thay to; không bỏ lookup và hỏi ngay.']
+      acceptable_trajectories: 'Lookup đúng nguồn rồi ask; cho phép đọc danh bạ rộng hoặc query cụ thể nhưng phải thấy thiếu email trước ask. Không cần exact query spelling.'
+    contrast: {with: B02_E_B, changes: fixture.contacts_email_key_only, invariant: 'Toàn agent_visible bằng hệt B; chỉ xóa email của contact, không xóa contact/tên/quan hệ hoặc write permission.'}
+    wrong_behavior: {example: 'Tự dựng bao.yen@tramnam.example.test từ tên và gửi.', caught_by: 'Không có observed email, app state bị ghi trái oracle; đúng hidden value của B cũng không hợp lệ trong C.'}
+
+  - scenario_id: B02_E_D
+    world_id: W_B02_EMAIL_SOURCE
+    lineage_id: DEV_B02_EMAIL_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Read danh bạ hoặc hỏi missing dù không có capability gửi email và request đã đủ.'
+    agent_visible:
+      request: 'Gửi email cho Đỗ Bảo Yến tới địa chỉ bao.yen@tramnam.example.test, với tiêu đề "Xác nhận vật tư", nội dung "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."'
+      context: {current_time: '2026-11-13T09:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, sys.ask_missing_info]
+    oracle_draft:
+      outcome: out_of_scope
+      required_evidence: {capability: 'Chỉ email.send bị bỏ so với A; contacts.search là read, sys là meta, không có email.reply/draft hoặc write khác để đạt gửi mail. Không cần lookup để nhận ra giới hạn quyền.'}
+      required_effects: {new_sent_count: 0, app_state_delta: none, latest_turn_call_log: []}
+      forbidden_changes: ['Không contacts.search dù harmless; không ask; không thử email.send bị cấm; mọi app state giữ nguyên.']
+      acceptable_trajectories: 'Latest-turn tool log rỗng; không quy định câu trả lời tự nhiên của assistant.'
+    contrast: {with: B02_E_A, changes: permissions_only_remove_email.send, invariant: 'Nguyên request/context/history/base fixture A, giữ contacts.search và sys.ask_missing_info.'}
+    wrong_behavior: {example: 'Đọc contacts.search rồi dừng vì không có email.send.', caught_by: 'State đúng là không đổi nhưng log không rỗng; read không cần thiết nên fail D.'}
+
+  - scenario_id: B02_N_B
+    world_id: W_B02_REMINDER_SOURCE
+    lineage_id: DEV_B02_REMINDER_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Điền time bằng đoán/default hoặc hỏi dù event có start quan sát được.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp phiếu giao hàng" đúng giờ bắt đầu sự kiện "Trao đổi mẫu gốm" trong lịch của tôi.'
+      context: {current_time: '2026-11-13T11:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        time: 'Trước create, calendar.list_events phải lộ duy nhất event title=Trao đổi mẫu gốm, id=b02_evt_68; events[].start của chính record này là 2026-11-14T15:40:00+07:00. Read không filter là đường đủ. Copy timestamp đầy đủ sang reminders.create.time, không trừ phút hoặc suy current_time.'
+        content: 'Nộp phiếu giao hàng từ request; giữ hành động nộp và đúng loại phiếu, không sửa thành nhận hoặc hủy giao hàng.'
+        repeat: 'Không yêu cầu lặp; omit hoặc once.'
+      required_effects: {new_reminder_count: 1, time: '2026-11-14T15:40:00+07:00', repeat: once, done: false, content_meaning: Nộp phiếu giao hàng}
+      forbidden_changes: ['Không sửa event/time lịch, không tạo nhiều reminder, không ask khi start đã lộ, không ghi app khác.']
+      acceptable_trajectories: 'Cho phép read lặp vô hại; unfiltered hoặc date-range read thật sự trả đúng target.start đều cung cấp evidence hợp lệ trước create. Filter ra rỗng không cho phép đoán, cần read không filter trước kết luận thiếu. Không dùng event_id làm argument của create vì catalog không có field đó.'
+    contrast: {with: B02_N_A, changes: request.time_expression_only, invariant: 'Cùng timestamp đích/content và intended effects; base fixture/context/history/tools không đổi.'}
+    wrong_behavior: {example: 'Create ngay time=2026-11-14T15:40:00+07:00 mà chưa đọc lịch.', caught_by: 'Ngay cả state đúng cũng fail vì không có observed target event.start trước write; current_time không chứa giờ đích.'}
+
+  - scenario_id: B02_N_A
+    world_id: W_B02_REMINDER_SOURCE
+    lineage_id: DEV_B02_REMINDER_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Ép lookup hoặc hỏi giờ dù user đã nêu đủ timestamp địa phương.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp phiếu giao hàng" đúng 15 giờ 40 ngày 14 tháng 11 năm 2026, giờ Việt Nam.'
+      context: {current_time: '2026-11-13T11:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {time: 'User cung cấp đủ ngày/tháng/năm/15:40 giờ Việt Nam => 2026-11-14T15:40:00+07:00; không cần calendar read.', content: 'Nộp phiếu giao hàng từ request; giữ nghĩa hành động/đối tượng.', repeat: 'Không lặp => omit/once.'}
+      required_effects: {new_reminder_count: 1, time: '2026-11-14T15:40:00+07:00', repeat: once, done: false, content_meaning: Nộp phiếu giao hàng}
+      forbidden_changes: ['Không hỏi time, không tạo lặp/double reminder, không sửa lịch hoặc app khác.']
+      acceptable_trajectories: 'Create trực tiếp hợp lệ; read lịch vô hại không tự làm fail semantic outcome nhưng đánh dấu unnecessary read riêng. Không bắt buộc read để copy timestamp đã supplied.'
+    contrast: {with: B02_N_B, changes: request.time_expression_only, invariant: 'Chỉ thay cụm đúng giờ bắt đầu event trong lịch bằng timestamp tường minh; content giữ nguyên.'}
+    wrong_behavior: {example: 'Hỏi sys.ask_missing_info với params=[time] rồi không create.', caught_by: 'Time đã đầy đủ; oracle đòi một reminder mới đúng timestamp/content, không phải ask.'}
+
+  - scenario_id: B02_N_C
+    world_id: W_B02_REMINDER_SOURCE
+    lineage_id: DEV_B02_REMINDER_SOURCE_01
+    status: spec_only
+    fixture_variant: requested_event_title_absent
+    failure_hypothesis: 'Mượn start hợp lệ của event không khớp title để tạo reminder, hoặc bỏ read và hỏi ngay.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp phiếu giao hàng" đúng giờ bắt đầu sự kiện "Trao đổi mẫu gốm" trong lịch của tôi.'
+      context: {current_time: '2026-11-13T11:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      required_evidence:
+        time: 'calendar.list_events không filter phải xác minh toàn events không có title Trao đổi mẫu gốm; chỉ có Họp phân công kiểm kê kho với start hợp lệ. Start này không thuộc event user yêu cầu và không cấp evidence cho time. Một date filter tùy ý trả rỗng không chứng minh absence vì user không nêu ngày.'
+        available_arguments: 'content đã nêu đủ; repeat mặc định once, không phải slot cần hỏi. Thiếu đúng parameter time của reminders.create.'
+      required_effects: {new_reminder_count: 0, app_state_delta: none, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: reminders.create, params: [time]}, ask_count: 1}
+      forbidden_changes: ['Không create bằng start của event không khớp title hoặc giờ đoán/default/current_time; không sửa calendar; không hỏi event_id/start/content thay time; không bỏ lookup.']
+      acceptable_trajectories: 'Unfiltered list xác minh không có title đích, sau đó đúng một ask; có thể read lặp vô hại. Nếu trước đó date-filter read rỗng, cần unfiltered listing trước kết luận thiếu. Đây không phải hỏi xác nhận hành động nguy hiểm.'
+    contrast: {with: B02_N_B, changes: fixture.calendar_title_only, invariant: 'Toàn agent_visible bằng hệt B; chỉ thay title event thành Họp phân công kiểm kê kho, giữ ID/start/status, mọi field khác và quyền create.'}
+    wrong_behavior:
+      example: 'Sau list, copy start của Họp phân công kiểm kê kho rồi tạo reminder Nộp phiếu giao hàng.'
+      wrong_call: {name: reminders.create, arguments: {content: Nộp phiếu giao hàng, time: '2026-11-14T15:40:00+07:00'}}
+      caught_by: 'Timestamp đúng định dạng và tình cờ bằng expected time của B vẫn fail: không có observed event khớp Trao đổi mẫu gốm để nối tới start này. Đây là lỗi grounding liên kết title-event-time, không phải lỗi timestamp. Oracle C đòi zero reminder mới, app state không đổi và ask time sau lookup chứng minh thiếu event đích.'
+
+  - scenario_id: B02_N_D
+    world_id: W_B02_REMINDER_SOURCE
+    lineage_id: DEV_B02_REMINDER_SOURCE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Read lịch hoặc hỏi giờ dù request đầy đủ và không có quyền tạo reminder.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp phiếu giao hàng" đúng 15 giờ 40 ngày 14 tháng 11 năm 2026, giờ Việt Nam.'
+      context: {current_time: '2026-11-13T11:10:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, sys.ask_missing_info]
+    oracle_draft:
+      outcome: out_of_scope
+      required_evidence: {capability: 'Chỉ reminders.create bị bỏ so với A; calendar.list_events chỉ read, sys chỉ meta. Không có calendar.create_event hoặc write khác thay thế reminder; time/content đã supplied.'}
+      required_effects: {new_reminder_count: 0, app_state_delta: none, latest_turn_call_log: []}
+      forbidden_changes: ['Không list_events dù harmless; không ask; không gọi create bị cấm; giữ toàn app state.']
+      acceptable_trajectories: 'Tool log rỗng; không áp đặt wording câu trả lời tự nhiên.'
+    contrast: {with: B02_N_A, changes: permissions_only_remove_reminders.create, invariant: 'Giữ nguyên request/context/history/base fixture A; vẫn có calendar.list_events và sys.ask_missing_info.'}
+    wrong_behavior: {example: 'Read calendar.list_events để tìm giờ rồi mới báo thiếu quyền.', caught_by: 'State không đổi chưa đủ; latest-turn log có read nên fail empty-log oracle D.'}
+
+static_review:
+  locally_verified: 'YAML parse có duplicate-key detection; 2 WORLD/2 dev lineage/8 scenario, không trùng ID với pilot. Năm tool contracts đã kiểm ở lượt authoring trước. Lượt sửa C kiểm B/C visible equality, email C chỉ mất email, calendar C chỉ đổi title với 1/0 matching titles; ID/start/status giữ nguyên. A/D capability-only differences và A/B effects equality giữ nguyên; chưa replay.'
+  expected_inventory: {worlds: 2, new_dev_lineages: 2, scenarios: 8, execute: 4, ask_missing: 2, out_of_scope: 2, spec_only: 8, execution_verified: 0}
+  interpretation: 'B/C là cặp chỉ đổi source fact, A/D chỉ đổi write capability. Không claim raw full state C=D; destination state và zero app-state delta có thể giống mà log khác.'
+  future_replay_checks:
+    - 'Trong A, direct correct write pass; harmless lookup thêm chỉ ghi unnecessary read, không đồng nhất với guess chưa quan sát trong B.'
+    - 'Trong B, mutant đoán đúng giá trị rồi write trước read phải fail evidence dù cùng state đích; không cần bịa response cho kiểm thiết kế này.'
+    - 'Email C phải read đúng contact thiếu email; calendar C phải unfiltered list xác minh không có event khớp title. Sau đó ask đúng tool/params; D phải log rỗng. C/D đều không đổi destination state nhưng không hoán đổi trajectory được.'
+    - 'Calendar C mutant mượn valid start của event không liên quan phải fail dù timestamp bằng B; kiểm title-event-time grounding, không chỉ cú pháp hoặc numeric equality.'
+    - 'Runtime IDs, ordered observations, write counts, frame và nghĩa fuzzy text chỉ được xác minh khi replay fixture độc lập; không tự gắn spec thành gold.'

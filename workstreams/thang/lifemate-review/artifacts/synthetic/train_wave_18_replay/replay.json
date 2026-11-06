@@ -1,0 +1,4537 @@
+{
+  "created_utc": "2026-11-06T05:48:47.138051+00:00",
+  "replay_wall_seconds": 3.6151448999298736,
+  "declared_volatile_fields": [
+    "created_utc",
+    "replay_wall_seconds"
+  ],
+  "inventory": {
+    "scenarios_by_split": {
+      "dev": 58,
+      "train": 816
+    },
+    "worlds_by_split": {
+      "dev": 18,
+      "train": 80
+    },
+    "named_lineages": 31,
+    "integrity_contrast_visibility": "passed",
+    "components": {
+      "dev": 10,
+      "train": 6
+    }
+  },
+  "provenance": {
+    "release": "v3.2.0",
+    "schema": "2.7.0",
+    "runtime_root": "train+public_test/train/zaic_tools/",
+    "catalog_member": "train+public_test/train/train_tools_catalog.json",
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/maps.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ]
+  },
+  "agent_visible": {
+    "TR18_WORK_A": {
+      "request": "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Hạc Giấy",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    },
+    "TR18_WORK_B": {
+      "request": "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Bạch Đào",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    },
+    "TR18_ADDRESS": {
+      "request": "Lưu tiệm Sửa Khóa Tùng Chỉ ở 18 Ngõ Gốm Đỏ với nhãn Chỗ làm chìa.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Bạch Đào",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    },
+    "TR18_WORDING": {
+      "request": "Tiệm Sửa Khóa Tùng Chỉ cạnh tòa mình làm ấy, lưu giúp mình tên Chỗ làm chìa nhé.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Hạc Giấy",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    },
+    "TR18_RELABEL": {
+      "request": "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Hạc Giấy",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    },
+    "TR18_HOME": {
+      "request": "Lưu tiệm Sửa Khóa Tùng Chỉ gần nhà mình dưới nhãn Chỗ làm chìa.",
+      "context": {
+        "current_time": "2027-12-02T10:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "user_profile": {
+          "work_address": "Tòa Hạc Giấy",
+          "home_address": "Tòa Bạch Đào"
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "maps.search_place",
+        "maps.save_place"
+      ]
+    }
+  },
+  "fixtures": {
+    "TR18_WORK_A": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    },
+    "TR18_WORK_B": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    },
+    "TR18_ADDRESS": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    },
+    "TR18_WORDING": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    },
+    "TR18_RELABEL": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          },
+          {
+            "id": "w18_saved_target",
+            "place_id": "w18_lam",
+            "label": "Nhãn cũ"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    },
+    "TR18_HOME": {
+      "maps": {
+        "places": [
+          {
+            "id": "w18_dao",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "27 Hẻm Đá Xanh",
+            "detail": "Cạnh Tòa Bạch Đào",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_lam",
+            "name": "Sửa Khóa Tùng Chỉ",
+            "address": "18 Ngõ Gốm Đỏ",
+            "detail": "Cạnh Tòa Hạc Giấy",
+            "category": "sửa khóa"
+          },
+          {
+            "id": "w18_old",
+            "name": "Quán Cúc",
+            "address": "9 Dốc Mành",
+            "category": "cà phê"
+          }
+        ],
+        "saved_places": [
+          {
+            "id": "w18_saved_old",
+            "place_id": "w18_old",
+            "label": "Chỗ hẹn"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "maps.search_place",
+          "maps.save_place"
+        ],
+        "current_time": "2027-12-02T10:00:00+07:00"
+      }
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_A",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORK_B",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "18 Ngõ Gốm Đỏ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "18 Ngõ Gốm Đỏ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "18 Ngõ Gốm Đỏ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_ADDRESS",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "18 Ngõ Gốm Đỏ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_WORDING",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_03",
+            "item": {
+              "id": "fav_03",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Nhãn cũ"
+            },
+            {
+              "id": "fav_03",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_RELABEL",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_target",
+            "item": {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Hạc Giấy"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "w18_saved_target",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "broad_search",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "guessed_id",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "distractor",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_lam",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_lam",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "damage_existing",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "*"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_old",
+                "name": "Quán Cúc",
+                "address": "9 Dốc Mành",
+                "category": "cà phê"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_old",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "w18_saved_old",
+            "item": {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ làm chìa"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "wrong_label",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ hẹn"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ hẹn"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ hẹn"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR18_HOME",
+      "trace_case": "late_read",
+      "evidence_kind": "actual_runtime_trace",
+      "calls": [
+        {
+          "name": "maps.save_place",
+          "arguments": {
+            "place_id": "w18_dao",
+            "label": "Chỗ làm chìa"
+          },
+          "result": {
+            "ok": true,
+            "id": "fav_02",
+            "item": {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          }
+        },
+        {
+          "name": "maps.search_place",
+          "arguments": {
+            "query": "Sửa Khóa Tùng Chỉ",
+            "near": "Tòa Bạch Đào"
+          },
+          "result": {
+            "ok": true,
+            "places": [
+              {
+                "id": "w18_dao",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "27 Hẻm Đá Xanh",
+                "detail": "Cạnh Tòa Bạch Đào",
+                "category": "sửa khóa"
+              },
+              {
+                "id": "w18_lam",
+                "name": "Sửa Khóa Tùng Chỉ",
+                "address": "18 Ngõ Gốm Đỏ",
+                "detail": "Cạnh Tòa Hạc Giấy",
+                "category": "sửa khóa"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "maps": {
+          "places": [
+            {
+              "id": "w18_dao",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "27 Hẻm Đá Xanh",
+              "detail": "Cạnh Tòa Bạch Đào",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_lam",
+              "name": "Sửa Khóa Tùng Chỉ",
+              "address": "18 Ngõ Gốm Đỏ",
+              "detail": "Cạnh Tòa Hạc Giấy",
+              "category": "sửa khóa"
+            },
+            {
+              "id": "w18_old",
+              "name": "Quán Cúc",
+              "address": "9 Dốc Mành",
+              "category": "cà phê"
+            }
+          ],
+          "saved_places": [
+            {
+              "id": "w18_saved_old",
+              "place_id": "w18_old",
+              "label": "Chỗ hẹn"
+            },
+            {
+              "id": "fav_02",
+              "place_id": "w18_dao",
+              "label": "Chỗ làm chìa"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "place_evidence"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    }
+  ],
+  "status": {
+    "scenarios": 6,
+    "outcomes": {
+      "execute": 6
+    },
+    "verdicts": {
+      "pass": 12,
+      "reject": 30
+    },
+    "verifier_only_probes": 0,
+    "exportable": false,
+    "execution_verified": 0
+  }
+}

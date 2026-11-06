@@ -1,0 +1,514 @@
+# Thiết kế nội bộ: không đưa nguyên file này cho solver.
+version: pilot_v1
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+release_target: {approximately: 2000, unit: verified_scenarios_across_train_dev_test, sufficiency_claim: false}
+batch_scope: '16 scenario để review authoring, không phải gold thực thi hoặc training export.'
+provenance:
+  existing_seeds: docs/plans/WORLD_PILOT_DESIGN.md
+  design_policy: docs/plans/WORLD_FAILURE_DATASET_PLAN.md
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  evidence_review: docs/research/WORLD_FAILURE_EVIDENCE_2026-11-03.md
+  new_material: 'SMS, chuyển tiền, reminder và history hủy xe được tự viết; không lấy tên/câu/quan hệ/state từ mẫu BTC hoặc benchmark ASR.'
+  boundary: 'Chỉ đọc catalog và safe source; không đọc organizer JSONL, labels, audio hoặc environment contents. Không dùng ASR test để sinh seed.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/smart_home.py, apps/contacts.py, apps/sms.py, apps/banking.py, apps/reminders.py, apps/ride_hailing.py, apps/food_delivery.py, apps/base.py]
+  source_access: 'Chỉ các catalog/safe source nêu ở đây và executor.py được đọc từ archive; không import/execute runtime.'
+  capability_contracts:
+    smart_home.get_status: {required: [], optional_used: [floor, type]}
+    smart_home.light_set: {required: [device_id], optional_used: [power]}
+    ride_hailing.book: {required: [pickup, dropoff, vehicle], optional_used: []}
+    ride_hailing.get_ride: {required: [], optional_used: []}
+    ride_hailing.cancel: {required: [ride_id], optional_used: []}
+    food_delivery.list_restaurants: {required: [], optional_used: []}
+    food_delivery.get_menu: {required: [restaurant_id], optional_used: []}
+    food_delivery.place_order: {required: [restaurant_id, items], optional_used: [address, payment], item_required: [item_id, quantity]}
+    contacts.search: {required: [], optional_used: [query]}
+    sms.send: {required: [content], target_groups: [[contact_id], [phone_number]]}
+    banking.get_balance: {required: [], optional_used: []}
+    banking.list_beneficiaries: {required: [], optional_used: []}
+    banking.transfer: {required: [from_account_id, beneficiary_id, amount], optional_used: []}
+    reminders.create: {required: [content, time], optional_used: [repeat]}
+    sys.ask_missing_info: {required: [tool_name, params], optional_used: []}
+authoring_conventions:
+  solver_view: 'Chỉ request/context/history/allowed_tools trong agent_visible. Không phát WORLD, fixture, contrast, oracle hay review cho solver.'
+  fixture_view: 'worlds và oracle_draft thuộc tác giả/verifier. Đây là minimum-state assumptions, chưa phải state.json đã chạy.'
+  context_defaults: 'Mỗi agent_visible là context đầy đủ cho phép thử; dữ liệu lookup không nhúng vào prompt.'
+  permissions: 'Khi materialize, đồng bộ allowed_tools với context.installed_apps.<app>.tools và runtime _meta.tools; không cấp thêm tool ngoài danh sách.'
+  observations: 'required_evidence mô tả điều phải quan sát sau read hợp lệ, không phải tool response đã xảy ra. Không có fabricated response, gold call log hoặc state_hash.'
+  trajectories: 'Có thể đọc rộng/hẹp hoặc đổi thứ tự các read độc lập nếu giữ evidence trước write và đúng effects/frame. Không bắt đúng một trace tối thiểu.'
+  counts: '7 WORLD families, 7 development lineages, 16 spec_only; 0 execution_verified; 0 training_exports.'
+  open_integration: 'Tài cần chốt materialization fixture, whitelist/history và log; Tú chưa chốt export. Không hold vì thiếu capability; toàn bộ batch vẫn chờ review và replay.'
+  history_adapter_pending: 'History text là authoring view, không phải organizer record. Trước replay cần Tài map user text sang input text của harness; trước audio/export mới tạo audio references hợp lệ. Không bịa đường audio hay tool_results để lấp schema.'
+  semantic_review_pending: 'Reviewer cần duyệt cách diễn đạt tương đương của SMS/reminder và địa điểm. Các mục required meaning là predicate dự thảo, chưa có verifier ngữ nghĩa đã chạy.'
+  source_alignment_note: 'Pilot đèn mô tả power bằng prose; YAML đặt tại devices[].state.power đúng light_set nested=state. Đây chỉ là cụ thể hóa cấu trúc, giữ nguyên d7/d2/d8/d5 và outcomes. R3 giữ nguyên câu đầy đủ của R1, chỉ bỏ quyền book.'
+  static_checks: 'Đã parse YAML với kiểm duplicate keys; kiểm 7 WORLD/7 lineage/16 ID, control/variant references, 15 tool contracts, không lộ opaque IDs, contrast đơn biến, ngày reminder, amount/sign và history/state consistency. Không có simulator execution hoặc xác minh gold.'
+  privacy: 'Số điện thoại trong fixture là chuỗi giả lập do tác giả đặt, không khẳng định không thuộc thuê bao thật; chỉ dùng simulator, không gửi SMS/chuyển tiền/gọi xe thật.'
+
+worlds:
+  - world_id: W_LIGHTS
+    lineage_id: DEV_LIGHT_SCOPE_01
+    split: dev
+    origin: existing_pilot_L1_L2
+    assumptions: 'Không history; status phải lộ id/type/floor/name/power. ID chỉ thuộc fixture.'
+    relevant_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    initial_state:
+      smart_home:
+        devices:
+          - {id: d7, name: đèn hắt tường, type: light, floor: 2, state: {power: 'on'}}
+          - {id: d2, name: đèn đọc sách, type: light, floor: 2, state: {power: 'on'}}
+          - {id: d8, name: đèn trần, type: light, floor: 2, state: {power: 'off'}}
+          - {id: d5, name: đèn hành lang, type: light, floor: 1, state: {power: 'on'}}
+    variants: {}
+
+  - world_id: W_RIDES
+    lineage_id: DEV_RIDE_DECISION_01
+    split: dev
+    origin: existing_pilot_R1_R2_R3
+    assumptions: 'Không ride/history/đích ngầm trong profile; đặt ngay, car4; không có đường gọi xe ngoài book.'
+    relevant_tools: [ride_hailing.book, sys.ask_missing_info]
+    initial_state: {ride_hailing: {rides: []}}
+    variants: {}
+
+  - world_id: W_MENUS
+    lineage_id: DEV_MENU_DEPENDENCY_01
+    split: dev
+    origin: existing_pilot_M1_M2
+    assumptions: 'list_restaurants không trả menu; get_menu mới lộ item ID thuộc đúng quán.'
+    relevant_tools: [food_delivery.list_restaurants, food_delivery.get_menu, food_delivery.place_order, sys.ask_missing_info]
+    initial_state:
+      food_delivery:
+        restaurants:
+          - {id: r4, name: Nếp Mộc, menu: [{id: m3, name: bánh bí, price: 28000}]}
+          - {id: r9, name: Tán Lá, menu: [{id: m8, name: bánh bí, price: 31000}]}
+        orders: []
+    variants:
+      item_id_changed:
+        replace_only: food_delivery.restaurants[id=r4].menu[0].id
+        value: m6
+        invariant: 'Tên, giá, quán, menu r9, orders và visible input giữ nguyên.'
+
+  - world_id: W_SMS
+    lineage_id: DEV_SMS_RECIPIENT_01
+    split: dev
+    origin: independently_authored_this_batch
+    assumptions: 'Mẹ duy nhất theo relation; tên gần giống không quyết định người nhận. contact_ref có thể tự điền contact khi phone đối sánh duy nhất; cả hai cùng truyền thì không được tự sửa.'
+    relevant_tools: [contacts.search, sms.send, sys.ask_missing_info]
+    initial_state:
+      contacts:
+        contacts:
+          - {id: ct_m72, name: Lê Thanh Trúc, relation: mẹ, phone: '0907001206'}
+          - {id: ct_k19, name: Lê Thanh Trúc Anh, relation: đồng nghiệp, phone: '0907001286'}
+      sms: {messages: []}
+    variants: {}
+
+  - world_id: W_TRANSFER
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    split: dev
+    origin: independently_authored_this_batch
+    assumptions: 'Hai tài khoản phân biệt theo tên; một người hưởng tên duy nhất. Không có target-account balance để suy cộng tiền. Nguồn accounts và beneficiaries là hai namespace.'
+    relevant_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    initial_state:
+      banking:
+        accounts:
+          - {id: acc_c46, name: Chi tiêu, balance: 2400000}
+          - {id: acc_d18, name: Dự phòng, balance: 5100000}
+        beneficiaries:
+          - {id: ben_q83, name: Vũ Khánh Chi}
+          - {id: ben_n27, name: Nguyễn Hữu Đạt}
+        transactions:
+          - {id: tx_prior31, account_id: acc_d18, beneficiary_id: ben_n27, amount: -90000, note: giao dịch cũ độc lập}
+    variants: {}
+
+  - world_id: W_REMINDER
+    lineage_id: DEV_REMINDER_MIDNIGHT_01
+    split: dev
+    origin: independently_authored_this_batch
+    assumptions: 'Timezone Asia/Saigon; ngày mai tính theo current_time của từng scenario, không theo đồng hồ máy. create chỉ lưu timestamp/content, chưa xác minh trigger chạy.'
+    relevant_tools: [reminders.create, sys.ask_missing_info]
+    initial_state:
+      reminders:
+        reminders:
+          - {id: rem_keep52, content: Mang hộp cơm, time: '2026-11-11T07:15:00+07:00', repeat: once, done: false}
+    variants: {}
+
+  - world_id: W_CANCEL_HISTORY
+    lineage_id: DEV_CANCEL_ACTIVE_HISTORY_01
+    split: dev
+    origin: independently_authored_this_batch
+    assumptions: 'State là trạng thái sau history, không replay history thành write mới. get_ride không argument trả ride cuối chưa cancelled. History text do tác giả viết, chưa có tool response/trace thực thi.'
+    measurement_scope: 'C1/C2 kiểm tránh lặp write lịch sử và grounding cancel vào ID ride hiện hoạt. ride_hailing.get_ride() tự resolve đích mà không cần diễn giải các lượt trước; pass không cung cấp bằng chứng độc lập về hiểu history. Contrast thật sự phụ thuộc history để batch sau, chưa soạn ở đây.'
+    relevant_tools: [ride_hailing.get_ride, ride_hailing.cancel, ride_hailing.book, sys.ask_missing_info]
+    initial_state:
+      ride_hailing:
+        rides:
+          - {id: ride_old14, pickup: sảnh Nhà Đá, dropoff: Bến Gió, vehicle: car4, status: cancelled}
+          - {id: ride_a61, pickup: cổng Vườn Mây, dropoff: Nhà Sách Đồi, vehicle: car4, status: booked}
+    variants:
+      other_active_ride:
+        replace_only: ride_hailing.rides[1]
+        value: {id: ride_b93, pickup: cửa Nhà Gạch, dropoff: Trạm Hoa, vehicle: car4, status: booked}
+        invariant: 'Ride cũ không đổi; history về booking active phải đổi đồng bộ với ride thay thế. Không phải đổi hai điều kiện độc lập.'
+
+scenarios:
+  - scenario_id: L1
+    world_id: W_LIGHTS
+    lineage_id: DEV_LIGHT_SCOPE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Bỏ qua ngoại lệ hoặc ghi vào đèn ngoài tập đang bật/tầng hai.'
+    agent_visible:
+      request: Tắt các đèn đang bật ở tầng hai, chừa đèn đọc sách nhé.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        device_id: 'get_status phải cho thấy d7 là light ở floor=2, on; d2 là ngoại lệ đọc sách. Không dùng vị trí mảng.'
+        power: 'Yêu cầu tắt => off; request xác định phạm vi và ngoại lệ.'
+      required_effects: {power_after: {d7: 'off', d2: 'on', d8: 'off', d5: 'on'}, light_write_count: 1}
+      forbidden_changes: ['Không write d2/d8/d5 dù giá trị cuối có thể không đổi.', 'Không thay brightness, color hoặc app khác.']
+    contrast: {with: L2, changes: request.exception_only, invariant: 'Fixture, context, history và permissions giống nhau; d7 luôn off, d5/d8 giữ nguyên.'}
+    wrong_behavior: {example: Tắt cả d7 và d2., caught_by: 'd2.power đổi sai và call log có write d2.'}
+
+  - scenario_id: L2
+    world_id: W_LIGHTS
+    lineage_id: DEV_LIGHT_SCOPE_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Giữ ngoại lệ từ control dù câu mới không có ngoại lệ.'
+    agent_visible:
+      request: Tắt các đèn đang bật ở tầng hai nhé.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {device_id: 'get_status cho thấy d7/d2 đều light floor=2 on; request không loại đèn đọc sách.', power: 'Tắt => off.'}
+      required_effects: {power_after: {d7: 'off', d2: 'off', d8: 'off', d5: 'on'}, light_write_count: 2}
+      forbidden_changes: ['Không write d8/d5; không thay thuộc tính ngoài power hoặc app khác.']
+      acceptable_trajectories: 'Hai write d7/d2 có thể đảo thứ tự; đều phải có evidence trước write.'
+    contrast: {with: L1, changes: request.exception_only, invariant: 'Fixture/context/history/tools giữ nguyên.'}
+    wrong_behavior: {example: Chỉ tắt d7., caught_by: 'd2 vẫn on; thiếu một effect bắt buộc.'}
+
+  - scenario_id: R1
+    world_id: W_RIDES
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Đảo pickup/dropoff hoặc hỏi thừa khi mọi argument đã đủ.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm, đưa đến Nhà Kính.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {pickup: 'cổng Xưởng Gốm từ request', dropoff: 'Nhà Kính từ request', vehicle: 'bốn chỗ => car4', schedule_time: 'Không có giờ tương lai; omit để đặt ngay.'}
+      required_effects:
+        new_ride_count: 1
+        pickup: cổng Xưởng Gốm
+        dropoff: Nhà Kính
+        vehicle: car4
+        status: booked
+        new_ride_forbidden_keys: [schedule_time]
+        schedule_time_check: 'Ride mới không được có key schedule_time. Key tồn tại với null, chuỗi rỗng hoặc chữ absent đều không đạt; không so bằng một giá trị sentinel.'
+      forbidden_changes: ['Không tạo ride thứ hai, không hỏi missing, không ghi app khác.']
+    contrast: {with: R2, changes: request.dropoff_clause_only, invariant: 'Pickup, vehicle, context, history, state và permissions giống nhau.'}
+    wrong_behavior: {example: Đón tại Nhà Kính rồi đến cổng Xưởng Gốm., caught_by: 'So raw pickup/dropoff trong ride mới; không chỉ dựa hash fuzzy.'}
+
+  - scenario_id: R2
+    world_id: W_RIDES
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Đoán đích hoặc coi thiếu đích là OOS.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      required_evidence: {pickup: 'Có từ request.', vehicle: 'Có bốn chỗ => car4.', dropoff: 'Không có trong request/context/history; không có lookup được phép.'}
+      required_effects: {new_ride_count: 0, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: ride_hailing.book, params: [dropoff]}, ask_count: 1}
+      forbidden_changes: ['Không book với đích đoán; không log rỗng thay cho ask; mọi app state giữ nguyên.']
+    contrast: {with: R1, changes: request.dropoff_clause_only, invariant: 'Chỉ thiếu dropoff, không thiếu pickup/vehicle hoặc quyền book.'}
+    wrong_behavior: {example: Trả log rỗng., caught_by: 'State không đổi nhưng thiếu đúng call ask và params dropoff.'}
+
+  - scenario_id: R3
+    world_id: W_RIDES
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Hỏi thiếu thông tin khi thật ra không có capability đặt xe.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm, đưa đến Nhà Kính.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [sys.ask_missing_info]
+    oracle_draft:
+      outcome: out_of_scope
+      required_evidence: {capability: 'Whitelist không còn ride_hailing.book và không có đường đặt xe khác; request đã đủ slot.'}
+      required_effects: {new_ride_count: 0, latest_turn_call_log: []}
+      forbidden_changes: ['Không hỏi thêm, không gọi book bị cấm; mọi app state giữ nguyên.']
+    contrast: {with: R1, changes: permissions_only_remove_ride_hailing.book, invariant: 'Nguyên câu R1; context, history và state không đổi. Đồng bộ hai whitelist khi materialize.'}
+    wrong_behavior: {example: Gọi sys.ask_missing_info cho dropoff., caught_by: 'Log phải rỗng dù state không đổi; dropoff thật sự đã có.'}
+
+  - scenario_id: M1
+    world_id: W_MENUS
+    lineage_id: DEV_MENU_DEPENDENCY_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Lấy item cùng tên nhưng sai restaurant namespace hoặc đoán item ID trước menu.'
+    agent_visible:
+      request: Đặt hai phần bánh bí của quán Nếp Mộc, giao tại sảnh Đông, trả tiền mặt.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [food_delivery.list_restaurants, food_delivery.get_menu, food_delivery.place_order, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {restaurant_id: 'list_restaurants ánh xạ Nếp Mộc => r4, không lộ menu.', items: 'get_menu(restaurant_id=r4) lộ bánh bí m3, giá 28000; quantity=2 từ request.', address: 'sảnh Đông từ request', payment: 'tiền mặt => cash'}
+      required_effects:
+        new_order_count: 1
+        restaurant_id: r4
+        item_line_count: 1
+        item_line_required_fields: {item_id: m3, quantity: 2}
+        item_line_comparison: 'Đúng một dòng trong items của đúng một order mới. So item_id và quantity trên dòng đó; cho phép trường runtime bổ sung như name và note, không đòi object bằng hệt hai trường mẫu.'
+        total: 56000
+        address: sảnh Đông
+        payment: cash
+        status: placed
+      forbidden_changes: ['Không dùng m8/quán r9; không order lặp; menus và app khác giữ nguyên.']
+    contrast: {with: M2, changes: fixture.item_id_only, invariant: 'Request/context/history/tools, giá, quán và nghĩa order không đổi; item ID phải theo menu quan sát.'}
+    wrong_behavior: {example: place_order cho r4 nhưng item_id=m8., caught_by: 'Source trả no-op; không có order mới đúng restaurant/item và tổng. ok=true không đủ.'}
+
+  - scenario_id: M2
+    world_id: W_MENUS
+    lineage_id: DEV_MENU_DEPENDENCY_01
+    status: spec_only
+    fixture_variant: item_id_changed
+    failure_hypothesis: 'Nhớ ID món của control thay vì dùng menu hiện tại.'
+    agent_visible:
+      request: Đặt hai phần bánh bí của quán Nếp Mộc, giao tại sảnh Đông, trả tiền mặt.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [food_delivery.list_restaurants, food_delivery.get_menu, food_delivery.place_order, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {restaurant_id: 'list_restaurants cho thấy Nếp Mộc r4.', items: 'get_menu(r4) trong variant này phải cho thấy bánh bí m6, không phải m3/m8; quantity=2.', address: 'sảnh Đông từ request', payment: 'tiền mặt => cash'}
+      required_effects:
+        new_order_count: 1
+        restaurant_id: r4
+        item_line_count: 1
+        item_line_required_fields: {item_id: m6, quantity: 2}
+        item_line_comparison: 'Đúng một dòng trong items của đúng một order mới. So item_id và quantity trên dòng đó; cho phép trường runtime bổ sung như name và note, không đòi object bằng hệt hai trường mẫu.'
+        total: 56000
+        address: sảnh Đông
+        payment: cash
+        status: placed
+      forbidden_changes: ['Không dùng m3/m8; không tạo hai đơn; không đổi menu hoặc app khác.']
+    contrast: {with: M1, changes: fixture.item_id_only, invariant: 'Chỉ m3 thành m6 trong menu Nếp Mộc; visible input byte-equivalent.'}
+    wrong_behavior: {example: Dùng m3 hoặc tạo hai order giống nhau., caught_by: 'Đúng một order mới có m6 quantity=2 total=56000; log cho thấy đã đọc menu trước dùng ID.'}
+
+  - scenario_id: S1
+    world_id: W_SMS
+    lineage_id: DEV_SMS_RECIPIENT_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Thêm contact_id tự đoán vào một phone_number đã đủ.'
+    agent_visible:
+      request: 'Nhắn tới số 0907001206: Con đã về nhà an toàn.'
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, sms.send, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {phone_number: 'Chuỗi 0907001206 được user cung cấp đủ; có thể send phone-only, không bắt buộc lookup.', contact_id: 'Nếu truyền contact_id thì phải tra contacts.search và xác minh cùng số; không tự điền opaque ID.', content: 'Con đã về nhà an toàn từ request; giữ ý người con báo an toàn, không thêm yêu cầu.'}
+      required_effects: {new_message_count: 1, direction: outgoing, recipient_phone: '0907001206', consistent_contact_id_if_stored: ct_m72, meaning: Con đã về nhà an toàn}
+      forbidden_changes: ['Cấm ghép contact_id=ct_k19 có thật của đồng nghiệp với phone_number=0907001206 có thật của mẹ: cả hai tồn tại và schema chấp nhận nhưng không cùng người nhận. Invented contact_id cũng fail; không sửa contacts hoặc ghi app khác.']
+      acceptable_trajectories: 'Phone-only hợp lệ; helper có thể tự gắn ct_m72. Lookup rồi gửi ID, số hoặc cả hai nhất quán đều được nếu evidence có trước write.'
+    contrast: {with: S2, changes: request.recipient_expression_only, invariant: 'Cùng người nhận thực, nội dung, tools, state, context/history; lookup chỉ bắt buộc khi chưa có số/ID.'}
+    wrong_behavior:
+      example: 'sms.send ghép ID đồng nghiệp có thật với số mẹ có thật.'
+      wrong_call: {name: sms.send, arguments: {contact_id: ct_k19, phone_number: '0907001206', content: Con đã về nhà an toàn}}
+      caught_by: 'Reject theo oracle: ct_k19.phone=0907001286 khác số đã chỉ định và thuộc đồng nghiệp. contact_ref giữ nguyên cả hai khi cùng được truyền, nên stored pair sai dù schema chấp nhận và số đích đúng. Kiểm quan hệ ID–phone cùng evidence, không chỉ existence hoặc phone. Phone-only vẫn hợp lệ.'
+
+  - scenario_id: S2
+    world_id: W_SMS
+    lineage_id: DEV_SMS_RECIPIENT_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Chọn tên gần giống thay cho quan hệ mẹ có thể tra duy nhất.'
+    agent_visible:
+      request: 'Nhắn cho mẹ: Con đã về nhà an toàn.'
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [contacts.search, sms.send, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {recipient: 'contacts.search query mẹ hoặc danh bạ đầy đủ phải lộ record relation=mẹ, name Lê Thanh Trúc, id ct_m72 và phone 0907001206; record ct_k19 là đồng nghiệp.', content: 'Con đã về nhà an toàn từ request.'}
+      required_effects: {new_message_count: 1, direction: outgoing, recipient_phone: '0907001206', consistent_contact_id_if_stored: ct_m72, meaning: Con đã về nhà an toàn}
+      forbidden_changes: ['Không chọn ct_k19 theo tên gần giống; không bịa ID kèm đúng phone; không hỏi mẹ là ai khi read đã phân biệt; contacts và app khác giữ nguyên.']
+      acceptable_trajectories: 'Sau lookup có thể gửi contact_id, phone_number hoặc cả hai nếu cùng record đã quan sát; phải kiểm stored recipient nhất quán.'
+    contrast: {with: S1, changes: request.recipient_expression_only, invariant: 'Cùng đích/nội dung và tất cả input khác; không đổi permissions để ép lookup.'}
+    wrong_behavior: {example: Gửi Lê Thanh Trúc Anh vì thấy tên gần giống., caught_by: 'Kiểm relation evidence và stored recipient pair, không chỉ tên hiển thị.'}
+    verifier_checks:
+      contact_order_invariance:
+        scope: 'Verifier check gắn S2, không phải scenario/lineage mới; hai lượt replay tương lai độc lập từ state mới.'
+        mutation: 'Đảo đúng thứ tự hai record trong W_SMS.initial_state.contacts.contacts: [ct_m72, ct_k19] thành [ct_k19, ct_m72]. Không đổi bất kỳ field nào của record.'
+        invariant: 'Giữ nguyên request, context, history, permissions, SMS state và oracle S2. Người nhận vẫn là ct_m72 / 0907001206, đúng một message cùng nghĩa.'
+        first_row_shortcut: 'Nếu đọc toàn danh bạ rồi chọn dòng đầu: thứ tự gốc chọn mẹ nên có thể đạt, thứ tự đảo chọn đồng nghiệp nên phải fail recipient/evidence checks. Không chấp nhận chỉ đạt một ordering.'
+        valid_lookup: 'contacts.search theo relation mẹ vẫn hợp lệ và phải resolve cùng record ở cả hai ordering; cũng chấp nhận đọc cả danh bạ rồi lọc đúng relation.'
+
+  - scenario_id: T1
+    world_id: W_TRANSFER
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Lấy số đầu trước tự sửa, chuyển hai lần hoặc nhầm namespace tài khoản/người hưởng.'
+    agent_visible:
+      request: Chuyển từ tài khoản Chi tiêu cho Vũ Khánh Chi sáu trăm nghìn đồng, à không, bốn trăm hai mươi nghìn đồng thôi.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {from_account_id: 'get_balance accounts: Chi tiêu acc_c46 có 2400000, đủ số dư; không dùng beneficiary/contact ID.', beneficiary_id: 'list_beneficiaries: duy nhất Vũ Khánh Chi ben_q83.', amount: 'Hai số đủ đơn vị; à không thay 600000 bằng 420000; transfer amount là integer dương.'}
+      required_effects: {new_transaction_count: 1, account_balance_after: {acc_c46: 1980000, acc_d18: 5100000}, transaction: {account_id: acc_c46, beneficiary_id: ben_q83, amount: -420000}}
+      forbidden_changes: ['Không debit 600000 hoặc cả hai; giữ tx_prior31, beneficiaries và app khác; không giả định có balance đích để kiểm credit.']
+      acceptable_trajectories: 'Hai read có thể đảo thứ tự; đúng một transfer sau khi đã grounded cả hai ID. Không thêm confirmation policy ngoài yêu cầu/catalog.'
+    contrast: {with: T2, changes: request.self_correction_only, invariant: 'Cùng số cuối 420000, nguồn, beneficiary, context/history/state/tools và effects.'}
+    wrong_behavior: {example: Chuyển 600000 rồi chuyển thêm 420000., caught_by: 'Hai transaction/debit tổng sai; required đúng một amount=-420000 và balance=1980000.'}
+
+  - scenario_id: T2
+    world_id: W_TRANSFER
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Control đủ amount vẫn chọn sai nguồn/người hưởng hoặc nhầm dấu transaction.'
+    agent_visible:
+      request: Chuyển từ tài khoản Chi tiêu cho Vũ Khánh Chi bốn trăm hai mươi nghìn đồng thôi.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {from_account_id: 'get_balance -> Chi tiêu acc_c46, balance 2400000.', beneficiary_id: 'list_beneficiaries -> Vũ Khánh Chi ben_q83.', amount: 'bốn trăm hai mươi nghìn đồng => argument 420000 dương; runtime transaction lưu -420000.'}
+      required_effects: {new_transaction_count: 1, account_balance_after: {acc_c46: 1980000, acc_d18: 5100000}, transaction: {account_id: acc_c46, beneficiary_id: ben_q83, amount: -420000}}
+      forbidden_changes: ['Giữ tx_prior31 và mọi record khác; không dùng tài khoản Dự phòng; không retry thành hai transfer.']
+    contrast: {with: T1, changes: request.self_correction_only, invariant: 'Chỉ bỏ amount cũ và cụm sửa; kết quả phải giống T1.'}
+    wrong_behavior: {example: Truyền amount=-420000 hoặc beneficiary_id=acc_c46., caught_by: 'Catalog amount phải >0; namespace sai dẫn no-op, không đạt debit/transaction đích. Không coi ok=true là success.'}
+
+  - scenario_id: N1
+    world_id: W_REMINDER
+    lineage_id: DEV_REMINDER_MIDNIGHT_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Dùng ngày hệ thống hoặc mất phủ định trong content fuzzy.'
+    agent_visible:
+      request: Chiều mai lúc 18 giờ, nhắc tôi không bật máy hút bụi trong phòng làm việc.
+      context: {current_time: '2026-11-10T23:59:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {time: 'Ngày mai từ 10/11 địa phương => 11/11 18:00, +07:00; không dùng now của máy.', content: 'Không bật máy hút bụi trong phòng làm việc; phủ định gắn với bật, không phải tắt một thiết bị ngay.', repeat: 'Không có chu kỳ; omit hoặc once.'}
+      required_effects: {new_reminder_count: 1, time: '2026-11-11T18:00:00+07:00', repeat: once, done: false, meaning: 'Nhắc không bật máy hút bụi trong phòng làm việc.'}
+      forbidden_changes: ['Giữ rem_keep52; không tạo reminder lặp; không điều khiển thiết bị hoặc app khác; không đảo phủ định.']
+    contrast: {with: N2, changes: context.current_time_only, invariant: 'Nguyên request/history/tools/fixture; local hour 18:00 và content giữ nguyên, chỉ target date đổi.'}
+    wrong_behavior: {example: Tạo đúng giờ nhưng content là bật máy hút bụi., caught_by: 'Kiểm nghĩa không bật độc lập time/hash; hash có thể bỏ content nên không đủ.'}
+
+  - scenario_id: N2
+    world_id: W_REMINDER
+    lineage_id: DEV_REMINDER_MIDNIGHT_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Qua nửa đêm vẫn resolve mai thành ngày cũ.'
+    agent_visible:
+      request: Chiều mai lúc 18 giờ, nhắc tôi không bật máy hút bụi trong phòng làm việc.
+      context: {current_time: '2026-11-11T00:01:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {time: 'Ngày mai từ 11/11 địa phương => 12/11 18:00 +07:00.', content: 'Giữ không bật máy hút bụi trong phòng làm việc.', repeat: 'Không chu kỳ => once/omit.'}
+      required_effects: {new_reminder_count: 1, time: '2026-11-12T18:00:00+07:00', repeat: once, done: false, meaning: 'Nhắc không bật máy hút bụi trong phòng làm việc.'}
+      forbidden_changes: ['Giữ rem_keep52; không ghi app khác; không mất phủ định hoặc dùng 11/11 làm ngày mai.']
+    contrast: {with: N1, changes: context.current_time_only, invariant: 'Chỉ current_time qua nửa đêm; request hoàn toàn giống N1.'}
+    wrong_behavior: {example: Tạo reminder 2026-11-11T18:00:00+07:00., caught_by: 'So local date với context; phải là 12/11, không chỉ so hour.'}
+
+  - scenario_id: N3
+    world_id: W_REMINDER
+    lineage_id: DEV_REMINDER_MIDNIGHT_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Copy content phủ định của control dù user đã yêu cầu bật.'
+    agent_visible:
+      request: Chiều mai lúc 18 giờ, nhắc tôi bật máy hút bụi trong phòng làm việc.
+      context: {current_time: '2026-11-11T00:01:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {time: 'Cùng current_time N2 => 12/11 18:00 +07:00.', content: 'Bật máy hút bụi trong phòng làm việc, không còn từ không.', repeat: 'Không chu kỳ => once/omit.'}
+      required_effects: {new_reminder_count: 1, time: '2026-11-12T18:00:00+07:00', repeat: once, done: false, meaning: 'Nhắc bật máy hút bụi trong phòng làm việc.'}
+      forbidden_changes: ['Giữ rem_keep52; không điều khiển máy ngay; không thêm phủ định hoặc thay ngày/giờ.']
+    contrast: {with: N2, changes: request.content_polarity_only, invariant: 'Chỉ bỏ không trong message; context/history/tools/state/time/repeat giữ nguyên.'}
+    wrong_behavior: {example: Giữ content không bật của N2., caught_by: 'Time/hash có thể giống nhưng nghĩa reminder sai; kiểm content semantic riêng.'}
+
+  - scenario_id: C1
+    world_id: W_CANCEL_HISTORY
+    lineage_id: DEV_CANCEL_ACTIVE_HISTORY_01
+    status: spec_only
+    fixture_variant: base
+    failure_hypothesis: 'Lặp booking đã thực hiện hoặc không grounding cancellation vào ID chuyến hiện hoạt; không phải phép đo hiểu history độc lập.'
+    agent_visible:
+      request: Hủy chuyến xe hiện tại giúp tôi nhé.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: Đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió.}
+        - {role: assistant, text: Đã đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió.}
+        - {role: user, text: Hủy chuyến vừa đặt rồi đặt xe bốn chỗ từ cổng Vườn Mây đến Nhà Sách Đồi.}
+        - {role: assistant, text: Đã hủy chuyến từ sảnh Nhà Đá và đặt chuyến từ cổng Vườn Mây đến Nhà Sách Đồi.}
+      allowed_tools: [ride_hailing.get_ride, ride_hailing.cancel, ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {ride_id: 'get_ride() phải lộ active ride_a61 có tuyến cổng Vườn Mây -> Nhà Sách Đồi trước cancel. Read này tự resolve đích, không cần diễn giải history. Không tự lấy ID từ fixture; không replay booking trong history.'}
+      required_effects: {ride_count_after: 2, statuses: {ride_old14: cancelled, ride_a61: cancelled}, latest_turn_cancel_count: 1, latest_turn_booking_count: 0}
+      forbidden_changes: ['Không cancel ride_old14 dù status cuối vẫn cancelled; không replay book; raw tuyến/vehicle và mọi app khác giữ nguyên.']
+      history_consistency: 'Hai booking và một cancel trước latest turn đã được áp vào initial state. History là bản kể độc lập, không giả làm log/results runtime.'
+    contrast: {with: C2, changes: active_ride_identity_and_matching_history, invariant: 'Latest request/context/tools/ride cũ/số ride giống nhau. Tuyến và history phải đổi đồng bộ với active ride; đây là controlled fixture substitution, không phải cặp chỉ đổi một chuỗi visible.'}
+    wrong_behavior: {example: Book lại tuyến trong history rồi hủy ride_old14., caught_by: 'Book count phải 0; cancel target phải active đã đọc; ride count=2 và frame giữ ride cũ.'}
+
+  - scenario_id: C2
+    world_id: W_CANCEL_HISTORY
+    lineage_id: DEV_CANCEL_ACTIVE_HISTORY_01
+    status: spec_only
+    fixture_variant: other_active_ride
+    failure_hypothesis: 'Dùng active ID của control thay vì grounding từ get_ride hiện tại, hoặc lặp booking lịch sử; không phải phép đo hiểu history độc lập.'
+    agent_visible:
+      request: Hủy chuyến xe hiện tại giúp tôi nhé.
+      context: {current_time: '2026-11-10T09:00:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: Đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió.}
+        - {role: assistant, text: Đã đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió.}
+        - {role: user, text: Hủy chuyến vừa đặt rồi đặt xe bốn chỗ từ cửa Nhà Gạch đến Trạm Hoa.}
+        - {role: assistant, text: Đã hủy chuyến từ sảnh Nhà Đá và đặt chuyến từ cửa Nhà Gạch đến Trạm Hoa.}
+      allowed_tools: [ride_hailing.get_ride, ride_hailing.cancel, ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {ride_id: 'get_ride() trong fixture này tự resolve ride_b93, tuyến cửa Nhà Gạch -> Trạm Hoa mà không cần diễn giải lượt trước; active ID không xuất hiện trong user/history. History đã áp vào state; không replay booking.'}
+      required_effects: {ride_count_after: 2, statuses: {ride_old14: cancelled, ride_b93: cancelled}, latest_turn_cancel_count: 1, latest_turn_booking_count: 0}
+      forbidden_changes: ['Không cancel ride_old14 hoặc ID ride_a61 của control; không book lại; giữ raw tuyến/vehicle và app khác.']
+      history_consistency: 'Cùng chuỗi hai booking/một cancel trước latest turn, nhưng booking active và record state đều thay sang tuyến mới; chưa có log thực thi.'
+    contrast: {with: C1, changes: active_ride_identity_and_matching_history, invariant: 'Không đổi latest request/tools/current_time/ride cũ; chỉ thay nhất quán danh tính active và mô tả booking tương ứng.'}
+    wrong_behavior: {example: Cancel ride_a61 theo control hoặc gọi book lại từ history., caught_by: 'ID chưa quan sát/không có trong variant, active b93 còn booked hoặc ride count tăng; kiểm cả state và latest-turn log.'}

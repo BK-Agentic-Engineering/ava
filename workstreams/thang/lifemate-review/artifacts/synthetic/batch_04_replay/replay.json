@@ -1,0 +1,4660 @@
+{
+  "created_utc": "2026-11-03T08:49:34.216458+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "unique_scenarios_replayed": 4,
+    "positive_paths": 10,
+    "negative_checks": 23,
+    "human_review_probes": 1,
+    "source_extractor_checks": 5,
+    "all_expectations_met": true,
+    "spec_only": 4,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "provenance": {
+    "design": "data\\synthetic\\design\\batch_04.yaml",
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/email.py",
+      "train+public_test/train/zaic_tools/apps/reminders.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "reproduction_command": "python scripts/replay_batch04.py",
+  "fixtures": {
+    "B": {
+      "email": {
+        "emails": [
+          {
+            "id": "b04_mail_36",
+            "from": "dieuphoi@bolaustudio.example.test",
+            "subject": "Lịch bàn giao kệ trưng bày",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+          },
+          {
+            "id": "b04_mail_91",
+            "from": "baotri@tramsoi.example.test",
+            "subject": "Mốc chốt phiếu bảo trì",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+          }
+        ],
+        "sent": [],
+        "drafts": []
+      },
+      "reminders": {
+        "reminders": [
+          {
+            "id": "b04_rem_keep_24",
+            "content": "Mang thẻ gửi xe",
+            "time": "2026-11-24T08:10:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "tools": [
+          "email.list",
+          "email.read",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "A": {
+      "email": {
+        "emails": [
+          {
+            "id": "b04_mail_36",
+            "from": "dieuphoi@bolaustudio.example.test",
+            "subject": "Lịch bàn giao kệ trưng bày",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+          },
+          {
+            "id": "b04_mail_91",
+            "from": "baotri@tramsoi.example.test",
+            "subject": "Mốc chốt phiếu bảo trì",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+          }
+        ],
+        "sent": [],
+        "drafts": []
+      },
+      "reminders": {
+        "reminders": [
+          {
+            "id": "b04_rem_keep_24",
+            "content": "Mang thẻ gửi xe",
+            "time": "2026-11-24T08:10:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "tools": [
+          "email.list",
+          "email.read",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "C": {
+      "email": {
+        "emails": [
+          {
+            "id": "b04_mail_36",
+            "from": "dieuphoi@bolaustudio.example.test",
+            "subject": "Lịch bàn giao kệ trưng bày",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+          },
+          {
+            "id": "b04_mail_91",
+            "from": "baotri@tramsoi.example.test",
+            "subject": "Mốc chốt phiếu bảo trì",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+          }
+        ],
+        "sent": [],
+        "drafts": []
+      },
+      "reminders": {
+        "reminders": [
+          {
+            "id": "b04_rem_keep_24",
+            "content": "Mang thẻ gửi xe",
+            "time": "2026-11-24T08:10:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "tools": [
+          "email.list",
+          "email.read",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "D": {
+      "email": {
+        "emails": [
+          {
+            "id": "b04_mail_36",
+            "from": "dieuphoi@bolaustudio.example.test",
+            "subject": "Lịch bàn giao kệ trưng bày",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+          },
+          {
+            "id": "b04_mail_91",
+            "from": "baotri@tramsoi.example.test",
+            "subject": "Mốc chốt phiếu bảo trì",
+            "folder": "inbox",
+            "unread": true,
+            "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+          }
+        ],
+        "sent": [],
+        "drafts": []
+      },
+      "reminders": {
+        "reminders": [
+          {
+            "id": "b04_rem_keep_24",
+            "content": "Mang thẻ gửi xe",
+            "time": "2026-11-24T08:10:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "tools": [
+          "email.list",
+          "email.read",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    }
+  },
+  "agent_visible": {
+    "B": {
+      "request": "Tạo lời nhắc \"Nộp biên bản bàn giao kệ trưng bày\" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề \"Lịch bàn giao kệ trưng bày\" do dieuphoi@bolaustudio.example.test gửi.",
+      "context": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "email": {
+            "tools": [
+              "email.list",
+              "email.read"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "email.list",
+        "email.read",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "A": {
+      "request": "Tạo lời nhắc \"Nộp biên bản bàn giao kệ trưng bày\" vào 14 giờ 20 ngày 23 tháng 11 năm 2026, giờ Việt Nam.",
+      "context": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "email": {
+            "tools": [
+              "email.list",
+              "email.read"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "email.list",
+        "email.read",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C": {
+      "request": "Tạo lời nhắc \"Nộp biên bản bàn giao kệ trưng bày\" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề \"Lịch bàn giao kệ trưng bày\" do dieuphoi@bolaustudio.example.test gửi.",
+      "context": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "email": {
+            "tools": [
+              "email.list",
+              "email.read"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "email.list",
+        "email.read",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D": {
+      "request": "Tạo lời nhắc \"Nộp biên bản bàn giao kệ trưng bày\" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề \"Lịch bàn giao kệ trưng bày\" do dieuphoi@bolaustudio.example.test gửi.",
+      "context": {
+        "current_time": "2026-11-20T09:15:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "email": {
+            "tools": [
+              "email.list",
+              "email.read"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "email.list",
+        "email.read",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "source_extractor_checks": [
+    {
+      "case": "authored_time",
+      "authored_text_input": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n",
+      "expected_status": "available",
+      "actual": {
+        "status": "available",
+        "time": "2026-11-23T14:20:00+07:00"
+      }
+    },
+    {
+      "case": "authored_unavailable",
+      "authored_text_input": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n",
+      "expected_status": "unavailable",
+      "actual": {
+        "status": "unavailable",
+        "time": null
+      }
+    },
+    {
+      "case": "unfamiliar",
+      "authored_text_input": "Thời điểm nộp biên bản: khi thuận tiện.",
+      "expected_status": "unresolved",
+      "actual": {
+        "status": "unresolved",
+        "time": null
+      }
+    },
+    {
+      "case": "ambiguous",
+      "authored_text_input": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\nChào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n",
+      "expected_status": "unresolved",
+      "actual": {
+        "status": "unresolved",
+        "time": null
+      }
+    },
+    {
+      "case": "invalid_date",
+      "authored_text_input": "Thời điểm nộp biên bản: 2026-02-30T14:20:00+07:00.",
+      "expected_status": "unresolved",
+      "actual": {
+        "status": "unresolved",
+        "time": null
+      }
+    }
+  ],
+  "replays": [
+    {
+      "scenario_id": "B04_E_A",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_C",
+      "fixture_variant": "target_body_time_changed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T16:05:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_A",
+      "fixture_variant": "base",
+      "trace_case": "optional_reads",
+      "initial_fixture_ref": "A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "unread_filter",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {
+            "unread_only": true
+          },
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "both_reads",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_C",
+      "fixture_variant": "target_body_time_changed",
+      "trace_case": "both_reads",
+      "initial_fixture_ref": "C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T16:05:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "both_reads",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_C",
+      "fixture_variant": "target_body_time_changed",
+      "trace_case": "target_then_distractor_keep_target",
+      "initial_fixture_ref": "C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T16:05:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T16:05:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "list_only_create",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "create_without_prior_matching_target_body_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "hidden_ID",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "read_ID_not_previously_listed",
+      "calls": [
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [
+          "read_ID_not_previously_listed"
+        ],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "distractor_only",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "create_without_prior_matching_target_body_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "late_read",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "create_without_prior_matching_target_body_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_C",
+      "fixture_variant": "target_body_time_changed",
+      "trace_case": "old_time",
+      "initial_fixture_ref": "C",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_time"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_C",
+      "fixture_variant": "target_body_time_changed",
+      "trace_case": "target_then_distractor",
+      "initial_fixture_ref": "C",
+      "expected_verdict": "reject",
+      "required_reason": "create_without_prior_matching_target_body_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_time"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "early_ask",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "reject",
+      "required_reason": "ask_without_prior_target_unavailable_observation",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [
+          "ask_without_prior_target_unavailable_observation"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "distractor_only",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "reject",
+      "required_reason": "ask_without_prior_target_unavailable_observation",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_91"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [
+          "ask_without_prior_target_unavailable_observation"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "guess_create",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "reject",
+      "required_reason": "create_without_prior_matching_target_body_time",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_state_change",
+          "new_reminder_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [
+          "ask_count"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "wrong_tool",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "email.read",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [
+          "ask_arguments"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_D",
+      "fixture_variant": "target_body_time_unavailable",
+      "trace_case": "wrong_parameter",
+      "initial_fixture_ref": "D",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "content"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: chưa được chốt.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [
+          "ask_arguments"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_A",
+      "fixture_variant": "base",
+      "trace_case": "A_ask",
+      "initial_fixture_ref": "A",
+      "expected_verdict": "reject",
+      "required_reason": "unjustified_ask",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_reminder_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [
+          "unjustified_ask"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_A",
+      "fixture_variant": "base",
+      "trace_case": "A_hidden_ID",
+      "initial_fixture_ref": "A",
+      "expected_verdict": "reject",
+      "required_reason": "read_ID_not_previously_listed",
+      "calls": [
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [
+          "read_ID_not_previously_listed"
+        ],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_03",
+            "item": {
+              "id": "rem_03",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            },
+            {
+              "id": "rem_03",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_reminder_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "wrong_repeat",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_repeat",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00",
+            "repeat": "daily"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "daily",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "daily",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_repeat"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "wrong_content",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "reviewed_content_meaning_error",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Hủy biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Hủy biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Hủy biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [
+          "reviewed_content_meaning_error"
+        ],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "nonexistent_read",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "noop_call",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_nonexistent"
+          },
+          "result": {
+            "ok": true,
+            "done": false,
+            "message": "không tìm thấy email_id='b04_nonexistent'"
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "noop_call"
+        ],
+        "ID_grounding_reasons": [
+          "read_ID_not_previously_listed"
+        ],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "failed_call",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "failed_call",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày"
+          },
+          "result": {
+            "ok": false,
+            "error": "thiếu tham số bắt buộc: time"
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "failed_call",
+          "write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [
+          "create_without_prior_matching_target_body_time"
+        ],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "extra_write",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "additional_write_attempt",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        },
+        {
+          "name": "email.archive",
+          "arguments": {
+            "email_id": "b04_mail_36",
+            "action": "archive"
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'email.archive' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "additional_write_attempt",
+          "failed_call",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "existing_reminder_snapshot",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "existing_reminder_changed",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": true
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "existing_reminder_changed"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "email_unread_snapshot",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "unrelated_state_changed",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": false,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "unrelated_state_changed"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "email_folder_snapshot",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "unrelated_state_changed",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "archive",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "unrelated_state_changed"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "email_body_snapshot",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "reject",
+      "required_reason": "unrelated_state_changed",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp biên bản bàn giao kệ trưng bày",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Verifier-only changed body"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "unrelated_state_changed"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp biên bản bàn giao kệ trưng bày",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B04_E_B",
+      "fixture_variant": "base",
+      "trace_case": "paraphrase",
+      "initial_fixture_ref": "B",
+      "expected_verdict": "human_review_required",
+      "required_reason": "content_human_review_required",
+      "calls": [
+        {
+          "name": "email.list",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "emails": [
+              {
+                "id": "b04_mail_36",
+                "from": "dieuphoi@bolaustudio.example.test",
+                "subject": "Lịch bàn giao kệ trưng bày",
+                "folder": "inbox",
+                "unread": true
+              },
+              {
+                "id": "b04_mail_91",
+                "from": "baotri@tramsoi.example.test",
+                "subject": "Mốc chốt phiếu bảo trì",
+                "folder": "inbox",
+                "unread": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.read",
+          "arguments": {
+            "email_id": "b04_mail_36"
+          },
+          "result": {
+            "ok": true,
+            "email": {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nhắc mình nộp biên bản bàn giao kệ trưng bày nhé",
+            "time": "2026-11-23T14:20:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nhắc mình nộp biên bản bàn giao kệ trưng bày nhé",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "email": {
+          "emails": [
+            {
+              "id": "b04_mail_36",
+              "from": "dieuphoi@bolaustudio.example.test",
+              "subject": "Lịch bàn giao kệ trưng bày",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.\nBiên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.\nCảm ơn bạn,\nBộ phận điều phối\n"
+            },
+            {
+              "id": "b04_mail_91",
+              "from": "baotri@tramsoi.example.test",
+              "subject": "Mốc chốt phiếu bảo trì",
+              "folder": "inbox",
+              "unread": true,
+              "body": "Chào bạn,\nThời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.\nPhiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.\nCảm ơn bạn,\nTổ bảo trì\n"
+            }
+          ],
+          "sent": [],
+          "drafts": []
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "b04_rem_keep_24",
+              "content": "Mang thẻ gửi xe",
+              "time": "2026-11-24T08:10:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nhắc mình nộp biên bản bàn giao kệ trưng bày nhé",
+              "time": "2026-11-23T14:20:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "human_review_required",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "body_value_grounding_reasons": [],
+        "clarification_reasons": [],
+        "text_errors": [],
+        "text_review": [
+          "content_human_review_required"
+        ]
+      },
+      "construction": "deliberate_diagnostic_may_use_private_values"
+    }
+  ],
+  "limitations": [
+    "No model evaluation, team conversation harness or official semantic-policy acceptance.",
+    "Extractor understands only the authored timestamp/unavailable expression; other source wording is unresolved.",
+    "Exact content and explicit errors are bounded checks, not a general semantic oracle."
+  ]
+}
