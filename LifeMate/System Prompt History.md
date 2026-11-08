@@ -1,86 +1,110 @@
-# Thử nghiệm System Prompt
+# System Prompt History
 
-Tài liệu này ghi nhận nội dung prompt, thiết lập thử nghiệm và kết quả đo lường trên 5 mẫu train đại diện (`train_0003`, `train_0004`, `train_0008`, `train_0019`, `train_0048`) qua hai phiên bản V1 và V2.
+## Literature Review: GEPA
+
+- **Title:** GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning.
+- **Authors / Org:** Lakshya A. Agrawal et al. — UC Berkeley, Stanford, BespokeLabs.ai, University of Notre Dame, Databricks & MIT.
+- **Date & Freshness:** ICLR 2026 Oral, repo cập nhật năm 2026.
+- **Venue / Source:** ICLR 2026 Oral, CORE A*, [arXiv:2507.19457](https://arxiv.org/abs/2507.19457) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa) (~7,3k stars) · [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) (~39k stars).
+
+### Phương pháp
+
+GEPA tối ưu hóa prompt dựa trên phản tư từ vết thực thi (execution traces):
+1. Chạy prompt ứng viên trên tập mẫu và thu thập trace thực thi cùng tín hiệu phản hồi từ môi trường.
+2. Dùng mô hình ngôn ngữ đọc các trace thất bại để xác định nguyên nhân lỗi và viết lại quy tắc tương ứng trong prompt.
+3. Giữ lại tập ứng viên trên đường biên Pareto qua các mẫu đánh giá và kết hợp các quy tắc bổ trợ nhau mà không cập nhật trọng số mô hình.
+
+### Kết quả và giới hạn
+
+- Trên 6 tác vụ thực nghiệm của paper, GEPA cải thiện kết quả trung bình 6% (tối đa 20%) so với GRPO với số lượt rollout ít hơn tới 35 lần, và cao hơn MIPROv2 trên 10%.
+- Chất lượng prompt phụ thuộc vào khả năng chẩn đoán trace của mô hình phản tư và độ rõ ràng của tín hiệu lỗi.
+
+### Áp dụng cho LifeMate
+
+Dùng các mẫu lỗi thực tế quan sát được trên trace tập train (bỏ sót vế trong câu ghép, bỏ qua điều kiện, tự đặt giá trị tham số khi thiếu dữ kiện, lặp lệnh đọc đã có kết quả) để viết thành các quy tắc cụ thể trong System Prompt.
+
+## Literature Review: SysBench
+
+- **Title:** SysBench: Can Large Language Models Follow System Messages?
+- **Authors / Org:** Yanzhao Qin et al. — Peking University & Baichuan Inc.
+- **Date & Freshness:** ICLR 2025, mở rộng sang VSysBench tại EMNLP 2026.
+- **Venue / Source:** ICLR 2025, CORE A*, [arXiv:2408.10943](https://arxiv.org/abs/2408.10943) · [PKU-Baichuan-MLSystemLab/SysBench](https://github.com/PKU-Baichuan-MLSystemLab/SysBench).
+
+### Phương pháp
+
+SysBench đánh giá khả năng tuân thủ system message trong hội thoại nhiều lượt và chia cấu trúc System Prompt thành 6 khối chức năng:
+
+| Khối chức năng | Nội dung | Cách áp dụng trong LifeMate |
+| --- | --- | --- |
+| Role | Chức năng của tác tử. | Giữ ngắn gọn ở câu mở đầu. |
+| Background | Môi trường hoạt động và nguồn thông tin hợp lệ. | Quy định chỉ lấy dữ liệu từ `request`, `context`, `history` và kết quả công cụ trả về. |
+| Action | Quy trình xử lý yêu cầu theo từng bước. | Hướng dẫn thực hiện đủ các vế câu ghép, kiểm tra điều kiện, tra cứu trước khi ghi và sửa lỗi theo phản hồi. |
+| Content | Ràng buộc về thông tin bắt buộc, điều cấm và điều kiện dừng/hỏi lại. | Cấm tự đoán ID hoặc số liệu, quy định điều kiện gọi `sys.ask_missing_info` và cách trả lời khi yêu cầu ngoài phạm vi. |
+| Format | Quy ước định dạng đầu ra. | Lược bỏ vì `apply_chat_template` và tool schema của LFM3 đã đảm nhiệm. |
+| Style | Văn phong giao tiếp. | Lược bỏ vì bài toán chỉ chấm `tool_calls` và `state_hash`. |
+
+### Kết quả và giới hạn
+
+- Độ tuân thủ giảm mạnh ở hai khối Action và Content khi viết gộp quy trình làm việc và điều cấm trong cùng một đoạn văn xuôi, hoặc sau nhiều lượt gọi công cụ liên tiếp.
+- Tách riêng từng khối và viết dưới dạng các quy tắc đơn lẻ (atomic rules) giúp giảm tỷ lệ vi phạm ràng buộc qua nhiều lượt.
+
+### Áp dụng cho LifeMate
+
+Thay đoạn văn xuôi ở Baseline bằng cấu trúc 3 khối tách biệt (Nguồn dữ liệu, Quy trình thực hiện, Xử lý thiếu thông tin và ngoài phạm vi), lược bỏ hoàn toàn phần Format và Style.
 
 ---
 
-## 1. System Prompt V1 (Baseline)
-
-### Nội dung Prompt
+## Baseline
 
 ```text
-Bạn là trợ lý sử dụng công cụ để thực hiện yêu cầu. Chỉ dùng các công cụ được cung cấp. Nếu thiếu thông tin cần thiết, hãy dùng sys.ask_missing_info.
+Bạn là trợ lý thực hiện yêu cầu bằng các công cụ được cung cấp.
+Hãy phân tích kỹ yêu cầu của người dùng trước khi tiến hành để hiểu đúng ý định, tránh nhầm lẫn bởi từ lóng hoặc yêu cầu mơ hồ, sau đó sử dụng công cụ phù hợp.
 ```
-
-### Thiết lập Thử nghiệm
-
-- **Mô hình & Tham số:** `LiquidAI/LFM3-1.7B` FP16, suy luận greedy decoding (`TEMPERATURE = 0`), context tối đa 16.384 tokens.
-- **Tập mẫu đánh giá:** 5 mẫu train đại diện cho các tình huống khác nhau:
-  - `train_0004`: Điều khiển thiết bị đơn lẻ (cần xác định đúng phòng và thiết bị).
-  - `train_0003`: Tác vụ nhiều bước (tra cứu hóa đơn và thanh toán).
-  - `train_0008`: Hội thoại nhiều lượt, yêu cầu phụ thuộc vào lịch sử (`history`).
-  - `train_0019`: Yêu cầu ngoài phạm vi công cụ (nhãn không gọi tool nào).
-  - `train_0048`: Thiếu dữ kiện, nhãn yêu cầu gọi `sys.ask_missing_info`.
-- **Cấu trúc đầu vào:** Sau system prompt, mô hình nhận message người dùng gồm câu lệnh phiên âm từ ASR, `context` và `history`. Tool schema được nạp qua chat template. Mô hình không được truy cập trực tiếp state và nhãn.
-
-### Bảng Kết quả
-
-| Điều kiện Schema | Tool-call Match (Đúng thứ tự) | State Match | STLE trung bình (nats/token) | SVR Runtime |
-| :--- | :---: | :---: | :---: | :---: |
-| **Full** *(Thứ tự gốc)* | 1/5 | 2/5 | 0.0811 | 0/8 |
-| **Reverse** *(Đảo thứ tự)* | 1/5 | 3/5 | 0.0431 | 0/16 |
-| **Target** *(Chỉ cấp tools trong nhãn)* | 1/5 | 3/5 | 0.1336 | 0/8 |
-
-Ghi chú: Điều kiện `Target` là thiết lập nhằm đo ảnh hưởng của công cụ gây nhiễu, không dùng khi chạy thực tế.
-
-### Kết quả V1
-
-- **PSS:** 0/8. Khi đảo thứ tự khai báo schema, mô hình không giữ nguyên quyết định gọi tool đầu tiên ở cả 4 mẫu có tool mục tiêu. Tỷ lệ giữ nguyên quyết định (bất kể đúng hay sai) là 25%.
-- **DDR:** Không xác định được do độ chính xác ở lượt gọi đầu tiên của cả `Full` và `Target` đều là 0/4 (mẫu số bằng 0).
-- **STLE:** Đạt 0.0811 ở Full, 0.0431 ở Reverse và 0.1336 nats/token ở Target. Mức entropy này chưa được hiệu chuẩn trên tập mẫu đủ lớn, chưa thể dùng làm ngưỡng tin cậy.
-- **SVR Runtime:** 0/32 trên các lệnh gọi đã parse. Trên 5 mẫu này, mô hình không sinh ra trường lạ ngoài schema.
-- **Vấn đề quan sát được từ trace:**
-  - Ở mẫu `train_0008/Full`, mô hình lặp lại lệnh `alarm.list` liên tiếp và phải dừng sau 3 lần lặp giống nhau.
-  - Ở mẫu `train_0048`, mô hình tự sinh một số điện thoại để gọi thay vì dùng `sys.ask_missing_info` khi thiếu thông tin.
 
 ---
 
-## 2. System Prompt V2
+## Thiết kế Enhanced System Prompt
 
-### Nội dung Prompt
+Kết hợp cách chia khối của SysBench với các quy tắc xử lý lỗi rút ra từ trace thực thi theo hướng GEPA:
+
+### 1. Cấu trúc ánh xạ thiết kế
+
+| Khối chức năng (SysBench) | Lỗi quan sát từ Trace (GEPA Diagnosis) | Quy tắc trong Enhanced System Prompt |
+| --- | --- | --- |
+| Role & Background | Tự suy diễn dữ liệu ngoài ngữ cảnh, bỏ qua `current_time`/`location` trong `context`, hoặc nhầm giữa yêu cầu cũ trong `history` và yêu cầu hiện tại trong `request`. | Chỉ sử dụng thông tin từ `request`, `context`, `history` và kết quả công cụ. Chỉ thực hiện yêu cầu hiện tại trong `request`, dùng `context` để lấy thời gian/vị trí/hồ sơ và dùng `history` để hiểu thông tin tham chiếu mà không làm lại yêu cầu cũ. |
+| Action — Phân rã & Điều kiện | Bỏ sót vế trong câu ghép nhiều yêu cầu (`train_0003`), bỏ qua mệnh đề điều kiện "nếu... thì..." (`train_0008`). | Thực hiện đầy đủ mọi yêu cầu trong câu lệnh. Nếu có điều kiện (thời tiết, thời gian, trạng thái), gọi công cụ tra cứu để kiểm tra điều kiện trước khi hành động. |
+| Action — Thứ tự Tra cứu trước Ghi | Gọi thẳng công cụ `write` khi chưa biết ID hoặc số liệu thực tế (`train_0003`, `train_0004`, `train_0048`). | Khi cần ID hoặc dữ liệu chưa biết để thực hiện lệnh ghi, ưu tiên gọi công cụ tra cứu liên quan trước. |
+| Action — Thích ứng & Chống lặp | Lặp lại cùng một lệnh đọc đã có kết quả (`train_0008`) hoặc dừng lại khi bộ lọc hẹp trả về danh sách rỗng (`train_0004`). | Không gọi lại công cụ tra cứu với cùng tham số khi đã có kết quả từ lượt trước. Nếu tra cứu trả về rỗng hoặc công cụ báo lỗi, kiểm tra lại điều kiện, cân nhắc bỏ bộ lọc tùy chọn hoặc sửa tham số theo phản hồi, không gọi lặp lại y nguyên lệnh vừa chạy. |
+| Content & Boundary | Tự đặt số điện thoại, số tiền, mã định danh khi thiếu dữ kiện, hoặc gọi công cụ với yêu cầu ngoài phạm vi (`train_0019`, `train_0048`). | Không tự đoán ID, số điện thoại, số tiền hay giá trị tham số. Chỉ gọi `sys.ask_missing_info` khi thiếu tham số bắt buộc mà không có công cụ tra cứu hoặc đã tra cứu nhưng vẫn không xác định được. Trả lời trực tiếp và không gọi công cụ nếu yêu cầu ngoài phạm vi. |
+
+### 2. Nội dung Enhanced System Prompt
 
 ```text
-Bạn là trợ lý điều khiển thiết bị và dịch vụ qua công cụ. Tuân thủ nghiêm ngặt các quy tắc sau:
-1. Chỉ dùng thông tin từ context, history và kết quả trả về của các công cụ. Tuyệt đối không suy diễn dữ liệu ngoài các nguồn này.
-2. Khi thiếu thông tin để thực hiện, ưu tiên dùng công cụ tra cứu liên quan. Chỉ gọi sys.ask_missing_info khi không có công cụ tra cứu hoặc tra cứu không xác định được.
-3. Không gọi lại cùng một công cụ với cùng bộ tham số nếu công cụ đó đã trả về kết quả ở lượt trước.
-4. Với yêu cầu ngoài phạm vi công cụ, phản hồi trực tiếp cho người dùng, không gọi tool.
+Bạn là trợ lý thực hiện yêu cầu người dùng thông qua các công cụ được cung cấp. Tuân thủ các quy tắc sau:
+
+1. NGUỒN DỮ LIỆU VÀ RANH GIỚI NGỮ CẢNH:
+- Chỉ sử dụng thông tin có trong request, context, history và kết quả trả về của công cụ.
+- Chỉ thực hiện yêu cầu hiện tại trong request. Dùng context để lấy thời gian hiện tại (current_time), vị trí (location) và hồ sơ người dùng (user_profile). Dùng history để hiểu thông tin tham chiếu từ các lượt trước, không thực hiện lại các yêu cầu cũ trong history.
+- Không tự đoán hoặc bịa đặt mã định danh (ID), số điện thoại, số tiền hay giá trị tham số.
+
+2. QUY TRÌNH THỰC HIỆN:
+- Thực hiện đầy đủ mọi yêu cầu trong câu lệnh, không bỏ sót vế khi người dùng nêu nhiều việc cùng lúc.
+- Nếu yêu cầu có điều kiện (như thời tiết, thời gian, trạng thái), gọi công cụ tra cứu để kiểm tra điều kiện trước khi thực hiện hành động.
+- Khi cần ID hoặc dữ liệu chưa biết để thực hiện lệnh ghi, ưu tiên gọi công cụ tra cứu liên quan trước.
+- Không gọi lại công cụ tra cứu với cùng tham số khi đã có kết quả từ lượt trước.
+- Nếu tra cứu trả về danh sách rỗng hoặc công cụ báo lỗi, kiểm tra lại điều kiện, cân nhắc bỏ bộ lọc tùy chọn hoặc sửa tham số theo phản hồi, không gọi lặp lại y nguyên lệnh vừa chạy.
+
+3. XỬ LÝ THIẾU THÔNG TIN VÀ NGOÀI PHẠM VI:
+- Chỉ gọi sys.ask_missing_info khi thiếu tham số bắt buộc mà không có công cụ tra cứu tương ứng, hoặc đã tra cứu nhưng vẫn không xác định được đối tượng.
+- Nếu yêu cầu nằm ngoài khả năng của các công cụ được cung cấp, trả lời trực tiếp cho người dùng và không gọi công cụ.
 ```
 
-### Thiết lập & Mục đích Thay đổi
+### 3. Đối chiếu Baseline và Enhanced System Prompt
 
-- **Mục đích:** Dựa trên trace lỗi của V1, bổ sung 4 quy tắc ngắn gọn nhằm:
-  - Bổ sung nguồn kết quả trả về của công cụ để mô hình biết sử dụng dữ liệu từ các bước trước.
-  - Phân tầng việc tra cứu trước khi hỏi lại người dùng.
-  - Chặn việc gọi lặp lại cùng một công cụ với cùng tham số.
-  - Xử lý các câu lệnh ngoài phạm vi công cụ.
-- **Cấu hình:** Giữ nguyên mô hình `LiquidAI/LFM3-1.7B` FP16, greedy decoding (`TEMPERATURE = 0`), context 16.384 tokens và cùng tập 5 mẫu train với cùng bản phiên âm ASR.
-
-### Bảng Kết quả
-
-| Điều kiện Schema | Tool-call Match (Đúng thứ tự) | State Match | STLE trung bình (nats/token) | SVR Runtime |
-| :--- | :---: | :---: | :---: | :---: |
-| **Full** *(Thứ tự gốc)* | 1/5 | 2/5 | 0.0390 | 0/6 |
-| **Reverse** *(Đảo thứ tự)* | 1/5 | 3/5 | 0.1000 | 0/22 |
-| **Target** *(Chỉ cấp tools trong nhãn)* | 1/5 | 3/5 | 0.0047 | 0/3 |
-
-### So sánh & Đánh giá với V1
-
-- **Điểm cải thiện:** Ở mẫu `train_0008/Full`, Quy tắc 3 giúp mô hình tự dừng sau 1 lượt gọi `alarm.list` thay vì lặp 3 lần như V1.
-- **Các lỗi chưa giải quyết được:**
-  - Tỷ lệ khớp chính xác toàn chuỗi tool call vẫn giữ nguyên 1/5 ở cả V1 và V2.
-  - `train_0008`: Mô hình dừng lặp nhưng vẫn không gọi công cụ kiểm tra thời tiết theo đúng yêu cầu điều kiện.
-  - `train_0048`: Mô hình vẫn tự sinh số điện thoại ngoài context thay vì gọi `sys.ask_missing_info`.
-  - `train_0003`: Mô hình vẫn bỏ sót việc tra cứu hóa đơn và chuyển sai số tiền.
-  - `train_0003/Reverse`: Xuất hiện lỗi parse do mô hình sinh giá trị `amount=???`. Lượt chạy này bị dừng và không thể thực thi.
-- **Đánh giá tổng thể:** Việc điều chỉnh prompt thủ công giúp ngắt được hành vi lặp đơn giản nhưng chưa cải thiện được khả năng lập luận đa bước hay xử lý mệnh đề điều kiện. Thử nghiệm trên 5 mẫu chỉ mang tính khảo sát sơ bộ, chưa đủ để đưa ra kết luận khái quát cho toàn bộ tập dữ liệu.
+| Tiêu chí | Baseline | Enhanced System Prompt |
+| --- | --- | --- |
+| Cấu trúc trình bày | Đoạn văn xuôi 2 câu gộp chung việc phân tích ý định và gọi công cụ. | Chia 3 khối tách biệt (Nguồn dữ liệu và ranh giới ngữ cảnh, Quy trình thực hiện, Xử lý thiếu thông tin và ngoài phạm vi) theo SysBench. |
+| Phân định ranh giới ngữ cảnh | Không giải thích vai trò của `request`, `context`, `history`. | Tách rõ `request` (yêu cầu hiện tại cần làm), `context` (`current_time`, `location`, `user_profile`) và `history` (chỉ dùng để tham chiếu, không làm lại). |
+| Xử lý câu ghép và điều kiện | Không có chỉ dẫn cụ thể. | Quy định thực hiện đủ các vế và kiểm tra điều kiện bằng công cụ tra cứu trước khi hành động. |
+| Phối hợp với Tool Description và Sandbox | Độc lập, không gắn với cơ chế tra cứu hoặc phản hồi lỗi. | Khớp trực tiếp với luồng tra cứu lấy ID, cấm gọi lại lệnh tra cứu đã có kết quả, bỏ bộ lọc tùy chọn khi rỗng và không lặp lại lệnh lỗi. |
+| Ranh giới gọi `sys.ask_missing_info` | Chỉ nhắc tránh nhầm lẫn bởi yêu cầu mơ hồ, không nêu điều kiện gọi `sys.ask_missing_info`. | Cấm tự đoán ID/số điện thoại/số tiền, ưu tiên tra cứu trước và chỉ gọi `sys.ask_missing_info` khi không thể tra cứu hoặc kết quả vẫn thiếu dữ kiện. |
