@@ -1,45 +1,45 @@
 # Failure-mode index — complete individual mapping
 
-**1,000/1,000 individually reviewed; 0 pending.** Reviewed-but-unmapped: 0. All 1,000 IDs occur once. Prior quality-audit review and this mapping review are separate.
+**1,063/1,063 individually reviewed; 0 pending.** Reviewed-but-unmapped: 0. All 1,063 IDs occur once. Prior quality-audit review and this mapping review are separate.
 
 [Index](../../artifacts/synthetic/failure_mode_index.jsonl) · [Audit](SYNTHETIC_1000_QUALITY_AUDIT.md)
 
-Counts use unique scenario IDs, with denominator 1,000. Tags and evidence statuses overlap; sums need not equal the collection size. These are designed cases, not independent statistical samples or model error rates. Unreviewed rows carry no inferred tags.
+Counts use unique scenario IDs, with denominator 1,063. Tags and evidence statuses overlap; sums need not equal the collection size. These are designed cases, not independent statistical samples or model error rates. Unreviewed rows carry no inferred tags.
 
 | Tag | IDs | Train | Dev | Design-only | Isolation not assessed | Isolated authored negative |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| wrong_target | 313 | 284 | 29 | 21 | 292 | 0 |
-| wrong_tool | 95 | 95 | 0 | 1 | 94 | 0 |
-| unsupported_guessing | 615 | 582 | 33 | 28 | 582 | 5 |
-| missed_context | 117 | 112 | 5 | 71 | 44 | 2 |
-| missed_history | 156 | 148 | 8 | 66 | 90 | 0 |
-| insufficient_information | 47 | 34 | 13 | 6 | 41 | 0 |
-| constraint_violation | 574 | 540 | 34 | 16 | 558 | 1 |
-| bad_recovery | 15 | 15 | 0 | 0 | 15 | 0 |
-| unsupported_answer | 134 | 134 | 0 | 8 | 0 | 126 |
+| wrong_target | 320 | 291 | 29 | 21 | 299 | 0 |
+| wrong_tool | 106 | 106 | 0 | 1 | 105 | 0 |
+| unsupported_guessing | 648 | 615 | 33 | 28 | 615 | 5 |
+| missed_context | 127 | 122 | 5 | 78 | 47 | 2 |
+| missed_history | 158 | 150 | 8 | 66 | 92 | 0 |
+| insufficient_information | 51 | 38 | 13 | 6 | 45 | 0 |
+| constraint_violation | 618 | 584 | 34 | 16 | 602 | 1 |
+| bad_recovery | 16 | 16 | 0 | 0 | 16 | 0 |
+| unsupported_answer | 170 | 170 | 0 | 8 | 36 | 126 |
 
-Reviewed intended splits: 942 train, 58 dev. Pending mapping reviews: 0. Resume: **none**.
+Reviewed intended splits: 1005 train, 58 dev. Pending mapping reviews: 0. Resume: **none**.
 
 | Evidence status | Unique IDs | Train | Dev |
 | --- | ---: | ---: | ---: |
-| design_support_only | 185 | 174 | 11 |
+| design_support_only | 192 | 181 | 11 |
 | isolated_authored_answer_probe | 126 | 126 | 0 |
 | isolated_authored_counterexample | 8 | 0 | 8 |
-| isolation_not_assessed | 991 | 941 | 50 |
+| isolation_not_assessed | 1054 | 1004 | 50 |
 | verifier_evidence_present_not_causally_isolated | 0 | 0 | 0 |
 
 | Evidence type | Unique IDs |
 | --- | ---: |
-| design_rationale | 1000 |
-| accepted_authored_runtime_trace | 1000 |
-| authored_runtime_counterexample | 994 |
-| verifier_only_or_modified_evidence_probe | 3 |
-| authored_answer_probe | 126 |
+| design_rationale | 1063 |
+| accepted_authored_runtime_trace | 1063 |
+| authored_runtime_counterexample | 1057 |
+| verifier_only_or_modified_evidence_probe | 4 |
+| authored_answer_probe | 162 |
 | Actual model failure | 0 |
 
 The isolated-negative column is the union of runtime and answer-probe scenario IDs, never their sum. State changes and multiple verdict reasons can be consequences of one error, not independent defects. Isolation not assessed means no causal-isolation conclusion was reached. Per-entry comparisons name their accepted and negative records and are checked against source-derived differences. Scenario-wide limitations remain separate; context_evidence resolves other records mentioned there without adding tag coverage or isolated-negative counts.
 
-The consistency review covers all 2,076 entries: 1,859 accepted/negative comparisons and 217 design-only entries. The 192 context references identify additional records discussed in scenario-level notes and do not increase tag coverage. The TR9_NEWS_LOOK and TR10_CLIMATE_FAN missing-read comparisons now describe their linked unobserved paths, separately from the wrong-write paths. No tag, hold, split, gold or evidence-status promotion follows from this cleanup.
+The consistency review covers all 2,224 entries: 2,000 accepted/negative comparisons and 224 design-only entries. The 192 context references identify additional records discussed in scenario-level notes and do not increase tag coverage. The TR9_NEWS_LOOK and TR10_CLIMATE_FAN missing-read comparisons now describe their linked unobserved paths, separately from the wrong-write paths. Current source copies and mapping changes are recorded in failure_mode_sources.json and failure_mode_reconciliation.json. The original 1,000-case audit remains historical; the 63 new IDs have mapping review, not that audit.
 
 ## Use and evidence boundaries
 
@@ -163,9 +163,9 @@ Factual answer unsupported by the relevant evidence, including wrong subject or 
 - B02_N_C must inspect source absence and ask time; unrelated valid time is not evidence. In-utterance correction (T1 or EX3_T_B) is not conversation history.
 - An error/no-op trace alone does not establish bad_recovery; observe-only alone does not establish unsupported_answer. TR16 delivered recovery and TR19 fan wrong-subject probes provide specific mechanisms.
 - All 16 holds remain active: seven mail split holds, six Wave 17 independent reviews, B05_L_D and two Wave 11 chore policies. Mapping review never adjudicates these. All cases stay spec_only/non-exportable.
-- Source-witness limits for later review: TR9_NEWS_LOOK includes the queried publisher in its witness, and TR10_CLIMATE_FAN does not bind the requested room in its source witness. Their per-ID mappings describe the actual selected trace checks, not new defect reproductions. Inspect their design/oracle through --scenario before extending the fixture distribution.
+- Existing bounded source-witness limits for later review: TR9_NEWS_LOOK includes the queried publisher in its witness, and TR10_CLIMATE_FAN does not bind the requested room in its source witness. Their per-ID mappings describe the actual selected trace checks, not new defect reproductions. Inspect their design/oracle through --scenario before extending the fixture distribution.
 - Observation-necessity questions remain distinct from hidden-value guessing: TR10_REM_COPYONCE and TR10_ALARM_COPYSILENT retain their recorded rules; explicit text supplied by the user does not become hidden merely because a local verifier requires a read. See each mapping for the relevant scope rather than inferring a policy change.
 - Eight earlier factual-sidecar mappings use probe definitions/expected judgments as design support only. The 100 Wave 19 and 26 Wave 20 answer mappings link stored answer verdicts. An observe-only trace success alone is not factual-answer coverage.
 - Finite text rules, design-only entries and entries without examined isolation remain limitations. Unknown plausible answers are not invented model failures. No new taxonomy category is introduced.
 
-Exact pending IDs are individually_reviewed=false rows; --pending-ids prints them. Reviewed-but-unmapped rows must carry a case-specific reason. No gold, fixture, canonical replay, verifier, split or hold changes belong to this index.
+Exact pending IDs are individually_reviewed=false rows; --pending-ids prints them. Reviewed-but-unmapped rows must carry a case-specific reason. This index does not change gold, fixtures, verifiers or original holds. TR12_BANK_LOOK has a later currency-review restriction; the separate 29-case review remains authoritative. Current source copies preserve recorded evidence; no new model failure is claimed.

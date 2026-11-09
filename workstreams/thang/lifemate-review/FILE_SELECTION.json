@@ -731,7 +731,7 @@
     "DRAFT_PR.md": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "FILE_SELECTION.json": {
       "source": "authored for this review package",
@@ -746,7 +746,7 @@
     "README.md": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "scripts/check_team_review.py": {
       "source": "authored for this review package",
@@ -789,22 +789,26 @@
     "artifacts/synthetic/failure_mode_index.jsonl": {
       "source": "authored locally for failure-mode index review",
       "purpose": "Evidence-linked individual failure-mode mappings for all 1,000 IDs; existing holds/statuses preserved",
-      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "docs/implementation/FAILURE_MODE_INDEX.md": {
       "source": "authored locally for failure-mode index review",
       "purpose": "Derived taxonomy definitions, overlapping counts, worked evidence links and mapping limitations",
-      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "scripts/check_failure_mode_index.py": {
       "source": "authored locally for failure-mode index review",
       "purpose": "Read-only source-linked comparison, selector/status/count validator; optional guide rendering never assigns tags",
-      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "tests/test_failure_mode_index.py": {
       "source": "authored locally for failure-mode index review",
       "purpose": "Focused comparison consistency, reference provenance and unique-scenario union regressions; no semantic label duplication",
-      "status": "local uncommitted addition"
+      "status": "local uncommitted addition",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json": {
       "source": "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json",
@@ -843,7 +847,8 @@
     "dataset_v1_candidate/README.md": {
       "source": "artifacts/synthetic/dataset_v1_candidate/README.md",
       "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot",
-      "adaptation": "Added later review restriction for TR12_BANK_LOOK; snapshot counts unchanged"
+      "adaptation": "Added later review restriction for TR12_BANK_LOOK; snapshot counts unchanged",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
     },
     "dataset_v1_candidate/tool_schemas.json": {
       "source": "artifacts/synthetic/dataset_v1_candidate/tool_schemas.json",
@@ -882,6 +887,104 @@
       "source": "artifacts/synthetic/manual_rubric_29_review_20261109/judgments.jsonl",
       "purpose": "Approved AI semantic review of exact 29 canonical answers; 28 pass, one unresolved",
       "adaptation": "byte-identical source ledger"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_06_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_06_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_08_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_08_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_09_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_09_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_12_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_12_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_14_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_14_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_15_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_15_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_21_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_21_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_22_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_22_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_23_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_23_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_08.yaml": {
+      "source": "data/synthetic/design/train_wave_08.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_09.yaml": {
+      "source": "data/synthetic/design/train_wave_09.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_12.yaml": {
+      "source": "data/synthetic/design/train_wave_12.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_14.yaml": {
+      "source": "data/synthetic/design/train_wave_14.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_15.yaml": {
+      "source": "data/synthetic/design/train_wave_15.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_21.yaml": {
+      "source": "data/synthetic/design/train_wave_21.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_22.yaml": {
+      "source": "data/synthetic/design/train_wave_22.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_23.yaml": {
+      "source": "data/synthetic/design/train_wave_23.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/factual_answer_pilot.yaml": {
+      "source": "data/synthetic/factual_answer_pilot.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/failure_mode_sources.json": {
+      "source": "authored index reconciliation",
+      "purpose": "Current-to-original source mapping and explicit old/new mapping reconciliation"
+    },
+    "artifacts/synthetic/failure_mode_reconciliation.json": {
+      "source": "authored index reconciliation",
+      "purpose": "Current-to-original source mapping and explicit old/new mapping reconciliation"
     }
   },
   "excluded_document_links": [

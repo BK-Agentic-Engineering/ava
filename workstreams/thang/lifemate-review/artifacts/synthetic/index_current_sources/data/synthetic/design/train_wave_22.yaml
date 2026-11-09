@@ -1,0 +1,545 @@
+version: train_wave_22
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+authoring_notes:
+  gap: Complete interval availability and ordered alternative slot, not per-record equality or date count.
+  nearest_existing:
+  - TR9_CAL_DEFAULT
+  - TR17_CAL_SHIFT
+  - TR20_CAL_TODAY_UTC
+  - TR21_FOOD_BASE
+  split_assignment_before_records: Intended train; separately proposed training-candidate challenge group. Not untouched
+    test.
+  objective: Familiar tools, new interval/set decision composition; no claim of independent language distribution.
+  mechanisms_not_scenario_count:
+  - Availability as universal non-overlap versus existential blocker
+  - Status/endpoint/previous-start-date boundary interpretation
+  - Ordered choice with branch-specific evidence
+  - Explicit authorization control
+  scope: No recurring/all-day/calendar-provider conflicts, travel buffers, duration inference or new recovery policy.
+worlds:
+- world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  split: train
+  origin: independently_authored
+  ancestry:
+    parent_world_ids: []
+    parent_scenario_ids: []
+    parent_lineage_ids: []
+  design_base: TR22_CAL_FREE
+  relevant_tools:
+  - calendar.list_events
+  - calendar.create_event
+  - calendar.update_event
+  - calendar.cancel_event
+  - sys.ask_missing_info
+  initial_state:
+    calendar:
+      events:
+      - id: w22_edge_before
+        title: Đưa người nhà ra bến xe
+        start: '2028-05-12T14:30:00+07:00'
+        end: '2028-05-12T15:00:00+07:00'
+        status: confirmed
+        location: Bến Đông
+      - id: w22_edge_after
+        title: Khám răng
+        start: '2028-05-12T15:30:00+07:00'
+        end: '2028-05-12T16:00:00+07:00'
+        status: confirmed
+        location: Phòng khám An
+      - id: w22_cancelled
+        title: Lấy kính
+        start: '2028-05-12T15:05:00+07:00'
+        end: '2028-05-12T15:20:00+07:00'
+        status: cancelled
+        location: Tiệm Kính Mây
+      - id: w22_next_day
+        title: Trao đổi học phí
+        start: '2028-05-13T15:00:00+07:00'
+        end: '2028-05-13T15:30:00+07:00'
+        status: confirmed
+        location: Trường Lộc
+    notes:
+      notes:
+      - id: w22_keep
+        title: Danh sách gia đình
+        content: Giữ bản cũ.
+    sys: {}
+  variants:
+    base: {}
+    overlap:
+      calendar:
+        events:
+          w22_edge_before:
+            end: '2028-05-12T15:10:00+07:00'
+    distractor:
+      calendar:
+        events:
+          w22_next_day:
+            end: '2028-05-13T18:00:00+07:00'
+    active_cancelled:
+      calendar:
+        events:
+          w22_cancelled:
+            status: confirmed
+    overnight:
+      calendar:
+        events:
+          w22_edge_before:
+            start: '2028-05-11T23:50:00+07:00'
+            end: '2028-05-12T00:20:00+07:00'
+    both_busy:
+      calendar:
+        events:
+          w22_edge_before:
+            end: '2028-05-12T15:10:00+07:00'
+          w22_edge_after:
+            end: '2028-05-12T16:10:00+07:00'
+  fixture_assumptions:
+  - Danh sách trả toàn bộ events khi không lọc; date filters theo ngày start dạng thô, không phải interval overlap.
+  - Confirmed events block an interval iff start < requested_end and end > requested_start. Cancelled events do
+    not block. Touching endpoints do not overlap.
+  - Mọi khoảng có offset và end sau start; không có recurring/all-day/pagination. Không suy đoán lịch ngoài dữ liệu
+    runtime.
+  - All fixtures/requests/gold independently authored. Calendar comparators share contracts, not copied fixture/template
+    content.
+scenarios:
+- scenario_id: TR22_CAL_FREE
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  coverage_role: everyday_control
+  agent_visible:
+    request: Chiều mai nếu lịch còn trống từ 15 giờ đến 15 giờ 30 thì thêm buổi Trao đổi học phí vào đúng khoảng
+      đó giúp mình. Nếu vướng lịch thì báo mình, đừng đổi các hẹn đang có.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: execute
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    check_availability: true
+    selected_slot: 0
+    actions:
+    - - calendar.create_event
+      - title: Trao đổi học phí
+        start: '2028-05-12T15:00:00+07:00'
+        end: '2028-05-12T15:30:00+07:00'
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Đã thêm lịch.
+    - Mình đã thêm vào lịch.
+    wrong_answer: Lịch bị trùng, tôi chưa thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_BLOCKED
+  implementor_review:
+    judgment: 'Available interval: ignore cancelled entry and adjacent endpoints.'
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_BLOCKED
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: overlap
+  status: spec_only
+  exportable: false
+  coverage_role: challenge_contrast
+  agent_visible:
+    request: Chiều mai nếu lịch còn trống từ 15 giờ đến 15 giờ 30 thì thêm buổi Trao đổi học phí vào đúng khoảng
+      đó giúp mình. Nếu vướng lịch thì báo mình, đừng đổi các hẹn đang có.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: observe_no_write
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    check_availability: true
+    selected_slot: null
+    actions: []
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Lịch bị trùng, tôi chưa thêm.
+    - Khung giờ này vướng lịch, mình chưa thêm.
+    wrong_answer: Lịch trống, tôi đã thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_FREE
+  implementor_review:
+    judgment: Only earlier event end changes; positive overlap forbids booking.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_DISTRACTOR
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: distractor
+  status: spec_only
+  exportable: false
+  coverage_role: invariance_control
+  agent_visible:
+    request: Chiều mai nếu lịch còn trống từ 15 giờ đến 15 giờ 30 thì thêm buổi Trao đổi học phí vào đúng khoảng
+      đó giúp mình. Nếu vướng lịch thì báo mình, đừng đổi các hẹn đang có.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: execute
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    check_availability: true
+    selected_slot: 0
+    actions:
+    - - calendar.create_event
+      - title: Trao đổi học phí
+        start: '2028-05-12T15:00:00+07:00'
+        end: '2028-05-12T15:30:00+07:00'
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Đã thêm lịch.
+    - Mình đã thêm vào lịch.
+    wrong_answer: Lịch bị trùng, tôi chưa thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_FREE
+  implementor_review:
+    judgment: Only next-day event end changes; answer/effect stays free.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_STATUS
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: active_cancelled
+  status: spec_only
+  exportable: false
+  coverage_role: challenge_contrast
+  agent_visible:
+    request: Chiều mai nếu lịch còn trống từ 15 giờ đến 15 giờ 30 thì thêm buổi Trao đổi học phí vào đúng khoảng
+      đó giúp mình. Nếu vướng lịch thì báo mình, đừng đổi các hẹn đang có.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: observe_no_write
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    check_availability: true
+    selected_slot: null
+    actions: []
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Lịch bị trùng, tôi chưa thêm.
+    - Khung giờ này vướng lịch, mình chưa thêm.
+    wrong_answer: Lịch trống, tôi đã thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_FREE
+  implementor_review:
+    judgment: Only cancelled record becomes confirmed; it now blocks.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_OVERNIGHT
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: overnight
+  status: spec_only
+  exportable: false
+  coverage_role: boundary_diagnostic
+  agent_visible:
+    request: Nếu lịch không vướng thì thêm cuộc Gọi về nhà từ 00 giờ 10 đến 00 giờ 40 ngày 12/5/2028, giờ Việt Nam.
+      Vướng thì báo mình, đừng dời hẹn khác.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: observe_no_write
+    title: Gọi về nhà
+    slots:
+    - - '2028-05-12T00:10:00+07:00'
+      - '2028-05-12T00:40:00+07:00'
+    check_availability: true
+    selected_slot: null
+    actions: []
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Lịch bị trùng, tôi chưa thêm.
+    - Khung giờ này vướng lịch, mình chưa thêm.
+    wrong_answer: Lịch trống, tôi đã thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR20_CAL_TODAY_UTC
+  implementor_review:
+    judgment: Previous-start-date event overlaps after midnight; same-day start filter is insufficient.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_CHOICE_FIRST
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  coverage_role: ordered_choice_control
+  agent_visible:
+    request: Xếp buổi Trao đổi học phí chiều mai từ 15 giờ đến 15 giờ 30 nhé. Nếu vướng lịch thì chọn 16 giờ đến
+      16 giờ 30. Cả hai khung đều vướng thì báo mình, đừng dời hẹn khác.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: execute
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    - - '2028-05-12T16:00:00+07:00'
+      - '2028-05-12T16:30:00+07:00'
+    check_availability: true
+    selected_slot: 0
+    actions:
+    - - calendar.create_event
+      - title: Trao đổi học phí
+        start: '2028-05-12T15:00:00+07:00'
+        end: '2028-05-12T15:30:00+07:00'
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Đã thêm lịch.
+    - Mình đã thêm vào lịch.
+    wrong_answer: Lịch bị trùng, tôi chưa thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_CHOICE
+  implementor_review:
+    judgment: Both candidate slots free; prefer the first requested interval. Only earlier-event end changes in
+      the CHOICE sibling.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_CHOICE
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: overlap
+  status: spec_only
+  exportable: false
+  coverage_role: composed_decision
+  agent_visible:
+    request: Xếp buổi Trao đổi học phí chiều mai từ 15 giờ đến 15 giờ 30 nhé. Nếu vướng lịch thì chọn 16 giờ đến
+      16 giờ 30. Cả hai khung đều vướng thì báo mình, đừng dời hẹn khác.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: execute
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    - - '2028-05-12T16:00:00+07:00'
+      - '2028-05-12T16:30:00+07:00'
+    check_availability: true
+    selected_slot: 1
+    actions:
+    - - calendar.create_event
+      - title: Trao đổi học phí
+        start: '2028-05-12T16:00:00+07:00'
+        end: '2028-05-12T16:30:00+07:00'
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Đã thêm lịch.
+    - Mình đã thêm vào lịch.
+    wrong_answer: Lịch bị trùng, tôi chưa thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_BOTH_BUSY
+  implementor_review:
+    judgment: Prove first blocked and second free before selecting the alternative.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_BOTH_BUSY
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: both_busy
+  status: spec_only
+  exportable: false
+  coverage_role: contrast_control
+  agent_visible:
+    request: Xếp buổi Trao đổi học phí chiều mai từ 15 giờ đến 15 giờ 30 nhé. Nếu vướng lịch thì chọn 16 giờ đến
+      16 giờ 30. Cả hai khung đều vướng thì báo mình, đừng dời hẹn khác.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: observe_no_write
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    - - '2028-05-12T16:00:00+07:00'
+      - '2028-05-12T16:30:00+07:00'
+    check_availability: true
+    selected_slot: null
+    actions: []
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Cả hai khung đều vướng, tôi chưa thêm.
+    - Hai khung giờ đều trùng lịch, mình chưa thêm.
+    wrong_answer: Lịch trống, tôi đã thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_CHOICE
+  implementor_review:
+    judgment: Only second blocker end extends into fallback slot; no write and report both blocked.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: true
+    independent_adjudication: false
+    unresolved_request_interpretation: false
+- scenario_id: TR22_CAL_EXPLICIT
+  world_id: W_TR22_CALENDAR_AVAILABILITY
+  lineage_id: TRAIN_CALENDAR_AVAILABILITY_22
+  fixture_variant: overlap
+  status: spec_only
+  exportable: false
+  coverage_role: authorization_control
+  agent_visible:
+    request: Thêm buổi Trao đổi học phí từ 15 giờ đến 15 giờ 30 ngày 12/5/2028, giờ Việt Nam, dù trùng lịch. Đừng
+      sửa hay hủy hẹn nào đang có.
+    context:
+      current_time: '2028-05-11T08:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools:
+    - calendar.list_events
+    - calendar.create_event
+    - calendar.update_event
+    - calendar.cancel_event
+    - sys.ask_missing_info
+  oracle_draft:
+    outcome: execute
+    title: Trao đổi học phí
+    slots:
+    - - '2028-05-12T15:00:00+07:00'
+      - '2028-05-12T15:30:00+07:00'
+    check_availability: false
+    selected_slot: 0
+    actions:
+    - - calendar.create_event
+      - title: Trao đổi học phí
+        start: '2028-05-12T15:00:00+07:00'
+        end: '2028-05-12T15:30:00+07:00'
+    preserve: Every pre-existing event field/record, notes and sys; at most one new event; no updates/cancellations/asks.
+    required_evidence: Any successful permitted read before write proving a blocker is enough for blocked. Free
+      requires a complete unfiltered events collection; raw-date filters cannot rule out earlier-starting long events.
+      EXPLICIT has no lookup obligation.
+    answers:
+    - Đã thêm lịch.
+    - Mình đã thêm vào lịch.
+    wrong_answer: Lịch bị trùng, tôi chưa thêm.
+    manual_answer: Mình thấy cần cân nhắc lại cách xếp lịch.
+    comparison_case: TR22_CAL_BLOCKED
+  implementor_review:
+    judgment: Explicit permission overrides the availability gate; direct creation needs no lookup.
+    supplied: Title, requested interval(s), order/condition and preservation.
+    requires_observation: false
+    independent_adjudication: false
+    unresolved_request_interpretation: false

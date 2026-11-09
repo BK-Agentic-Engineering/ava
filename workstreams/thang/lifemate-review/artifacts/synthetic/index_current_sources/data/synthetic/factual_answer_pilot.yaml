@@ -1,0 +1,162 @@
+provenance: authored_evaluation_probes
+cases:
+  - scenario_id: "TR8_TV_ONLYGUIDE"
+    design: "train_wave_08"
+    split: "train"
+    request: "Xem lịch để xác định Vườn Mưa phát kênh nào lúc 20:00 hôm nay. Không chuyển kênh hay ghi."
+    required: true
+    fresh: true
+    rubric: "Answer the channel for the named 20:00 broadcast. The matching guide row establishes Vệt 2. The context and question supply the day. A channel-only answer is sufficient. A filtered guide does not prove there is no other airing."
+    evidence: {"kind": "latest", "tool": "tv.guide", "call": 0, "claims": [{"path": ["programs", 2, "title"], "value": "Vườn Mưa"}, {"path": ["programs", 2, "channel"], "value": "Vệt 2"}, {"path": ["programs", 2, "start"], "value": "2027-02-10T20:00:00+07:00"}]}
+    pass: ["(?:kênh )?vệt 2", "vườn mưa (?:phát|chiếu) (?:trên|ở) (?:kênh )?vệt 2 lúc (?:20:00|20 giờ)(?: hôm nay)?"]
+    fail: {"wrong_entity": ["nhịp bờ chiếu ở vệt 2 lúc 19 giờ"], "contradiction": ["vườn mưa chiếu ở mạch 5 lúc 20 giờ"], "incomplete": ["lúc 20 giờ"], "unsupported_exhaustive_claim": ["kênh vệt 2\\. không có suất nào khác"]}
+    probes:
+      - {"id": "supported_1", "text": "Kênh Vệt 2.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Vườn Mưa chiếu ở Vệt 2 lúc 20 giờ hôm nay.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Nhịp Bờ chiếu ở Vệt 2 lúc 19 giờ.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Vườn Mưa chiếu ở Mạch 5 lúc 20 giờ.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Lúc 20 giờ.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "Kênh Vệt 2. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Hình như kênh số hai.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+      - {"id": "unsupported_exhaustive_claim", "text": "Kênh Vệt 2. Không có suất nào khác.", "expect": ["fail", "unsupported_exhaustive_claim"]}
+
+  - scenario_id: "TR9_BANK_LOOK"
+    design: "train_wave_09"
+    split: "train"
+    request: "Chỉ xem số dư hiện tại của Quỹ Khuôn Đồng. Không mở khoản tiết kiệm."
+    required: true
+    fresh: true
+    rubric: "Give the current balance of Quỹ Khuôn Đồng. The response field is the scalar balance. Đồng is the banking scenario's currency convention, not a returned currency field. An unambiguous short amount is enough. No claim about other accounts or banking actions is needed."
+    evidence: {"kind": "latest", "tool": "banking.get_balance", "call": 0, "claims": [{"path": ["accounts", 1, "name"], "value": "Quỹ Khuôn Đồng"}, {"path": ["accounts", 1, "balance"], "value": 600000}, {"path": ["accounts", 0, "name"], "value": "Quỹ Đường Vải"}, {"path": ["accounts", 0, "balance"], "value": 900000}]}
+    pass: ["(?:(?:quỹ khuôn đồng (?:có|còn)|số dư là) )?(?:600[. ]?000|600 nghìn|sáu trăm nghìn) (?:đồng|vnd)"]
+    fail: {"wrong_entity": ["quỹ đường vải có 900\\.000 đồng"], "contradiction": ["quỹ khuôn đồng còn 900\\.000 đồng"], "incomplete": ["tôi đã xem số dư"]}
+    probes:
+      - {"id": "supported_1", "text": "600.000 đồng.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Quỹ Khuôn Đồng còn sáu trăm nghìn đồng.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Quỹ Đường Vải có 900.000 đồng.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Quỹ Khuôn Đồng còn 900.000 đồng.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Tôi đã xem số dư.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "600.000 đồng. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Quỹ còn tầm sáu trăm.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+
+  - scenario_id: "TR10_APPL_LOOK"
+    design: "train_wave_10"
+    split: "train"
+    request: "Chỉ xem Máy Giặt Khe Sợi đang chạy hay đang hẹn và chu trình gì. Không dừng hay đổi chu trình."
+    required: true
+    fresh: true
+    rubric: "Report both active versus scheduled status and the eco cycle for Máy Giặt Khe Sợi. No exact prose is required. The read does not establish remaining time or completion."
+    evidence: {"kind": "latest", "tool": "appliances.list", "call": 0, "claims": [{"path": ["appliances", 0, "name"], "value": "Máy Giặt Khe Sợi"}, {"path": ["appliances", 0, "state", "status"], "value": "running"}, {"path": ["appliances", 0, "state", "cycle"], "value": "eco"}]}
+    pass: ["(?:máy giặt khe sợi )?(?:đang chạy|đang giặt)(?: chu trình| chế độ)? eco"]
+    fail: {"wrong_entity": ["máy sấy đang chạy eco"], "contradiction": ["máy giặt khe sợi đang hẹn chu trình eco"], "incomplete": ["(?:máy giặt khe sợi )?đang chạy"]}
+    probes:
+      - {"id": "supported_1", "text": "Đang chạy eco.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Máy giặt Khe Sợi đang giặt chế độ ECO.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Máy sấy đang chạy eco.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Máy giặt Khe Sợi đang hẹn chu trình eco.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Đang chạy.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "Đang chạy eco. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Máy ở eco rồi.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+
+  - scenario_id: "TR10_FUEL_LOOK"
+    design: "train_wave_10"
+    split: "train"
+    request: "Chỉ xem giá RON95 hiện tại, không thêm nhắc."
+    required: true
+    fresh: true
+    rubric: "Give the exact current RON95 price per litre. A short value with currency and denominator is adequate. Do not round to a threshold or infer another fuel price."
+    evidence: {"kind": "latest", "tool": "fuel_price.get_price", "call": 0, "claims": [{"path": ["prices", 0, "type"], "value": "ron95"}, {"path": ["prices", 0, "price"], "value": 22999}, {"path": ["prices", 0, "unit"], "value": "VND/lít"}]}
+    pass: ["(?:ron95 (?:giá|là) )?22[. ]?999 (?:đồng|vnd)(?:/lít| mỗi lít| một lít)"]
+    fail: {"wrong_entity": ["ron92 giá 22\\.999 đồng/lít"], "contradiction": ["ron95 giá 23\\.000 đồng/lít"], "incomplete": ["tôi đã xem giá ron95"], "wrong_unit": ["ron95 giá 22\\.999 đồng mỗi bình"]}
+    probes:
+      - {"id": "supported_1", "text": "22.999 đồng/lít.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "RON95 giá 22999 VND mỗi lít.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "RON92 giá 22.999 đồng/lít.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "RON95 giá 23.000 đồng/lít.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Tôi đã xem giá RON95.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "22.999 đồng/lít. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Gần 23 nghìn một lít.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+      - {"id": "wrong_unit", "text": "RON95 giá 22.999 đồng mỗi bình.", "expect": ["fail", "wrong_unit"]}
+
+  - scenario_id: "TR10_ALARM_LOOK"
+    design: "train_wave_10"
+    split: "train"
+    request: "Chỉ xem báo Phơi Khung lúc 06:15 lặp cuối tuần đang bật hay tắt. Không sửa báo."
+    required: true
+    fresh: true
+    rubric: "Answer enabled versus disabled for the 06:15 weekend Phơi Khung record. The weekday record is a distractor. The short answer may omit the already specified label and time. Do not imply the alarm record was deleted."
+    evidence: {"kind": "latest", "tool": "alarm.list", "call": 0, "claims": [{"path": ["alarms", 1, "label"], "value": "Phơi Khung"}, {"path": ["alarms", 1, "time"], "value": "06:15"}, {"path": ["alarms", 1, "repeat"], "value": "weekends"}, {"path": ["alarms", 1, "enabled"], "value": false}, {"path": ["alarms", 0, "repeat"], "value": "weekdays"}, {"path": ["alarms", 0, "enabled"], "value": true}]}
+    pass: ["(?:báo phơi khung (?:lúc )?06:15 cuối tuần )?(?:đang tắt|đã tắt sẵn|không bật)"]
+    fail: {"wrong_entity": ["báo phơi khung ngày thường đang bật"], "contradiction": ["báo phơi khung cuối tuần đang bật"], "incomplete": ["báo phơi khung lúc 06:15"]}
+    probes:
+      - {"id": "supported_1", "text": "Đang tắt.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Báo Phơi Khung lúc 06:15 cuối tuần không bật.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Báo Phơi Khung ngày thường đang bật.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Báo Phơi Khung cuối tuần đang bật.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Báo Phơi Khung lúc 06:15.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "Đang tắt. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Báo nghỉ cuối tuần.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+
+  - scenario_id: "TR12_SHOP_LOOK"
+    design: "train_wave_12"
+    split: "train"
+    request: "Chỉ xem các dòng dây cói và số lượng, không sửa danh sách."
+    required: true
+    fresh: true
+    rubric: "Report all three dây cói lines with quantities 2, 5 and 2. The unfiltered result establishes the list scope. Preserve multiplicity and exclude nẹp tre. Reordering is allowed. Checked status is optional. A total alone does not give per-line quantities."
+    evidence: {"kind": "latest", "tool": "shopping_list.get", "call": 0, "claims": [{"path": ["items", 0, "name"], "value": "dây cói"}, {"path": ["items", 0, "quantity"], "value": 2}, {"path": ["items", 1, "name"], "value": "dây cói"}, {"path": ["items", 1, "quantity"], "value": 5}, {"path": ["items", 2, "name"], "value": "dây cói"}, {"path": ["items", 2, "quantity"], "value": 2}, {"path": ["items", 3, "name"], "value": "nẹp tre"}, {"path": ["items", 3, "quantity"], "value": 3}], "complete_collection": "items", "collection_size": 4}
+    pass: ["(?:dây cói có )?(?:ba|3) dòng: (?:2, 2 (?:và|,) 5|2, 5 (?:và|,) 2|5, 2 (?:và|,) 2)", "hai dòng dây cói (?:số lượng |có )?2 và một dòng (?:số lượng |có )?5"]
+    fail: {"wrong_entity": ["nẹp tre có một dòng số lượng 3"], "contradiction": ["chỉ có hai dòng dây cói: 2 và 5"], "incomplete": ["tổng số lượng dây cói là 9"]}
+    probes:
+      - {"id": "supported_1", "text": "Ba dòng: 2, 5 và 2.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Hai dòng dây cói số lượng 2 và một dòng số lượng 5.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Nẹp tre có một dòng số lượng 3.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Chỉ có hai dòng dây cói: 2 và 5.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Tổng số lượng dây cói là 9.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "Ba dòng: 2, 5 và 2. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Dây cói có các mức 2 và 5.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+
+  - scenario_id: "TR13_CONTACT_INSPECT"
+    design: "train_wave_13"
+    split: "train"
+    request: "Chỉ nhắc lại email cũ của Đặng Minh Thu từ kết quả đọc lúc nãy, không ghi chú và không sửa liên hệ."
+    required: true
+    fresh: false
+    rubric: "Repeat the historical email for Đặng Minh Thu. The assistant's earlier search result supplies it, and the subsequent visible update changed it to thu.moi@daymoc.example.test. Do not require a latest read. The email alone is sufficient."
+    evidence: {"kind": "history", "tool": "contacts.search", "call": 0, "claims": [{"path": ["contacts", 0, "name"], "value": "Đặng Minh Thu"}, {"path": ["contacts", 0, "email"], "value": "thu.cu@daymoc.example.test"}, {"path": ["contacts", 1, "name"], "value": "Lê An Vân"}, {"path": ["contacts", 1, "email"], "value": "van@daymoc.example.test"}], "turn": 1, "superseded_by": {"call": 1, "tool": "contacts.update", "value": "thu.moi@daymoc.example.test"}}
+    pass: ["(?:email cũ(?: của đặng minh thu)? là )?thu\\.cu@daymoc\\.example\\.test"]
+    fail: {"wrong_entity": ["van@daymoc\\.example\\.test"], "contradiction": ["(?:email cũ là )?thu\\.moi@daymoc\\.example\\.test"], "incomplete": ["tôi tìm thấy email cũ"]}
+    probes:
+      - {"id": "supported_1", "text": "thu.cu@daymoc.example.test", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Email cũ của Đặng Minh Thu là thu.cu@daymoc.example.test.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "van@daymoc.example.test", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Email cũ là thu.moi@daymoc.example.test.", "expect": ["fail", "contradiction"]}
+      - {"id": "incomplete", "text": "Tôi tìm thấy email cũ.", "expect": ["fail", "incomplete"]}
+      - {"id": "unsupported_write", "text": "thu.cu@daymoc.example.test. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Địa chỉ trước lần đổi ấy.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["fail", "missing_answer"]}
+
+  - scenario_id: "TR16_APP_KEEP"
+    design: "train_wave_16"
+    split: "train"
+    request: "Máy giặt hiên rảnh thì chạy quick giúp tôi. Đang chạy thì cứ để vậy."
+    required: false
+    fresh: true
+    rubric: "Conditional action, not a factual question. The running result makes no write the correct trace. No final text is required. Acknowledgment or an accurate status is acceptable. An explicit contrary status or action claim fails. Other wording is reviewed."
+    evidence: {"kind": "latest", "tool": "appliances.list", "call": 0, "claims": [{"path": ["appliances", 0, "name"], "value": "Máy giặt hiên"}, {"path": ["appliances", 0, "state", "status"], "value": "running"}, {"path": ["appliances", 0, "state", "cycle"], "value": "eco"}]}
+    pass: ["(?:máy giặt hiên )?(?:đang chạy eco|đang chạy, tôi để nguyên)", "(?:được, )?tôi để nguyên"]
+    fail: {"wrong_entity": ["máy sấy hiên đang chạy eco"], "contradiction": ["máy giặt hiên đang rảnh"]}
+    probes:
+      - {"id": "supported_1", "text": "Máy giặt hiên đang chạy eco.", "expect": ["pass", "supported_facts"]}
+      - {"id": "supported_2", "text": "Được, tôi để nguyên.", "expect": ["pass", "supported_facts"]}
+      - {"id": "wrong_entity", "text": "Máy sấy hiên đang chạy eco.", "expect": ["fail", "wrong_entity"]}
+      - {"id": "contradiction", "text": "Máy giặt hiên đang rảnh.", "expect": ["fail", "contradiction"]}
+      - {"id": "unsupported_write", "text": "Máy giặt hiên đang chạy eco. Tôi đã tạo lời nhắc.", "expect": ["fail", "unsupported_action_claim"]}
+      - {"id": "ambiguous", "text": "Có vẻ đang vào lượt mới.", "expect": ["unresolved", "outside_scoped_rules"]}
+      - {"id": "missing", "text": null, "expect": ["pass", "answer_optional"]}

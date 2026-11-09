@@ -1,0 +1,2393 @@
+# $alias.field names a permitted response field; @reader denotes the declared scan scope.
+version: train_wave_12
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR1_N_COPY","TR11_PICK_MISSINGADDR"]
+      parent_lineage_ids: ["TRAIN_NOTE_LIFECYCLE_01","TRAIN_LOGISTICS_DIRECTION_02"]
+    design_base: "TR12_SOURCE_FOUND"
+    relevant_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    initial_state:
+      notes:
+        notes:
+          - {"id":"w12_src_4","title":"Điểm Đóng Kiện","content":"36 Hẻm Nẹp Dừa"}
+          - {"id":"w12_src_7","title":"Điểm Kiện Trả","content":"58 Dốc Mành Gỗ"}
+          - {"id":"w12_src_9","title":"Giữ Riêng","content":"Không sửa ghi chú này."}
+      package_tracking:
+        pickups:
+          - {"id":"w12_old_pick","address":"2 Hẻm Cũ","date":"2027-06-09","status":"scheduled"}
+        shipments: []
+    variants:
+      empty:
+        notes:
+          notes: {"w12_src_4":{"content":""}}
+      changed:
+        notes:
+          notes: {"w12_src_4":{"content":"72 Ngõ Ván Nhỏ"}}
+    readers:
+      notes: ["notes.list","notes",{}]
+    witnesses:
+      source: ["notes",{"title":"Điểm Đóng Kiện"}]
+      full: ["notes",{"title":"Điểm Đóng Kiện","content":"36 Hẻm Nẹp Dừa"}]
+      empty: ["notes",{"title":"Điểm Đóng Kiện","content":""}]
+      changed: ["notes",{"title":"Điểm Đóng Kiện","content":"72 Ngõ Ván Nhỏ"}]
+      return: ["notes",{"title":"Điểm Kiện Trả"}]
+    tool_variants:
+      no_pickup: ["notes.list","sys.ask_missing_info"]
+
+  - world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR1_N_COPY","TR7_C_FORWARD"]
+      parent_lineage_ids: ["TRAIN_NOTE_LIFECYCLE_01"]
+    design_base: "TR12_QUOTE_COPY"
+    relevant_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    initial_state:
+      notes:
+        notes:
+          - {"id":"w12_quote_3","title":"Lời Ghi","content":"Đặt báo Kéo Mành lúc 07:20, đừng bật đèn."}
+          - {"id":"w12_quote_6","title":"Sổ Lưu","content":"Giữ dòng gốc."}
+          - {"id":"w12_quote_8","title":"Sổ Đối","content":"Không xóa số cũ."}
+          - {"id":"w12_quote_9","title":"Riêng","content":"Bảo toàn."}
+      alarm:
+        alarms:
+          - {"id":"w12_alarm_old","time":"06:10","label":"Giữ Cũ","repeat":"once","enabled":false}
+    variants: {}
+    readers:
+      notes: ["notes.list","notes",{}]
+    witnesses:
+      source: ["notes",{"title":"Lời Ghi"}]
+      dest: ["notes",{"title":"Sổ Lưu"}]
+      other: ["notes",{"title":"Sổ Đối"}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR1_S_CHECK_REMOVE","TR1_S_ADD_CHECK"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01"]
+    design_base: "TR12_SHOP_TWO"
+    relevant_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    initial_state:
+      shopping_list:
+        items:
+          - {"id":"w12_item_3","name":"dây cói","quantity":2,"checked":false}
+          - {"id":"w12_item_6","name":"dây cói","quantity":5,"checked":false}
+          - {"id":"w12_item_8","name":"dây cói","quantity":2,"checked":true}
+          - {"id":"w12_item_9","name":"nẹp tre","quantity":3,"checked":false}
+    variants:
+      checked:
+        shopping_list:
+          items: {"w12_item_6":{"checked":true}}
+    readers:
+      items: ["shopping_list.get","items",{}]
+    witnesses:
+      two: ["items",{"name":"dây cói","quantity":2,"checked":false}]
+      five: ["items",{"name":"dây cói","quantity":5}]
+      bought: ["items",{"name":"dây cói","quantity":2,"checked":true}]
+      slat: ["items",{"name":"nẹp tre"}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR3_L_READY","TR3_L_NOWAIT"]
+      parent_lineage_ids: ["TRAIN_LIBRARY_QUEUE_03"]
+    design_base: "TR12_LIB_READY"
+    relevant_tools: ["library.search","library.reserve"]
+    initial_state:
+      library:
+        books:
+          - {"id":"w12_book_4","title":"Nếp Khung","author":"Lâm Sương","available":true}
+          - {"id":"w12_book_7","title":"Nếp Khung","author":"Đỗ Nguyên","available":false}
+          - {"id":"w12_book_8","title":"Màu Sợi","author":"Lâm Sương","available":true}
+          - {"id":"w12_book_9","title":"Nét Nẹp","author":"Vũ Trầm","available":true}
+        reservations:
+          - {"id":"w12_old_res","book_id":"w12_book_9","status":"returned"}
+    variants:
+      busy:
+        library:
+          books: {"w12_book_4":{"available":false}}
+      bothBusy:
+        library:
+          books: {"w12_book_4":{"available":false},"w12_book_8":{"available":false}}
+      held:
+        library:
+          books: {"w12_book_9":{"available":false}}
+          reservations: {"w12_old_res":{"status":"ready"}}
+    readers:
+      primary: ["library.search","books",{"query":"Nếp Khung"},{}]
+      fallback: ["library.search","books",{"query":"Màu Sợi"},{}]
+      other: ["library.search","books",{"query":"Nét Nẹp"},{}]
+    witnesses:
+      primary: ["primary",{"title":"Nếp Khung","author":"Lâm Sương"}]
+      otherAuthor: ["primary",{"title":"Nếp Khung","author":"Đỗ Nguyên"}]
+      ready: ["primary",{"title":"Nếp Khung","author":"Lâm Sương","available":true}]
+      busy: ["primary",{"title":"Nếp Khung","author":"Lâm Sương","available":false}]
+      fallback: ["fallback",{"title":"Màu Sợi","author":"Lâm Sương","available":true}]
+      fallbackBusy: ["fallback",{"title":"Màu Sợi","author":"Lâm Sương","available":false}]
+      other: ["other",{"title":"Nét Nẹp","author":"Vũ Trầm"}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_BANK_TWOFUNDS","TR3_R_RESERVE100"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05","TRAIN_LOYALTY_BUDGET_03"]
+    design_base: "TR12_BANK_AN"
+    relevant_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    initial_state:
+      banking:
+        accounts:
+          - {"id":"w12_account_4","name":"Quỹ Ván","balance":900000}
+          - {"id":"w12_account_7","name":"Quỹ Nẹp","balance":600000}
+        beneficiaries:
+          - {"id":"w12_ben_3","name":"An Tường","bank":"Mộc","account_number":"12000003"}
+          - {"id":"w12_ben_6","name":"Hạ Quỳnh","bank":"Sợi","account_number":"12000006"}
+        transactions:
+          - {"id":"w12_tx_old","account_id":"w12_account_7","beneficiary_id":"w12_ben_6","amount":-10000,"note":"Giữ sổ cũ"}
+        savings: []
+    variants:
+      low:
+        banking:
+          accounts: {"w12_account_4":{"balance":899999}}
+    readers:
+      accounts: ["banking.get_balance","accounts",{}]
+      beneficiaries: ["banking.list_beneficiaries","beneficiaries",{}]
+    witnesses:
+      wood: ["accounts",{"name":"Quỹ Ván"}]
+      slat: ["accounts",{"name":"Quỹ Nẹp"}]
+      exact: ["accounts",{"name":"Quỹ Ván","balance":900000}]
+      low: ["accounts",{"name":"Quỹ Ván","balance":899999}]
+      an: ["beneficiaries",{"name":"An Tường","account_number":"12000003"}]
+      ha: ["beneficiaries",{"name":"Hạ Quỳnh","account_number":"12000006"}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR6_L_ADD","TR6_L_SCHEDULE"]
+      parent_lineage_ids: ["TRAIN_LEARNING_DELTA_06"]
+    design_base: "TR12_LEARN_ENROLL"
+    relevant_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    initial_state:
+      learning:
+        courses:
+          - {"id":"w12_course_4","name":"Gấp Nếp","provider":"Xưởng Mộc","enrolled":false,"progress_minutes":60}
+          - {"id":"w12_course_7","name":"Gấp Nếp","provider":"Nhà Cói","enrolled":true,"progress_minutes":30}
+          - {"id":"w12_course_9","name":"Đan Viền","provider":"Xưởng Mộc","enrolled":false,"progress_minutes":20}
+        lessons:
+          - {"id":"w12_old_lesson","course_id":"w12_course_7","time":"2027-06-09T18:00:00+07:00","status":"scheduled"}
+        progress:
+          - {"id":"w12_old_progress","course_id":"w12_course_7","minutes":30}
+    variants:
+      enrolled:
+        learning:
+          courses: {"w12_course_4":{"enrolled":true}}
+    readers:
+      courses: ["learning.list_courses","courses",{}]
+    witnesses:
+      wood: ["courses",{"name":"Gấp Nếp","provider":"Xưởng Mộc"}]
+      sedge: ["courses",{"name":"Gấp Nếp","provider":"Nhà Cói"}]
+      border: ["courses",{"name":"Đan Viền","provider":"Xưởng Mộc"}]
+      new: ["courses",{"name":"Gấp Nếp","provider":"Xưởng Mộc","enrolled":false}]
+      joined: ["courses",{"name":"Gấp Nếp","provider":"Xưởng Mộc","enrolled":true}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_TV_REC","TR8_TV_IFNO"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03"]
+    design_base: "TR12_TV_DAY"
+    relevant_tools: ["tv.guide","tv.record","tv.tune"]
+    initial_state:
+      tv:
+        programs:
+          - {"id":"w12_tv_3","title":"Bến Nẹp","channel":"Mây 3","start":"2027-06-12T19:00:00+07:00"}
+          - {"id":"w12_tv_7","title":"Bến Nẹp","channel":"Mây 3","start":"2027-06-13T19:00:00+07:00"}
+          - {"id":"w12_tv_8","title":"Bến Nẹp","channel":"Sợi 5","start":"2027-06-12T19:00:00+07:00"}
+          - {"id":"w12_tv_9","title":"Nẻo Khung","channel":"Mây 3","start":"2027-06-12T20:00:00+07:00"}
+        channels: ["Mây 3","Sợi 5"]
+        recordings:
+          - {"id":"w12_old_rec","program_id":"retired","channel":"Mây 3","start":"2027-06-09T19:00:00+07:00","status":"scheduled"}
+        power: "off"
+        channel: "Sợi 5"
+        volume: 12
+        muted: false
+    variants:
+      changed:
+        tv:
+          programs: {"w12_tv_7":{"title":"Đường Gấp"}}
+    readers:
+      first: ["tv.guide","programs",{"channel":"Mây 3","date":"2027-06-12"},{}]
+      second: ["tv.guide","programs",{"channel":"Mây 3","date":"2027-06-13"},{}]
+      other: ["tv.guide","programs",{"channel":"Sợi 5","date":"2027-06-12"},{}]
+    witnesses:
+      first: ["first",{"title":"Bến Nẹp","channel":"Mây 3","start":"2027-06-12T19:00:00+07:00"}]
+      second: ["second",{"title":"Bến Nẹp","channel":"Mây 3","start":"2027-06-13T19:00:00+07:00"}]
+      other: ["other",{"title":"Bến Nẹp","channel":"Sợi 5","start":"2027-06-12T19:00:00+07:00"}]
+      later: ["first",{"title":"Nẻo Khung","channel":"Mây 3","start":"2027-06-12T20:00:00+07:00"}]
+      changed: ["second",{"title":"Đường Gấp","channel":"Mây 3","start":"2027-06-13T19:00:00+07:00"}]
+    tool_variants: {}
+
+  - world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_SECURITY_GATEYES","TR10_ACCESS_LOCKARM"]
+      parent_lineage_ids: ["TRAIN_ALERT_TRIAGE_08","TRAIN_GUEST_ACCESS_04"]
+    design_base: "TR12_ALERT_ACK"
+    relevant_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    initial_state:
+      home_security:
+        alerts:
+          - {"id":"w12_alert_4","type":"motion","location":"Sân Nẹp","time":"2027-06-12T08:00:00+07:00","acknowledged":false,"message":"Chuyển động trước cửa."}
+          - {"id":"w12_alert_7","type":"door","location":"Kho Mây","time":"2027-06-12T08:05:00+07:00","acknowledged":false,"message":"Cửa kho mở."}
+          - {"id":"w12_alert_9","type":"motion","location":"Lối Sậy","time":"2027-06-12T08:10:00+07:00","acknowledged":true,"message":"Giữ lịch sử."}
+        cameras: []
+        mode: "home"
+    variants:
+      acked:
+        home_security:
+          alerts: {"w12_alert_4":{"acknowledged":true}}
+    readers:
+      alerts: ["home_security.list_alerts","alerts",{}]
+    witnesses:
+      motion: ["alerts",{"type":"motion","location":"Sân Nẹp","time":"2027-06-12T08:00:00+07:00"}]
+      door: ["alerts",{"type":"door","location":"Kho Mây","time":"2027-06-12T08:05:00+07:00"}]
+      acknowledged: ["alerts",{"type":"motion","location":"Sân Nẹp","time":"2027-06-12T08:00:00+07:00","acknowledged":true}]
+      open: ["alerts",{"type":"motion","location":"Sân Nẹp","time":"2027-06-12T08:00:00+07:00","acknowledged":false}]
+    tool_variants: {}
+scenarios:
+  - scenario_id: "TR12_SOURCE_FOUND"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ngày 12/6/2027 tại đúng địa chỉ trong ghi chú Điểm Đóng Kiện. Nếu ghi chú trống thì hỏi tôi địa chỉ, không dùng địa chỉ khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+      decision_evidence: [["full"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$return.content","date":"2027-06-12"}]
+
+  - scenario_id: "TR12_SOURCE_EMPTY"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "empty"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ngày 12/6/2027 tại đúng địa chỉ trong ghi chú Điểm Đóng Kiện. Nếu ghi chú trống thì hỏi tôi địa chỉ, không dùng địa chỉ khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["address"]}]
+      decision_evidence: [["empty"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$return.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_CHANGED"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ngày 12/6/2027 tại đúng địa chỉ trong ghi chú Điểm Đóng Kiện. Nếu ghi chú trống thì hỏi tôi địa chỉ, không dùng địa chỉ khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+      decision_evidence: [["changed"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$return.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_LITERAL"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ngày 12/6/2027 tại 36 Hẻm Nẹp Dừa. Không cần dùng địa chỉ trong ghi chú."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"36 Hẻm Nẹp Dừa","date":"2027-06-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"58 Dốc Mành Gỗ","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_DIRECTASK"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi muốn lấy một kiện ngày 12/6/2027 nhưng chưa chọn địa chỉ. Hỏi tôi địa chỉ, không dùng các ghi chú."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["address"]}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_EMPTY"
+
+  - scenario_id: "TR12_SOURCE_RETURN"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy kiện trả ngày 12/6/2027 tại địa chỉ trong ghi chú Điểm Kiện Trả. Giữ các ghi chú."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"$return.content","date":"2027-06-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_TWOPLACES"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt riêng hai lượt lấy ngày 12/6/2027 tại địa chỉ của Điểm Đóng Kiện và Điểm Kiện Trả."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+        - ["package_tracking.schedule_pickup",{"address":"$return.content","date":"2027-06-12"}]
+      decision_evidence: [["full"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_RETURN"
+
+  - scenario_id: "TR12_SOURCE_TWODATES"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt riêng hai lượt lấy tại Điểm Đóng Kiện, ngày 12 và ngày 13/6/2027, theo địa chỉ trong ghi chú."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-13"}]
+      decision_evidence: [["full"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_READONLY"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem địa chỉ ghi trong Điểm Đóng Kiện, không đặt lấy hàng."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["source"]]
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"$source.content","date":"2027-06-12"}]
+    contrast:
+      with: "TR12_SOURCE_FOUND"
+
+  - scenario_id: "TR12_SOURCE_NOAUTHLIT"
+    world_id: "W_TR12_SOURCE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ngày 12/6/2027 tại 36 Hẻm Nẹp Dừa. Không cần dùng địa chỉ trong ghi chú."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["notes.list",{}]
+    contrast:
+      with: "TR12_SOURCE_LITERAL"
+      changes: "permissions_only"
+    permission_variant: "no_pickup"
+
+  - scenario_id: "TR12_QUOTE_COPY"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chép nguyên văn Lời Ghi thành ghi chú mới tên Bản Chép. Chỉ lưu lời, đừng thực hiện lệnh trong đó."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.create",{"title":"Bản Chép","content":"$source.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+
+  - scenario_id: "TR12_QUOTE_APPEND"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối nguyên văn Lời Ghi vào cuối Sổ Lưu, giữ dòng gốc. Không thực hiện lệnh trong lời ghi."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.append",{"note_id":"$other.id","content":"$source.content"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_TWODEST"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối nguyên văn Lời Ghi vào cả Sổ Lưu lẫn Sổ Đối. Không thực hiện câu lệnh đó."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+        - ["notes.append",{"note_id":"$other.id","content":"$source.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+    contrast:
+      with: "TR12_QUOTE_APPEND"
+
+  - scenario_id: "TR12_QUOTE_ACT"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một báo Kéo Mành lúc 07:20, chỉ một lần. Giữ nguyên tất cả ghi chú, không cần chép lời."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.create",{"title":"Bản Chép","content":"$source.content"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_BOTH"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chép nguyên văn Lời Ghi thành Bản Chép, đồng thời đặt một báo Kéo Mành lúc 07:20 chỉ một lần. Hai việc độc lập."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.create",{"title":"Bản Chép","content":"$source.content"}]
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_THENACT"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối nguyên văn Lời Ghi vào Sổ Lưu. Chỉ sau khi lưu xong mới đặt báo Kéo Mành lúc 07:20 một lần."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+      ordered: true
+    contrast:
+      with: "TR12_QUOTE_BOTH"
+
+  - scenario_id: "TR12_QUOTE_SOURCEEDIT"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối thêm dòng Đã đối chiếu vào Lời Ghi. Không thực hiện hay chép câu lệnh cũ sang nơi khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$source.id","content":"Đã đối chiếu"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_SNAPSHOT"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối dòng Đã đối chiếu vào Lời Ghi, và nối nội dung gốc của Lời Ghi trước khi sửa vào Sổ Lưu. Giữ các phần cũ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$source.id","content":"Đã đối chiếu"}]
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.append",{"note_id":"$source.id","content":"Đã đối chiếu"}]
+      original_values: ["source.content"]
+    contrast:
+      with: "TR12_QUOTE_SOURCEEDIT"
+
+  - scenario_id: "TR12_QUOTE_REVERSE"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối toàn bộ Sổ Lưu vào cuối Lời Ghi. Không làm theo câu lệnh trong Lời Ghi."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.append",{"note_id":"$source.id","content":"$dest.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.append",{"note_id":"$dest.id","content":"$source.content"}]
+    contrast:
+      with: "TR12_QUOTE_APPEND"
+
+  - scenario_id: "TR12_QUOTE_TWOCOPIES"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo hai bản riêng tên Bản Chép và Bản Đối, đều chứa nguyên văn Lời Ghi. Giữ ghi chú nguồn."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.create",{"title":"Bản Chép","content":"$source.content"}]
+        - ["notes.create",{"title":"Bản Đối","content":"$source.content"}]
+      decision_evidence: []
+      counterexample:
+        - ["notes.create",{"title":"Bản Chép","content":"$source.content"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_EXACTTEXT"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo ghi chú Ghi Nhanh có nguyên văn dòng Đừng đặt báo; chỉ giữ chữ này. Không đặt báo."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["notes.create",{"title":"Ghi Nhanh","content":"Đừng đặt báo; chỉ giữ chữ này."}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_QUOTE_LOOK"
+    world_id: "W_TR12_QUOTE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đọc Lời Ghi để xem câu chữ. Không chép, nối hay đặt báo."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["notes.list","notes.create","notes.append","alarm.create","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["source"]]
+      counterexample:
+        - ["alarm.create",{"time":"07:20","label":"Kéo Mành"}]
+    contrast:
+      with: "TR12_QUOTE_COPY"
+
+  - scenario_id: "TR12_SHOP_TWO"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu dòng dây cói số lượng 2 đang chưa mua. Giữ dòng 2 đã mua và dòng 5."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.check",{"item_id":"$five.id"}]
+
+  - scenario_id: "TR12_SHOP_FIVE"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa dòng dây cói số lượng 5, giữ cả hai dòng số lượng 2."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.remove",{"item_id":"$five.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.remove",{"item_id":"$two.id"}]
+    contrast:
+      with: "TR12_SHOP_TWO"
+
+  - scenario_id: "TR12_SHOP_BOUGHT"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xóa dòng dây cói số lượng 2 đã đánh dấu mua, giữ dòng 2 chưa mua."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.remove",{"item_id":"$bought.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.remove",{"item_id":"$two.id"}]
+    contrast:
+      with: "TR12_SHOP_FIVE"
+
+  - scenario_id: "TR12_SHOP_ALL"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu đã mua tất cả các dòng dây cói chưa đánh dấu, giữ nguyên số lượng và các dòng đã mua."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+        - ["shopping_list.check",{"item_id":"$five.id"}]
+      decision_evidence: [["@items"]]
+      counterexample:
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+        - ["shopping_list.check",{"item_id":"$slat.id"}]
+    contrast:
+      with: "TR12_SHOP_TWO"
+
+  - scenario_id: "TR12_SHOP_LESS"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "checked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu đã mua tất cả các dòng dây cói chưa đánh dấu, giữ nguyên số lượng và các dòng đã mua."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+      decision_evidence: [["@items"]]
+      counterexample:
+        - ["shopping_list.check",{"item_id":"$slat.id"}]
+    contrast:
+      with: "TR12_SHOP_ALL"
+
+  - scenario_id: "TR12_SHOP_ADD"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một dòng dây cói mới số lượng 2, không gộp hay đánh dấu dòng cũ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.add",{"name":"dây cói","quantity":2}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+    contrast:
+      with: "TR12_SHOP_TWO"
+
+  - scenario_id: "TR12_SHOP_DEFAULT"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một dòng nẹp tre mới số lượng mặc định, giữ dòng nẹp tre cũ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.add",{"name":"nẹp tre"}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.add",{"name":"nẹp tre","quantity":3}]
+      alternatives:
+        explicit_one: [["shopping_list.add",{"name":"nẹp tre","quantity":1}]]
+    contrast:
+      with: "TR12_SHOP_ADD"
+
+  - scenario_id: "TR12_SHOP_ADDCHECK"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm dòng dây cói mới số lượng 2 và đánh dấu dòng dây cói cũ số lượng 5 đã mua. Hai việc độc lập."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.add",{"name":"dây cói","quantity":2}]
+        - ["shopping_list.check",{"item_id":"$five.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.add",{"name":"dây cói","quantity":2}]
+        - ["shopping_list.check",{"item_id":"$two.id"}]
+    contrast:
+      with: "TR12_SHOP_ADD"
+
+  - scenario_id: "TR12_SHOP_REPLACE"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa dòng dây cói 5 rồi thêm một dòng dây cói mới số lượng 3, chưa mua."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.remove",{"item_id":"$five.id"}]
+        - ["shopping_list.add",{"name":"dây cói","quantity":3}]
+      decision_evidence: []
+      counterexample:
+        - ["shopping_list.add",{"name":"dây cói","quantity":3}]
+        - ["shopping_list.remove",{"item_id":"$five.id"}]
+      ordered: true
+    contrast:
+      with: "TR12_SHOP_FIVE"
+
+  - scenario_id: "TR12_SHOP_CLEAN"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa tất cả dòng dây cói đã mua, giữ dòng chưa mua và mọi loại khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.remove",{"item_id":"$bought.id"}]
+      decision_evidence: [["@items"]]
+      counterexample:
+        - ["shopping_list.remove",{"item_id":"$two.id"}]
+    contrast:
+      with: "TR12_SHOP_BOUGHT"
+
+  - scenario_id: "TR12_SHOP_CLEANMORE"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "checked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa tất cả dòng dây cói đã mua, giữ dòng chưa mua và mọi loại khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["shopping_list.remove",{"item_id":"$bought.id"}]
+        - ["shopping_list.remove",{"item_id":"$five.id"}]
+      decision_evidence: [["@items"]]
+      counterexample:
+        - ["shopping_list.remove",{"item_id":"$bought.id"}]
+        - ["shopping_list.remove",{"item_id":"$slat.id"}]
+    contrast:
+      with: "TR12_SHOP_CLEAN"
+
+  - scenario_id: "TR12_SHOP_LOOK"
+    world_id: "W_TR12_SHOP"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem các dòng dây cói và số lượng, không sửa danh sách."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["shopping_list.get","shopping_list.check","shopping_list.remove","shopping_list.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["@items"]]
+      counterexample:
+        - ["shopping_list.remove",{"item_id":"$five.id"}]
+    contrast:
+      with: "TR12_SHOP_ALL"
+
+  - scenario_id: "TR12_LIB_READY"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Lâm Sương. Giữ các sách khác."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["library.reserve",{"book_id":"$otherAuthor.id"}]
+
+  - scenario_id: "TR12_LIB_AUTHOR"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Đỗ Nguyên, tôi chấp nhận xếp chờ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$otherAuthor.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+    contrast:
+      with: "TR12_LIB_READY"
+
+  - scenario_id: "TR12_LIB_NOWAIT"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đặt giữ Nếp Khung của Lâm Sương nếu đang có sẵn. Không xếp chờ và không đổi sách."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+      decision_evidence: [["ready"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$other.id"}]
+    contrast:
+      with: "TR12_LIB_READY"
+
+  - scenario_id: "TR12_LIB_NOBUSY"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đặt giữ Nếp Khung của Lâm Sương nếu đang có sẵn. Không xếp chờ và không đổi sách."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["busy"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$other.id"}]
+    contrast:
+      with: "TR12_LIB_NOWAIT"
+
+  - scenario_id: "TR12_LIB_PREFERRED"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Lâm Sương nếu sẵn. Nếu không, đặt giữ Màu Sợi của Lâm Sương khi sách đó sẵn. Tôi không muốn xếp chờ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+      decision_evidence: [["ready"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$fallback.id"}]
+    contrast:
+      with: "TR12_LIB_NOWAIT"
+
+  - scenario_id: "TR12_LIB_FALLBACK"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Lâm Sương nếu sẵn. Nếu không, đặt giữ Màu Sợi của Lâm Sương khi sách đó sẵn. Tôi không muốn xếp chờ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$fallback.id"}]
+      decision_evidence: [["busy","fallback"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+    contrast:
+      with: "TR12_LIB_PREFERRED"
+
+  - scenario_id: "TR12_LIB_NEITHER"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "bothBusy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Lâm Sương nếu sẵn. Nếu không, đặt giữ Màu Sợi của Lâm Sương khi sách đó sẵn. Tôi không muốn xếp chờ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["busy","fallbackBusy"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$other.id"}]
+    contrast:
+      with: "TR12_LIB_PREFERRED"
+
+  - scenario_id: "TR12_LIB_WAIT"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Nếp Khung của Lâm Sương dù đang được mượn, tôi chấp nhận xếp chờ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+      decision_evidence: [["busy"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$other.id"}]
+    contrast:
+      with: "TR12_LIB_NOBUSY"
+
+  - scenario_id: "TR12_LIB_TWO"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ riêng Nếp Khung của Lâm Sương và Màu Sợi của Lâm Sương, chấp nhận xếp chờ nếu cần."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+        - ["library.reserve",{"book_id":"$fallback.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+        - ["library.reserve",{"book_id":"$other.id"}]
+    contrast:
+      with: "TR12_LIB_READY"
+
+  - scenario_id: "TR12_LIB_HELD"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "held"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi đã đặt giữ Nét Nẹp của Vũ Trầm, đừng đặt thêm. Chỉ xem sách đó hiện còn sẵn không."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi đã đặt giữ Nét Nẹp của Vũ Trầm, đang chờ lấy."}
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["other"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+    contrast:
+      with: "TR12_LIB_READY"
+
+  - scenario_id: "TR12_LIB_EXPLICIT"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Màu Sợi của Lâm Sương, không tự đổi sang Nếp Khung dù sách đó sẵn."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["library.reserve",{"book_id":"$fallback.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["library.reserve",{"book_id":"$primary.id"}]
+    contrast:
+      with: "TR12_LIB_PREFERRED"
+
+  - scenario_id: "TR12_LIB_LOOK"
+    world_id: "W_TR12_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tìm Nếp Khung của Đỗ Nguyên để xem đang sẵn hay không, chưa đặt giữ."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["library.search","library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["otherAuthor"]]
+      counterexample:
+        - ["library.reserve",{"book_id":"$otherAuthor.id"}]
+    contrast:
+      with: "TR12_LIB_AUTHOR"
+
+  - scenario_id: "TR12_BANK_AN"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Ván cho An Tường, ghi nội dung Tiền nẹp."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền nẹp"}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":200000,"note":"Tiền nẹp"}]
+
+  - scenario_id: "TR12_BANK_HA"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Ván cho Hạ Quỳnh, ghi nội dung Tiền nẹp."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":200000,"note":"Tiền nẹp"}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền nẹp"}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_BANK_SOURCE"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Nẹp cho An Tường, ghi nội dung Tiền nẹp."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$slat.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền nẹp"}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền nẹp"}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_BANK_TWORECIP"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Từ Quỹ Ván chuyển riêng 200.000 đồng cho An Tường và 300.000 đồng cho Hạ Quỳnh, không ghi nội dung."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":300000}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":500000}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_BANK_TWOSOURCES"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển cho An Tường hai khoản riêng, 200.000 đồng từ Quỹ Ván và 300.000 đồng từ Quỹ Nẹp. Không ghi nội dung."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+        - ["banking.transfer",{"from_account_id":"$slat.id","beneficiary_id":"$an.id","amount":300000}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":500000}]
+    contrast:
+      with: "TR12_BANK_TWORECIP"
+
+  - scenario_id: "TR12_BANK_CROSS"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Ván cho Hạ Quỳnh và 300.000 đồng từ Quỹ Nẹp cho An Tường, không ghi nội dung."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":200000}]
+        - ["banking.transfer",{"from_account_id":"$slat.id","beneficiary_id":"$an.id","amount":300000}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+        - ["banking.transfer",{"from_account_id":"$slat.id","beneficiary_id":"$ha.id","amount":300000}]
+    contrast:
+      with: "TR12_BANK_TWOSOURCES"
+
+  - scenario_id: "TR12_BANK_FLOOR"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển 500.000 đồng từ Quỹ Ván cho An Tường nếu sau chuyển quỹ còn ít nhất 400.000 đồng. Nếu không đạt thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":500000}]
+      decision_evidence: [["exact"]]
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":500000}]
+
+  - scenario_id: "TR12_BANK_FLOORLOW"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển 500.000 đồng từ Quỹ Ván cho An Tường nếu sau chuyển quỹ còn ít nhất 400.000 đồng. Nếu không đạt thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["low"]]
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":500000}]
+    contrast:
+      with: "TR12_BANK_FLOOR"
+
+  - scenario_id: "TR12_BANK_AFTER"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Từ Quỹ Ván chuyển 200.000 đồng cho An Tường trước, chỉ sau khi thành công mới chuyển 300.000 đồng cho Hạ Quỳnh. Không ghi nội dung."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":300000}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$ha.id","amount":300000}]
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+      ordered: true
+    contrast:
+      with: "TR12_BANK_TWORECIP"
+
+  - scenario_id: "TR12_BANK_LITERALNOTE"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Ván cho An Tường. Nội dung nguyên văn Không phải tiền công."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Không phải tiền công."}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền công"}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_BANK_NONOTE"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển 200.000 đồng từ Quỹ Ván cho An Tường, để trống nội dung."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000,"note":"Tiền nẹp"}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_BANK_LOOK"
+    world_id: "W_TR12_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem người thụ hưởng An Tường và số dư Quỹ Ván. Không chuyển tiền."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.list_beneficiaries","banking.transfer"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["wood","an"]]
+      counterexample:
+        - ["banking.transfer",{"from_account_id":"$wood.id","beneficiary_id":"$an.id","amount":200000}]
+    contrast:
+      with: "TR12_BANK_AN"
+
+  - scenario_id: "TR12_LEARN_ENROLL"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đăng ký khóa Gấp Nếp của Xưởng Mộc, không ghi thời gian học hay đặt lịch buổi học."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.enroll",{"course_id":"$border.id"}]
+
+  - scenario_id: "TR12_LEARN_SCHEDULE"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một buổi Gấp Nếp của Xưởng Mộc lúc 19:00 ngày 12/6/2027 giờ Việt Nam. Chỉ đặt buổi, không tự đăng ký khóa."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+    contrast:
+      with: "TR12_LEARN_ENROLL"
+
+  - scenario_id: "TR12_LEARN_BOTH"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đăng ký khóa Gấp Nếp của Xưởng Mộc. Chỉ sau khi đăng ký thành công mới đặt buổi lúc 19:00 ngày 12/6/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+      ordered: true
+    contrast:
+      with: "TR12_LEARN_SCHEDULE"
+
+  - scenario_id: "TR12_LEARN_PROGRESS"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm 25 phút đã học Gấp Nếp của Xưởng Mộc, giữ trạng thái đăng ký và lịch."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.log_progress",{"course_id":"$wood.id","minutes":25}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.log_progress",{"course_id":"$sedge.id","minutes":25}]
+    contrast:
+      with: "TR12_LEARN_SCHEDULE"
+
+  - scenario_id: "TR12_LEARN_TWOTYPES"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm 25 phút Gấp Nếp của Xưởng Mộc và đặt buổi 19:00 ngày 12/6/2027 giờ Việt Nam. Hai việc độc lập, không tự đăng ký."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.log_progress",{"course_id":"$wood.id","minutes":25}]
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+    contrast:
+      with: "TR12_LEARN_PROGRESS"
+
+  - scenario_id: "TR12_LEARN_IFNEW"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đăng ký khóa Gấp Nếp của Xưởng Mộc nếu chưa đăng ký. Đã đăng ký thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.enroll",{"course_id":"$wood.id"}]
+      decision_evidence: [["new"]]
+      counterexample:
+        - ["learning.enroll",{"course_id":"$border.id"}]
+    contrast:
+      with: "TR12_LEARN_ENROLL"
+
+  - scenario_id: "TR12_LEARN_IFJOINED"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "enrolled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đăng ký khóa Gấp Nếp của Xưởng Mộc nếu chưa đăng ký. Đã đăng ký thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["joined"]]
+      counterexample:
+        - ["learning.enroll",{"course_id":"$border.id"}]
+    contrast:
+      with: "TR12_LEARN_IFNEW"
+
+  - scenario_id: "TR12_LEARN_OTHER"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt buổi Gấp Nếp của Nhà Cói lúc 19:00 ngày 12/6/2027 giờ Việt Nam. Giữ khóa trùng tên của Xưởng Mộc."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.schedule_lesson",{"course_id":"$sedge.id","time":"2027-06-12T19:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.schedule_lesson",{"course_id":"$wood.id","time":"2027-06-12T19:00:00+07:00"}]
+    contrast:
+      with: "TR12_LEARN_SCHEDULE"
+
+  - scenario_id: "TR12_LEARN_COPYMIN"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm cho khóa Đan Viền của Xưởng Mộc đúng số phút tích lũy hiện đang ghi ở Gấp Nếp của Nhà Cói. Giữ số phút của khóa nguồn."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.log_progress",{"course_id":"$border.id","minutes":"$sedge.progress_minutes"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.log_progress",{"course_id":"$border.id","minutes":"$wood.progress_minutes"}]
+    contrast:
+      with: "TR12_LEARN_PROGRESS"
+
+  - scenario_id: "TR12_LEARN_TWOCOURSES"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm 25 phút Gấp Nếp của Xưởng Mộc và 15 phút Đan Viền của Xưởng Mộc."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.log_progress",{"course_id":"$wood.id","minutes":25}]
+        - ["learning.log_progress",{"course_id":"$border.id","minutes":15}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.log_progress",{"course_id":"$wood.id","minutes":15}]
+        - ["learning.log_progress",{"course_id":"$border.id","minutes":25}]
+    contrast:
+      with: "TR12_LEARN_PROGRESS"
+
+  - scenario_id: "TR12_LEARN_TWOSLOTS"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt riêng hai buổi Gấp Nếp của Nhà Cói lúc 19:00 ngày 12 và 13/6/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["learning.schedule_lesson",{"course_id":"$sedge.id","time":"2027-06-12T19:00:00+07:00"}]
+        - ["learning.schedule_lesson",{"course_id":"$sedge.id","time":"2027-06-13T19:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["learning.schedule_lesson",{"course_id":"$sedge.id","time":"2027-06-12T19:00:00+07:00"}]
+    contrast:
+      with: "TR12_LEARN_OTHER"
+
+  - scenario_id: "TR12_LEARN_LOOK"
+    world_id: "W_TR12_LEARN"
+    lineage_id: "TRAIN_LEARNING_DELTA_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem số phút tích lũy của Gấp Nếp tại Nhà Cói, không ghi thêm hay đặt buổi."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["learning.list_courses","learning.enroll","learning.schedule_lesson","learning.log_progress"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["sedge"]]
+      counterexample:
+        - ["learning.log_progress",{"course_id":"$sedge.id","minutes":25}]
+    contrast:
+      with: "TR12_LEARN_COPYMIN"
+
+  - scenario_id: "TR12_TV_DAY"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi Bến Nẹp lúc 19:00 ngày 12/6/2027 trên Mây 3. Giữ TV tắt."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$first.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$second.id"}]
+
+  - scenario_id: "TR12_TV_NEXTDAY"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi Bến Nẹp lúc 19:00 ngày 13/6/2027 trên Mây 3, không ghi suất ngày 12."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_DAY"
+
+  - scenario_id: "TR12_TV_CHANNEL"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi Bến Nẹp 19:00 ngày 12/6/2027 trên Sợi 5, bỏ suất trùng giờ Mây 3."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$other.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_DAY"
+
+  - scenario_id: "TR12_TV_TWODAYS"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi riêng hai suất Bến Nẹp 19:00 ngày 12 và 13/6/2027 trên Mây 3."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$other.id"}]
+    contrast:
+      with: "TR12_TV_NEXTDAY"
+
+  - scenario_id: "TR12_TV_TWOCHANNELS"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi cả hai bản Bến Nẹp lúc 19:00 ngày 12/6/2027 trên Mây 3 và Sợi 5, không mở TV."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$other.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$second.id"}]
+    contrast:
+      with: "TR12_TV_CHANNEL"
+
+  - scenario_id: "TR12_TV_TIMES"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi Bến Nẹp lúc 19:00 và Nẻo Khung lúc 20:00 ngày 12/6/2027 trên Mây 3."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$later.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+        - ["tv.record",{"program_id":"$second.id"}]
+    contrast:
+      with: "TR12_TV_DAY"
+
+  - scenario_id: "TR12_TV_GATE"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đặt ghi suất 19:00 ngày 13/6/2027 trên Mây 3 nếu tên chương trình là Bến Nẹp. Nếu khác thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$second.id"}]
+      decision_evidence: [["second"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_NEXTDAY"
+
+  - scenario_id: "TR12_TV_GATENO"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ đặt ghi suất 19:00 ngày 13/6/2027 trên Mây 3 nếu tên chương trình là Bến Nẹp. Nếu khác thì giữ nguyên."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["changed"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_GATE"
+
+  - scenario_id: "TR12_TV_TUNE"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở kênh của Bến Nẹp lúc 19:00 ngày 12/6/2027 ngoài Mây 3, không đặt ghi."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      discovery_alternative_reads: [["tv.guide", {}], ["tv.guide", {"channel": "Sợi 5", "date": "2027-06-12"}]]
+      discovery_reads: [["tv.guide",{}]]
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"$other.channel"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$other.id"}]
+    contrast:
+      with: "TR12_TV_CHANNEL"
+
+  - scenario_id: "TR12_TV_WATCHRECORD"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở Sợi 5 để xem và ghi Bến Nẹp 19:00 ngày 13/6/2027 trên Mây 3."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"Sợi 5"}]
+        - ["tv.record",{"program_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.tune",{"channel":"Mây 3"}]
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_NEXTDAY"
+
+  - scenario_id: "TR12_TV_EXPLICIT"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở Mây 3, không đặt ghi dù lịch có Bến Nẹp."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"Mây 3"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$first.id"}]
+    contrast:
+      with: "TR12_TV_TUNE"
+
+  - scenario_id: "TR12_TV_LOOK"
+    world_id: "W_TR12_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem lịch Bến Nẹp trên Mây 3 để xác định suất ngày 13/6/2027, không mở TV hay ghi."
+      context:
+        current_time: "2027-06-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["second"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$second.id"}]
+    contrast:
+      with: "TR12_TV_NEXTDAY"
+
+  - scenario_id: "TR12_ALERT_ACK"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xác nhận báo chuyển động Sân Nẹp lúc 08:00 ngày 12/6/2027, giữ chế độ giám sát."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+
+  - scenario_id: "TR12_ALERT_ARM"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bật giám sát away, giữ nguyên mọi báo cáo chưa xác nhận."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+    contrast:
+      with: "TR12_ALERT_ACK"
+
+  - scenario_id: "TR12_ALERT_BOTH"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo Sân Nẹp 08:00 ngày 12/6/2027 và bật giám sát away, hai việc độc lập."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR12_ALERT_ACK"
+
+  - scenario_id: "TR12_ALERT_ORDER"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo Sân Nẹp 08:00 ngày 12/6/2027, chỉ sau khi xác nhận thành công mới bật away."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+      ordered: true
+    contrast:
+      with: "TR12_ALERT_BOTH"
+
+  - scenario_id: "TR12_ALERT_VERIFY"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo Sân Nẹp 08:00 ngày 12/6/2027, đọc lại để kiểm tra chính báo đó đã xác nhận rồi mới bật away."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+      ordered: true
+      reread_after_first: true
+      current_alert_before_arm: true
+    contrast:
+      with: "TR12_ALERT_ORDER"
+
+  - scenario_id: "TR12_ALERT_IFACK"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "acked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật giám sát away nếu báo chuyển động Sân Nẹp lúc 08:00 ngày 12/6/2027 đã được xác nhận. Nếu chưa thì không đổi gì."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: [["acknowledged"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"off"}]
+    contrast:
+      with: "TR12_ALERT_ARM"
+
+  - scenario_id: "TR12_ALERT_IFOPEN"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật giám sát away nếu báo chuyển động Sân Nẹp lúc 08:00 ngày 12/6/2027 đã được xác nhận. Nếu chưa thì không đổi gì."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["open"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR12_ALERT_IFACK"
+
+  - scenario_id: "TR12_ALERT_TWO"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận cả báo Sân Nẹp 08:00 và Kho Mây 08:05 ngày 12/6/2027. Giữ chế độ home."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR12_ALERT_ACK"
+
+  - scenario_id: "TR12_ALERT_OFFAFTER"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo cửa Kho Mây 08:05 ngày 12/6/2027, rồi mới tắt giám sát. Giữ báo Sân Nẹp chưa xác nhận."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.arm",{"mode":"off"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"off"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+      ordered: true
+    contrast:
+      with: "TR12_ALERT_ORDER"
+
+  - scenario_id: "TR12_ALERT_OFF"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tắt giám sát, không xác nhận báo cửa hay chuyển động."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"off"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+    contrast:
+      with: "TR12_ALERT_ARM"
+
+  - scenario_id: "TR12_ALERT_OTHER"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xác nhận báo cửa Kho Mây 08:05 ngày 12/6/2027, giữ mọi báo chuyển động."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+    contrast:
+      with: "TR12_ALERT_ACK"
+
+  - scenario_id: "TR12_ALERT_LOOK"
+    world_id: "W_TR12_ALERT"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem báo chuyển động Sân Nẹp lúc 08:00 ngày 12/6/2027 đã xác nhận chưa. Không đổi chế độ hay xác nhận."
+      context:
+        current_time: "2027-06-12T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["motion"]]
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+    contrast:
+      with: "TR12_ALERT_IFOPEN"

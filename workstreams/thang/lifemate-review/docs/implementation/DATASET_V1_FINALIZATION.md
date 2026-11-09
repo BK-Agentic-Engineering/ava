@@ -18,7 +18,7 @@ Both repaired checks were applied through a fresh candidate build. All 1,047 dem
 
 ## Scope and evidence access
 
-The older 1,000-case designs/replays and failure-mode index elsewhere in this package are a preserved historical snapshot. Candidate private locators refer to the current original source workspace, not those older files. Full current replay requires that workspace and the authorized v3.2.0 SDK; no organizer dataset or runtime is distributed here. The candidate includes selected tool interface definitions for rendering.
+The older 1,000-case designs/replays are a preserved historical snapshot. The failure-mode index has subsequently been refreshed for all 1,063 source IDs, using current source copies where needed. Candidate private locators refer to the current original source workspace, not those older files. Full current replay requires that workspace and the authorized v3.2.0 SDK; no organizer dataset or runtime is distributed here. The candidate includes selected tool interface definitions for rendering.
 
 All 203 required-answer demonstrations contain text. Of the 39 rubric cases, ten have scoped automatic checks; 29 remain manual. Canonical source status stays spec_only/non-exportable; derived candidate eligibility means ready for training integration, not tested model serialization, loss masking, native harness execution or a production training release. Keep all group restrictions and exposed-development labels. No untouched test set or measured generalization claim is introduced.
 

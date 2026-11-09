@@ -37,7 +37,7 @@ def accepted_runtime_reference(ref, source, artifact, standard_index):
     # Old dev records omit per-row provenance; their artifact and runner source
     # describe the actual authored runtime replay. Never accept an unlabeled
     # modified probe merely because its verdict passes.
-    assert source.get('evidence_kind')=='actual_runtime_trace' or (
+    assert source.get('evidence_kind') in {'actual_runtime_trace','actual_authored_SDK_trace','authored_runtime_reference'} or (
         'evidence_kind' not in source and any(word in artifact.get('kind','')
                                             for word in ['runtime','replay']))
     return ref['selector']==f'/replays/{standard_index}'
@@ -62,8 +62,8 @@ def comparison_note(accepted_ref, negative_ref, accepted, negative):
         return name+(f" [{ref['ordering']}]" if 'ordering' in ref else '')+f" ({ref['selector']})"
     lead=f"{label(accepted_ref)} versus {label(negative_ref)}: "
     if negative_ref['evidence_type']=='authored_answer_probe':
-        text=accepted.get('text',accepted.get('authored_final_text'))
-        return (lead+f"the authored answer changes from {text!r} to {negative['text']!r}, on the same standard trace. "
+        text=accepted.get('text',accepted.get('authored_final_text',accepted.get('final_text')))
+        return (lead+f"the authored answer changes from {text!r} to {negative.get('text',negative.get('final_text'))!r}, on the same standard trace. "
                 +f"Recorded trace verdict: {negative['verdict']['trace_verdict']}; answer verdict: "
                 +f"{negative['verdict']['answer_verdict']} ({negative['verdict']['answer_reason']}). "
                 +'This is an authored answer probe, not model output.')
@@ -109,17 +109,29 @@ def comparison_note(accepted_ref, negative_ref, accepted, negative):
 def validate(rows):
     ledger = read_rows(ROOT/'artifacts/synthetic/quality_audit_1000/per_sample_review.jsonl')
     audit = {r['scenario_id']:r for r in ledger}
-    assert len(rows) == len({r['scenario_id'] for r in rows}) == len(audit) == 1000
-    assert {r['scenario_id'] for r in rows} == set(audit)
+    manifest = {r['scenario_id']:r for r in read_rows(ROOT/'dataset_v1_candidate/eligibility.jsonl')}
+    source_map = json.loads((ROOT/'artifacts/synthetic/failure_mode_sources.json').read_text(encoding='utf8'))['paths']
+    current = lambda path: source_map.get(path,path)
+    assert len(rows) == len({r['scenario_id'] for r in rows}) == len(manifest)
+    assert {r['scenario_id'] for r in rows} == set(manifest)
     docs, artifacts, rationales = {}, {}, set()
     for row in rows:
-        sid = row['scenario_id']; old = audit[sid]
-        for key in ['world_id','lineage_id','split','content_disposition','design_status','exportable','oracle_review_status']:
-            assert row[key] == old[key], (sid,key)
-        assert row['hold'] == (old['content_disposition'] != 'acceptable within scope')
-        if row['hold']:assert row['hold_information'] == old['judgment']
-        assert selected(ledger, '/'+str(row['audit_ref']['line']-1))['scenario_id'] == sid
-        assert row['audit_ref']['path'] == 'artifacts/synthetic/quality_audit_1000/per_sample_review.jsonl'
+        sid = row['scenario_id']; candidate = manifest[sid]
+        old = audit.get(sid)
+        assert row['world_id']==candidate['world_id'] and row['lineage_id']==candidate['lineage_id']
+        assert row['split']==candidate['intended_split'] and row['hold']==candidate['original_hold']
+        assert row['design_status']=='spec_only' and row['exportable'] is False
+        if old:
+            for key in ['content_disposition','oracle_review_status']:
+                assert row[key] == old[key], (sid,key)
+            if row['hold']:assert row['hold_information'] == old['judgment']
+            assert selected(ledger, '/'+str(row['audit_ref']['line']-1))['scenario_id'] == sid
+            assert row['audit_ref']['path'] == 'artifacts/synthetic/quality_audit_1000/per_sample_review.jsonl'
+        else:
+            assert row['audit_ref'] is None and row['review_basis']=='individual mapping of request, oracle and saved SDK traces; not independent quality adjudication'
+        assert row['design_ref']['path']==current(candidate['design'])
+        expected_evidence=current(candidate['validation_evidence']['path'])
+        standard_index=candidate['validation_evidence']['replay_row_index']
         path = row['design_ref']['path']
         if path not in docs:docs[path] = load_design(ROOT/path)
         scenario = selected(docs[path],row['design_ref']['selector'])
@@ -147,7 +159,7 @@ def validate(rows):
                         assert ref['selector']==row['design_ref']['selector']+'/oracle_draft'
                         selected(docs[path],ref['selector'])
                     else:
-                        assert path=='data/synthetic/factual_answer_pilot.yaml'
+                        assert path==current('data/synthetic/factual_answer_pilot.yaml')
                         if path not in docs:docs[path]=load_design(ROOT/path)
                         parts=ref['selector'].split('/')
                         assert len(parts)==5 and parts[1]=='cases' and parts[3]=='probes'
@@ -158,7 +170,7 @@ def validate(rows):
                         assert ref['probe_id']==probe['id'] and ref['specified_expected_judgment']==probe['expect']
                     types.append('design');continue
                 if path not in artifacts:artifacts[path]=json.loads(target.read_text(encoding='utf8'))
-                assert path==old['evidence'], (sid,path)
+                assert path==expected_evidence, (sid,path)
                 source=selected(artifacts[path],ref['selector'])
                 assert source['scenario_id']==ref['scenario_id']==sid
                 for key in ['trace_case','ordering','probe','probe_kind','case','verdict']:
@@ -168,20 +180,21 @@ def validate(rows):
                         or verdict.get('overall')=='pass')
                 if ref['evidence_type']=='authored_answer_probe':
                     assert ref['selector'].startswith('/answer_probes/')
-                    assert source['provenance']=='authored_answer_probe'
-                    assert ref['trace_ref']==source['trace_ref']==sid+'/standard'
+                    assert source.get('provenance',source.get('evidence_kind'))=='authored_answer_probe'
+                    if 'trace_ref' in source:assert ref['trace_ref']==source['trace_ref']==sid+'/standard'
+                    else:assert source.get('trace_case','standard')=='standard'
                     types.append('answer_positive' if passed else 'negative')
                     isolated_answer |= verdict.get('trace_verdict')=='pass' and verdict.get('answer_verdict')=='fail'
                 elif ref['evidence_type']=='accepted_authored_runtime_trace':
                     assert passed
-                    standard=accepted_runtime_reference(ref,source,artifacts[path],old['reference_row_index'])
+                    standard=accepted_runtime_reference(ref,source,artifacts[path],standard_index)
                     types.append('reference' if standard else 'alternative')
                 else:
                     assert not passed, (sid,ref['trace_case'])
                     modified=source.get('evidence_kind','').startswith('verifier')
                     assert ref['evidence_type']==('verifier_only_or_modified_evidence_probe' if modified
                                                 else 'authored_runtime_counterexample')
-                    assert verdict.get('verdict')=='reject' or verdict.get('passed') is False or verdict.get('overall')=='fail'
+                    assert verdict.get('verdict') in {'reject','fail'} or verdict.get('passed') is False or verdict.get('overall')=='fail'
                     types.append('negative')
             assert 'design' in types and 'reference' in types
             if entry['evidence_status']=='isolated_authored_answer_probe':assert isolated_answer
@@ -193,11 +206,11 @@ def validate(rows):
                 assert n['evidence_type'] in {'authored_runtime_counterexample','verifier_only_or_modified_evidence_probe','authored_answer_probe'}
                 left=selected(artifacts[a['path']],a['selector']);right=selected(artifacts[n['path']],n['selector'])
                 assert left['verdict'].get('verdict')=='pass' or left['verdict'].get('passed') is True
-                assert right['verdict'].get('verdict')=='reject' or right['verdict'].get('passed') is False
+                assert right['verdict'].get('verdict') in {'reject','fail'} or right['verdict'].get('passed') is False
                 assert entry['evidence_gap']==comparison_note(a,n,left,right),(sid,entry['tag'],'stale comparison')
         for ref in row.get('context_evidence',[]):
             path=ref['path']
-            assert path==old['evidence']
+            assert path==expected_evidence
             if path not in artifacts:artifacts[path]=json.loads((ROOT/path).read_text(encoding='utf8'))
             source=selected(artifacts[path],ref['selector'])
             assert ref['evidence_type']=='scenario_review_context'
@@ -206,7 +219,7 @@ def validate(rows):
             kind=('verifier_only_or_modified_evidence_probe' if source.get('evidence_kind','').startswith('verifier') or source.get('provenance')=='modified_evidence_verifier_probe' else 'authored_answer_probe' if source.get('provenance')=='authored_answer_probe' else 'authored_runtime_trace')
             assert ref['source_kind']==kind
     assert sum(r['hold'] for r in rows)==16
-    return {'total_ids':1000,'individually_reviewed':sum(r['individually_reviewed'] for r in rows),
+    return {'total_ids':len(rows),'individually_reviewed':sum(r['individually_reviewed'] for r in rows),
             'awaiting_mapping_review':sum(not r['individually_reviewed'] for r in rows),
             'reviewed_but_unmapped':sum(r['individually_reviewed'] and not r['failure_modes'] for r in rows),
             'holds':16,'export_eligible':0,
@@ -228,9 +241,9 @@ def guide(rows,summary):
     reviewed=summary['individually_reviewed'];pending=summary['awaiting_mapping_review']
     state='complete individual mapping' if not pending else 'incomplete mapping checkpoint'
     lines=[f'# Failure-mode index — {state}', '',
-        f"**{reviewed:,}/1,000 individually reviewed; {pending} pending.** Reviewed-but-unmapped: {sum(r['individually_reviewed'] and not r['failure_modes'] for r in rows)}. All 1,000 IDs occur once. Prior quality-audit review and this mapping review are separate.", '',
+        f"**{reviewed:,}/{summary['total_ids']:,} individually reviewed; {pending} pending.** Reviewed-but-unmapped: {sum(r['individually_reviewed'] and not r['failure_modes'] for r in rows)}. All {summary['total_ids']:,} IDs occur once. Prior quality-audit review and this mapping review are separate.", '',
         '[Index](../../artifacts/synthetic/failure_mode_index.jsonl) · [Audit](SYNTHETIC_1000_QUALITY_AUDIT.md)', '',
-        'Counts use unique scenario IDs, with denominator 1,000. Tags and evidence statuses overlap; sums need not equal the collection size. These are designed cases, not independent statistical samples or model error rates. Unreviewed rows carry no inferred tags.', '',
+        f"Counts use unique scenario IDs, with denominator {summary['total_ids']:,}. Tags and evidence statuses overlap; sums need not equal the collection size. These are designed cases, not independent statistical samples or model error rates. Unreviewed rows carry no inferred tags.", '',
         '| Tag | IDs | Train | Dev | Design-only | Isolation not assessed | Isolated authored negative |',
         '| --- | ---: | ---: | ---: | ---: | ---: | ---: |']
     for tag in TAGS:
@@ -247,7 +260,7 @@ def guide(rows,summary):
     lines += [f'| {kind} | {count} |' for kind,count in summary['unique_scenarios_per_evidence_type'].items()]
     lines += ['| Actual model failure | 0 |', '',
         'The isolated-negative column is the union of runtime and answer-probe scenario IDs, never their sum. State changes and multiple verdict reasons can be consequences of one error, not independent defects. Isolation not assessed means no causal-isolation conclusion was reached. Per-entry comparisons name their accepted and negative records and are checked against source-derived differences. Scenario-wide limitations remain separate; context_evidence resolves other records mentioned there without adding tag coverage or isolated-negative counts.', '',
-        f"The consistency review covers all {summary['mapping_entries']:,} entries: {summary['anchored_comparisons']:,} accepted/negative comparisons and {summary['mapping_entries']-summary['anchored_comparisons']:,} design-only entries. The {summary['scenario_context_references']} context references identify additional records discussed in scenario-level notes and do not increase tag coverage. The TR9_NEWS_LOOK and TR10_CLIMATE_FAN missing-read comparisons now describe their linked unobserved paths, separately from the wrong-write paths. No tag, hold, split, gold or evidence-status promotion follows from this cleanup.", '',
+        f"The consistency review covers all {summary['mapping_entries']:,} entries: {summary['anchored_comparisons']:,} accepted/negative comparisons and {summary['mapping_entries']-summary['anchored_comparisons']:,} design-only entries. The {summary['scenario_context_references']} context references identify additional records discussed in scenario-level notes and do not increase tag coverage. The TR9_NEWS_LOOK and TR10_CLIMATE_FAN missing-read comparisons now describe their linked unobserved paths, separately from the wrong-write paths. Current source copies and mapping changes are recorded in failure_mode_sources.json and failure_mode_reconciliation.json. The original 1,000-case audit remains historical; the 63 new IDs have mapping review, not that audit.", '',
         '## Use and evidence boundaries', '',
         '```powershell','python -X utf8 scripts/check_failure_mode_index.py',
         'python -X utf8 scripts/check_failure_mode_index.py --tag wrong_target',
@@ -307,11 +320,11 @@ def guide(rows,summary):
         '- B02_N_C must inspect source absence and ask time; unrelated valid time is not evidence. In-utterance correction (T1 or EX3_T_B) is not conversation history.',
         '- An error/no-op trace alone does not establish bad_recovery; observe-only alone does not establish unsupported_answer. TR16 delivered recovery and TR19 fan wrong-subject probes provide specific mechanisms.',
         '- All 16 holds remain active: seven mail split holds, six Wave 17 independent reviews, B05_L_D and two Wave 11 chore policies. Mapping review never adjudicates these. All cases stay spec_only/non-exportable.',
-        '- Source-witness limits for later review: TR9_NEWS_LOOK includes the queried publisher in its witness, and TR10_CLIMATE_FAN does not bind the requested room in its source witness. Their per-ID mappings describe the actual selected trace checks, not new defect reproductions. Inspect their design/oracle through --scenario before extending the fixture distribution.',
+        '- Existing bounded source-witness limits for later review: TR9_NEWS_LOOK includes the queried publisher in its witness, and TR10_CLIMATE_FAN does not bind the requested room in its source witness. Their per-ID mappings describe the actual selected trace checks, not new defect reproductions. Inspect their design/oracle through --scenario before extending the fixture distribution.',
         '- Observation-necessity questions remain distinct from hidden-value guessing: TR10_REM_COPYONCE and TR10_ALARM_COPYSILENT retain their recorded rules; explicit text supplied by the user does not become hidden merely because a local verifier requires a read. See each mapping for the relevant scope rather than inferring a policy change.',
         '- Eight earlier factual-sidecar mappings use probe definitions/expected judgments as design support only. The 100 Wave 19 and 26 Wave 20 answer mappings link stored answer verdicts. An observe-only trace success alone is not factual-answer coverage.',
         '- Finite text rules, design-only entries and entries without examined isolation remain limitations. Unknown plausible answers are not invented model failures. No new taxonomy category is introduced.', '',
-        'Exact pending IDs are individually_reviewed=false rows; --pending-ids prints them. Reviewed-but-unmapped rows must carry a case-specific reason. No gold, fixture, canonical replay, verifier, split or hold changes belong to this index.', '']
+        'Exact pending IDs are individually_reviewed=false rows; --pending-ids prints them. Reviewed-but-unmapped rows must carry a case-specific reason. This index does not change gold, fixtures, verifiers or original holds. TR12_BANK_LOOK has a later currency-review restriction; the separate 29-case review remains authoritative. Current source copies preserve recorded evidence; no new model failure is claimed.', '']
     return '\n'.join(lines)
 
 

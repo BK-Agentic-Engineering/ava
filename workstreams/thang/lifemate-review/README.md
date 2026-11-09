@@ -39,7 +39,7 @@ All 203 required-answer targets are present. Of the 39 rubric cases, ten have sc
 
 ### Historical 1,000-scenario review snapshot
 
-The following designs, replay artifacts, audit and failure-mode index retain their earlier versions and exact evidence selectors. They are reference material, not the source of the current candidate.
+The following historical designs, replay artifacts and audit retain their earlier versions. The failure-mode index has separately been refreshed for all 1,063 source IDs; it uses explicit current source copies where needed.
 
 
 | Checkpoint | Status |
@@ -103,6 +103,6 @@ Team review is open in [Draft PR #5](https://github.com/BK-Agentic-Engineering/a
 
 ## Failure-mode navigation
 
-Use the [failure-mode guide](docs/implementation/FAILURE_MODE_INDEX.md) to find intended challenges, controls and exact authored runtime/answer evidence. The [JSONL index](artifacts/synthetic/failure_mode_index.jsonl) contains all **1,000 individually reviewed mappings**, including the 16 holds. Counts overlap and describe design/verifier coverage, not model error rates. The earlier quality audit, official contest scoring and local semantic checks remain separate. All scenarios stay spec_only and non-exportable. This index covers the original 1,000 IDs only; later additions are not indexed here.
+Use the [failure-mode guide](docs/implementation/FAILURE_MODE_INDEX.md) to find intended challenges, controls and exact authored runtime/answer evidence. The [JSONL index](artifacts/synthetic/failure_mode_index.jsonl) contains all **1,063 individually mapped scenarios**, including the 16 holds. Counts overlap and describe design/verifier coverage, not model error rates. The earlier quality audit, official contest scoring and local semantic checks remain separate. All scenarios stay spec_only and non-exportable. It includes the 63 later cases and reconciles mappings against repaired evidence. The 1,000-case quality audit is still historical. Current evidence copies and exact path mapping are supplied alongside the index; no new model execution is implied.
 
 From this package directory, run `python -X utf8 scripts/check_failure_mode_index.py --require-complete`. Add `--tag wrong_target` to list matching IDs or `--scenario TR16_PARCEL_DELIVERED` to inspect a mapping and its evidence selectors.

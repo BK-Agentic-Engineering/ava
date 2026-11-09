@@ -1,0 +1,2454 @@
+# $alias.field names a permitted response field; @reader denotes the declared scan scope.
+version: train_wave_09
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR2_A_TIME_LABEL","TR8_TASK_FOLLOW"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02","TRAIN_SHOP_LIFECYCLE_01"]
+    design_base: "TR9_CAL_PLACE"
+    relevant_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    initial_state:
+      calendar:
+        events:
+          - {"id":"w9_ev_4","title":"Soát Mẫu Lụa","start":"2027-03-11T09:00:00+07:00","end":"2027-03-11T09:45:00+07:00","location":"Phòng Tầng Gỗ","status":"confirmed"}
+          - {"id":"w9_ev_8","title":"Soát Mẫu Lụa","start":"2027-03-12T09:00:00+07:00","end":"2027-03-12T10:00:00+07:00","location":"Phòng Bậc Đá","status":"confirmed"}
+          - {"id":"w9_ev_2","title":"Đo Khung Lưới","start":"2027-03-11T15:00:00+07:00","end":"2027-03-11T16:00:00+07:00","location":"Xưởng Gạch","status":"confirmed"}
+    variants:
+      cancelled:
+        calendar:
+          events: {"w9_ev_4":{"status":"cancelled"}}
+    readers:
+      day: ["calendar.list_events","events",{"date_from":"2027-03-11","date_to":"2027-03-11"},{}]
+      other: ["calendar.list_events","events",{"date_from":"2027-03-12","date_to":"2027-03-12"},{}]
+    witnesses:
+      first: ["day",{"title":"Soát Mẫu Lụa","start":"2027-03-11T09:00:00+07:00"}]
+      other: ["other",{"title":"Soát Mẫu Lụa","start":"2027-03-12T09:00:00+07:00"}]
+      mesh: ["day",{"title":"Đo Khung Lưới","start":"2027-03-11T15:00:00+07:00"}]
+      confirmed: ["day",{"title":"Soát Mẫu Lụa","start":"2027-03-11T09:00:00+07:00","status":"confirmed"}]
+      cancelled: ["day",{"title":"Soát Mẫu Lụa","start":"2027-03-11T09:00:00+07:00","status":"cancelled"}]
+
+  - world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_TASK_SAME","TR5_C_COPY"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01","TRAIN_ALARM_EDIT_02"]
+    design_base: "TR9_MEET_JOIN"
+    relevant_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    initial_state:
+      video_meeting:
+        meetings:
+          - {"id":"w9_mt_4","title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00","attendees":[],"link":"https://meet.example.test/abc-defg-hij","status":"scheduled"}
+          - {"id":"w9_mt_8","title":"Duyệt Màu Gốm","start":"2027-03-11T09:00:00+07:00","attendees":[],"link":"https://meet.example.test/jkl-mnop-qrs","status":"scheduled"}
+          - {"id":"w9_mt_2","title":"Kiểm Vết Men","start":"2027-03-10T09:00:00+07:00","attendees":[],"link":"https://meet.example.test/tuv-wxyz-abc","status":"scheduled"}
+      contacts:
+        contacts:
+          - {"id":"w9_ct_6","name":"Vũ An Anh","relation":"đồng nghiệp"}
+          - {"id":"w9_ct_3","name":"Hoàng Lệ Chi","relation":"đồng nghiệp"}
+          - {"id":"w9_ct_8","name":"Vũ An Chi","relation":"bạn học"}
+    variants:
+      cancel:
+        video_meeting:
+          meetings: {"w9_mt_4":{"status":"cancelled"}}
+    readers:
+      rooms: ["video_meeting.list_meetings","meetings",{}]
+      anh: ["contacts.search","contacts",{"query":"Vũ An Anh"},{}]
+      le: ["contacts.search","contacts",{"query":"Hoàng Lệ Chi"},{}]
+      chi: ["contacts.search","contacts",{"query":"Vũ An Chi"},{}]
+    witnesses:
+      first: ["rooms",{"title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00"}]
+      second: ["rooms",{"title":"Duyệt Màu Gốm","start":"2027-03-11T09:00:00+07:00"}]
+      glaze: ["rooms",{"title":"Kiểm Vết Men","start":"2027-03-10T09:00:00+07:00"}]
+      scheduled: ["rooms",{"title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00","status":"scheduled"}]
+      cancelled: ["rooms",{"title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00","status":"cancelled"}]
+      anh: ["anh",{"name":"Vũ An Anh"}]
+      le: ["le",{"name":"Hoàng Lệ Chi"}]
+      chi: ["chi",{"name":"Vũ An Chi"}]
+
+  - world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_B_PAY","TR3_R_RESERVE100"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05","TRAIN_LOYALTY_BUDGET_03"]
+    design_base: "TR9_BANK_SHORT"
+    relevant_tools: ["banking.get_balance","banking.open_savings"]
+    initial_state:
+      banking:
+        accounts:
+          - {"id":"w9_bk_5","name":"Quỹ Đường Vải","balance":900000}
+          - {"id":"w9_bk_2","name":"Quỹ Khuôn Đồng","balance":600000}
+          - {"id":"w9_bk_7","name":"Quỹ Kho Dây","balance":1700000}
+        savings:
+          - {"id":"w9_sv_9","account_id":"w9_bk_7","amount":140000,"term_months":6,"status":"active"}
+        transactions:
+          - {"id":"w9_tx_4","account_id":"w9_bk_2","amount":-20000,"note":"Bảo quản khuôn"}
+    variants:
+      low:
+        banking:
+          accounts: {"w9_bk_2":{"balance":599999}}
+      lowFirst:
+        banking:
+          accounts: {"w9_bk_5":{"balance":699999}}
+    readers:
+      funds: ["banking.get_balance","accounts",{}]
+    witnesses:
+      cloth: ["funds",{"name":"Quỹ Đường Vải"}]
+      bronze: ["funds",{"name":"Quỹ Khuôn Đồng"}]
+      rope: ["funds",{"name":"Quỹ Kho Dây"}]
+      bronzeEq: ["funds",{"name":"Quỹ Khuôn Đồng","balance":600000}]
+      bronzeLow: ["funds",{"name":"Quỹ Khuôn Đồng","balance":599999}]
+      clothGood: ["funds",{"name":"Quỹ Đường Vải","balance":900000}]
+      clothLow: ["funds",{"name":"Quỹ Đường Vải","balance":699999}]
+
+  - world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_B_PAY","TR5_B_BOTH"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05"]
+    design_base: "TR9_WALLET_QR"
+    relevant_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    initial_state:
+      ewallet:
+        balance: 120000
+        transactions:
+          - {"id":"w9_wallet_old","type":"pay_qr","merchant_id":"MAU-CU-09","amount":-13000}
+    variants:
+      low:
+        ewallet:
+          balance: 119999
+    readers:
+      wallet: ["ewallet.get_balance","balance",{}]
+    witnesses:
+      balance: ["wallet",{}]
+      equal: ["wallet",{"value":120000}]
+      low: ["wallet",{"value":119999}]
+
+  - world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_PODCAST_NEWEST","TR3_M_MEMBER"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03"]
+    design_base: "TR9_NEWS_SOURCE"
+    relevant_tools: ["news.headlines","news.search","news.save"]
+    initial_state:
+      news:
+        articles:
+          - {"id":"w9_art_2","title":"Đường Dây Mới","topic":"tech","source":"Bản Tin Sợi","published_at":"2027-03-09T08:00:00+07:00","summary":"Công bố quy trình đo."}
+          - {"id":"w9_art_7","title":"Đường Dây Mới","topic":"tech","source":"Nhịp Khung","published_at":"2027-03-09T10:00:00+07:00","summary":"Ghi nhận buổi thử."}
+          - {"id":"w9_art_5","title":"Góc Khung Sáng","topic":"tech","source":"Bản Tin Sợi","published_at":"2027-03-10T06:00:00+07:00","summary":"Mẫu thiết bị mới."}
+          - {"id":"w9_art_8","title":"Giá Cuộn Sợi","topic":"business","source":"Bản Tin Sợi","published_at":"2027-03-10T07:00:00+07:00","summary":"Thay đổi giá."}
+        saved:
+          - {"id":"w9_saved_9","article_id":"w9_art_8"}
+    variants:
+      moved:
+        news:
+          articles: {"w9_art_7":{"published_at":"2027-03-10T08:00:00+07:00"}}
+      older:
+        news:
+          articles: {"w9_art_5":{"published_at":"2027-03-09T06:00:00+07:00"}}
+    readers:
+      tech: ["news.headlines","articles",{"topic":"tech"},{}]
+      business: ["news.headlines","articles",{"topic":"business"},{}]
+      title: ["news.search","articles",{"query":"Đường Dây Mới"},{"query":"*"}]
+    witnesses:
+      first: ["title",{"title":"Đường Dây Mới","source":"Bản Tin Sợi","topic":"tech"}]
+      second: ["title",{"title":"Đường Dây Mới","source":"Nhịp Khung","topic":"tech"}]
+      panel: ["tech",{"title":"Góc Khung Sáng","source":"Bản Tin Sợi"}]
+      prices: ["business",{"title":"Giá Cuộn Sợi","topic":"business"}]
+      latest: ["tech",{"topic":"tech"},["published_at","max"]]
+      earliest: ["tech",{"topic":"tech"},["published_at","min"]]
+      paper: ["tech",{"topic":"tech","source":"Bản Tin Sợi"},["published_at","max"]]
+      before: ["tech",{"title":"Góc Khung Sáng","published_at":"2027-03-09T06:00:00+07:00"}]
+      today: ["tech",{"title":"Góc Khung Sáng","published_at":"2027-03-10T06:00:00+07:00"}]
+
+  - world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR2_P_DELIVERY","TR2_P_BOTH"]
+      parent_lineage_ids: ["TRAIN_LOGISTICS_DIRECTION_02"]
+    design_base: "TR9_PARCEL_CODE"
+    relevant_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    initial_state:
+      package_tracking:
+        shipments:
+          - {"id":"w9_pkg_3","tracking_id":"GOM903","name":"Khuôn Rỗng","carrier":"Vệt Gỗ","status":"out_for_delivery","eta":"2027-03-10T15:00:00+07:00","scheduled_time":"2027-03-10T14:00:00+07:00"}
+          - {"id":"w9_pkg_7","tracking_id":"GOM907","name":"Khuôn Rỗng","carrier":"Dốc Mây","status":"in_transit","eta":"2027-03-11T10:00:00+07:00"}
+          - {"id":"w9_pkg_8","tracking_id":"GOM908","name":"Lưới Chắn","carrier":"Vệt Gỗ","status":"delivered","eta":"2027-03-10T08:00:00+07:00"}
+        pickups:
+          - {"id":"w9_old_pick","address":"2 Ngõ Tăm","date":"2027-03-08","status":"scheduled"}
+    variants:
+      done:
+        package_tracking:
+          shipments: {"w9_pkg_3":{"status":"delivered"}}
+      transit:
+        package_tracking:
+          shipments: {"w9_pkg_3":{"status":"in_transit"}}
+      eta:
+        package_tracking:
+          shipments: {"w9_pkg_7":{"eta":"2027-03-11T12:00:00+07:00"}}
+    readers:
+      first: ["package_tracking.track","shipments",{"tracking_id":"GOM903"},{}]
+      other: ["package_tracking.track","shipments",{"tracking_id":"GOM907"},{}]
+      mesh: ["package_tracking.track","shipments",{"tracking_id":"GOM908"},{}]
+    witnesses:
+      first: ["first",{"name":"Khuôn Rỗng","carrier":"Vệt Gỗ"}]
+      other: ["other",{"name":"Khuôn Rỗng","carrier":"Dốc Mây"}]
+      mesh: ["mesh",{"name":"Lưới Chắn","carrier":"Vệt Gỗ"}]
+      going: ["first",{"tracking_id":"GOM903","status":"out_for_delivery"}]
+      done: ["first",{"tracking_id":"GOM903","status":"delivered"}]
+      transit: ["first",{"tracking_id":"GOM903","status":"in_transit"}]
+
+  - world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    split: "train"
+    origin: "independently_authored"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: []
+      parent_lineage_ids: []
+    design_base: "TR9_WEATHER_BELOW"
+    relevant_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    initial_state:
+      weather:
+        forecast:
+          - {"id":"w9_fc_5","location":"Huế","date":"2027-03-11","rain_pct":39}
+          - {"id":"w9_fc_7","location":"Đà Nẵng","date":"2027-03-11","rain_pct":30}
+          - {"id":"w9_fc_9","location":"Huế","date":"2027-03-12","rain_pct":61}
+        current:
+          - {"id":"w9_cu_4","location":"Huế","rain_pct":55}
+          - {"id":"w9_cu_8","location":"Đà Nẵng","rain_pct":25}
+      calendar:
+        events:
+          - {"id":"w9_held_event","title":"Kiểm Cọc Vải","start":"2027-03-11T07:00:00+07:00","end":"2027-03-11T07:30:00+07:00","location":"Huế","status":"confirmed"}
+    variants:
+      equal:
+        weather:
+          forecast: {"w9_fc_5":{"rain_pct":40}}
+      over:
+        weather:
+          forecast: {"w9_fc_5":{"rain_pct":41}}
+      missing:
+        weather:
+          forecast: {"w9_fc_5":{"location":"Cần Thơ"}}
+      otherWet:
+        weather:
+          forecast: {"w9_fc_7":{"rain_pct":55}}
+      currentDry:
+        weather:
+          current: {"w9_cu_4":{"rain_pct":32}}
+    readers:
+      hue: ["weather.get_forecast","forecast",{"location":"Huế","date":"2027-03-11"},{"date":"2027-03-11"}]
+      danang: ["weather.get_forecast","forecast",{"location":"Đà Nẵng","date":"2027-03-11"},{"date":"2027-03-11"}]
+      next: ["weather.get_forecast","forecast",{"location":"Huế","date":"2027-03-12"},{"date":"2027-03-12"}]
+      current: ["weather.get_current","current",{"location":"Huế"},{}]
+    witnesses:
+      dry: ["hue",{"location":"Huế","date":"2027-03-11","rain_pct":39}]
+      equal: ["hue",{"location":"Huế","date":"2027-03-11","rain_pct":40}]
+      over: ["hue",{"location":"Huế","date":"2027-03-11","rain_pct":41}]
+      danang: ["danang",{"location":"Đà Nẵng","date":"2027-03-11","rain_pct":30}]
+      danangWet: ["danang",{"location":"Đà Nẵng","date":"2027-03-11","rain_pct":55}]
+      fallback: ["hue",{"location":"Đà Nẵng","date":"2027-03-11","rain_pct":30}]
+      nextWet: ["next",{"location":"Huế","date":"2027-03-12","rain_pct":61}]
+      wetNow: ["current",{"location":"Huế","rain_pct":55}]
+      dryNow: ["current",{"location":"Huế","rain_pct":32}]
+
+  - world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR3_M_PLAY_LIST","TR8_TV_ONVOL"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03"]
+    design_base: "TR9_MUSIC_PAUSE"
+    relevant_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    initial_state:
+      music:
+        tracks:
+          - {"id":"w9_song_1","title":"Bậc Gỗ","artist":"Mai Lành"}
+          - {"id":"w9_song_4","title":"Bậc Gỗ","artist":"An Trầm"}
+          - {"id":"w9_song_7","title":"Khe Dọc","artist":"Mai Lành"}
+          - {"id":"w9_song_2","title":"Đầu Sợi","artist":"Lý Linh"}
+        playlists:
+          - {"id":"w9_pl_6","name":"Vệt Nâu","track_ids":["w9_song_2"]}
+          - {"id":"w9_pl_9","name":"Đường Ngang","track_ids":["w9_song_7"]}
+        now_playing:
+          track_id: "w9_song_2"
+          title: "Đầu Sợi"
+          status: "playing"
+        volume: 10
+    variants:
+      paused:
+        music:
+          now_playing: {"status":"paused"}
+    readers:
+      tracks: ["music.list_tracks","tracks",{}]
+      lists: ["music.list_tracks","playlists",{}]
+    witnesses:
+      mai: ["tracks",{"title":"Bậc Gỗ","artist":"Mai Lành"}]
+      an: ["tracks",{"title":"Bậc Gỗ","artist":"An Trầm"}]
+      groove: ["tracks",{"title":"Khe Dọc","artist":"Mai Lành"}]
+      brown: ["lists",{"name":"Vệt Nâu"}]
+      across: ["lists",{"name":"Đường Ngang"}]
+scenarios:
+  - scenario_id: "TR9_CAL_PLACE"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi địa điểm Soát Mẫu Lụa lúc 09:00 ngày 11/3/2027 sang Phòng Ván Xanh. Giữ nguyên giờ."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$other.id","location":"Phòng Ván Xanh"}]
+      alternatives:
+        null_end: [["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh","end":null}]]
+
+  - scenario_id: "TR9_CAL_TITLE"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi tên Soát Mẫu Lụa ngày 12/3/2027 lúc 09:00 thành Duyệt Cuộn Lụa, giữ giờ và phòng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$other.id","title":"Duyệt Cuộn Lụa"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$first.id","title":"Duyệt Cuộn Lụa"}]
+      alternatives:
+        null_end: [["calendar.update_event",{"event_id":"$other.id","title":"Duyệt Cuộn Lụa","end":null}]]
+    contrast:
+      with: "TR9_CAL_PLACE"
+
+  - scenario_id: "TR9_CAL_EXTEND"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời riêng giờ kết thúc Soát Mẫu Lụa ngày 11/3/2027 từ 09:45 sang 10:15, giữ giờ bắt đầu."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$first.id","end":"2027-03-11T10:15:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$first.id","start":"2027-03-11T10:15:00+07:00"}]
+    contrast:
+      with: "TR9_CAL_PLACE"
+
+  - scenario_id: "TR9_CAL_SHIFT"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời Soát Mẫu Lụa ngày 11/3/2027 từ 09:00–09:45 sang 10:30–11:15 giờ Việt Nam. Giữ phòng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$first.id","start":"2027-03-11T10:30:00+07:00","end":"2027-03-11T11:15:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$first.id","start":"2027-03-11T10:30:00+07:00"}]
+    contrast:
+      with: "TR9_CAL_EXTEND"
+
+  - scenario_id: "TR9_CAL_DEFAULT"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Khâu Viền Lụa bắt đầu 13:00 ngày 11/3/2027 giờ Việt Nam, dùng thời lượng mặc định."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00","end":"2027-03-11T13:30:00+07:00"}]
+      alternatives:
+        explicit_hour: [["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00","end":"2027-03-11T14:00:00+07:00"}]]
+
+  - scenario_id: "TR9_CAL_SHORT"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Khâu Viền Lụa từ 13:00 đến 13:30 ngày 11/3/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00","end":"2027-03-11T13:30:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00"}]
+    contrast:
+      with: "TR9_CAL_DEFAULT"
+
+  - scenario_id: "TR9_CAL_COPYPLACE"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm Khâu Viền Lụa lúc 13:00 ngày 11/3/2027 giờ Việt Nam tại đúng phòng của Soát Mẫu Lụa lúc 09:00 cùng ngày. Thời lượng mặc định."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00","location":"$first.location"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Khâu Viền Lụa","start":"2027-03-11T13:00:00+07:00","location":"$other.location"}]
+    contrast:
+      with: "TR9_CAL_DEFAULT"
+
+  - scenario_id: "TR9_CAL_BOTH"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi phòng Soát Mẫu Lụa 09:00 ngày 11/3/2027 sang Phòng Ván Xanh, và hủy Đo Khung Lưới 15:00 cùng ngày."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh"}]
+        - ["calendar.cancel_event",{"event_id":"$mesh.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh"}]
+        - ["calendar.cancel_event",{"event_id":"$other.id"}]
+    contrast:
+      with: "TR9_CAL_PLACE"
+
+  - scenario_id: "TR9_CAL_IFLIVE"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu lịch Soát Mẫu Lụa ngày 11/3/2027 lúc 09:00 chưa hủy thì hủy giúp tôi. Nếu đã hủy thì để nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.cancel_event",{"event_id":"$first.id"}]
+      decision_evidence: [["confirmed"]]
+      counterexample:
+        - ["calendar.cancel_event",{"event_id":"$other.id"}]
+
+  - scenario_id: "TR9_CAL_IFCANCEL"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "cancelled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu lịch Soát Mẫu Lụa ngày 11/3/2027 lúc 09:00 chưa hủy thì hủy giúp tôi. Nếu đã hủy thì để nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["cancelled"]]
+      counterexample:
+        - ["calendar.cancel_event",{"event_id":"$other.id"}]
+    contrast:
+      with: "TR9_CAL_IFLIVE"
+
+  - scenario_id: "TR9_CAL_LOOK"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem phòng của Soát Mẫu Lụa lúc 09:00 ngày 12/3/2027. Không sửa lịch."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["other"]]
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$other.id","location":"Phòng Ván Xanh"}]
+    contrast:
+      with: "TR9_CAL_TITLE"
+
+  - scenario_id: "TR9_CAL_TWOLOC"
+    world_id: "W_TR9_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển cả hai lịch Soát Mẫu Lụa lúc 09:00 ngày 11 và 12/3/2027 sang Phòng Ván Xanh. Giữ nguyên giờ từng lịch."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.create_event","calendar.update_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh"}]
+        - ["calendar.update_event",{"event_id":"$other.id","location":"Phòng Ván Xanh"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.update_event",{"event_id":"$first.id","location":"Phòng Ván Xanh"}]
+        - ["calendar.update_event",{"event_id":"$mesh.id","location":"Phòng Ván Xanh"}]
+    contrast:
+      with: "TR9_CAL_PLACE"
+
+  - scenario_id: "TR9_MEET_JOIN"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Vào phòng Duyệt Màu Gốm lúc 09:00 ngày 10/3/2027. Không tạo phòng mới."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.join",{"meeting_id":"$first.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$glaze.id"}]
+
+  - scenario_id: "TR9_MEET_SECOND"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Vào phòng Duyệt Màu Gốm hẹn 09:00 ngày 11/3/2027, đừng mở phòng trùng tên ngày 10."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.join",{"meeting_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$first.id"}]
+    contrast:
+      with: "TR9_MEET_JOIN"
+
+  - scenario_id: "TR9_MEET_DUPLICATE"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo riêng một phòng họp mới cũng tên Duyệt Màu Gốm lúc 09:00 ngày 10/3/2027 giờ Việt Nam, không mời ai và không vào phòng cũ."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$first.id"}]
+      alternatives:
+        empty_attendees: [["video_meeting.create",{"title":"Duyệt Màu Gốm","start":"2027-03-10T09:00:00+07:00","attendees":[]}]]
+    contrast:
+      with: "TR9_MEET_JOIN"
+
+  - scenario_id: "TR9_MEET_ONE"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo phòng Đối Chiếu Men lúc 15:00 ngày 10/3/2027 giờ Việt Nam và thêm Vũ An Anh làm người dự."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$anh.id"]}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$chi.id"]}]
+    contrast:
+      with: "TR9_MEET_DUPLICATE"
+
+  - scenario_id: "TR9_MEET_TWO"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo phòng Đối Chiếu Men lúc 15:00 ngày 10/3/2027 giờ Việt Nam cho Vũ An Anh và Hoàng Lệ Chi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$anh.id","$le.id"]}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$anh.id"]}]
+      alternatives:
+        attendee_order: [["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$le.id","$anh.id"]}]]
+    contrast:
+      with: "TR9_MEET_ONE"
+
+  - scenario_id: "TR9_MEET_LATER"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo phòng Đối Chiếu Men vào giờ bắt đầu của phòng Kiểm Vết Men ngày 10/3/2027, thêm Hoàng Lệ Chi và không vào phòng nguồn."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"$glaze.start","attendees":["$le.id"]}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"$second.start","attendees":["$le.id"]}]
+    contrast:
+      with: "TR9_MEET_ONE"
+
+  - scenario_id: "TR9_MEET_BOTH"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Vào phòng Duyệt Màu Gốm lúc 09:00 ngày 10/3/2027 và tạo phòng Đối Chiếu Men lúc 15:00 cùng ngày giờ Việt Nam cho Hoàng Lệ Chi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.join",{"meeting_id":"$first.id"}]
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$le.id"]}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$second.id"}]
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$le.id"]}]
+    contrast:
+      with: "TR9_MEET_JOIN"
+
+  - scenario_id: "TR9_MEET_IFLIVE"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu phòng Duyệt Màu Gốm lúc 09:00 ngày 10/3/2027 chưa bị hủy thì vào phòng đó. Nếu đã hủy thì thôi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.join",{"meeting_id":"$first.id"}]
+      decision_evidence: [["scheduled"]]
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$glaze.id"}]
+    contrast:
+      with: "TR9_MEET_JOIN"
+
+  - scenario_id: "TR9_MEET_IFCANCEL"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "cancel"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu phòng Duyệt Màu Gốm lúc 09:00 ngày 10/3/2027 chưa bị hủy thì vào phòng đó. Nếu đã hủy thì thôi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["cancelled"]]
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$glaze.id"}]
+    contrast:
+      with: "TR9_MEET_IFLIVE"
+
+  - scenario_id: "TR9_MEET_LOOK"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem đường dẫn phòng Kiểm Vết Men lúc 09:00 ngày 10/3/2027. Không vào phòng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["glaze"]]
+      counterexample:
+        - ["video_meeting.join",{"meeting_id":"$glaze.id"}]
+    contrast:
+      with: "TR9_MEET_JOIN"
+
+  - scenario_id: "TR9_MEET_TWOSESS"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo hai phòng riêng cùng tên Đối Chiếu Men ngày 10/3/2027 giờ Việt Nam: 15:00 cho Vũ An Anh và 16:00 cho Hoàng Lệ Chi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$anh.id"]}]
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T16:00:00+07:00","attendees":["$le.id"]}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T15:00:00+07:00","attendees":["$le.id"]}]
+        - ["video_meeting.create",{"title":"Đối Chiếu Men","start":"2027-03-10T16:00:00+07:00","attendees":["$anh.id"]}]
+    contrast:
+      with: "TR9_MEET_TWO"
+
+  - scenario_id: "TR9_MEET_COPYTITLE"
+    world_id: "W_TR9_MEET"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo phòng mới lúc 15:00 ngày 10/3/2027 giờ Việt Nam, dùng đúng tên phòng Kiểm Vết Men lúc 09:00 cùng ngày và không thêm người dự."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["video_meeting.list_meetings","video_meeting.join","video_meeting.create","contacts.search"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["video_meeting.create",{"title":"$glaze.title","start":"2027-03-10T15:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["video_meeting.create",{"title":"$first.title","start":"2027-03-10T15:00:00+07:00"}]
+    contrast:
+      with: "TR9_MEET_DUPLICATE"
+
+  - scenario_id: "TR9_BANK_SHORT"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm 300.000 đồng kỳ hạn 3 tháng từ Quỹ Khuôn Đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":300000,"term_months":3}]
+
+  - scenario_id: "TR9_BANK_TERM"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khoản tiết kiệm 300.000 đồng kỳ hạn 6 tháng từ Quỹ Khuôn Đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":6}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_SHORT"
+
+  - scenario_id: "TR9_BANK_ACCOUNT"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khoản tiết kiệm 300.000 đồng kỳ hạn 3 tháng từ Quỹ Đường Vải. Không lấy từ Quỹ Khuôn Đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":300000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_SHORT"
+
+  - scenario_id: "TR9_BANK_ALLFUNDS"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dùng toàn bộ số dư hiện có của Quỹ Khuôn Đồng để mở một khoản tiết kiệm 6 tháng. Giữ nguyên các quỹ khác."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":"$bronze.balance","term_months":6}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":6}]
+    contrast:
+      with: "TR9_BANK_TERM"
+
+  - scenario_id: "TR9_BANK_DUALTERM"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Từ Quỹ Đường Vải mở riêng khoản 200.000 đồng kỳ hạn 3 tháng và khoản 300.000 đồng kỳ hạn 6 tháng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":200000,"term_months":3}]
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":300000,"term_months":6}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":500000,"term_months":6}]
+    contrast:
+      with: "TR9_BANK_ACCOUNT"
+
+  - scenario_id: "TR9_BANK_TWOFUNDS"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở hai khoản 3 tháng, 200.000 đồng từ Quỹ Đường Vải và 300.000 đồng từ Quỹ Khuôn Đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":200000,"term_months":3}]
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":500000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_DUALTERM"
+
+  - scenario_id: "TR9_BANK_FLOOR"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khoản tiết kiệm 300.000 đồng kỳ hạn 3 tháng từ Quỹ Khuôn Đồng nếu sau đó quỹ còn ít nhất 300.000 đồng. Nếu không đủ thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+      decision_evidence: [["bronzeEq"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":301000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_SHORT"
+
+  - scenario_id: "TR9_BANK_FLOORLOW"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khoản tiết kiệm 300.000 đồng kỳ hạn 3 tháng từ Quỹ Khuôn Đồng nếu sau đó quỹ còn ít nhất 300.000 đồng. Nếu không đủ thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["bronzeLow"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_FLOOR"
+
+  - scenario_id: "TR9_BANK_BOTHYES"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ mở cả hai khoản tiết kiệm kỳ hạn 3 tháng nếu từng quỹ còn ít nhất 100.000 đồng sau khi trừ: Quỹ Đường Vải gửi 600.000 đồng và Quỹ Khuôn Đồng gửi 500.000 đồng. Nếu một quỹ không đạt thì không mở khoản nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":600000,"term_months":3}]
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":500000,"term_months":3}]
+      decision_evidence: [["clothGood","bronzeEq"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":600000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_TWOFUNDS"
+
+  - scenario_id: "TR9_BANK_BOTHNO"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ mở cả hai khoản tiết kiệm kỳ hạn 3 tháng nếu từng quỹ còn ít nhất 100.000 đồng sau khi trừ: Quỹ Đường Vải gửi 600.000 đồng và Quỹ Khuôn Đồng gửi 500.000 đồng. Nếu một quỹ không đạt thì không mở khoản nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["bronzeLow"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$cloth.id","amount":600000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_BOTHYES"
+
+  - scenario_id: "TR9_BANK_OTHERNO"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "lowFirst"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ mở cả hai khoản tiết kiệm kỳ hạn 3 tháng nếu từng quỹ còn ít nhất 100.000 đồng sau khi trừ: Quỹ Đường Vải gửi 600.000 đồng và Quỹ Khuôn Đồng gửi 500.000 đồng. Nếu một quỹ không đạt thì không mở khoản nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["clothLow"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":500000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_BOTHYES"
+
+  - scenario_id: "TR9_BANK_LOOK"
+    world_id: "W_TR9_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem số dư hiện tại của Quỹ Khuôn Đồng. Không mở khoản tiết kiệm."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["banking.get_balance","banking.open_savings"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["bronze"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$bronze.id","amount":300000,"term_months":3}]
+    contrast:
+      with: "TR9_BANK_ALLFUNDS"
+
+  - scenario_id: "TR9_WALLET_QR"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thanh toán QR XUONG-NUT-09 bằng ví đúng 70.000 đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"QUAY-DAY-09","amount":70000}]
+
+  - scenario_id: "TR9_WALLET_TOPUP"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dùng ví nạp điện thoại 0900009101 đúng 70.000 đồng. Không thanh toán QR."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":70000}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_QR"
+
+  - scenario_id: "TR9_WALLET_SPLIT"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dùng ví thanh toán QR XUONG-NUT-09 70.000 đồng và nạp 50.000 đồng vào điện thoại 0900009101."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":50000}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":50000}]
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_TOPUP"
+
+  - scenario_id: "TR9_WALLET_TWOQR"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Trả hai mã QR riêng bằng ví: XUONG-NUT-09 nhận 70.000 đồng, QUAY-DAY-09 nhận 50.000 đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+        - ["ewallet.pay_qr",{"merchant_id":"QUAY-DAY-09","amount":50000}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":120000}]
+    contrast:
+      with: "TR9_WALLET_SPLIT"
+
+  - scenario_id: "TR9_WALLET_TWOUP"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nạp riêng hai số từ ví, 0900009101 là 70.000 đồng và 0900009102 là 50.000 đồng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":70000}]
+        - ["ewallet.topup_mobile",{"phone":"0900009102","amount":50000}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":50000}]
+        - ["ewallet.topup_mobile",{"phone":"0900009102","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_TOPUP"
+
+  - scenario_id: "TR9_WALLET_ALLQR"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dùng toàn bộ số dư ví hiện tại trả một lần cho QR XUONG-NUT-09."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":"$balance.value"}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_QR"
+
+  - scenario_id: "TR9_WALLET_ALLUP"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dùng toàn bộ số dư ví hiện tại để nạp đúng một lần vào điện thoại 0900009101."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":"$balance.value"}]
+      decision_evidence: []
+      counterexample:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_ALLQR"
+
+  - scenario_id: "TR9_WALLET_FLOOR"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ thanh toán QR XUONG-NUT-09 số tiền 70.000 đồng nếu ví vẫn còn ít nhất 50.000 đồng sau khi trả."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":71000}]
+    contrast:
+      with: "TR9_WALLET_QR"
+
+  - scenario_id: "TR9_WALLET_LOW"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ thanh toán QR XUONG-NUT-09 số tiền 70.000 đồng nếu ví vẫn còn ít nhất 50.000 đồng sau khi trả."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["low"]]
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_FLOOR"
+
+  - scenario_id: "TR9_WALLET_IFBOTH"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu ví có ít nhất 120.000 đồng thì thanh toán QR XUONG-NUT-09 70.000 đồng và nạp 50.000 đồng vào 0900009101. Nếu thiếu thì không làm giao dịch nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":50000}]
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["ewallet.pay_qr",{"merchant_id":"XUONG-NUT-09","amount":70000}]
+    contrast:
+      with: "TR9_WALLET_SPLIT"
+
+  - scenario_id: "TR9_WALLET_IFLOW"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu ví có ít nhất 120.000 đồng thì thanh toán QR XUONG-NUT-09 70.000 đồng và nạp 50.000 đồng vào 0900009101. Nếu thiếu thì không làm giao dịch nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["low"]]
+      counterexample:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":50000}]
+    contrast:
+      with: "TR9_WALLET_IFBOTH"
+
+  - scenario_id: "TR9_WALLET_LOOK"
+    world_id: "W_TR9_WALLET"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem số dư ví hiện tại, không thanh toán hay nạp điện thoại."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["ewallet.get_balance","ewallet.pay_qr","ewallet.topup_mobile"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["balance"]]
+      counterexample:
+        - ["ewallet.topup_mobile",{"phone":"0900009101","amount":50000}]
+    contrast:
+      with: "TR9_WALLET_ALLUP"
+
+  - scenario_id: "TR9_NEWS_SOURCE"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài Đường Dây Mới của Bản Tin Sợi, bỏ qua bài trùng tên của Nhịp Khung."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$first.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["news.save",{"article_id":"$second.id"}]
+
+  - scenario_id: "TR9_NEWS_OTHER"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài Đường Dây Mới của Nhịp Khung. Giữ nguyên bài trùng tên của Bản Tin Sợi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["news.save",{"article_id":"$first.id"}]
+    contrast:
+      with: "TR9_NEWS_SOURCE"
+
+  - scenario_id: "TR9_NEWS_LATEST"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài công nghệ đăng mới nhất, xét thời điểm đăng và bỏ qua các chủ đề khác."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$latest.id"}]
+      decision_evidence: [["@tech"]]
+      counterexample:
+        - ["news.save",{"article_id":"$second.id"}]
+
+  - scenario_id: "TR9_NEWS_FLIP"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "moved"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài công nghệ đăng mới nhất, xét thời điểm đăng và bỏ qua các chủ đề khác."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$latest.id"}]
+      decision_evidence: [["@tech"]]
+      counterexample:
+        - ["news.save",{"article_id":"$panel.id"}]
+    contrast:
+      with: "TR9_NEWS_LATEST"
+
+  - scenario_id: "TR9_NEWS_EARLIEST"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài công nghệ đăng sớm nhất trong danh sách. Bỏ qua thời điểm của bài kinh doanh."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$earliest.id"}]
+      decision_evidence: [["@tech"]]
+      counterexample:
+        - ["news.save",{"article_id":"$panel.id"}]
+    contrast:
+      with: "TR9_NEWS_LATEST"
+
+  - scenario_id: "TR9_NEWS_PAPER"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Trong các bài công nghệ của Bản Tin Sợi, lưu bài đăng mới nhất."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$paper.id"}]
+      decision_evidence: [["@tech"]]
+      counterexample:
+        - ["news.save",{"article_id":"$first.id"}]
+    contrast:
+      with: "TR9_NEWS_LATEST"
+
+  - scenario_id: "TR9_NEWS_BOTH"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu cả hai bài mang tên Đường Dây Mới của Bản Tin Sợi và Nhịp Khung."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$first.id"}]
+        - ["news.save",{"article_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["news.save",{"article_id":"$first.id"}]
+        - ["news.save",{"article_id":"$panel.id"}]
+    contrast:
+      with: "TR9_NEWS_SOURCE"
+
+  - scenario_id: "TR9_NEWS_ALREADY"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đảm bảo bài Giá Cuộn Sợi mục kinh doanh nằm trong danh sách đã lưu; nếu có rồi thì giữ một mục đó."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$prices.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["news.save",{"article_id":"$panel.id"}]
+      alternatives:
+        repeat_save: [["news.save",{"article_id":"$prices.id"}],["news.save",{"article_id":"$prices.id"}]]
+    contrast:
+      with: "TR9_NEWS_SOURCE"
+
+  - scenario_id: "TR9_NEWS_TODAY"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lưu Góc Khung Sáng nếu bài đăng ngày 10/3/2027. Bài đăng ngày khác thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$panel.id"}]
+      decision_evidence: [["today"]]
+      counterexample:
+        - ["news.save",{"article_id":"$first.id"}]
+    contrast:
+      with: "TR9_NEWS_PAPER"
+
+  - scenario_id: "TR9_NEWS_OLD"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "older"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lưu Góc Khung Sáng nếu bài đăng ngày 10/3/2027. Bài đăng ngày khác thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["before"]]
+      counterexample:
+        - ["news.save",{"article_id":"$panel.id"}]
+    contrast:
+      with: "TR9_NEWS_TODAY"
+
+  - scenario_id: "TR9_NEWS_LOOK"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem nguồn của bài công nghệ Góc Khung Sáng. Không lưu bài."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["panel"]]
+      counterexample:
+        - ["news.save",{"article_id":"$panel.id"}]
+    contrast:
+      with: "TR9_NEWS_PAPER"
+
+  - scenario_id: "TR9_NEWS_MIX"
+    world_id: "W_TR9_NEWS"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu bài công nghệ mới nhất và bảo đảm bài kinh doanh Giá Cuộn Sợi vẫn được lưu."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["news.headlines","news.search","news.save"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["news.save",{"article_id":"$latest.id"}]
+        - ["news.save",{"article_id":"$prices.id"}]
+      decision_evidence: [["@tech"]]
+      counterexample:
+        - ["news.save",{"article_id":"$first.id"}]
+        - ["news.save",{"article_id":"$prices.id"}]
+    contrast:
+      with: "TR9_NEWS_LATEST"
+
+  - scenario_id: "TR9_PARCEL_CODE"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giao GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+      alternatives:
+        tracking_format: [["package_tracking.reschedule_delivery",{"tracking_id":"gom 903","time":"2027-03-11T16:00:00+07:00"}]]
+
+  - scenario_id: "TR9_PARCEL_CARRIER"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giao kiện Khuôn Rỗng của hãng Vệt Gỗ sang 16:00 ngày 11/3/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      discovery_alternative_reads: [["package_tracking.track", {}], ["package_tracking.track", {"tracking_id": "GOM903"}]]
+      discovery_reads: [["package_tracking.track",{}]]
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"$first.tracking_id","time":"2027-03-11T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"$other.tracking_id","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_CODE"
+
+  - scenario_id: "TR9_PARCEL_GOING"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dời giao kiện GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam nếu đang mang đi giao. Nếu trạng thái khác thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+      decision_evidence: [["going"]]
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_CODE"
+
+  - scenario_id: "TR9_PARCEL_DONE"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "done"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dời giao kiện GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam nếu đang mang đi giao. Nếu trạng thái khác thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["done"]]
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_GOING"
+
+  - scenario_id: "TR9_PARCEL_TRANSIT"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "transit"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dời giao kiện GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam nếu đang mang đi giao. Nếu trạng thái khác thì giữ nguyên."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["transit"]]
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_GOING"
+
+  - scenario_id: "TR9_PARCEL_ETA"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lại giao GOM903 đúng giờ dự kiến giao của kiện GOM907. Giữ nguyên GOM907."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"$other.eta"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"$first.eta"}]
+    contrast:
+      with: "TR9_PARCEL_CARRIER"
+
+  - scenario_id: "TR9_PARCEL_ETACHANGE"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "eta"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lại giao GOM903 đúng giờ dự kiến giao của kiện GOM907. Giữ nguyên GOM907."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"$other.eta"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"$first.eta"}]
+    contrast:
+      with: "TR9_PARCEL_ETA"
+
+  - scenario_id: "TR9_PARCEL_PICK"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện hàng đi ở 18 Ngõ Ván Cong ngày 11/3/2027, không sửa lịch giao đến."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"18 Ngõ Ván Cong","date":"2027-03-11"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_CODE"
+
+  - scenario_id: "TR9_PARCEL_BOTH"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện hàng đi ở 18 Ngõ Ván Cong ngày 11/3/2027 và dời giao đến GOM903 sang 16:00 cùng ngày giờ Việt Nam."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"18 Ngõ Ván Cong","date":"2027-03-11"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"18 Ngõ Ván Cong","date":"2027-03-11"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_PICK"
+
+  - scenario_id: "TR9_PARCEL_LOOK"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ kiểm tra kiện Lưới Chắn của Vệt Gỗ đã giao chưa. Không hẹn lại hay đặt lấy hàng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      discovery_alternative_reads: [["package_tracking.track", {}], ["package_tracking.track", {"tracking_id": "GOM908"}]]
+      discovery_reads: [["package_tracking.track",{}]]
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["mesh"]]
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+    contrast:
+      with: "TR9_PARCEL_DONE"
+
+  - scenario_id: "TR9_PARCEL_PREVIOUS"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam và đặt GOM907 vào đúng giờ hẹn cũ của GOM903 trước khi đổi."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"$first.scheduled_time"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+      original_values: ["first.scheduled_time"]
+    contrast:
+      with: "TR9_PARCEL_ETA"
+
+  - scenario_id: "TR9_PARCEL_NEW"
+    world_id: "W_TR9_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời GOM903 sang 16:00 ngày 11/3/2027 giờ Việt Nam. Chỉ sau khi dời thành công, hẹn giao GOM907 cùng giờ mới đó."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["package_tracking.track","package_tracking.reschedule_delivery","package_tracking.schedule_pickup"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM907","time":"2027-03-11T16:00:00+07:00"}]
+        - ["package_tracking.reschedule_delivery",{"tracking_id":"GOM903","time":"2027-03-11T16:00:00+07:00"}]
+      ordered: true
+    contrast:
+      with: "TR9_PARCEL_PREVIOUS"
+
+  - scenario_id: "TR9_WEATHER_BELOW"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo Huế đúng ngày đó dưới 40% mưa. Nếu không có bản đúng nơi và ngày thì không lập."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+      decision_evidence: [["dry"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Đà Nẵng"}]
+
+  - scenario_id: "TR9_WEATHER_EXACT"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "equal"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo Huế đúng ngày đó dưới 40% mưa. Nếu không có bản đúng nơi và ngày thì không lập."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_BELOW"
+
+  - scenario_id: "TR9_WEATHER_INCLUSIVE"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "equal"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo Huế ngày đó không quá 40% mưa."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Đà Nẵng"}]
+    contrast:
+      with: "TR9_WEATHER_EXACT"
+
+  - scenario_id: "TR9_WEATHER_ABOVE"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "over"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo Huế ngày đó không quá 40% mưa."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["over"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_INCLUSIVE"
+
+  - scenario_id: "TR9_WEATHER_WRONGCITY"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "missing"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo Huế đúng ngày đó dưới 40% mưa. Nếu không có bản đúng nơi và ngày thì không lập."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["@hue","fallback"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_BELOW"
+
+  - scenario_id: "TR9_WEATHER_BOTHDAY"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo cùng ngày ở cả Huế và Đà Nẵng đều dưới 40% mưa."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+      decision_evidence: [["dry","danang"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Đà Nẵng"}]
+    contrast:
+      with: "TR9_WEATHER_BELOW"
+
+  - scenario_id: "TR9_WEATHER_OTHERWET"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "otherWet"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 08:00 ngày 11/3/2027 giờ Việt Nam nếu dự báo cùng ngày ở cả Huế và Đà Nẵng đều dưới 40% mưa."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["danangWet"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_BOTHDAY"
+
+  - scenario_id: "TR9_WEATHER_PREFERRED"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lập lịch Đo Dây Ngoài Trời lúc 08:00 ngày 11/3/2027 giờ Việt Nam: chọn Huế nếu dự báo Huế cùng ngày dưới 40% mưa. Nếu Huế từ 40% trở lên, chỉ chọn Đà Nẵng nếu dự báo Đà Nẵng cùng ngày dưới 40%."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+      decision_evidence: [["dry"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Đà Nẵng"}]
+    contrast:
+      with: "TR9_WEATHER_BOTHDAY"
+
+  - scenario_id: "TR9_WEATHER_FALLBACK"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "equal"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lập lịch Đo Dây Ngoài Trời lúc 08:00 ngày 11/3/2027 giờ Việt Nam: chọn Huế nếu dự báo Huế cùng ngày dưới 40% mưa. Nếu Huế từ 40% trở lên, chỉ chọn Đà Nẵng nếu dự báo Đà Nẵng cùng ngày dưới 40%."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Đà Nẵng"}]
+      decision_evidence: [["equal","danang"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_PREFERRED"
+
+  - scenario_id: "TR9_WEATHER_CURRENTWET"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 10:00 hôm nay nếu xác suất mưa hiện tại tại Huế dưới 40%."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["wetNow"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-10T10:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_BELOW"
+
+  - scenario_id: "TR9_WEATHER_CURRENTDRY"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "currentDry"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ lập lịch Đo Dây Ngoài Trời ở Huế lúc 10:00 hôm nay nếu xác suất mưa hiện tại tại Huế dưới 40%."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-10T10:00:00+07:00","location":"Huế"}]
+      decision_evidence: [["dryNow"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-10T10:00:00+07:00","location":"Đà Nẵng"}]
+    contrast:
+      with: "TR9_WEATHER_CURRENTWET"
+
+  - scenario_id: "TR9_WEATHER_LOOKNEXT"
+    world_id: "W_TR9_WEATHER"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem dự báo mưa tại Huế ngày 12/3/2027, không lập lịch."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["weather.get_forecast","weather.get_current","calendar.create_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["nextWet"]]
+      counterexample:
+        - ["calendar.create_event",{"title":"Đo Dây Ngoài Trời","start":"2027-03-11T08:00:00+07:00","location":"Huế"}]
+    contrast:
+      with: "TR9_WEATHER_BELOW"
+
+  - scenario_id: "TR9_MUSIC_PAUSE"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạm dừng nội dung đang phát, giữ nguyên lựa chọn và âm lượng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.control",{"action":"pause"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$mai.id"}]
+
+  - scenario_id: "TR9_MUSIC_RESUME"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "paused"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tiếp tục nội dung đang tạm dừng, giữ nguyên lựa chọn và âm lượng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.control",{"action":"resume"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$mai.id"}]
+    contrast:
+      with: "TR9_MUSIC_PAUSE"
+
+  - scenario_id: "TR9_MUSIC_VOL"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉnh âm lượng nhạc thành 18. Không đổi nội dung hay trạng thái phát."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.control",{"action":"volume","volume":18}]
+      decision_evidence: []
+      counterexample:
+        - ["music.control",{"action":"pause"}]
+    contrast:
+      with: "TR9_MUSIC_PAUSE"
+
+  - scenario_id: "TR9_MUSIC_RESUMEVOL"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "paused"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tiếp tục nội dung đang tạm dừng và đặt âm lượng nhạc thành 18."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.control",{"action":"resume"}]
+        - ["music.control",{"action":"volume","volume":18}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$mai.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+    contrast:
+      with: "TR9_MUSIC_RESUME"
+
+  - scenario_id: "TR9_MUSIC_TRACKVOL"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát bản Bậc Gỗ của Mai Lành và đặt âm lượng thành 18."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$mai.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$an.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+    contrast:
+      with: "TR9_MUSIC_VOL"
+
+  - scenario_id: "TR9_MUSIC_LISTVOL"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát danh sách Vệt Nâu và đặt âm lượng thành 18, không chọn riêng bài nào."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"playlist_id":"$brown.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$mai.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+    contrast:
+      with: "TR9_MUSIC_TRACKVOL"
+
+  - scenario_id: "TR9_MUSIC_TRACKPAUSE"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở bản Bậc Gỗ của Mai Lành rồi tạm dừng chính bản đó. Giữ âm lượng."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$mai.id"}]
+        - ["music.control",{"action":"pause"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.control",{"action":"pause"}]
+        - ["music.play",{"track_id":"$mai.id"}]
+      ordered: true
+    contrast:
+      with: "TR9_MUSIC_TRACKVOL"
+
+  - scenario_id: "TR9_MUSIC_LISTPAUSE"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở danh sách Vệt Nâu rồi tạm dừng. Giữ âm lượng và không phát riêng một bài."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"playlist_id":"$brown.id"}]
+        - ["music.control",{"action":"pause"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.control",{"action":"pause"}]
+        - ["music.play",{"playlist_id":"$brown.id"}]
+      ordered: true
+    contrast:
+      with: "TR9_MUSIC_LISTVOL"
+
+  - scenario_id: "TR9_MUSIC_ADDVOL"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bản Bậc Gỗ của An Trầm vào Vệt Nâu và chỉnh âm lượng thành 18. Cứ giữ nội dung đang phát."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$an.id","playlist_id":"$brown.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$an.id"}]
+        - ["music.control",{"action":"volume","volume":18}]
+    contrast:
+      with: "TR9_MUSIC_TRACKVOL"
+
+  - scenario_id: "TR9_MUSIC_TWOADD"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nối vào cuối Vệt Nâu theo đúng thứ tự: bản Bậc Gỗ của An Trầm, rồi Khe Dọc của Mai Lành. Không đổi nội dung đang phát."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$an.id","playlist_id":"$brown.id"}]
+        - ["music.add_to_playlist",{"track_id":"$groove.id","playlist_id":"$brown.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.add_to_playlist",{"track_id":"$groove.id","playlist_id":"$brown.id"}]
+        - ["music.add_to_playlist",{"track_id":"$an.id","playlist_id":"$brown.id"}]
+      ordered: true
+    contrast:
+      with: "TR9_MUSIC_ADDVOL"
+
+  - scenario_id: "TR9_MUSIC_TWOLISTS"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bản Bậc Gỗ của Mai Lành vào cả Vệt Nâu và Đường Ngang. Không phát bài đó."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$mai.id","playlist_id":"$brown.id"}]
+        - ["music.add_to_playlist",{"track_id":"$mai.id","playlist_id":"$across.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.add_to_playlist",{"track_id":"$mai.id","playlist_id":"$brown.id"}]
+        - ["music.add_to_playlist",{"track_id":"$an.id","playlist_id":"$across.id"}]
+    contrast:
+      with: "TR9_MUSIC_TWOADD"
+
+  - scenario_id: "TR9_MUSIC_ADDPLAYOTHER"
+    world_id: "W_TR9_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bản Bậc Gỗ của An Trầm vào Vệt Nâu, nhưng phát bản Bậc Gỗ của Mai Lành."
+      context:
+        current_time: "2027-03-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["music.list_tracks","music.play","music.control","music.add_to_playlist"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$an.id","playlist_id":"$brown.id"}]
+        - ["music.play",{"track_id":"$mai.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.add_to_playlist",{"track_id":"$mai.id","playlist_id":"$brown.id"}]
+        - ["music.play",{"track_id":"$an.id"}]
+    contrast:
+      with: "TR9_MUSIC_TRACKVOL"

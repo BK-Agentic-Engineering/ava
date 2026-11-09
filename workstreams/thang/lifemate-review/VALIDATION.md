@@ -1,3 +1,11 @@
+## Complete failure-mode index — 2026-11-09
+
+The index now covers all 1,063 source IDs (1,005 intended train / 58 dev), with zero pending or unmapped IDs: 2,224 mappings, 2,000 anchored comparisons and 224 design-only mappings. Added explicit individual mappings for 63 cases; seven relative-date context mappings remain design-only. Taxonomy counts overlap and are not model error rates.
+
+Reconciled every old evidence selector against current source records, with eight affected scenario mappings/requests. TR6_M_EXISTING no longer labels a harmless repeated upsert as a runtime failure; its duplicate-row constraint uses an explicitly modified-state probe. Current source map includes 18 byte-identical source copies where the historical package differed or lacked the later wave. Historical originals and the 1,000-case quality audit remain unchanged. No gold/verifier execution or model call was made.
+
+Full index validator and 12 focused regression tests passed, including complete current membership, stale sources, answer-probe schema and upsert classification. Package checks, local Markdown paths/anchors and git diff whitespace checks passed. The 16 original holds and separate TR12_BANK_LOOK currency restriction remain; this indexing update does not approve training eligibility.
+
 ## Approved rubric review publication — 2026-11-09
 
 Added the exact 29-judgment ledger and a portable report (publication wording adjusted only). Reconciled all 29 requests, final answers and evidence call sequences against the bundled candidate. Counts: 28 pass, one unresolved. TR12_BANK_LOOK is restricted from training consumption pending currency grounding; no canonical eligibility, gold or original hold was changed. Package check and diff whitespace check passed. No new inference, SDK replay or training; earlier test counts remain historical.

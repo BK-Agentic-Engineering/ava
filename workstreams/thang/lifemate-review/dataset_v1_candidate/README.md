@@ -15,7 +15,7 @@ See the [29-case review](../artifacts/synthetic/manual_rubric_29_review_20261109
 - `tool_schemas.json`: selected exact interface definitions (schema 2.7.0); no SDK modules or organizer records.
 - `metadata.json` and `validate.py`: provenance/counts and standard-library validator, trace_grounding.py and grade_final_wave_answers.py for bounded identifier/filter and ten scoped answer checks.
 
-Source designs stay spec_only/non-exportable. Derived integration eligibility authorizes this candidate representation, not a production training release. Canonical source export eligibility remains zero. The original audit/index covers only its first 1,000 IDs. Native/model/template acceptance remains unverified. No audio exists in this package.
+Source designs stay spec_only/non-exportable. Derived integration eligibility authorizes this candidate representation, not a production training release. Canonical source export eligibility remains zero. The original quality audit covers its first 1,000 IDs. The separately refreshed failure-mode index covers all 1,063 source IDs; mapping review does not establish training eligibility. Native/model/template acceptance remains unverified. No audio exists in this package.
 
 ## Rendering and supervision
 

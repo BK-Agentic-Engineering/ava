@@ -1,0 +1,2466 @@
+# Independently authored cases and controls. Read only agent_visible when rendering a task.
+# Within oracle_draft, $alias.field is bound from actual permitted responses.
+# Each decision_evidence row is one sufficient set of observations. @reader denotes the declared scan scope.
+version: train_wave_08
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR7_F_RETURN","TR7_F_EXPLICIT"]
+      parent_lineage_ids: ["TRAIN_FLIGHT_CHOICE_07"]
+    design_base: "TR8_FLIGHT_OUT"
+    relevant_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    initial_state:
+      flights:
+        flights:
+          - {"id":"w8_f_71","origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"11:30","flight_no":"LM771","airline":"Lam","price":1500000}
+          - {"id":"w8_f_42","origin":"HUI","destination":"HAN","date":"2027-02-14","depart":"18:00","flight_no":"LM442","airline":"Lam","price":1500000}
+          - {"id":"w8_f_92","origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"15:00","flight_no":"LM992","airline":"Lam","price":1500000}
+          - {"id":"w8_f_17","origin":"HAN","destination":"HUI","date":"2027-02-12","depart":"11:30","flight_no":"LM117","airline":"Lam","price":1500000}
+        bookings:
+          - {"id":"w8_b_42","flight_id":"w8_f_42","passengers":2,"seat_class":"economy","status":"confirmed","checked_in":false}
+          - {"id":"w8_b_17","flight_id":"w8_f_17","passengers":1,"seat_class":"economy","status":"confirmed","checked_in":false}
+          - {"id":"w8_b_71","flight_id":"w8_f_71","passengers":2,"seat_class":"business","status":"confirmed","checked_in":false}
+    variants:
+      checked:
+        flights: {"bookings":{"w8_b_71":{"checked_in":true}}}
+      cancelled:
+        flights: {"bookings":{"w8_b_71":{"status":"cancelled"}}}
+    readers:
+      bookings:
+        - "flights.my_bookings"
+        - "bookings"
+        - {}
+      search: ["flights.search","flights",{"origin":"HAN","destination":"HUI","date":"2027-02-11"},{"origin":"Hà Nội","destination":"Huế","date":"2027-02-11"}]
+    witnesses:
+      out: ["bookings",{"flight":{"origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"11:30"}}]
+      back: ["bookings",{"flight":{"origin":"HUI","destination":"HAN","date":"2027-02-14","depart":"18:00"}}]
+      other: ["bookings",{"flight":{"origin":"HAN","destination":"HUI","date":"2027-02-12","depart":"11:30"}}]
+      backup: ["search",{"origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"15:00","flight_no":"LM992"}]
+      checked: ["bookings",{"flight":{"origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"11:30"},"checked_in":true}]
+      cancelled: ["bookings",{"flight":{"origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"11:30"},"status":"cancelled"}]
+      confirmed: ["bookings",{"flight":{"origin":"HAN","destination":"HUI","date":"2027-02-11","depart":"11:30"},"status":"confirmed","checked_in":false}]
+
+  - world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR3_M_PLAY","TR3_M_PLAY_LIST"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03"]
+    design_base: "TR8_TV_REC"
+    relevant_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    initial_state:
+      tv:
+        programs:
+          - {"id":"w8_tv_3","title":"Nhịp Bờ","channel":"Vệt 2","start":"2027-02-10T19:00:00+07:00"}
+          - {"id":"w8_tv_8","title":"Nhịp Bờ","channel":"Mạch 5","start":"2027-02-10T19:00:00+07:00"}
+          - {"id":"w8_tv_6","title":"Vườn Mưa","channel":"Vệt 2","start":"2027-02-10T20:00:00+07:00"}
+        channels: ["Vệt 2","Mạch 5","Dải 7"]
+        recordings: []
+        power: "off"
+        channel: "Dải 7"
+        volume: 17
+        muted: false
+    variants:
+      changed:
+        tv: {"programs":{"w8_tv_3":{"title":"Bản Tin Đồi"}}}
+    readers:
+      guide: ["tv.guide","programs",{"channel":"Vệt 2"},{}]
+      other: ["tv.guide","programs",{"channel":"Mạch 5"},{}]
+    witnesses:
+      show: ["guide",{"title":"Nhịp Bờ","channel":"Vệt 2","start":"2027-02-10T19:00:00+07:00"}]
+      other: ["other",{"title":"Nhịp Bờ","channel":"Mạch 5","start":"2027-02-10T19:00:00+07:00"}]
+      garden: ["guide",{"title":"Vườn Mưa","channel":"Vệt 2","start":"2027-02-10T20:00:00+07:00"}]
+      replacement: ["guide",{"title":"Bản Tin Đồi","channel":"Vệt 2","start":"2027-02-10T19:00:00+07:00"}]
+
+  - world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR3_M_PLAY_LIST","TR7_C_TWO"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03","TRAIN_NOTE_LIFECYCLE_01"]
+    design_base: "TR8_PODCAST_PLAY"
+    relevant_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    initial_state:
+      podcast_radio:
+        shows:
+          - {"id":"w8_show_4","name":"Bến Giấy","host":"Hà Lam"}
+          - {"id":"w8_show_9","name":"Đồi Vân","host":"Khê Đan"}
+          - {"id":"w8_show_6","name":"Cánh Khô","host":"Hoài Sơn"}
+        episodes:
+          - {"id":"w8_p_90","show_id":"w8_show_4","title":"Buộc Nút","number":1,"published":"2027-02-01","duration_min":18}
+          - {"id":"w8_p_81","show_id":"w8_show_4","title":"Qua Bãi","number":2,"published":"2027-02-09","duration_min":18}
+          - {"id":"w8_p_26","show_id":"w8_show_9","title":"Qua Bãi","number":1,"published":"2027-02-10","duration_min":18}
+          - {"id":"w8_p_07","show_id":"w8_show_4","title":"Dây Mới","number":3,"published":"2027-02-08","duration_min":18}
+        stations: [{"id":"w8_station_4","name":"Đài Mỏ Neo","frequency":"88.5"},{"id":"w8_station_9","name":"Đài Gió Đá","frequency":"91.5"}]
+        subscriptions:
+          - "w8_show_6"
+        queue: ["w8_p_90"]
+        now_playing: {"station_id":"w8_station_9","station":"Đài Gió Đá","status":"playing"}
+    variants:
+      newer:
+        podcast_radio: {"episodes":{"w8_p_07":{"published":"2027-02-10"}}}
+    readers:
+      shows:
+        - "podcast_radio.search"
+        - "shows"
+        - {"query":"*"}
+      paper: ["podcast_radio.search","episodes",{"query":"Bến Giấy"},{"query":"*"}]
+      cloud: ["podcast_radio.search","episodes",{"query":"Đồi Vân"},{"query":"*"}]
+    witnesses:
+      paper: ["shows",{"name":"Bến Giấy","host":"Hà Lam"}]
+      cloud: ["shows",{"name":"Đồi Vân","host":"Khê Đan"}]
+      knot: ["paper",{"show_id":"$paper.id","title":"Buộc Nút","number":1,"published":"2027-02-01"}]
+      bay: ["paper",{"show_id":"$paper.id","title":"Qua Bãi","number":2,"published":"2027-02-09"}]
+      cloudBay: ["cloud",{"show_id":"$cloud.id","title":"Qua Bãi","number":1,"published":"2027-02-10"}]
+      wire: ["paper",{"show_id":"$paper.id","title":"Dây Mới","number":3}]
+      latest: ["paper",{"show_id":"$paper.id"},["published","max"]]
+
+  - world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR1_S_CHECK","TR1_S_ADD_CHECK"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01"]
+    design_base: "TR8_TASK_FIRST"
+    relevant_tools: ["tasks.list","tasks.add","tasks.complete"]
+    initial_state:
+      tasks:
+        tasks:
+          - {"id":"w8_t_2","title":"Soát Bản Kẽm","due":"2027-02-11T10:00:00+07:00","priority":"normal","done":false}
+          - {"id":"w8_t_7","title":"Soát Bản Kẽm","due":"2027-02-12T16:00:00+07:00","priority":"high","done":false}
+          - {"id":"w8_t_4","title":"Gói Mẫu Cát","due":"2027-02-11T10:00:00+07:00","priority":"low","done":true}
+          - {"id":"w8_t_5","title":"Kiểm Lưới","due":"2027-02-11T10:00:00+07:00","priority":"low","done":false}
+    variants:
+      done:
+        tasks: {"tasks":{"w8_t_2":{"done":true}}}
+    readers:
+      open: ["tasks.list","tasks",{"status":"open"},{}]
+      done: ["tasks.list","tasks",{"status":"done"},{}]
+    witnesses:
+      first: ["open",{"title":"Soát Bản Kẽm","due":"2027-02-11T10:00:00+07:00","done":false}]
+      second: ["open",{"title":"Soát Bản Kẽm","due":"2027-02-12T16:00:00+07:00","done":false}]
+      net: ["open",{"title":"Kiểm Lưới","done":false}]
+      firstDone: ["done",{"title":"Soát Bản Kẽm","due":"2027-02-11T10:00:00+07:00","done":true}]
+      sand: ["done",{"title":"Gói Mẫu Cát","done":true}]
+
+  - world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    split: "train"
+    origin: "independently_authored"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: []
+      parent_lineage_ids: []
+    design_base: "TR8_SECURITY_ACK"
+    relevant_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    initial_state:
+      home_security:
+        mode: "home"
+        alerts:
+          - {"id":"w8_alert_2","time":"2027-02-10T07:59:00+07:00","type":"motion","location":"Cửa Sân","acknowledged":false}
+          - {"id":"w8_alert_4","time":"2027-02-10T08:00:00+07:00","type":"motion","location":"Cửa Sân","acknowledged":false}
+          - {"id":"w8_alert_8","time":"2027-02-10T08:05:00+07:00","type":"door","location":"Cửa Kho","acknowledged":false}
+          - {"id":"w8_alert_6","time":"2027-02-10T08:07:00+07:00","type":"motion","location":"Lối Bên","acknowledged":false}
+        cameras: [{"id":"w8_cam_8","name":"Kho Gấp","location":"Cửa Kho","status":"online"}]
+    variants:
+      bothAck:
+        home_security: {"alerts":{"w8_alert_4":{"acknowledged":true},"w8_alert_8":{"acknowledged":true}}}
+      onlyMotion:
+        home_security: {"alerts":{"w8_alert_4":{"acknowledged":true}}}
+      onlyDoor:
+        home_security: {"alerts":{"w8_alert_8":{"acknowledged":true}}}
+    readers:
+      all: ["home_security.list_alerts","alerts",{}]
+      window: ["home_security.list_alerts","alerts",{"since":"2027-02-10T08:00:00+07:00"},{"since":"2027-02-10T01:00:00Z"},{}]
+      door: ["home_security.list_alerts","alerts",{"since":"2027-02-10T08:05:00+07:00"}]
+    witnesses:
+      old: ["all",{"time":"2027-02-10T07:59:00+07:00","type":"motion","location":"Cửa Sân"}]
+      motion: ["window",{"time":"2027-02-10T08:00:00+07:00","type":"motion","location":"Cửa Sân"}]
+      door: ["door",{"time":"2027-02-10T08:05:00+07:00","type":"door","location":"Cửa Kho"}]
+      side: ["window",{"time":"2027-02-10T08:07:00+07:00","type":"motion","location":"Lối Bên"}]
+      motionAck: ["window",{"time":"2027-02-10T08:00:00+07:00","type":"motion","location":"Cửa Sân","acknowledged":true}]
+      doorAck: ["door",{"time":"2027-02-10T08:05:00+07:00","type":"door","location":"Cửa Kho","acknowledged":true}]
+      motionOpen: ["window",{"time":"2027-02-10T08:00:00+07:00","type":"motion","location":"Cửa Sân","acknowledged":false}]
+      doorOpen: ["door",{"time":"2027-02-10T08:05:00+07:00","type":"door","location":"Cửa Kho","acknowledged":false}]
+
+  - world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR7_F_CHEAP","TR5_B_AUTO"]
+      parent_lineage_ids: ["TRAIN_FLIGHT_CHOICE_07","TRAIN_BILL_AUTOPAY_05"]
+    design_base: "TR8_SUB_LITERAL"
+    relevant_tools: ["subscriptions.list","subscriptions.cancel"]
+    initial_state:
+      subscriptions:
+        subscriptions:
+          - {"id":"w8_sub_2","name":"Nét Mực","price":90000,"next_billing":"2027-02-15","status":"active"}
+          - {"id":"w8_sub_5","name":"Nét Mực Gia Đình","price":140000,"next_billing":"2027-02-13","status":"active"}
+          - {"id":"w8_sub_8","name":"Sóng Cạn","price":60000,"next_billing":"2027-02-13","status":"active"}
+          - {"id":"w8_sub_1","name":"Đèn Chiếu","price":30000,"next_billing":"2027-02-12","status":"cancelled"}
+    variants:
+      costUp:
+        subscriptions: {"subscriptions":{"w8_sub_8":{"price":60001}}}
+      priceSwitch:
+        subscriptions: {"subscriptions":{"w8_sub_5":{"price":50000}}}
+      renewalSwitch:
+        subscriptions: {"subscriptions":{"w8_sub_5":{"next_billing":"2027-02-16"}}}
+    readers:
+      subs: ["subscriptions.list","subscriptions",{}]
+    witnesses:
+      ink: ["subs",{"name":"Nét Mực"}]
+      family: ["subs",{"name":"Nét Mực Gia Đình"}]
+      wave: ["subs",{"name":"Sóng Cạn"}]
+      old: ["subs",{"name":"Đèn Chiếu","status":"cancelled"}]
+      cheap: ["subs",{"status":"active"},["price","min"]]
+      expensive: ["subs",{"status":"active"},["price","max"]]
+      last: ["subs",{"status":"active"},["next_billing","max"]]
+      within: ["subs",{"name":"Sóng Cạn","status":"active","price":60000}]
+      over: ["subs",{"name":"Sóng Cạn","status":"active","price":60001}]
+      earlyFamily: ["subs",{"name":"Nét Mực Gia Đình","status":"active","next_billing":"2027-02-13"}]
+      earlyWave: ["subs",{"name":"Sóng Cạn","status":"active","next_billing":"2027-02-13"}]
+      first: ["subs",{"status":"active"},["next_billing","min","price"]]
+
+  - world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_B_AUTO","TR2_A_TIME_LABEL"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05","TRAIN_ALARM_EDIT_02"]
+    design_base: "TR8_AUTO_LIVE"
+    relevant_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    initial_state:
+      smart_home:
+        devices:
+          - {"id":"w8_dev_4","name":"Đèn Hạt","room":"Xưởng Sợi","type":"light","state":{"power":"off","brightness":55}}
+          - {"id":"w8_dev_7","name":"Đèn Hạt","room":"Sân Gạch","type":"light","state":{"power":"on","brightness":55}}
+          - {"id":"w8_dev_2","name":"Đèn Mành","room":"Xưởng Sợi","type":"light","state":{"power":"off","brightness":55}}
+      home_automation:
+        rules:
+          - {"id":"w8_rule_4","device_id":"w8_dev_4","action":"on","time":"06:30","title":"Mở đèn xưởng","enabled":true}
+          - {"id":"w8_rule_7","device_id":"w8_dev_7","action":"on","time":"06:30","title":"Mở đèn xưởng","enabled":true}
+          - {"id":"w8_rule_2","device_id":"w8_dev_4","action":"off","time":"21:30","title":"Tắt cuối ngày","enabled":true}
+    variants:
+      shifted:
+        home_automation: {"rules":{"w8_rule_4":{"time":"06:31"}}}
+    readers:
+      mill: ["smart_home.get_status","devices",{"room":"Xưởng Sợi","type":"light"},{}]
+      yard: ["smart_home.get_status","devices",{"room":"Sân Gạch","type":"light"},{}]
+      rules:
+        - "home_automation.list_rules"
+        - "rules"
+        - {}
+    witnesses:
+      mill: ["mill",{"name":"Đèn Hạt","room":"Xưởng Sợi"}]
+      yard: ["yard",{"name":"Đèn Hạt","room":"Sân Gạch"}]
+      curtain: ["mill",{"name":"Đèn Mành","room":"Xưởng Sợi"}]
+      start: ["rules",{"device_id":"$mill.id","action":"on","time":"06:30","title":"Mở đèn xưởng"}]
+      finish: ["rules",{"device_id":"$mill.id","action":"off","time":"21:30"}]
+      yardRule: ["rules",{"device_id":"$yard.id","action":"on","time":"06:30","title":"Mở đèn xưởng"}]
+      shifted: ["rules",{"device_id":"$mill.id","action":"on","time":"06:31","title":"Mở đèn xưởng"}]
+
+  - world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_C_COPY"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR8_CHORE_LITERAL"
+    relevant_tools: ["household_chores.list_chores","household_chores.assign"]
+    initial_state:
+      household_chores:
+        chores:
+          - {"id":"w8_ch_3","title":"Lau Kệ","room":"Phòng Mây","assignee":"An Mi","done":false}
+          - {"id":"w8_ch_9","title":"Lau Kệ","room":"Phòng Sỏi","assignee":"Lâm Duy","done":false}
+          - {"id":"w8_ch_5","title":"Xếp Giỏ","room":"Phòng Mây","assignee":null,"done":false}
+          - {"id":"w8_ch_1","title":"Lau Kệ","room":"Phòng Mây","assignee":"Hạ Thư","done":true}
+        members: ["An Mi","Lâm Duy","Hạ Thư"]
+    variants:
+      assigned:
+        household_chores: {"chores":{"w8_ch_5":{"assignee":"Lâm Duy"}}}
+      moved:
+        household_chores: {"chores":{"w8_ch_9":{"assignee":"Hạ Thư"}}}
+    readers:
+      list: ["household_chores.list_chores","chores",{}]
+    witnesses:
+      cloud: ["list",{"title":"Lau Kệ","room":"Phòng Mây","done":false}]
+      stone: ["list",{"title":"Lau Kệ","room":"Phòng Sỏi","done":false}]
+      basket: ["list",{"title":"Xếp Giỏ","room":"Phòng Mây","done":false}]
+      completed: ["list",{"title":"Lau Kệ","room":"Phòng Mây","done":true}]
+      free: ["list",{"title":"Xếp Giỏ","room":"Phòng Mây","done":false,"assignee":null}]
+      occupied: ["list",{"title":"Xếp Giỏ","room":"Phòng Mây","done":false,"assignee":"Lâm Duy"}]
+scenarios:
+  - scenario_id: "TR8_FLIGHT_OUT"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thủ tục cho vé Hà Nội đi Huế lúc 11:30 ngày 11/2/2027 của tôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$other.id"}]
+
+  - scenario_id: "TR8_FLIGHT_BACK"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thủ tục cho vé Huế về Hà Nội lúc 18:00 ngày 14/2/2027 của tôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.check_in",{"booking_id":"$back.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+    contrast:
+      with: "TR8_FLIGHT_OUT"
+
+  - scenario_id: "TR8_FLIGHT_CANCEL"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy vé Hà Nội đi Huế lúc 11:30 ngày 11/2/2027. Giữ nguyên vé về."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.cancel",{"booking_id":"$back.id"}]
+    contrast:
+      with: "TR8_FLIGHT_OUT"
+
+  - scenario_id: "TR8_FLIGHT_BOTH"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thủ tục cho cả vé đi Hà Nội–Huế ngày 11/2/2027 lúc 11:30 và vé về Huế–Hà Nội ngày 14/2/2027 lúc 18:00."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+        - ["flights.check_in",{"booking_id":"$back.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+        - ["flights.check_in",{"booking_id":"$other.id"}]
+    contrast:
+      with: "TR8_FLIGHT_OUT"
+
+  - scenario_id: "TR8_FLIGHT_SPLIT"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Làm thủ tục cho vé đi Hà Nội–Huế ngày 11/2/2027 lúc 11:30, còn vé Huế–Hà Nội ngày 14/2/2027 lúc 18:00 thì hủy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+        - ["flights.cancel",{"booking_id":"$back.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+        - ["flights.check_in",{"booking_id":"$back.id"}]
+    contrast:
+      with: "TR8_FLIGHT_BOTH"
+
+  - scenario_id: "TR8_FLIGHT_KEEP"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ kiểm tra vé Hà Nội đi Huế 11:30 ngày 11/2/2027 đã làm thủ tục chưa. Đừng làm thủ tục hay hủy vé."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["out"]]
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+    contrast:
+      with: "TR8_FLIGHT_OUT"
+
+  - scenario_id: "TR8_FLIGHT_CHECKED"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "checked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu vé Hà Nội đi Huế 11:30 ngày 11/2/2027 chưa làm thủ tục và chưa bị hủy thì làm thủ tục giúp tôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["checked"]]
+      counterexample:
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+
+  - scenario_id: "TR8_FLIGHT_OPEN"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu vé Hà Nội đi Huế 11:30 ngày 11/2/2027 chưa làm thủ tục và chưa bị hủy thì làm thủ tục giúp tôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.check_in",{"booking_id":"$out.id"}]
+      decision_evidence: [["confirmed"]]
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$other.id"}]
+    contrast:
+      with: "TR8_FLIGHT_CHECKED"
+
+  - scenario_id: "TR8_FLIGHT_CANCELLED"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "cancelled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu vé Hà Nội đi Huế 11:30 ngày 11/2/2027 chưa làm thủ tục và chưa bị hủy thì làm thủ tục giúp tôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["cancelled"]]
+      counterexample:
+        - ["flights.check_in",{"booking_id":"$other.id"}]
+    contrast:
+      with: "TR8_FLIGHT_OPEN"
+
+  - scenario_id: "TR8_FLIGHT_REBOOK"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt vé LM992 Hà Nội–Huế ngày 11/2/2027, giữ số người và hạng như vé 11:30 cùng ngày. Chỉ sau khi đặt thành công mới hủy vé 11:30."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"$out.seat_class"}]
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+      decision_evidence: []
+      ordered: true
+      counterexample:
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"$out.seat_class"}]
+    contrast:
+      with: "TR8_FLIGHT_CANCEL"
+
+  - scenario_id: "TR8_FLIGHT_COPY"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt thêm vé LM992 Hà Nội–Huế ngày 11/2/2027, giữ số người và hạng như vé 11:30 cùng ngày. Không hủy vé cũ."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"$out.seat_class"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"$out.seat_class"}]
+        - ["flights.cancel",{"booking_id":"$out.id"}]
+    contrast:
+      with: "TR8_FLIGHT_REBOOK"
+
+  - scenario_id: "TR8_FLIGHT_CLASS"
+    world_id: "W_TR8_FLIGHT"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt thêm vé LM992 Hà Nội–Huế ngày 11/2/2027 cho số người như vé 11:30 cùng ngày, nhưng lấy hạng phổ thông. Giữ vé cũ."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["flights.my_bookings","flights.search","flights.check_in","flights.cancel","flights.book"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"economy"}]
+      decision_evidence: []
+      counterexample:
+        - ["flights.book",{"flight_id":"$backup.id","passengers":"$out.passengers","seat_class":"$out.seat_class"}]
+    contrast:
+      with: "TR8_FLIGHT_COPY"
+
+  - scenario_id: "TR8_TV_REC"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt ghi chương trình Nhịp Bờ lúc 19:00 hôm nay trên Vệt 2. Cứ để TV tắt."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$show.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$other.id"}]
+
+  - scenario_id: "TR8_TV_TUNE"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở TV vào kênh Vệt 2, không đặt ghi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"Vệt 2"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.tune",{"channel":"Mạch 5"}]
+    contrast:
+      with: "TR8_TV_REC"
+
+  - scenario_id: "TR8_TV_OTHER"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt ghi Nhịp Bờ lúc 19:00 trên Mạch 5; đừng ghi bản phát trên Vệt 2."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$other.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$show.id"}]
+    contrast:
+      with: "TR8_TV_REC"
+
+  - scenario_id: "TR8_TV_BOTH"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt ghi cả Nhịp Bờ lúc 19:00 và Vườn Mưa lúc 20:00 trên Vệt 2, không mở TV."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$show.id"}]
+        - ["tv.record",{"program_id":"$garden.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.record",{"program_id":"$show.id"}]
+        - ["tv.record",{"program_id":"$other.id"}]
+    contrast:
+      with: "TR8_TV_REC"
+
+  - scenario_id: "TR8_TV_CHANNEL"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở đúng kênh có Nhịp Bờ trong lịch 19:00 ngoài Vệt 2. Không đặt ghi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      discovery_alternative_reads: [["tv.guide", {}], ["tv.guide", {"channel": "Mạch 5"}]]
+      discovery_reads: [["tv.guide",{}]]
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"$other.channel"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.tune",{"channel":"Vệt 2"}]
+    contrast:
+      with: "TR8_TV_TUNE"
+
+  - scenario_id: "TR8_TV_TUNEREC"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở Mạch 5 để tôi xem, đồng thời đặt ghi Nhịp Bờ 19:00 trên Vệt 2."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"Mạch 5"}]
+        - ["tv.record",{"program_id":"$show.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.tune",{"channel":"Vệt 2"}]
+        - ["tv.record",{"program_id":"$show.id"}]
+    contrast:
+      with: "TR8_TV_REC"
+
+  - scenario_id: "TR8_TV_VOLUME"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt âm lượng TV thành 8. Đừng bật TV và đừng tắt tiếng."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.control",{"action":"volume","volume":8}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.control",{"action":"mute"}]
+
+  - scenario_id: "TR8_TV_MUTE"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tắt tiếng TV, giữ nguyên mức âm lượng hiện tại và nguồn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.control",{"action":"mute"}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.control",{"action":"volume","volume":0}]
+    contrast:
+      with: "TR8_TV_VOLUME"
+
+  - scenario_id: "TR8_TV_ONVOL"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở TV vào Mạch 5 và đặt âm lượng 8, đừng ghi chương trình."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.tune",{"channel":"Mạch 5"}]
+        - ["tv.control",{"action":"volume","volume":8}]
+      decision_evidence: []
+      counterexample:
+        - ["tv.tune",{"channel":"Mạch 5"}]
+        - ["tv.control",{"action":"mute"}]
+    contrast:
+      with: "TR8_TV_TUNE"
+
+  - scenario_id: "TR8_TV_IFYES"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu lịch Vệt 2 lúc 19:00 hôm nay là Nhịp Bờ thì đặt ghi suất đó; nếu khác thì thôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tv.record",{"program_id":"$show.id"}]
+      decision_evidence: [["show"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$other.id"}]
+    contrast:
+      with: "TR8_TV_REC"
+
+  - scenario_id: "TR8_TV_IFNO"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu lịch Vệt 2 lúc 19:00 hôm nay là Nhịp Bờ thì đặt ghi suất đó; nếu khác thì thôi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["replacement"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$replacement.id"}]
+    contrast:
+      with: "TR8_TV_IFYES"
+
+  - scenario_id: "TR8_TV_ONLYGUIDE"
+    world_id: "W_TR8_TV"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem lịch để xác định Vườn Mưa phát kênh nào lúc 20:00 hôm nay. Không chuyển kênh hay ghi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tv.guide","tv.record","tv.tune","tv.control"]
+    oracle_draft:
+      discovery_alternative_reads: [["tv.guide", {}], ["tv.guide", {"channel": "Vệt 2"}]]
+      discovery_reads: [["tv.guide",{}]]
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["garden"]]
+      counterexample:
+        - ["tv.record",{"program_id":"$garden.id"}]
+    contrast:
+      with: "TR8_TV_BOTH"
+
+  - scenario_id: "TR8_PODCAST_PLAY"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát tập Qua Bãi của podcast Bến Giấy ngay."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$cloudBay.id"}]
+
+  - scenario_id: "TR8_PODCAST_QUEUE"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xếp tập Qua Bãi của Bến Giấy vào hàng đợi, giữ nguyên nội dung đang phát."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.queue",{"episode_id":"$bay.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_PLAY"
+
+  - scenario_id: "TR8_PODCAST_FOLLOW"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Theo dõi podcast Bến Giấy, không phát hay xếp tập nào."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.subscribe",{"show_id":"$paper.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.subscribe",{"show_id":"$cloud.id"}]
+    contrast:
+      with: "TR8_PODCAST_QUEUE"
+
+  - scenario_id: "TR8_PODCAST_CONSUME"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát ngay tập Buộc Nút của Bến Giấy. Đừng thêm tập nào vào hàng đợi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$knot.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_PLAY"
+
+  - scenario_id: "TR8_PODCAST_OTHER"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát tập Qua Bãi của Đồi Vân, không phải tập trùng tên của Bến Giấy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$cloudBay.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_PLAY"
+
+  - scenario_id: "TR8_PODCAST_STATION"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bật radio Đài Mỏ Neo, không phát tập podcast."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"station":"Đài Mỏ Neo"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$knot.id"}]
+    contrast:
+      with: "TR8_PODCAST_PLAY"
+
+  - scenario_id: "TR8_PODCAST_FOLLOWQUEUE"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Theo dõi Bến Giấy và đưa tập Qua Bãi của kênh đó vào hàng đợi, chưa phát."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.subscribe",{"show_id":"$paper.id"}]
+        - ["podcast_radio.queue",{"episode_id":"$bay.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.subscribe",{"show_id":"$paper.id"}]
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_QUEUE"
+
+  - scenario_id: "TR8_PODCAST_DUAL"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Theo dõi cả Bến Giấy và Đồi Vân. Giữ nguyên phát và hàng đợi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.subscribe",{"show_id":"$paper.id"}]
+        - ["podcast_radio.subscribe",{"show_id":"$cloud.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.subscribe",{"show_id":"$paper.id"}]
+        - ["podcast_radio.queue",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_FOLLOW"
+
+  - scenario_id: "TR8_PODCAST_NUMBER"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát tập số 3 của Bến Giấy, dù đó không phải tập mới đăng nhất."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$wire.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_PLAY"
+
+  - scenario_id: "TR8_PODCAST_NEWEST"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát tập có ngày đăng mới nhất của Bến Giấy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$latest.id"}]
+      decision_evidence: [["@paper"]]
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$wire.id"}]
+    contrast:
+      with: "TR8_PODCAST_NUMBER"
+
+  - scenario_id: "TR8_PODCAST_NEWDATE"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "newer"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát tập có ngày đăng mới nhất của Bến Giấy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["podcast_radio.play",{"episode_id":"$latest.id"}]
+      decision_evidence: [["@paper"]]
+      counterexample:
+        - ["podcast_radio.play",{"episode_id":"$bay.id"}]
+    contrast:
+      with: "TR8_PODCAST_NEWEST"
+
+  - scenario_id: "TR8_PODCAST_LOOK"
+    world_id: "W_TR8_PODCAST"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem ngày đăng tập Qua Bãi của Đồi Vân. Không phát, xếp hay theo dõi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["podcast_radio.search","podcast_radio.play","podcast_radio.subscribe","podcast_radio.queue"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["cloudBay"]]
+      counterexample:
+        - ["podcast_radio.queue",{"episode_id":"$cloudBay.id"}]
+    contrast:
+      with: "TR8_PODCAST_OTHER"
+
+  - scenario_id: "TR8_TASK_FIRST"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu Soát Bản Kẽm hạn 10:00 ngày 11/2/2027 đã xong; giữ mục trùng tên ngày 12."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.complete",{"task_id":"$second.id"}]
+
+  - scenario_id: "TR8_TASK_SECOND"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu Soát Bản Kẽm hạn 16:00 ngày 12/2/2027 đã xong; giữ mục ngày 11."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$second.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+    contrast:
+      with: "TR8_TASK_FIRST"
+
+  - scenario_id: "TR8_TASK_ALLTITLE"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu xong cả hai mục đang mở có tên Soát Bản Kẽm. Giữ các tên khác."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.complete",{"task_id":"$second.id"}]
+      decision_evidence: [["@open"]]
+      counterexample:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.complete",{"task_id":"$net.id"}]
+    contrast:
+      with: "TR8_TASK_FIRST"
+
+  - scenario_id: "TR8_TASK_ALLDUE"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu xong các mục còn mở có hạn đúng 10:00 ngày 11/2/2027. Bỏ qua mục đã xong và mọi hạn khác."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.complete",{"task_id":"$net.id"}]
+      decision_evidence: [["@open"]]
+      counterexample:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.complete",{"task_id":"$second.id"}]
+    contrast:
+      with: "TR8_TASK_ALLTITLE"
+
+  - scenario_id: "TR8_TASK_ADD"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Chụp Bản Kẽm, không đặt hạn và để ưu tiên mặc định."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm","priority":"high"}]
+
+  - scenario_id: "TR8_TASK_HIGH"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Chụp Bản Kẽm với ưu tiên cao và không đặt hạn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm","priority":"high"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm"}]
+    contrast:
+      with: "TR8_TASK_ADD"
+
+  - scenario_id: "TR8_TASK_DUE"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Chụp Bản Kẽm hạn 16:00 ngày 12/2/2027 giờ Việt Nam, ưu tiên mặc định."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm","due":"2027-02-12T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Chụp Bản Kẽm"}]
+    contrast:
+      with: "TR8_TASK_ADD"
+
+  - scenario_id: "TR8_TASK_FOLLOW"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu Soát Bản Kẽm hạn 10:00 ngày 11/2/2027 đã xong và thêm việc Chụp Bản Kẽm với đúng hạn của mục vừa nêu."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.add",{"title":"Chụp Bản Kẽm","due":"$first.due"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+        - ["tasks.add",{"title":"Chụp Bản Kẽm","due":"2027-02-12T16:00:00+07:00"}]
+    contrast:
+      with: "TR8_TASK_FIRST"
+
+  - scenario_id: "TR8_TASK_SAME"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một việc Soát Bản Kẽm mới không hạn và giữ nguyên cả hai việc trùng tên đã có."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Soát Bản Kẽm"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+    contrast:
+      with: "TR8_TASK_ADD"
+
+  - scenario_id: "TR8_TASK_IFOPEN"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nếu mục Soát Bản Kẽm hạn 10:00 ngày 11/2/2027 còn mở thì đánh dấu mục đó đã xong."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.complete",{"task_id":"$first.id"}]
+      decision_evidence: [["first"]]
+      counterexample:
+        - ["tasks.complete",{"task_id":"$second.id"}]
+    contrast:
+      with: "TR8_TASK_FIRST"
+
+  - scenario_id: "TR8_TASK_IFDONE"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "done"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nếu mục Soát Bản Kẽm hạn 10:00 ngày 11/2/2027 còn mở thì đánh dấu mục đó đã xong."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["firstDone"]]
+      counterexample:
+        - ["tasks.complete",{"task_id":"$second.id"}]
+    contrast:
+      with: "TR8_TASK_IFOPEN"
+
+  - scenario_id: "TR8_TASK_STATUS"
+    world_id: "W_TR8_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra mục Gói Mẫu Cát đã xong chưa. Chỉ xem, không đổi việc nào."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["tasks.list","tasks.add","tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["sand"]]
+      counterexample:
+        - ["tasks.add",{"title":"Gói Mẫu Cát"}]
+    contrast:
+      with: "TR8_TASK_IFDONE"
+
+  - scenario_id: "TR8_SECURITY_ACK"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận đã xem báo chuyển động tại Cửa Sân đúng 08:00 hôm nay, giữ nguyên chế độ giám sát."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$old.id"}]
+
+  - scenario_id: "TR8_SECURITY_BEFORE"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo chuyển động Cửa Sân lúc 07:59 hôm nay. Không xác nhận báo 08:00."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$old.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+    contrast:
+      with: "TR8_SECURITY_ACK"
+
+  - scenario_id: "TR8_SECURITY_AFTER"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận mọi cảnh báo sau 08:00 hôm nay, bỏ mốc đúng 08:00."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+      decision_evidence: [["@window"]]
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+    contrast:
+      with: "TR8_SECURITY_ACK"
+
+  - scenario_id: "TR8_SECURITY_INCLUSIVE"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận mọi cảnh báo từ 08:00 hôm nay, tính cả đúng 08:00."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+      decision_evidence: [["@window"]]
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+    contrast:
+      with: "TR8_SECURITY_AFTER"
+
+  - scenario_id: "TR8_SECURITY_MOTION"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Trong các báo từ 08:00 hôm nay, chỉ xác nhận báo chuyển động, không xác nhận báo cửa."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+      decision_evidence: [["@window"]]
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$side.id"}]
+    contrast:
+      with: "TR8_SECURITY_INCLUSIVE"
+
+  - scenario_id: "TR8_SECURITY_LOOK"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem báo cửa ở Cửa Kho lúc 08:05 hôm nay đã được xác nhận chưa. Không xác nhận hay đổi chế độ."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["door"]]
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+    contrast:
+      with: "TR8_SECURITY_ACK"
+
+  - scenario_id: "TR8_SECURITY_AWAY"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển giám sát sang chế độ vắng nhà. Để nguyên tất cả cảnh báo."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+
+  - scenario_id: "TR8_SECURITY_OFF"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tắt chế độ giám sát, giữ nguyên các bản ghi cảnh báo."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"off"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR8_SECURITY_AWAY"
+
+  - scenario_id: "TR8_SECURITY_ACKARM"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xác nhận báo cửa Cửa Kho 08:05 hôm nay và chuyển giám sát sang vắng nhà. Hai việc độc lập."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.acknowledge_alert",{"alert_id":"$door.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.acknowledge_alert",{"alert_id":"$motion.id"}]
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR8_SECURITY_AWAY"
+
+  - scenario_id: "TR8_SECURITY_GATEYES"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "bothAck"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển giám sát sang chế độ vắng nhà nếu cả báo chuyển động Cửa Sân lúc 08:00 và báo cửa Cửa Kho lúc 08:05 hôm nay đều đã được xác nhận. Thiếu một trong hai thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: [["motionAck","doorAck"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"off"}]
+    contrast:
+      with: "TR8_SECURITY_ACKARM"
+
+  - scenario_id: "TR8_SECURITY_GATEMOTION"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "onlyDoor"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển giám sát sang chế độ vắng nhà nếu cả báo chuyển động Cửa Sân lúc 08:00 và báo cửa Cửa Kho lúc 08:05 hôm nay đều đã được xác nhận. Thiếu một trong hai thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["motionOpen"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR8_SECURITY_GATEYES"
+
+  - scenario_id: "TR8_SECURITY_GATEDOOR"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "onlyMotion"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển giám sát sang chế độ vắng nhà nếu cả báo chuyển động Cửa Sân lúc 08:00 và báo cửa Cửa Kho lúc 08:05 hôm nay đều đã được xác nhận. Thiếu một trong hai thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["doorOpen"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR8_SECURITY_GATEYES"
+
+  - scenario_id: "TR8_SECURITY_GATEBOTH"
+    world_id: "W_TR8_SECURITY"
+    lineage_id: "TRAIN_ALERT_TRIAGE_08"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển giám sát sang chế độ vắng nhà nếu cả báo chuyển động Cửa Sân lúc 08:00 và báo cửa Cửa Kho lúc 08:05 hôm nay đều đã được xác nhận. Thiếu một trong hai thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["home_security.list_alerts","home_security.acknowledge_alert","home_security.arm","home_security.get_camera"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["motionOpen"],["doorOpen"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR8_SECURITY_GATEDOOR"
+
+  - scenario_id: "TR8_SUB_LITERAL"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy đúng gói Nét Mực, giữ nguyên gói Nét Mực Gia Đình."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+
+  - scenario_id: "TR8_SUB_CHEAP"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy một gói đang hoạt động có giá thấp nhất; không tính gói đã hủy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$cheap.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+    contrast:
+      with: "TR8_SUB_LITERAL"
+
+  - scenario_id: "TR8_SUB_CHEAPCHANGE"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "priceSwitch"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy một gói đang hoạt động có giá thấp nhất; không tính gói đã hủy."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$cheap.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$wave.id"}]
+    contrast:
+      with: "TR8_SUB_CHEAP"
+
+  - scenario_id: "TR8_SUB_EXPENSIVE"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy đúng gói đang hoạt động có giá cao nhất."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$expensive.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$wave.id"}]
+    contrast:
+      with: "TR8_SUB_CHEAP"
+
+  - scenario_id: "TR8_SUB_LAST"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy gói còn hoạt động có ngày gia hạn xa nhất."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$last.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$wave.id"}]
+    contrast:
+      with: "TR8_SUB_CHEAP"
+
+  - scenario_id: "TR8_SUB_LASTCHANGE"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "renewalSwitch"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy gói còn hoạt động có ngày gia hạn xa nhất."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$last.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+    contrast:
+      with: "TR8_SUB_LAST"
+
+  - scenario_id: "TR8_SUB_CAP"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ hủy gói Sóng Cạn nếu nó còn hoạt động và giá không quá 60.000 đồng. Nếu cao hơn thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$within.id"}]
+      decision_evidence: [["within"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+    contrast:
+      with: "TR8_SUB_CHEAP"
+
+  - scenario_id: "TR8_SUB_OVERCAP"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "costUp"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ hủy gói Sóng Cạn nếu nó còn hoạt động và giá không quá 60.000 đồng. Nếu cao hơn thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["over"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$wave.id"}]
+    contrast:
+      with: "TR8_SUB_CAP"
+
+  - scenario_id: "TR8_SUB_KEEP"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ kiểm tra gói Đèn Chiếu đã bị hủy chưa. Không hủy thêm gói nào."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["old"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+    contrast:
+      with: "TR8_SUB_LITERAL"
+
+  - scenario_id: "TR8_SUB_EARLYBOTH"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy tất cả gói còn hoạt động gia hạn đúng ngày 13/2/2027, giữ nguyên các ngày khác."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$earlyFamily.id"}]
+        - ["subscriptions.cancel",{"subscription_id":"$earlyWave.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+    contrast:
+      with: "TR8_SUB_LAST"
+
+  - scenario_id: "TR8_SUB_BOTHNAMED"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy gói Nét Mực và Nét Mực Gia Đình, không động tới Sóng Cạn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$ink.id"}]
+        - ["subscriptions.cancel",{"subscription_id":"$wave.id"}]
+    contrast:
+      with: "TR8_SUB_LITERAL"
+
+  - scenario_id: "TR8_SUB_FIRST"
+    world_id: "W_TR8_SUB"
+    lineage_id: "TRAIN_FLIGHT_CHOICE_07"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy một gói còn hoạt động có ngày gia hạn sớm nhất. Nếu trùng ngày thì chọn gói rẻ hơn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["subscriptions.list","subscriptions.cancel"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["subscriptions.cancel",{"subscription_id":"$first.id"}]
+      decision_evidence: [["@subs"]]
+      counterexample:
+        - ["subscriptions.cancel",{"subscription_id":"$family.id"}]
+    contrast:
+      with: "TR8_SUB_EARLYBOTH"
+
+  - scenario_id: "TR8_AUTO_LIVE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bật ngay Đèn Hạt ở Xưởng Sợi. Giữ nguyên mọi lịch tự động."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.switch_set",{"device_id":"$mill.id","power":"on"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.switch_set",{"device_id":"$yard.id","power":"on"}]
+
+  - scenario_id: "TR8_AUTO_RULE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo quy tắc hằng ngày bật Đèn Hạt ở Xưởng Sợi lúc 07:15, để trống tên. Đừng bật đèn ngay."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"07:15"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.switch_set",{"device_id":"$mill.id","power":"on"}]
+    contrast:
+      with: "TR8_AUTO_LIVE"
+
+  - scenario_id: "TR8_AUTO_REMOVE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa quy tắc bật Đèn Hạt ở Xưởng Sợi lúc 06:30. Không đổi đèn ngay hay xóa quy tắc trùng tên ở Sân Gạch."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$start.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.delete_rule",{"rule_id":"$yardRule.id"}]
+    contrast:
+      with: "TR8_AUTO_RULE"
+
+  - scenario_id: "TR8_AUTO_REPLACE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời quy tắc bật Đèn Hạt Xưởng Sợi từ 06:30 sang 07:15, giữ nguyên tên cũ. Bỏ quy tắc giờ cũ."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$start.id"}]
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"07:15","title":"$start.title"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.delete_rule",{"rule_id":"$finish.id"}]
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"07:15","title":"$start.title"}]
+    contrast:
+      with: "TR8_AUTO_REMOVE"
+
+  - scenario_id: "TR8_AUTO_RENAME"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thay quy tắc bật Đèn Hạt Xưởng Sợi lúc 06:30 bằng quy tắc cùng giờ, đặt tên Mở Ca Mới. Không giữ bản cũ."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$start.id"}]
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"06:30","title":"Mở Ca Mới"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"06:30","title":"Mở Ca Mới"}]
+    contrast:
+      with: "TR8_AUTO_REPLACE"
+
+  - scenario_id: "TR8_AUTO_OFFRULE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch tắt Đèn Hạt ở Xưởng Sợi lúc 07:15 hằng ngày, không đặt tên. Giữ nguyên trạng thái đèn hiện tại."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"off","time":"07:15"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"07:15"}]
+    contrast:
+      with: "TR8_AUTO_RULE"
+
+  - scenario_id: "TR8_AUTO_BOTH"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bật Đèn Hạt ở Xưởng Sợi ngay và tạo thêm lịch tắt đèn đó hằng ngày lúc 07:15, không đặt tên lịch."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.switch_set",{"device_id":"$mill.id","power":"on"}]
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"off","time":"07:15"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.switch_set",{"device_id":"$mill.id","power":"on"}]
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"07:15"}]
+    contrast:
+      with: "TR8_AUTO_OFFRULE"
+
+  - scenario_id: "TR8_AUTO_COPY"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch bật Đèn Mành ở Xưởng Sợi đúng giờ của quy tắc bật Đèn Hạt ở Sân Gạch. Lịch mới không đặt tên, giữ lịch nguồn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$curtain.id","action":"on","time":"$yardRule.time"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$curtain.id","action":"on","time":"$finish.time"}]
+    contrast:
+      with: "TR8_AUTO_RULE"
+
+  - scenario_id: "TR8_AUTO_IFEXISTS"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo quy tắc bật Đèn Hạt ở Xưởng Sợi lúc 06:30 mỗi ngày nếu chưa có quy tắc bật đèn đó đúng giờ này. Có rồi thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["start"]]
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"06:30"}]
+    contrast:
+      with: "TR8_AUTO_RULE"
+
+  - scenario_id: "TR8_AUTO_IFABSENT"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "shifted"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo quy tắc bật Đèn Hạt ở Xưởng Sợi lúc 06:30 mỗi ngày nếu chưa có quy tắc bật đèn đó đúng giờ này. Có rồi thì giữ nguyên."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$mill.id","action":"on","time":"06:30"}]
+      decision_evidence: [["@rules","shifted"]]
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$yard.id","action":"on","time":"06:30"}]
+    contrast:
+      with: "TR8_AUTO_IFEXISTS"
+
+  - scenario_id: "TR8_AUTO_REMOVE2"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bỏ cả lịch bật 06:30 và lịch tắt 21:30 của Đèn Hạt ở Xưởng Sợi. Giữ lịch đèn ngoài sân."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$start.id"}]
+        - ["home_automation.delete_rule",{"rule_id":"$finish.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.delete_rule",{"rule_id":"$start.id"}]
+        - ["home_automation.delete_rule",{"rule_id":"$yardRule.id"}]
+    contrast:
+      with: "TR8_AUTO_REMOVE"
+
+  - scenario_id: "TR8_AUTO_CLEARLIVE"
+    world_id: "W_TR8_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tắt Đèn Hạt ngoài Sân Gạch ngay và xóa lịch bật 06:30 của đúng đèn ngoài sân."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","smart_home.switch_set"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.switch_set",{"device_id":"$yard.id","power":"off"}]
+        - ["home_automation.delete_rule",{"rule_id":"$yardRule.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.switch_set",{"device_id":"$mill.id","power":"off"}]
+        - ["home_automation.delete_rule",{"rule_id":"$yardRule.id"}]
+    contrast:
+      with: "TR8_AUTO_BOTH"
+
+  - scenario_id: "TR8_CHORE_LITERAL"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao mục Lau Kệ chưa xong ở Phòng Mây cho Hạ Thư. Giữ mục đã xong và mục Phòng Sỏi."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$stone.id","assignee":"Hạ Thư"}]
+
+  - scenario_id: "TR8_CHORE_OTHER"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao mục Lau Kệ chưa xong ở Phòng Sỏi cho Hạ Thư. Giữ mục Phòng Mây."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$stone.id","assignee":"Hạ Thư"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+    contrast:
+      with: "TR8_CHORE_LITERAL"
+
+  - scenario_id: "TR8_CHORE_COPY"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Xếp Giỏ ở Phòng Mây cho người đang phụ trách mục Lau Kệ chưa xong ở Phòng Sỏi. Giữ phân công nguồn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$stone.assignee"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$cloud.assignee"}]
+    contrast:
+      with: "TR8_CHORE_OTHER"
+
+  - scenario_id: "TR8_CHORE_COPYCHANGED"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "moved"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Xếp Giỏ ở Phòng Mây cho người đang phụ trách mục Lau Kệ chưa xong ở Phòng Sỏi. Giữ phân công nguồn."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$stone.assignee"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$cloud.assignee"}]
+    contrast:
+      with: "TR8_CHORE_COPY"
+
+  - scenario_id: "TR8_CHORE_COPYOTHER"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao Xếp Giỏ ở Phòng Mây cho người đang phụ trách Lau Kệ chưa xong ngay tại Phòng Mây."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$cloud.assignee"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"$stone.assignee"}]
+    contrast:
+      with: "TR8_CHORE_COPY"
+
+  - scenario_id: "TR8_CHORE_SWAP"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi chỗ hai người đang phụ trách hai mục Lau Kệ chưa xong ở Phòng Mây và Phòng Sỏi. Không đổi mục đã xong."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"$stone.assignee"}]
+        - ["household_chores.assign",{"chore_id":"$stone.id","assignee":"$cloud.assignee"}]
+      original_values: ["cloud.assignee","stone.assignee"]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"$stone.assignee"}]
+        - ["household_chores.assign",{"chore_id":"$stone.id","assignee":"$stone.assignee"}]
+    contrast:
+      with: "TR8_CHORE_COPY"
+
+  - scenario_id: "TR8_CHORE_GIVEBOTH"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao cả hai mục Lau Kệ chưa xong ở Phòng Mây và Phòng Sỏi cho Hạ Thư. Giữ mục đã xong."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+        - ["household_chores.assign",{"chore_id":"$stone.id","assignee":"Hạ Thư"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Hạ Thư"}]
+    contrast:
+      with: "TR8_CHORE_SWAP"
+
+  - scenario_id: "TR8_CHORE_IFFREE"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ giao việc Xếp Giỏ ở Phòng Mây cho Hạ Thư nếu mục đó chưa có người phụ trách."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Hạ Thư"}]
+      decision_evidence: [["free"]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Lâm Duy"}]
+    contrast:
+      with: "TR8_CHORE_COPY"
+
+  - scenario_id: "TR8_CHORE_IFTAKEN"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "assigned"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ giao việc Xếp Giỏ ở Phòng Mây cho Hạ Thư nếu mục đó chưa có người phụ trách."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["occupied"]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Hạ Thư"}]
+    contrast:
+      with: "TR8_CHORE_IFFREE"
+
+  - scenario_id: "TR8_CHORE_LOOK"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem ai phụ trách Lau Kệ chưa xong ở Phòng Mây. Không giao lại việc."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["cloud"]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+    contrast:
+      with: "TR8_CHORE_LITERAL"
+
+  - scenario_id: "TR8_CHORE_DUAL"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao mục Lau Kệ chưa xong ở Phòng Mây cho Lâm Duy và việc Xếp Giỏ ở Phòng Mây cho Hạ Thư."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Lâm Duy"}]
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Hạ Thư"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"Hạ Thư"}]
+        - ["household_chores.assign",{"chore_id":"$basket.id","assignee":"Lâm Duy"}]
+    contrast:
+      with: "TR8_CHORE_GIVEBOTH"
+
+  - scenario_id: "TR8_CHORE_HISTORY"
+    world_id: "W_TR8_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao lại mục Lau Kệ đang mở ở Phòng Mây cho người ghi trên mục Lau Kệ đã xong tại cùng phòng. Đừng sửa mục đã xong."
+      context:
+        current_time: "2027-02-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["household_chores.list_chores","household_chores.assign"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"$completed.assignee"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$cloud.id","assignee":"$stone.assignee"}]
+    contrast:
+      with: "TR8_CHORE_LITERAL"
