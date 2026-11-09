@@ -1,3 +1,7 @@
+## Approved rubric review publication — 2026-11-09
+
+Added the exact 29-judgment ledger and a portable report (publication wording adjusted only). Reconciled all 29 requests, final answers and evidence call sequences against the bundled candidate. Counts: 28 pass, one unresolved. TR12_BANK_LOOK is restricted from training consumption pending currency grounding; no canonical eligibility, gold or original hold was changed. Package check and diff whitespace check passed. No new inference, SDK replay or training; earlier test counts remain historical.
+
 ## Current candidate publication checks — 2026-11-09
 
 The earlier entries below describe historical snapshots and publication attempts. The current update targets existing Draft PR #5 through the fork branch; repository history and the PR record determine actual publication success.

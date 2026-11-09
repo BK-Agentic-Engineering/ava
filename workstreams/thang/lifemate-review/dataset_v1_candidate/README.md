@@ -2,6 +2,10 @@
 
 Model-independent candidate ready for training integration **only for the eligible subset**. Local-only text demonstrations; no training or model/native-harness acceptance is claimed.
 
+## Later review restriction
+
+See the [29-case review](../artifacts/synthetic/manual_rubric_29_review_20261109/README.md): 28 answers pass, TR12_BANK_LOOK remains unresolved on currency grounding. Exclude that case from training consumption until resolved. The counts and eligibility manifest below are the earlier candidate snapshot, not reapproved eligibility after this review. The 16 original holds remain unchanged.
+
 ## Contents and counts
 
 - `training.jsonl`: 990 intended-train demonstrations.

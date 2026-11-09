@@ -842,7 +842,8 @@
     },
     "dataset_v1_candidate/README.md": {
       "source": "artifacts/synthetic/dataset_v1_candidate/README.md",
-      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot",
+      "adaptation": "Added later review restriction for TR12_BANK_LOOK; snapshot counts unchanged"
     },
     "dataset_v1_candidate/tool_schemas.json": {
       "source": "artifacts/synthetic/dataset_v1_candidate/tool_schemas.json",
@@ -871,6 +872,16 @@
     "docs/implementation/DATASET_V1_FINALIZATION.md": {
       "source": "authored for portable candidate finalization",
       "purpose": "Scoped verifier repair regressions and current integration boundaries"
+    },
+    "artifacts/synthetic/manual_rubric_29_review_20261109/README.md": {
+      "source": "artifacts/synthetic/manual_rubric_29_review_20261109/README.md",
+      "purpose": "Approved AI semantic review of exact 29 canonical answers; 28 pass, one unresolved",
+      "adaptation": "Publication status wording only"
+    },
+    "artifacts/synthetic/manual_rubric_29_review_20261109/judgments.jsonl": {
+      "source": "artifacts/synthetic/manual_rubric_29_review_20261109/judgments.jsonl",
+      "purpose": "Approved AI semantic review of exact 29 canonical answers; 28 pass, one unresolved",
+      "adaptation": "byte-identical source ledger"
     }
   },
   "excluded_document_links": [

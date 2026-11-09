@@ -6,6 +6,12 @@ Thắng benchmarked three ASR systems on the full released test splits and prepa
 - **Tú:** inspect the [clarification input](integration/three_cases/B02_N_C.input.json) alongside its [reference output](integration/three_cases/B02_N_C.output.json) to review message serialization and loss masking. Use the model-independent candidate below for adapter work; model-specific serialization and loss masks still require validation.
 - **Team:** review the [16 pending decisions](#decisions-still-pending). For the independent Vietnamese reading, send the blind sheet before the reader opens any gold-bearing files.
 
+## Answer review follow-up — 2026-11-09
+
+The [29-case semantic review](artifacts/synthetic/manual_rubric_29_review_20261109/README.md) records **28 pass / 1 unresolved** for the exact canonical answers. This was AI review with access to gold, not blind human adjudication or a general automatic grader.
+
+**Do not use TR12_BANK_LOOK for training until the currency question is resolved.** Its balance and beneficiary facts match, but the added unit “đồng” lacks an explicit source in the rendered input/schema/response. This is a new review restriction, separate from the 16 historical holds. The existing eligibility manifest and targets remain unchanged: its 1,047 ready count predates this restriction and must not be treated as a fresh unconditional approval. No new eligibility count is certified by this documentation update.
+
 ## 1. Completed GIPFormer–VALSEA–QUAN ASR benchmark
 
 | Official test distribution | Records | GIPFormer WER / CER | VALSEA WER / CER | QUAN WER / CER |
