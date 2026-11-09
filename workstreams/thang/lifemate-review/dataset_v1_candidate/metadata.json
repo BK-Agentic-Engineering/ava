@@ -1,0 +1,62 @@
+{
+  "format": "lifemate-model-independent-demonstration-v1-candidate",
+  "date": "2026-11-09",
+  "inventory": {
+    "scenarios": 1063,
+    "train": 1005,
+    "dev": 58,
+    "test": 0,
+    "worlds": 115,
+    "lineages": 33,
+    "components": 17,
+    "export_eligible": 0
+  },
+  "eligibility_counts": {
+    "ready_for_training_integration": 1047,
+    "needs_repair": 0,
+    "held": 16
+  },
+  "training_rows": 990,
+  "development_rows": 57,
+  "scoped_answer_cases": [
+    "TR10_PHONE_LOOK",
+    "TR11_SAVE_LOOK",
+    "TR12_LEARN_LOOK",
+    "TR12_QUOTE_LOOK",
+    "TR12_SOURCE_READONLY",
+    "TR14_CITY_LOOK",
+    "TR8_TASK_STATUS",
+    "TR9_MEET_LOOK",
+    "TR9_WALLET_LOOK",
+    "TR9_WEATHER_LOOKNEXT"
+  ],
+  "required_answers": 203,
+  "answers_completed_in_demonstrations": 46,
+  "canonicalized_prior_pilot_targets": 7,
+  "canonicalized_manual_rubric_targets": 39,
+  "original_holds": [
+    "B05_L_D",
+    "TR11_CHORE_EXPLICIT",
+    "TR11_CHORE_PAIR",
+    "TR17_CAL_EARLY",
+    "TR17_CAL_EXTEND",
+    "TR17_CAL_LONG",
+    "TR17_CAL_OTHER",
+    "TR17_CAL_REPHRASE",
+    "TR17_CAL_SHIFT",
+    "TR1_E_DRAFT",
+    "TR1_E_DRAFT_CC",
+    "TR1_E_REPLY",
+    "TR1_E_REPLY_OTHER",
+    "TR1_E_SEND",
+    "TR1_E_SEND_CC",
+    "TR1_E_TWO_DRAFTS"
+  ],
+  "catalog_schema": "2.7.0",
+  "sdk_release": "v3.2.0",
+  "external_archive": "D:\\Downloads\\train+public_test.zip",
+  "catalog_member": "train+public_test/train/train_tools_catalog.json",
+  "source_root_for_evidence": "D:\\Project\\Zalo AI",
+  "validation_scope": "source reconciliation and reused SDK references, not new inference/training/native integration",
+  "canonical_source_status": "all spec_only/non-exportable; original audit/index first 1000 only"
+}

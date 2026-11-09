@@ -1,3 +1,14 @@
+## Current candidate publication checks — 2026-11-09
+
+The earlier entries below describe historical snapshots and publication attempts. The current update targets existing Draft PR #5 through the fork branch; repository history and the PR record determine actual publication success.
+
+- Source: 11 final-wave tests and seven candidate-export tests passed. The latter includes deterministic rebuild, clean-directory execution/import and original source/evidence reconciliation.
+- Fresh Wave 23 SDK replay: six standards, 57 runtime paths (30 pass / 27 reject); the complete artifact equals canonical evidence excluding only created_utc and replay_wall_seconds.
+- All 1,047 demonstration rows and the 1,063-ID eligibility manifest are unchanged. Only the two candidate verifier helpers differ from the prior candidate. No new needs_repair case; all 16 holds retained. 990 training candidates and 57 exposed development references; 203 required final answers.
+- Portable candidate checks: three new regression tests passed. Failure index: eight regressions and --require-complete passed (1,000 historical IDs, 2,076 entries, 1,859 anchored comparisons, no actual model-failure claims).
+- Package checker passes historical snapshot bookkeeping, saved baseline aggregate totals, current candidate validation, source-map existence, Python syntax and local Markdown paths. The package retains the older evidence snapshot unchanged. Candidate source references require the current original workspace.
+- No new ASR scoring, model/API inference, training, organizer sample/environment access or named-reviewer requests. Manual semantic review (29 of the 39 rubric cases), native integration, model-specific serialization and loss masking remain unresolved.
+
 # Validation record
 
 ## Historical package validation — previous packaging iteration (2026-11-06)
@@ -81,3 +92,53 @@ GitHub repository API confirms public visibility, pull:true and push:false for t
 Exact staged-file review: 183 paths, comprising the 182-file package allowlist and the one root README link. No unrelated team change, active AGENTS.md, delivery ZIP, cache, organizer SDK/data, transcript bundle, audio, weight or credential file is staged. Staged content matches inspected working files after Git's normal newline conversion. Gold, split, ancestry and oracle content are preserved. `git diff --cached --check` reports only two existing final blank-line warnings in the blind sheet/private key; those source documents are deliberately preserved rather than edited during publication. This bounded file/content review is not a complete security audit.
 
 Publication result: one authorized push of review/thang-lifemate-asr-synthetic to origin was attempted after the inspected local commit. GitHub returned HTTP 403: permission to BK-Agentic-Engineering/ava.git denied to johnnguyenthang2709-coder. The remote branch was not created, and no Draft PR was created. Publication requires write access for that account, or authentication using an account with write access. No credentials are included here; no force push, automatic fork, alternate destination or reviewer request was attempted. The validated branch and prepared PR body remain available in this checkout. A final documentation-only local amend records this failure; it is not a second push attempt.
+
+## Local three-model ASR consolidation — 2026-11-07
+
+Documentation/aggregate-evidence update only. The source workspace closeout now
+covers GIPFormer, VALSEA and QUAN and recommends GIPFormer as LifeMate’s primary
+ASR baseline **for team review**, not as a ratified decision. VALSEA still leads
+VN-SLU. No inference, API/network call, audio access, scoring rerun, SDK replay,
+policy adjudication or synthetic-data change was performed in this iteration.
+
+Actual checks for this addition:
+
+- Read the saved QUAN result reviews, launcher/scoring handoffs, existing closeout,
+  comparison reports/metrics and dataset preparation/audit evidence. Reconciled
+  2,026 / 2,401 canonical IDs and paired score rows, original flags, six corpus
+  edit ratios, unrounded QUAN deltas, overall paired intervals and regional rates.
+  Both baselines' saved overall metrics match the three-model aggregates. Two
+  empty VN-SLU hypotheses retain 8/12 word and 21/35 character deletion errors.
+- The two added metrics.json files are byte-identical to saved source aggregates.
+  The two report.md files have only a portable-input/reproduction qualification
+  appended. Recursive key inspection found no raw-reference/hypothesis/provider
+  transcript payload or bundled implementation-source keys in these new metrics.
+  No per-sample files, model/audio archives or QUAN inference/scoring stack added.
+- `python -X utf8 scripts/check_team_review.py` passed from this package location:
+  1,000 unique scenarios, 984 acceptable within implementor scope, all 16 pending
+  holds, zero export eligibility; selection, aggregate totals, syntax and package
+  Markdown links reconcile. All scenarios retain spec_only/non-exportable status.
+- All **118 local links** in seven changed source-workspace Markdown documents
+  resolve. Missing source-workspace links in the portable closeout are explicit
+  withheld-input text, recorded in FILE_SELECTION.json. Its **190 selected files**
+  include exactly four additions here (two aggregate metrics/two reports); the
+  pre-existing failure-index selection entries remain unchanged.
+- `git diff --check` passed. Inspected local diffs and filenames: documentation,
+  selection metadata and the four aggregate files only for this task. The four
+  uncommitted failure-index files are unchanged in size/mtime, and their README
+  section and selection entries are preserved. The original Git staging state
+  is unchanged. No existing benchmark evidence was overwritten; 48 protected
+  source evidence files retain their original sizes/mtimes.
+
+The 51 QUAN scoring tests, six-file fresh-process scoring reproduction and earlier
+SDK/replay suites are **historical validation**, not new test executions here.
+Complete rescoring requires authorized withheld source inputs and the separate
+QUAN integration script; this portable aggregate package cannot do that alone.
+The proposed gold-transcript versus GIPFormer-audio LifeMate task comparison has
+not run. Unseen-data status, precision-repair equivalence, provider provenance,
+reference correctness, downstream task accuracy and deployment compliance retain
+the limitations recorded in the closeout.
+
+All changes remain local. Nothing staged, committed, pushed, sent or published;
+Draft PR #5 was not updated. Existing publication metadata is preserved rather
+than treated as a fresh remote-status check. No remote inspection was performed.

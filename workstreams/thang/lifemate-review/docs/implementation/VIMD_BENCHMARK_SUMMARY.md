@@ -1,3 +1,5 @@
+> Historical GIPFormer–VALSEA detail (2026-11-02); the [three-model closeout](ASR_BENCHMARK_CLOSEOUT.md) now includes QUAN and the baseline recommendation for team review.
+
 # ViMD benchmark — canonical team handoff
 
 Updated **2026-11-02, Asia/Saigon**. Detailed ViMD evidence summary for Thắng’s ASR benchmark assignment. The [combined ViMD + VN-SLU closeout](ASR_BENCHMARK_CLOSEOUT.md) is now the canonical entry point and records the completed iteration; this document retains ViMD detail. Dated implementation handoffs remain historical records. No inference, API call, scoring rerun, gold change or new experiment was performed during consolidation.

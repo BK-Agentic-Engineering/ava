@@ -567,13 +567,13 @@
     "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md": {
       "source": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
       "purpose": "required local source/evidence",
-      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+      "adaptation": "Package-specific evidence/source map consolidates withheld-input annotations; filenames and aggregate results preserved"
     },
     "docs/implementation/VIMD_BENCHMARK_SUMMARY.md": {
       "source": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
       "purpose": "required local source/evidence",
       "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes",
-      "current_revision_note": "Only workspace-guidance link retargeted after AGENTS.md became a non-instruction reference document; benchmark content unchanged"
+      "current_revision_note": "Historical two-model scope made explicit; detailed evidence retained"
     },
     "docs/implementation/SYNTHETIC_1000_QUALITY_AUDIT.md": {
       "source": "docs/implementation/SYNTHETIC_1000_QUALITY_AUDIT.md",
@@ -731,26 +731,27 @@
     "DRAFT_PR.md": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "Spacing and readability corrected; actual repository/template/path selection remains pending"
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "FILE_SELECTION.json": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "Same allowlist, current documentation notes only; delivery ZIP remains excluded"
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "HANDOFF_VI.md": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "Vietnamese spacing corrected; portable package versus external dependencies and pending publication clarified"
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "README.md": {
       "source": "authored for this review package",
       "purpose": "package README, validation, integration or publication handoff",
-      "current_revision_note": "Shortened around deliverables/status/entry points/commands/reviewer decisions; detailed qualifications retained in linked documents and VALIDATION.md; unresolved repository explicit"
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "scripts/check_team_review.py": {
       "source": "authored for this review package",
-      "purpose": "package README, validation, integration or publication handoff"
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/configuration.json": {
       "source": "artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/configuration.json",
@@ -773,7 +774,7 @@
     "VALIDATION.md": {
       "source": "authored for this review package",
       "purpose": "review documentation, validation or external-SDK integration",
-      "current_revision_note": "Historical results separated from current documentation-finalization checks; constraint qualifications preserved"
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
     },
     "integration/three_cases/README.md": {
       "source": "authored for this review package",
@@ -784,113 +785,95 @@
       "purpose": "required local source/evidence",
       "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes",
       "current_revision_note": "Relocated to a non-instruction reference document; original workspace policy text retained, no automatic scope on team repository"
+    },
+    "artifacts/synthetic/failure_mode_index.jsonl": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Evidence-linked individual failure-mode mappings for all 1,000 IDs; existing holds/statuses preserved",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+    },
+    "docs/implementation/FAILURE_MODE_INDEX.md": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Derived taxonomy definitions, overlapping counts, worked evidence links and mapping limitations",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+    },
+    "scripts/check_failure_mode_index.py": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Read-only source-linked comparison, selector/status/count validator; optional guide rendering never assigns tags",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review"
+    },
+    "tests/test_failure_mode_index.py": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Focused comparison consistency, reference provenance and unique-scenario union regressions; no semantic label duplication",
+      "status": "local uncommitted addition"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vimd/report.md": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vimd/report.md",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts",
+      "adaptation": "Portable-input/reproduction qualification appended; all aggregate results unchanged"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vnslu/metrics.json": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vnslu/metrics.json",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vnslu/report.md": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vnslu/report.md",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts",
+      "adaptation": "Portable-input/reproduction qualification appended; all aggregate results unchanged"
+    },
+    "dataset_v1_candidate/development.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/development.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/eligibility.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/eligibility.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/grade_final_wave_answers.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/grade_final_wave_answers.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/metadata.json": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/metadata.json",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/README.md": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/README.md",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/tool_schemas.json": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/tool_schemas.json",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/trace_grounding.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/trace_grounding.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/training.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/training.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/validate.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/validate.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/private/answer_reviews.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/private/answer_reviews.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "tests/test_candidate_verifiers.py": {
+      "source": "authored for portable candidate finalization",
+      "purpose": "Scoped verifier repair regressions and current integration boundaries"
+    },
+    "docs/implementation/DATASET_V1_FINALIZATION.md": {
+      "source": "authored for portable candidate finalization",
+      "purpose": "Scoped verifier repair regressions and current integration boundaries"
     }
   },
   "excluded_document_links": [
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "GIPFORMER15_VNSLU_SCORING_HANDOFF.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../project/PLAN.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../manifests/vimd_test.json"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../manifests/vnslu_test.json"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "VNSLU_TEST_PREPARATION.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/predictions.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/predictions.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/scoring/valsea_vs_gipformer_vimd_20261101/per_sample.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vimd_comparison_20261102/report.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/kaggle_vnslu_test/gip15_vnslu_test_fp16_20261102_06/"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/kaggle_vnslu_test/gip15_vnslu_test_fp16_20261102_06/predictions.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/predictions.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/per_sample.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/analysis.jsonl"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/paired_text_review.json"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#reproduction-and-validation"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
-    },
-    {
-      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
-      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md#reference-confirmation-for-three-cases"
-    },
     {
       "document": "docs/implementation/FACTUAL_ANSWER_PILOT_HANDOFF.md",
       "source_target": "TRAIN_WAVE_16_HANDOFF.md#redundant-attempt-policy-clarification"
@@ -1338,6 +1321,70 @@
     {
       "document": "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/report.md",
       "source_target": "per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../manifests/vimd_test.json"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../manifests/vnslu_test.json"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "VNSLU_TEST_PREPARATION.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_SCORING_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_VIMD_RESULT_REVIEW.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_VNSLU_RESULT_REVIEW.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_BENCHMARK_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/scoring/quan_vs_baselines_20261107/vimd/per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/scoring/quan_vs_baselines_20261107/vnslu/per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../scripts/score_quan_comparison.py"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_SCORING_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md#reference-confirmation-for-three-cases"
     }
   ],
   "not_bundled": [
@@ -1360,5 +1407,13 @@
     "access_observation": "One branch push rejected with HTTP 403: permission denied to johnnguyenthang2709-coder",
     "remote_branch_created": false,
     "blocker": "Write permission or authentication with a write-capable account required"
+  },
+  "publication_current": {
+    "repository": "BK-Agentic-Engineering/ava",
+    "fork": "johnnguyenthang2709-coder/zaloAI",
+    "base": "main",
+    "branch": "review/thang-lifemate-asr-synthetic",
+    "draft_pr": "https://github.com/BK-Agentic-Engineering/ava/pull/5",
+    "state_observed": "open draft; update prepared; success recorded by PR/commit history"
   }
 }

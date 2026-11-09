@@ -3,6 +3,8 @@ import ast
 import json
 from pathlib import Path
 import re
+import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -45,7 +47,8 @@ def main():
     assert len(re.findall(r'^## P\d+',blind,re.M))==6
     assert 'TR17_' not in blind and 'PRIVATE' not in blind
     assert not any(p.name == 'zaic_tools' for p in ROOT.rglob('*'))
-    print('PASS: 1,000 IDs, 16 holds, 0 export eligible; aggregate totals, source map, syntax and links reconcile.')
+    subprocess.run([sys.executable, str(ROOT/'dataset_v1_candidate/validate.py')], check=True)
+    print('PASS: historical 1,000-ID snapshot and current candidate separately validated; aggregate totals, source map, syntax and links reconcile.')
 
 
 if __name__=='__main__':
