@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-09",
+  "paths": {
+    "artifacts/synthetic/train_wave_06_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_06_replay/replay.json",
+    "artifacts/synthetic/train_wave_08_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_08_replay/replay.json",
+    "artifacts/synthetic/train_wave_09_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_09_replay/replay.json",
+    "artifacts/synthetic/train_wave_12_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_12_replay/replay.json",
+    "artifacts/synthetic/train_wave_14_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_14_replay/replay.json",
+    "artifacts/synthetic/train_wave_15_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_15_replay/replay.json",
+    "artifacts/synthetic/train_wave_21_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_21_replay/replay.json",
+    "artifacts/synthetic/train_wave_22_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_22_replay/replay.json",
+    "artifacts/synthetic/train_wave_23_replay/replay.json": "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_23_replay/replay.json",
+    "data/synthetic/design/train_wave_08.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_08.yaml",
+    "data/synthetic/design/train_wave_09.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_09.yaml",
+    "data/synthetic/design/train_wave_12.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_12.yaml",
+    "data/synthetic/design/train_wave_14.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_14.yaml",
+    "data/synthetic/design/train_wave_15.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_15.yaml",
+    "data/synthetic/design/train_wave_21.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_21.yaml",
+    "data/synthetic/design/train_wave_22.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_22.yaml",
+    "data/synthetic/design/train_wave_23.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_23.yaml",
+    "data/synthetic/factual_answer_pilot.yaml": "artifacts/synthetic/index_current_sources/data/synthetic/factual_answer_pilot.yaml"
+  },
+  "scope": "Exact current source copies only when different or absent from historical package; unchanged originals reused. No organizer data/runtime."
+}

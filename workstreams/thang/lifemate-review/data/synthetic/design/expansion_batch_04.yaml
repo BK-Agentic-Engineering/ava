@@ -1,0 +1,163 @@
+# Nội bộ tác giả; chỉ agent_visible đưa cho solver, không phải training serialization.
+version: expansion_batch_04
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+provenance:
+  plan: docs/plans/WORLD_DATASET_EXPANSION_PLAN.md
+  format_reference: data/synthetic/design/batch_03.yaml
+  independent_content: 'Titles, records, context và conversations tự soạn; task structure derivative H1/H2/H3. Không dùng organizer sample/label/audio/environment hoặc benchmark records.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  checked_sources: [apps/calendar.py, apps/base.py, executor.py]
+  capability_contracts:
+    calendar.list_events: {required: [], optional_used: [date_from]}
+    calendar.cancel_event: {required: [event_id], optional_used: []}
+    sys.ask_missing_info: {required: [tool_name, params], optional_used: []}
+  behavior: 'List trả events[] và optional date range theo start, không sửa state. Cancel patch status=cancelled, giữ fields khác; repeat cancel vẫn log/patch kể cả state không đổi. Không có API tự chọn referent từ history.'
+authoring_conventions:
+  visibility: 'WORLD/oracle/ancestry/semantic review là private. IDs chỉ lộ từ actual permitted lookup; materializer đồng bộ installed_apps và _meta.tools/current_time.'
+  coverage: 'H1/H2 đã có history selection; mới ở đây là giữ explicit selection qua incidental later mention. C/D là explicit-title controls, không hai cơ chế mới.'
+  history_state: 'Selection là chuẩn bị, assistant xác nhận chưa hủy; exchange sau chỉ giải nghĩa title C, không đổi selection hoặc authorize mutation. Initial state cả ba confirmed; không materialize historical writes.'
+  semantic_review: 'Đã đọc bốn visible conversations trước trace: user chọn duy nhất một event để hủy và bảo đợi; câu hỏi sau về nghĩa từ soát chỉ informative. Latest request Bây giờ hủy mới authorize mutation. Không có reasonable competing target theo wording này; independent reviewer/team chưa kiểm chứng.'
+  limitations: 'Executor không consume history. Target lấy từ reviewed oracle, không history parser/model evaluation. Không chặn local replay do thiếu team harness; không giả đã integrate.'
+  alternatives: 'List unfiltered hoặc date_from lấy từ visible current date nếu thực sự trả target đều valid; harmless repeated reads được phép. Không exact shortest trace hay natural-language final response requirement.'
+  trace_policy: 'Đúng một cancel đúng target; giữ mọi attempts/failures/no-ops. Reject theo authored count/target/evidence/frame, không universal failed-call rule. Không state_hash substitute.'
+worlds:
+  - world_id: W_EX4_SELECTED_HISTORY
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    split: dev
+    origin: independently_authored_content_derived_task
+    ancestry:
+      parent_world_ids: [W_B03_HISTORY_EVENT]
+      parent_scenario_ids: [H1, H2, H3]
+      parent_lineage_ids: [DEV_B03_HISTORY_EVENT_01]
+      contribution: 'Thêm explicit preparatory selection, cùng incidental later exchange và paired explicit controls; không independent lineage do rename.'
+    design_base: EX4_H_A
+    relevant_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    event_aliases_private: {A: ex4_evt_23, B: ex4_evt_67, C: ex4_evt_91}
+    assumptions: 'Ba title unique, ba event hợp lệ confirmed, cùng start/end future để không dùng thời gian/status làm target shortcut. Incidental C không bao giờ được chọn để hủy.'
+    initial_state:
+      calendar:
+        events:
+          - {id: ex4_evt_23, title: Duyệt phối màu bìa, start: '2026-12-10T10:30:00+07:00', end: '2026-12-10T11:15:00+07:00', location: Phòng Liễu, status: confirmed}
+          - {id: ex4_evt_67, title: Kiểm mẫu quai túi, start: '2026-12-10T10:30:00+07:00', end: '2026-12-10T11:15:00+07:00', location: Phòng Sậy, status: confirmed}
+          - {id: ex4_evt_91, title: Soát bản in hộp, start: '2026-12-10T10:30:00+07:00', end: '2026-12-10T11:15:00+07:00', location: Phòng Trúc, status: confirmed}
+    variants: {}
+    shared_oracle:
+      evidence: 'History/latest title chọn intended event; actual successful list_events ánh xạ unique title -> opaque ID trước cancel. Biết ID C không phải chọn C. Read sau write không sửa được grounding trước đó.'
+      effects: 'Đúng target.status -> cancelled; tất cả fields khác, hai event còn lại, count=3/list order và toàn state khác giữ nguyên. Đúng một calendar.cancel_event, không extra writes hoặc ask.'
+      invariance: 'Đảo events trên fresh sessions, giữ records/visible inputs; selected target không đổi, C vẫn confirmed. Đây là trace variant, không thêm scenario.'
+scenarios:
+  - scenario_id: EX4_H_A
+    world_id: W_EX4_SELECTED_HISTORY
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Lấy later C mention thay explicit selection A; chưa có model failure.'
+    agent_visible:
+      request: Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.
+      context: {current_time: '2026-12-09T08:45:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Tôi chọn sự kiện "Duyệt phối màu bìa" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+        - {role: assistant, text: Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào.}
+        - {role: user, text: 'Nhân tiện, tên sự kiện "Soát bản in hộp" có nghĩa là kiểm tra bản in phải không?'}
+        - {role: assistant, text: 'Đúng, "Soát bản in hộp" nói về việc kiểm tra bản in.'}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      reviewed_target: {title: Duyệt phối màu bìa, event_id: ex4_evt_23}
+      supporting_history_span: {turn_index: 0, text: 'Tôi chọn sự kiện "Duyệt phối màu bìa" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+      latest_authorization: 'Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi. -> thực hiện lựa chọn chuẩn bị trước đó, không phải last mention.'
+      required_evidence: 'Lookup lộ đúng title A/id trước cancel; không private ID từ history. Latest request authorize cancellation A, không revoke bằng informational C.'
+      required_effects: {statuses: {ex4_evt_23: cancelled, ex4_evt_67: confirmed, ex4_evt_91: confirmed}, event_count_after: 3, total_write_count: 1, cancel_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; không B/C, duplicate/extra cancel hoặc ask.']
+    contrast: {with: EX4_H_B, changes: history.selected_title_only, invariant: 'Chỉ title ở history[0].text đổi; toàn initial fixture/latest/context/tools và later exchange giữ nguyên, target A -> B.'}
+    wrong_behavior: {example: Hủy C vì title được nhắc cuối., caught_by: 'Wrong target dù event C có thật và active; A còn confirmed và C vi phạm frame.'}
+  - scenario_id: EX4_H_B
+    world_id: W_EX4_SELECTED_HISTORY
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Dùng target A của control hoặc latest C mention thay selection B; chưa đo model.'
+    agent_visible:
+      request: Bây giờ hủy sự kiện tôi đã chọn để hủy giúp tôi.
+      context: {current_time: '2026-12-09T08:45:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Tôi chọn sự kiện "Kiểm mẫu quai túi" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+        - {role: assistant, text: Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào.}
+        - {role: user, text: 'Nhân tiện, tên sự kiện "Soát bản in hộp" có nghĩa là kiểm tra bản in phải không?'}
+        - {role: assistant, text: 'Đúng, "Soát bản in hộp" nói về việc kiểm tra bản in.'}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      reviewed_target: {title: Kiểm mẫu quai túi, event_id: ex4_evt_67}
+      supporting_history_span: {turn_index: 0, text: 'Tôi chọn sự kiện "Kiểm mẫu quai túi" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+      latest_authorization: 'Cùng latest request A, nhưng explicit selection B còn hiệu lực; chưa có prior mutation.'
+      required_evidence: 'Lookup phải nối title B với id B trước cancel; later C chỉ là câu hỏi nghĩa title.'
+      required_effects: {statuses: {ex4_evt_23: confirmed, ex4_evt_67: cancelled, ex4_evt_91: confirmed}, event_count_after: 3, total_write_count: 1, cancel_count: 1, ask_count: 0}
+      forbidden_changes: ['Giữ A/C và shared frame; không extra/duplicate writes/ask.']
+    contrast: {with: EX4_H_A, changes: history.selected_title_only, invariant: 'Chỉ selected title trong history đổi, fixture/current read observations vẫn bằng A.'}
+    wrong_behavior: {example: Hủy A hoặc C., caught_by: 'Không target B, vi phạm frame; cùng IDs nhìn thấy không xác định thay ý định.'}
+  - scenario_id: EX4_H_C
+    world_id: W_EX4_SELECTED_HISTORY
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Explicit-title matched control; không cơ chế mới.'
+    agent_visible:
+      request: Bây giờ hủy sự kiện "Duyệt phối màu bìa" giúp tôi.
+      context: {current_time: '2026-12-09T08:45:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Tôi chọn sự kiện "Duyệt phối màu bìa" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+        - {role: assistant, text: Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào.}
+        - {role: user, text: 'Nhân tiện, tên sự kiện "Soát bản in hộp" có nghĩa là kiểm tra bản in phải không?'}
+        - {role: assistant, text: 'Đúng, "Soát bản in hộp" nói về việc kiểm tra bản in.'}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      reviewed_target: {title: Duyệt phối màu bìa, event_id: ex4_evt_23}
+      supporting_history_span: {turn_index: 0, text: 'Tôi chọn sự kiện "Duyệt phối màu bìa" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+      latest_authorization: 'Explicit title A trong latest request authorize hủy A; history và incidental C giữ nguyên.'
+      required_evidence: 'Cần actual observed A ID trước cancel dù title đã rõ; không yêu cầu dùng history để resolve explicit control.'
+      required_effects: {statuses: {ex4_evt_23: cancelled, ex4_evt_67: confirmed, ex4_evt_91: confirmed}, event_count_after: 3, total_write_count: 1, cancel_count: 1, ask_count: 0}
+      forbidden_changes: ['Shared frame; không B/C/extra write/ask.']
+    contrast: {with: EX4_H_A, changes: request.explicit_title_only, invariant: 'History/fixture/context/permissions giống A, intended target/effects giống A.'}
+    wrong_behavior: {example: Hủy C dù latest đã nêu A., caught_by: 'Explicit title không khớp attempted target/state.'}
+  - scenario_id: EX4_H_D
+    world_id: W_EX4_SELECTED_HISTORY
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Explicit B control cho referential B, không evidence model hiểu history.'
+    agent_visible:
+      request: Bây giờ hủy sự kiện "Kiểm mẫu quai túi" giúp tôi.
+      context: {current_time: '2026-12-09T08:45:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Tôi chọn sự kiện "Kiểm mẫu quai túi" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+        - {role: assistant, text: Tôi đã ghi nhận lựa chọn của bạn và chưa hủy sự kiện nào.}
+        - {role: user, text: 'Nhân tiện, tên sự kiện "Soát bản in hộp" có nghĩa là kiểm tra bản in phải không?'}
+        - {role: assistant, text: 'Đúng, "Soát bản in hộp" nói về việc kiểm tra bản in.'}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      reviewed_target: {title: Kiểm mẫu quai túi, event_id: ex4_evt_67}
+      supporting_history_span: {turn_index: 0, text: 'Tôi chọn sự kiện "Kiểm mẫu quai túi" để hủy, nhưng khoan thực hiện; đợi tôi yêu cầu.'}
+      latest_authorization: 'Explicit title B trong latest authorize hủy B, không C.'
+      required_evidence: 'Actual permitted lookup nối B title -> ID trước cancel; không private ID shortcut.'
+      required_effects: {statuses: {ex4_evt_23: confirmed, ex4_evt_67: cancelled, ex4_evt_91: confirmed}, event_count_after: 3, total_write_count: 1, cancel_count: 1, ask_count: 0}
+      forbidden_changes: ['Shared frame; giữ A/C nguyên trạng và đúng một cancel, không ask.']
+    contrast: {with: EX4_H_B, changes: request.explicit_title_only, invariant: 'History/fixture/context/permissions giống B; effects giống B.'}
+    wrong_behavior: {example: Duplicate cancel B., caught_by: 'Final state có thể giống nhưng cancel/write count phải một.'}
+static_review:
+  counts: {new_scenarios: 4, new_world_instances: 1, reused_lineage_ids: 1, new_independent_lineages: 0}
+  limitations: 'Persist essential contrast/reference checks trong runner; local replay evidence riêng. No general history parser, official scorer, model hoặc training serialization.'

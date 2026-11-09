@@ -1,0 +1,136 @@
+version: train_wave_17
+split: train
+status: spec_only
+exportable: false
+provenance: {"release":"v3.2.0","schema":"2.7.0","runtime_root":"train+public_test/train/zaic_tools/","catalog_member":"train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    split: train
+    origin: train_derivative
+    ancestry: {"parent_world_ids":[],"parent_scenario_ids":["TR9_CAL_SHIFT","TR9_CAL_EXTEND"],"parent_lineage_ids":["TRAIN_ALARM_EDIT_02"]}
+    design_base: TR17_CAL_SHIFT
+    relevant_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    initial_state:
+      calendar:
+        events:
+          - {"id":"w17_b","title":"Duyệt men","start":"2027-11-08T14:00:00+07:00","end":"2027-11-08T15:10:00+07:00","location":"Xưởng Sồi","status":"confirmed"}
+          - {"id":"w17_a","title":"Duyệt men","start":"2027-11-08T09:10:00+07:00","end":"2027-11-08T09:55:00+07:00","location":"Xưởng Sen","status":"confirmed"}
+    variants: {"long":{"calendar":{"events":{"w17_a":{"end":"2027-11-08T10:30:00+07:00"}}}}}
+    readers: {"day":["calendar.list_events","events",{"date_from":"2027-11-08","date_to":"2027-11-08"},{}]}
+    witnesses: {"sen":["day",{"title":"Duyệt men","location":"Xưởng Sen"}],"soi":["day",{"title":"Duyệt men","location":"Xưởng Sồi"}]}
+scenarios:
+  - scenario_id: TR17_CAL_SHIFT
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: base
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Dời buổi duyệt men ở xưởng Sen sáng mai muộn nửa tiếng giúp mình."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"shift","minutes":30,"target":"sen"}
+      actions: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00","location":"Xưởng Sen"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00"}]],"reason":"state"},"copied_other_finish":{"actions":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T11:00:00+07:00"}]],"reason":"state"}}
+  - scenario_id: TR17_CAL_LONG
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: long
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Dời buổi duyệt men ở xưởng Sen sáng mai muộn nửa tiếng giúp mình."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"shift","minutes":30,"target":"sen"}
+      actions: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T11:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T11:00:00+07:00","location":"Xưởng Sen"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T11:00:00+07:00"}]],"reason":"state"},"copied_other_finish":{"actions":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00"}]],"reason":"state"}}
+  - scenario_id: TR17_CAL_REPHRASE
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: base
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Buổi duyệt men sáng mai bên xưởng Sen ấy, cho bắt đầu trễ hơn 30 phút, vẫn họp từng ấy lâu nhé."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"shift","minutes":30,"target":"sen"}
+      actions: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00","location":"Xưởng Sen"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T09:40:00+07:00","end":"2027-11-08T10:25:00+07:00"}]],"reason":"state"}}
+  - scenario_id: TR17_CAL_EXTEND
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: base
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Buổi duyệt men sáng mai ở xưởng Sen cho họp thêm nửa tiếng nhé."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"extend","minutes":30,"target":"sen"}
+      actions: [["calendar.update_event",{"event_id":"$sen.id","end":"2027-11-08T10:25:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$sen.id","end":"2027-11-08T10:25:00+07:00","start":"2027-11-08T09:40:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$sen.id","end":"2027-11-08T10:25:00+07:00","location":"Xưởng Sen"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$soi.id","end":"2027-11-08T10:25:00+07:00"}]],"reason":"state"}}
+  - scenario_id: TR17_CAL_EARLY
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: base
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Cho buổi duyệt men ở xưởng Sen sáng mai sớm lên một phần tư tiếng nhé."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"shift","minutes":-15,"target":"sen"}
+      actions: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T08:55:00+07:00","end":"2027-11-08T09:40:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T08:55:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T08:55:00+07:00","end":"2027-11-08T09:40:00+07:00","location":"Xưởng Sen"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T08:55:00+07:00","end":"2027-11-08T09:40:00+07:00"}]],"reason":"state"}}
+  - scenario_id: TR17_CAL_OTHER
+    world_id: W_TR17_CAL
+    lineage_id: TRAIN_ALARM_EDIT_02
+    fixture_variant: base
+    status: spec_only
+    exportable: false
+    agent_visible:
+      request: "Buổi duyệt men bên xưởng Sồi chiều mai dời muộn nửa tiếng giúp mình."
+      context: {"current_time":"2027-11-07T16:00:00+07:00","timezone":"Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events","calendar.update_event","calendar.create_event","calendar.cancel_event"]
+    oracle_draft:
+      outcome: execute
+      time_rule: {"mode":"shift","minutes":30,"target":"soi"}
+      actions: [["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T14:30:00+07:00","end":"2027-11-08T15:40:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T14:30:00+07:00"}]]
+      alternatives: {"preserve_location":[["calendar.update_event",{"event_id":"$soi.id","start":"2027-11-08T14:30:00+07:00","end":"2027-11-08T15:40:00+07:00","location":"Xưởng Sồi"}]]}
+      negative_alternatives: {"wrong_room":{"actions":[["calendar.update_event",{"event_id":"$sen.id","start":"2027-11-08T14:30:00+07:00","end":"2027-11-08T15:40:00+07:00"}]],"reason":"state"}}

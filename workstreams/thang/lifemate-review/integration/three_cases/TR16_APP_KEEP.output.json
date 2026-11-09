@@ -1,0 +1,82 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "TR16_APP_KEEP",
+  "run_id": "prepared-tr16_app_keep-v01",
+  "execution": {
+    "tool_calls": [
+      {
+        "call_id": "prepared-tr16_app_keep-v01/latest/0",
+        "name": "appliances.list",
+        "arguments": {
+          "type": "washer"
+        }
+      }
+    ],
+    "tool_results": [
+      {
+        "result_id": "prepared-tr16_app_keep-v01/latest/0/result",
+        "call_id": "prepared-tr16_app_keep-v01/latest/0",
+        "payload": {
+          "ok": true,
+          "appliances": [
+            {
+              "cycles": [
+                "eco",
+                "normal",
+                "quick"
+              ],
+              "id": "w16_washer",
+              "name": "Máy giặt hiên",
+              "state": {
+                "cycle": "eco",
+                "delay_minutes": 0,
+                "status": "running"
+              },
+              "type": "washer"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "final_text": null,
+  "termination": {
+    "status": "completed",
+    "origin": "proposed_from_recorded_behavior"
+  },
+  "task_outcome": {
+    "source_outcome": "observe_no_write",
+    "status": "local_expected"
+  },
+  "private_final_state_ref": {
+    "path": "private/TR16_APP_KEEP.json",
+    "selector": "/final_state"
+  },
+  "local_verification": {
+    "tool_state": {
+      "verdict": "pass",
+      "reasons": [],
+      "sequence": []
+    },
+    "answer_content": {
+      "status": "pass",
+      "reason": "answer_optional",
+      "canonical_project_source": "scripts/factual_trace_adapter.py"
+    },
+    "official_scoring": "not_evaluated"
+  },
+  "provenance": {
+    "kind": "prepared_from_canonical_local_execution",
+    "input_file": "TR16_APP_KEEP.input.json",
+    "canonical_project_locator": "artifacts/synthetic/train_wave_16_replay/replay.json#/replays/65",
+    "reference_trace_ref": {
+      "path": "private/TR16_APP_KEEP.json",
+      "selector": "/reference_calls"
+    }
+  },
+  "availability": {
+    "final_text": "not_captured",
+    "model_run": "not_performed",
+    "tokens_latency_timestamps": "not_captured"
+  }
+}

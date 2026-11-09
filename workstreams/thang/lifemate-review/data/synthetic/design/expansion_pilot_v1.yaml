@@ -1,0 +1,291 @@
+# Nội bộ tác giả; chỉ agent_visible được đưa cho solver.
+version: expansion_pilot_v1
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+batch_scope: '7 scenario / 2 WORLD instances; dùng lại 2 lineage IDs hiện có, không thêm independent lineage; zero local replay.'
+provenance:
+  plan: docs/plans/WORLD_DATASET_EXPANSION_PLAN.md
+  format_references: [data/synthetic/design/pilot_v1.yaml, data/synthetic/design/batch_04.yaml, data/synthetic/design/batch_05.yaml]
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  independent_content: 'Tên, entities, câu, thời gian và state mới do tác giả viết độc lập; task structure có ancestry được khai báo, không giả nhận independence. Không dùng organizer sample/label/audio/environment hoặc ASR benchmark records.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/smart_home.py, apps/email.py, apps/reminders.py, apps/base.py]
+  capability_contracts:
+    smart_home.get_status: {required: [], optional_used: [room, type]}
+    smart_home.light_set: {required: [device_id], optional_used: [power]}
+    email.list: {required: [], optional_used: [unread_only]}
+    email.read: {required: [email_id], optional_used: []}
+    reminders.create: {required: [content, time], optional_used: [repeat]}
+    sys.ask_missing_info: {required: [tool_name, params], optional_used: []}
+  behavior: 'get_status trả devices gồm nested state.power; light_set patch nested state, power on/off, redundant write vẫn được log. email.list bỏ body, email.read(email_id) trả email/body không sửa unread/folder. reminders.create append item với runtime ID, repeat=once/done=false mặc định. Missing email ID trả business no-op không cung cấp evidence. Không có group-conditional tool, name/body search hoặc time extractor tool.'
+authoring_conventions:
+  visibility: 'Fixture, oracle, ancestry và minimum replay checks là private. Agent chỉ thấy request/context/history/allowed_tools; materializer tương lai đồng bộ installed_apps và _meta.tools/current_time.'
+  ancestry_policy: 'Hai WORLD mới là derivative branches trong dev, không là hai independent lineages. Shared lineage IDs có chủ ý; component ancestry của lights còn nối với DEV_LIGHT_SCOPE_01. Mọi descendant giữ dev.'
+  text_scope: 'Copy content user là positive example đủ; paraphrase/source wording chưa rõ => human_review_required/unresolved, không tự pass/fail. Không có generic semantic classifier.'
+  trace_policy: 'Đếm attempted writes và giữ failures/no-ops riêng với state/evidence. Read lặp vô hại được phép. Không suy universal rule mọi failed call làm task fail; recovery chưa được soạn, mỗi giới hạn trace phải theo yêu cầu riêng.'
+  status: 'spec_only, non-exportable; minimum_replay là kỳ vọng chưa execute. Không có model/API, runtime hoặc training export trong lượt này.'
+
+worlds:
+  - world_id: W_EXP1_JOINT_LIGHTS
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    split: dev
+    origin: independently_authored_content_derived_task
+    ancestry:
+      parent_world_ids: [W_B05_CONDITIONAL_LIGHT, W_LIGHTS]
+      parent_scenario_ids: [B05_L_A, B05_L_B, B05_L_C, L2]
+      parent_lineage_ids: [DEV_B05_CONDITIONAL_LIGHT_01, DEV_LIGHT_SCOPE_01]
+      contribution: 'Ghép gate conditional đã có với action nhiều target: condition xét một lần trước action; kiểm false của từng operand riêng. Không phải chỉ rename B05.'
+    design_base: EXP1_L_BOTH
+    relevant_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    assumptions: 'Hai target duy nhất theo name+room+type, không theo thứ tự list. Distractor cùng room/type đang on để bắt việc tắt mọi light thay vì hai cái được nêu.'
+    initial_state:
+      smart_home:
+        devices:
+          - {id: exp1_light_51, name: đèn bàn ráp khung, room: phòng bìa giấy, type: light, state: {power: 'on'}}
+          - {id: exp1_light_82, name: đèn soi giấy, room: phòng bìa giấy, type: light, state: {power: 'on'}}
+          - {id: exp1_light_34, name: đèn kệ màu, room: phòng bìa giấy, type: light, state: {power: 'on'}}
+    variants:
+      first_target_off: {operation: replace_value, path: 'smart_home.devices[0].state.power', value: 'off', invariant: 'Chỉ first target power đổi; giữ second/distractor và toàn visible input.'}
+      second_target_off: {operation: replace_value, path: 'smart_home.devices[1].state.power', value: 'off', invariant: 'Chỉ second target power đổi; giữ first/distractor và toàn visible input.'}
+    shared_oracle:
+      identity: 'Successful permitted get_status nối name+room+type với từng ID; mọi write dùng ID đã quan sát. Room/type filter hoặc unfiltered đều hợp lệ, không có name filter.'
+      group_condition: 'Conditional request: trước write đầu, cả hai named target phải được quan sát on. Khi condition đã true, hoàn thành action tắt cả hai bằng hai calls; không re-evaluate sau call đầu để bỏ call thứ hai. Không giả định atomic transaction/rollback.'
+      false_condition: 'Một named target được quan sát off đủ chứng minh conjunction false; không bắt read thứ hai nếu đã có bằng chứng đủ. Với fixture này cùng room/type, các filter trả cả ba. Không dùng power của distractor làm evidence.'
+      frame: 'Giữ mọi ID/name/room/type, mọi field khác ngoài power được yêu cầu, nguyên distractor, device count=3/list order và toàn app khác. Reads không có side effect.'
+      alternatives: 'Đảo hai write target hợp lệ; read lặp hoặc xen read sau write đầu được phép nếu giữ evidence trước action và hoàn thành effect. Không ép canonical shortest trace.'
+    verifier_checks:
+      device_order_reversal: 'Kỳ vọng future verifier: đảo record order trên fresh sessions, giữ identity/visible input; intended target set và outcomes không đổi. Không thêm scenario.'
+
+  - world_id: W_EXP1_MAIL_COLLISIONS
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    split: dev
+    origin: independently_authored_content_derived_task
+    ancestry:
+      parent_world_ids: [W_B04_MAIL_DETAIL]
+      parent_scenario_ids: [B04_E_B, B04_E_C, B04_E_D]
+      parent_lineage_ids: [DEV_B04_MAIL_DETAIL_01]
+      contribution: 'List/detail chain được giữ, nhưng subject riêng lẻ và sender riêng lẻ đều có collision. Chỉ tổ hợp subject+sender chọn đúng target; counterfactual sender đổi target, không đổi body.'
+    design_base: EXP1_E_A
+    relevant_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    assumptions: 'Mỗi cặp subject+from duy nhất. Không preview/time trong list metadata, không source/cached result trong context/history. Timestamps chỉ trong body; các email đều unread và hợp lệ. Hai distractor đánh bại hai shortcut khác nhau.'
+    initial_state:
+      email:
+        emails:
+          - id: exp1_mail_42
+            from: kho@duyenmay.example.test
+            subject: Mốc nộp bảng kê
+            folder: inbox
+            unread: true
+            body: |
+              Chào bạn,
+              Thời điểm gửi bảng kê: 2026-12-03T10:15:00+07:00.
+              Bảng kê này dành cho lô vật liệu của xưởng Duyên Mây.
+              Cảm ơn bạn,
+              Bộ phận kho
+          - id: exp1_mail_77
+            from: kho@vanniep.example.test
+            subject: Mốc nộp bảng kê
+            folder: inbox
+            unread: true
+            body: |
+              Chào bạn,
+              Thời điểm gửi bảng kê: 2026-12-03T14:35:00+07:00.
+              Bảng kê này dành cho lô vật liệu của xưởng Vân Nếp.
+              Cảm ơn bạn,
+              Bộ phận kho
+          - id: exp1_mail_19
+            from: kho@duyenmay.example.test
+            subject: Lịch kiểm tra đèn
+            folder: inbox
+            unread: true
+            body: |
+              Chào bạn,
+              Thời điểm kiểm tra: 2026-12-03T11:55:00+07:00.
+              Lịch này dành cho việc kiểm tra đèn ở kho Duyên Mây.
+              Cảm ơn bạn,
+              Bộ phận kho
+        sent: []
+        drafts: []
+      reminders:
+        reminders:
+          - {id: exp1_rem_keep_29, content: Lấy bao bì ở quầy, time: '2026-12-02T07:30:00+07:00', repeat: once, done: false}
+    variants:
+      first_body_time_unavailable:
+        operation: replace_value
+        path: email.emails[0].body
+        value: |
+          Chào bạn,
+          Thời điểm gửi bảng kê: chưa được chốt.
+          Bảng kê này dành cho lô vật liệu của xưởng Duyên Mây.
+          Cảm ơn bạn,
+          Bộ phận kho
+        invariant: 'Chỉ timestamp expression trong first body thành chưa được chốt; metadata/ID, cả hai email khác và reminders giữ nguyên.'
+    shared_oracle:
+      grounding: 'Requested subject+sender -> unique record trong successful email.list -> ID đã quan sát trước mỗi email.read -> body đúng ID -> value trong dòng Thời điểm gửi bảng kê -> create.time. Đúng timestamp của email khác không đủ.'
+      missing: 'Chỉ body của đúng target có chưa được chốt mới cấp evidence unavailable trước ask. Timestamp ở email khác không giải quyết request.'
+      frame: 'Chỉ append reminder được yêu cầu; giữ existing reminder, toàn emails gồm unread/folder/body, sent/drafts và app khác. email.list/read không sửa state theo source.'
+      alternatives: 'List unfiltered hoặc unread_only=true/false nếu thực sự lộ target; có thể đọc thư khác qua ID đã quan sát rồi target, không bắt exact trace. Unknown body expression cần review, không đoán.'
+
+scenarios:
+  - scenario_id: EXP1_L_U
+    world_id: W_EXP1_JOINT_LIGHTS
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Control phân biệt không thực hiện được hai-target action với lỗi condition; chưa có model failure.'
+    agent_visible:
+      request: Tắt đèn bàn ráp khung và đèn soi giấy trong phòng bìa giấy giúp tôi.
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {IDs: 'Quan sát get_status để nối hai tên target với exp1_light_51/82 trước write. Không thêm condition-evaluation requirement cho control vô điều kiện.'}
+      required_effects: {power_after: {exp1_light_51: 'off', exp1_light_82: 'off', exp1_light_34: 'on'}, total_write_count: 2, writes_per_target: 1, ask_count: 0, device_count_after: 3}
+      forbidden_changes: ['Áp shared frame: không tắt distractor, không thêm field hoặc record, không duplicate/ask.']
+    contrast: {with: EXP1_L_BOTH, changes: request.condition_only, invariant: 'Fixture/context/history/permissions và effects bằng nhau.'}
+    wrong_behavior: {example: Chỉ tắt đèn bàn ráp khung., caught_by: 'Thiếu effect thứ hai, write count/set không đúng.'}
+    minimum_replay: {positive: 'Read actual target IDs rồi tắt cả hai; thử hai write orders.', negative: 'Bỏ một target hoặc tắt thêm distractor phải reject đúng set/count/frame.'}
+
+  - scenario_id: EXP1_L_BOTH
+    world_id: W_EXP1_JOINT_LIGHTS
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent chỉ check một operand hoặc ngừng group action sau write đầu vì re-evaluate condition; chưa đo model.'
+    agent_visible:
+      request: Nếu cả đèn bàn ráp khung và đèn soi giấy trong phòng bìa giấy đều đang bật thì tắt cả hai; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {condition: 'Trước write đầu quan sát cả hai named target on trong get_status; action đã được enable cho cả hai. ID mỗi write từ record đúng. Áp shared group_condition, không lấy distractor thay operand.'}
+      required_effects: {power_after: {exp1_light_51: 'off', exp1_light_82: 'off', exp1_light_34: 'on'}, total_write_count: 2, writes_per_target: 1, ask_count: 0, device_count_after: 3}
+      forbidden_changes: ['Áp shared frame; không dừng sau một write, không đụng distractor hoặc hỏi khi dữ kiện đã đầy đủ.']
+    contrast: {with: EXP1_L_U, changes: request.condition_only, invariant: 'Thêm conjunction condition, cùng base fixture và effects; control U tách khó khăn group action.'}
+    wrong_behavior: {example: 'Tắt lamp đầu, read lại thấy một off rồi bỏ lamp còn lại.', caught_by: 'Condition đã true trước action; cần đủ hai target off và một write mỗi target.'}
+    minimum_replay: {positive: 'Observe cả hai on, execute hai write ở cả hai thứ tự; thử harmless read giữa hai write.', negative: 'Skip second effect hoặc đoán IDs trước observation phải fail đúng effect/grounding.'}
+
+  - scenario_id: EXP1_L_FIRST_OFF
+    world_id: W_EXP1_JOINT_LIGHTS
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: first_target_off
+    failure_hypothesis: 'Agent kiểm riêng second target hoặc hiểu cả hai thành bất kỳ một; chưa có model evidence.'
+    agent_visible:
+      request: Nếu cả đèn bàn ráp khung và đèn soi giấy trong phòng bìa giấy đều đang bật thì tắt cả hai; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: observe_no_write
+      required_evidence: {false_condition: 'Successful permitted read thấy đèn bàn ráp khung off đủ chứng minh conjunction false. Read chỉ thấy second/distractor on không đủ. Áp shared false_condition.'}
+      required_effects: {power_after: {exp1_light_51: 'off', exp1_light_82: 'on', exp1_light_34: 'on'}, app_state_delta: none, total_write_count: 0, ask_count: 0, device_count_after: 3}
+      forbidden_changes: ['Toàn state/list order giữ nguyên; không write kể cả redundant off, không ask, không empty log thay observation.']
+    contrast: {with: EXP1_L_BOTH, changes: fixture.first_target_power_only, invariant: 'Visible input bằng BOTH; chỉ first power on -> off, other target/distractor giữ nguyên.'}
+    wrong_behavior: {example: Tắt second vì nó vẫn on., caught_by: 'Conjunction false nên zero writes; second phải giữ on.'}
+    minimum_replay: {positive: 'Read actual first target off rồi stop; repeated reads được phép.', negative: 'Empty log, redundant first write hoặc second write phải fail observation/zero-write đúng lý do.'}
+
+  - scenario_id: EXP1_L_SECOND_OFF
+    world_id: W_EXP1_JOINT_LIGHTS
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: second_target_off
+    failure_hypothesis: 'Agent chỉ kiểm first target on rồi thực hiện cả action; contrast đối xứng cần thiết với FIRST_OFF.'
+    agent_visible:
+      request: Nếu cả đèn bàn ráp khung và đèn soi giấy trong phòng bìa giấy đều đang bật thì tắt cả hai; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: observe_no_write
+      required_evidence: {false_condition: 'Successful read thấy đèn soi giấy off đủ chứng minh false; không suy từ first target/distractor on. Áp shared false_condition.'}
+      required_effects: {power_after: {exp1_light_51: 'on', exp1_light_82: 'off', exp1_light_34: 'on'}, app_state_delta: none, total_write_count: 0, ask_count: 0, device_count_after: 3}
+      forbidden_changes: ['Toàn state/list order giữ nguyên; zero writes/asks kể cả redundant write; cần observation, không log rỗng.']
+    contrast: {with: EXP1_L_BOTH, changes: fixture.second_target_power_only, invariant: 'Visible input bằng BOTH; chỉ second power on -> off, first/distractor giữ nguyên.'}
+    wrong_behavior: {example: Thấy first on rồi tắt cả hai., caught_by: 'Second off làm conjunction false; zero writes, first giữ on.'}
+    minimum_replay: {positive: 'Observe second off rồi stop; đảo record order không đổi kết luận.', negative: 'Write first hoặc redundant second phải fail dù một số field cuối không đổi.'}
+
+  - scenario_id: EXP1_E_A
+    world_id: W_EXP1_MAIL_COLLISIONS
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent match chỉ subject hoặc chỉ sender rồi đọc sai email trong hai loại collision; chưa có model failures.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Gửi bảng kê vật liệu" theo thời điểm ghi trong thư tiêu đề "Mốc nộp bảng kê" do kho@duyenmay.example.test gửi.'
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      source_match: {subject: Mốc nộp bảng kê, from: kho@duyenmay.example.test}
+      required_evidence: {ID: 'List trả unique compound match exp1_mail_42 trước read(ID đó).', time: 'Read đúng ID trả email.body: Thời điểm gửi bảng kê: 2026-12-03T10:15:00+07:00. Dùng timestamp này, không 14:35/11:55 từ thư khác.', content: Gửi bảng kê vật liệu từ request}
+      required_effects: {new_reminder_count: 1, time: '2026-12-03T10:15:00+07:00', repeat: once, done: false, content_meaning: Gửi bảng kê vật liệu, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; đúng một reminder mới, không đổi email/old reminder, không đoán time hoặc dùng body sai source.']
+    contrast: {with: EXP1_E_B, changes: request.sender_only, invariant: 'Toàn fixture/context/history/tools/subject/content giữ nguyên; đổi sender chọn email khác và time khác.'}
+    wrong_behavior: {example: Read thư khác cùng subject rồi tạo lúc 14:35., caught_by: 'Compound identity sai, source-time không ground; expected time là 10:15.'}
+    minimum_replay: {positive: 'List rồi chọn subject+sender, read actual body, extract time và create; đọc distractor trước/sau được phép.', negative: 'Cả subject-only và sender-only shortcut; list/create guess; hidden-ID read phải fail đúng identity/grounding.'}
+
+  - scenario_id: EXP1_E_B
+    world_id: W_EXP1_MAIL_COLLISIONS
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent giữ source/time của control dù sender reference đổi; chưa có model observation.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Gửi bảng kê vật liệu" theo thời điểm ghi trong thư tiêu đề "Mốc nộp bảng kê" do kho@vanniep.example.test gửi.'
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      source_match: {subject: Mốc nộp bảng kê, from: kho@vanniep.example.test}
+      required_evidence: {ID: 'List trả compound match exp1_mail_77 trước read; không lấy ID của A.', time: 'Đúng email.body trả Thời điểm gửi bảng kê: 2026-12-03T14:35:00+07:00. Value phải từ actual observation đúng ID.', content: Gửi bảng kê vật liệu từ request}
+      required_effects: {new_reminder_count: 1, time: '2026-12-03T14:35:00+07:00', repeat: once, done: false, content_meaning: Gửi bảng kê vật liệu, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; một reminder đúng source/time, không ask hoặc thêm write.']
+    contrast: {with: EXP1_E_A, changes: request.sender_only, invariant: 'Chỉ đổi địa chỉ sender trong request, fixture không đổi; target exp1_mail_42 -> exp1_mail_77.'}
+    wrong_behavior: {example: Dùng 10:15 của A., caught_by: 'Wrong source/value dù cùng subject/content; expected time 14:35.'}
+    minimum_replay: {positive: 'List/read đúng sender B rồi create actual observed 14:35.', negative: 'Copy A time hoặc ID, dùng wrong-email body hay duplicate create phải reject đúng reason.'}
+
+  - scenario_id: EXP1_E_C
+    world_id: W_EXP1_MAIL_COLLISIONS
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: first_body_time_unavailable
+    failure_hypothesis: 'Agent mượn time của email khác khi target vẫn tồn tại nhưng chưa có time; chưa đo model.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Gửi bảng kê vật liệu" theo thời điểm ghi trong thư tiêu đề "Mốc nộp bảng kê" do kho@duyenmay.example.test gửi.'
+      context: {current_time: '2026-12-01T08:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      source_match: {subject: Mốc nộp bảng kê, from: kho@duyenmay.example.test}
+      required_evidence: {ID: 'List/read compound target exp1_mail_42 theo shared grounding.', missing_time: 'Chính email.body target có Thời điểm gửi bảng kê: chưa được chốt. Timestamp thư khác không cấp time; content đã đủ từ request.'}
+      required_effects: {new_reminder_count: 0, app_state_delta: none, total_write_count: 0, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: reminders.create, params: [time]}, ask_count: 1}
+      forbidden_changes: ['Toàn state giữ nguyên; không create/guess hoặc hỏi trước source inspection; không hỏi content/email_id/repeat.']
+    contrast: {with: EXP1_E_A, changes: fixture.first_body_time_expression_only, invariant: 'Toàn agent_visible bằng A; chỉ target body timestamp thành chưa được chốt.'}
+    wrong_behavior: {example: Mượn 14:35 của thư cùng subject hoặc 11:55 của thư cùng sender., caught_by: 'Target chưa có time; zero writes và ask đúng time sau target body observation.'}
+    minimum_replay: {positive: 'List/read actual target unavailable rồi ask đúng tool/params; không state mutation.', negative: 'Early ask, wrong ask param hoặc copy time từ một trong hai distractor phải fail đúng evidence/no-write.'}
+
+static_review:
+  locally_verified: 'Strict YAML/duplicate-key guard; unique scenario/WORLD IDs và references; lineage reuse/ancestry đúng dev; catalog contracts/permissions; fixture fields, hidden-ID/time separation, compound email identity, single-change contrasts và expected effects/frame. Chỉ static, không execute runtime.'
+  counts: {new_scenarios: 7, new_world_instances: 2, reused_lineage_ids: 2, new_independent_lineages: 0, locally_replayed_new_scenarios: 0, execution_verified: 0}
+  pending: 'Tất cả minimum_replay là design expectations chưa execute; cần independent semantic review, actual source/ID/value observations, state/frame, negatives và alternate-path replay. Team harness/serialization/export vẫn chưa verify.'

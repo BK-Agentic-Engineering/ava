@@ -1,0 +1,157 @@
+{
+  "previous_commit": "d8f086d6604156595dfc853e90189a03608d593e",
+  "historical_ids": 1000,
+  "new_ids": [
+    "TR21_CALC_LENGTH",
+    "TR21_CALC_MASS",
+    "TR21_CALC_VOLUME",
+    "TR21_CALC_TEMP_C",
+    "TR21_CALC_TEMP_F",
+    "TR21_CALC_DISCOUNT_FIRST",
+    "TR21_CALC_DISCOUNT_ALL",
+    "TR21_CALC_SPLIT",
+    "TR21_CALC_REMAINDER",
+    "TR21_CALC_AREA",
+    "TR21_CALC_PERCENT_ONLY",
+    "TR21_CALC_MISSING_UNIT",
+    "TR21_FX_DIRECT",
+    "TR21_FX_CHANGED",
+    "TR21_FX_DISTRACTOR",
+    "TR21_FX_INVERSE",
+    "TR21_FX_CROSS",
+    "TR21_FX_ZERO",
+    "TR21_FX_ROUND",
+    "TR21_FX_FEE",
+    "TR21_FX_NOTE",
+    "TR21_FX_HISTORY",
+    "TR21_FX_CURRENT",
+    "TR21_FX_NO_RATE",
+    "TR21_ROUTE_BASE",
+    "TR21_ROUTE_CHANGED",
+    "TR21_ROUTE_DISTRACTOR",
+    "TR21_ROUTE_WALK",
+    "TR21_ROUTE_BUFFER",
+    "TR21_ROUTE_REVERSE",
+    "TR21_ROUTE_PROFILE",
+    "TR21_ROUTE_PROFILE_CHANGED",
+    "TR21_ROUTE_MIDNIGHT",
+    "TR21_ROUTE_ANSWER",
+    "TR21_ROUTE_HISTORY",
+    "TR21_ROUTE_MISSING",
+    "TR21_FOOD_BASE",
+    "TR21_FOOD_CHANGED",
+    "TR21_FOOD_DISTRACTOR",
+    "TR21_FOOD_EXACT",
+    "TR21_FOOD_BELOW",
+    "TR21_FOOD_NODRINK",
+    "TR21_FOOD_ONE",
+    "TR21_FOOD_BANK",
+    "TR21_FOOD_PROFILE",
+    "TR21_FOOD_MISSING_ADDRESS",
+    "TR21_FOOD_QUOTE",
+    "TR21_FOOD_COMPARE",
+    "TR22_CAL_FREE",
+    "TR22_CAL_BLOCKED",
+    "TR22_CAL_DISTRACTOR",
+    "TR22_CAL_STATUS",
+    "TR22_CAL_OVERNIGHT",
+    "TR22_CAL_CHOICE_FIRST",
+    "TR22_CAL_CHOICE",
+    "TR22_CAL_BOTH_BUSY",
+    "TR22_CAL_EXPLICIT",
+    "TR23_SMS_RECEIVED",
+    "TR23_SMS_AMBIGUOUS",
+    "TR23_SMS_SENT",
+    "TR23_ORDER_CANCEL",
+    "TR23_ORDER_ALREADY",
+    "TR23_ORDER_DELIVERED"
+  ],
+  "changed_old_mappings": [
+    {
+      "scenario_id": "TR6_M_EXISTING",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "constraint_violation",
+        "unsupported_guessing"
+      ],
+      "tags_after": [
+        "constraint_violation",
+        "unsupported_guessing"
+      ]
+    },
+    {
+      "scenario_id": "TR8_TV_CHANNEL",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "wrong_target",
+        "unsupported_guessing"
+      ],
+      "tags_after": [
+        "wrong_target",
+        "unsupported_guessing"
+      ]
+    },
+    {
+      "scenario_id": "TR8_TV_ONLYGUIDE",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "constraint_violation",
+        "unsupported_guessing",
+        "unsupported_answer"
+      ],
+      "tags_after": [
+        "constraint_violation",
+        "unsupported_guessing",
+        "unsupported_answer"
+      ]
+    },
+    {
+      "scenario_id": "TR9_PARCEL_CARRIER",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "wrong_target",
+        "unsupported_guessing"
+      ],
+      "tags_after": [
+        "wrong_target",
+        "unsupported_guessing"
+      ]
+    },
+    {
+      "scenario_id": "TR9_PARCEL_LOOK",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "constraint_violation",
+        "unsupported_guessing"
+      ],
+      "tags_after": [
+        "constraint_violation",
+        "unsupported_guessing"
+      ]
+    },
+    {
+      "scenario_id": "TR12_TV_TUNE",
+      "reason": "referenced record content changed; comparisons refreshed",
+      "tags_before": [
+        "wrong_tool",
+        "unsupported_guessing"
+      ],
+      "tags_after": [
+        "wrong_tool",
+        "unsupported_guessing"
+      ]
+    },
+    {
+      "scenario_id": "TR14_CITY_TWO",
+      "reason": "clarified visible request explicitly authorizes the existing reminder/note gold"
+    },
+    {
+      "scenario_id": "TR15_CONTACT_CORRECT_TARGET",
+      "reason": "clarified visible request explicitly authorizes the existing reminder/note gold"
+    }
+  ],
+  "original_holds": 16,
+  "new_currency_review_restriction": "TR12_BANK_LOOK",
+  "model_calls": 0,
+  "gold_or_verifier_changes": false
+}

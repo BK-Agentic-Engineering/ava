@@ -1,0 +1,92 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "B02_N_C",
+  "run_id": "prepared-b02_n_c-v01",
+  "execution": {
+    "tool_calls": [
+      {
+        "call_id": "prepared-b02_n_c-v01/latest/0",
+        "name": "calendar.list_events",
+        "arguments": {}
+      },
+      {
+        "call_id": "prepared-b02_n_c-v01/latest/1",
+        "name": "sys.ask_missing_info",
+        "arguments": {
+          "tool_name": "reminders.create",
+          "params": [
+            "time"
+          ]
+        }
+      }
+    ],
+    "tool_results": [
+      {
+        "result_id": "prepared-b02_n_c-v01/latest/0/result",
+        "call_id": "prepared-b02_n_c-v01/latest/0",
+        "payload": {
+          "ok": true,
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        }
+      },
+      {
+        "result_id": "prepared-b02_n_c-v01/latest/1/result",
+        "call_id": "prepared-b02_n_c-v01/latest/1",
+        "payload": {
+          "ok": true,
+          "waiting_for_user": true
+        }
+      }
+    ]
+  },
+  "final_text": null,
+  "termination": {
+    "status": "waiting_for_user",
+    "origin": "proposed_from_recorded_behavior"
+  },
+  "task_outcome": {
+    "source_outcome": "ask_missing",
+    "status": "local_expected"
+  },
+  "private_final_state_ref": {
+    "path": "private/B02_N_C.json",
+    "selector": "/final_state"
+  },
+  "local_verification": {
+    "tool_state": {
+      "verdict": "pass",
+      "state_reasons": [],
+      "trace_reasons": [],
+      "grounding_reasons": [],
+      "text_errors": [],
+      "text_review": [],
+      "unnecessary_read_count": 0
+    },
+    "answer_content": {
+      "status": "not_evaluated",
+      "reason": "final_text_not_captured"
+    },
+    "official_scoring": "not_evaluated"
+  },
+  "provenance": {
+    "kind": "prepared_from_canonical_local_execution",
+    "input_file": "B02_N_C.input.json",
+    "canonical_project_locator": "artifacts/synthetic/batch_02_replay/replay.json#/replays/7",
+    "reference_trace_ref": {
+      "path": "private/B02_N_C.json",
+      "selector": "/reference_calls"
+    }
+  },
+  "availability": {
+    "final_text": "not_captured",
+    "model_run": "not_performed",
+    "tokens_latency_timestamps": "not_captured"
+  }
+}

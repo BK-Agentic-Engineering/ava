@@ -1,0 +1,2414 @@
+version: "train_wave_19"
+split: "train"
+status: "spec_only"
+exportable: false
+provenance: {"release": "v3.2.0", "schema": "2.7.0", "runtime_root": "train+public_test/train/zaic_tools/", "catalog_member": "train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR9_PARCEL_CODE", "TR16_PARCEL_SUCCESS"], "parent_lineage_ids": ["TRAIN_LOGISTICS_DIRECTION_02"]}
+    design_base: "TR19_PARCEL_TRANSIT"
+    relevant_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    initial_state:
+      package_tracking: {"shipments": [{"id": "w19_parcel_b", "tracking_id": "GOM1902", "name": "Thùng dây cói", "carrier": "Bưu Gốm", "status": "delivered", "eta": "2028-01-05T10:00:00+07:00"}, {"id": "w19_parcel_a", "tracking_id": "COI1901", "name": "Thùng dây cói", "carrier": "Bưu Cói", "status": "in_transit", "eta": "2028-01-06T15:20:00+07:00", "scheduled_time": "2028-01-07T16:10:00+07:00"}, {"id": "w19_parcel_c", "tracking_id": "COI1903", "name": "Ống giấy", "carrier": "Bưu Cói", "status": "out_for_delivery", "eta": "2028-01-05T17:00:00+07:00"}], "pickups": []}
+    variants: {"target_delivered": {"package_tracking": {"shipments": {"w19_parcel_a": {"status": "delivered"}}}}, "distractor_transit": {"package_tracking": {"shipments": {"w19_parcel_b": {"status": "in_transit"}}}}}
+
+  - world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR17_CAL_SHIFT", "TR10_REM_LOOK"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02", "TRAIN_SHOP_LIFECYCLE_01"]}
+    design_base: "TR19_CAL_START"
+    relevant_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    initial_state:
+      calendar: {"events": [{"id": "w19_evt_b", "title": "Soát bìa", "location": "Phòng Trúc", "start": "2028-01-06T14:00:00+07:00", "end": "2028-01-06T15:10:00+07:00", "status": "confirmed"}, {"id": "w19_evt_a", "title": "Soát bìa", "location": "Phòng Lan", "start": "2028-01-06T09:10:00+07:00", "end": "2028-01-06T09:55:00+07:00", "status": "confirmed"}, {"id": "w19_evt_c", "title": "Soát bìa", "location": "Phòng Lan", "start": "2028-01-07T09:10:00+07:00", "end": "2028-01-07T10:00:00+07:00", "status": "cancelled"}]}
+      reminders: {"reminders": [{"id": "w19_rem_a", "content": "Gom bìa", "time": "2028-01-06T08:30:00+07:00", "repeat": "weekly", "done": false}, {"id": "w19_rem_b", "content": "Gom bìa", "time": "2028-01-07T08:30:00+07:00", "repeat": "once", "done": true}]}
+    variants: {}
+
+  - world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR10_APPL_LOOK", "TR10_CLIMATE_MODE"], "parent_lineage_ids": ["TRAIN_PARTIAL_APPLIANCES_05", "TRAIN_BILL_AUTOPAY_05"]}
+    design_base: "TR19_DEVICE_LIGHT"
+    relevant_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    initial_state:
+      smart_home: {"devices": [{"id": "w19_light_b", "name": "Đèn mâm", "room": "Phòng Kho", "type": "light", "floor": 1, "state": {"power": "off", "brightness": 40}}, {"id": "w19_light_a", "name": "Đèn mâm", "room": "Phòng Dệt", "type": "light", "floor": 2, "state": {"power": "on", "brightness": 65}}, {"id": "w19_fan", "name": "Quạt góc", "room": "Phòng Dệt", "type": "fan", "floor": 2, "state": {"power": "on", "speed": 2}}, {"id": "w19_climate", "name": "Điều hòa", "room": "Phòng Dệt", "type": "climate", "floor": 2, "state": {"mode": "cool", "temperature": 26}}]}
+      appliances: {"appliances": [{"id": "w19_wash", "name": "Máy giặt hiên", "type": "washer", "cycles": ["eco", "normal"], "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}, {"id": "w19_dry", "name": "Máy sấy kho", "type": "dryer", "cycles": ["normal"], "state": {"status": "scheduled", "cycle": "normal", "delay_minutes": 25}}]}
+    variants: {}
+
+  - world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR9_BANK_LOOK", "TR5_B_PAY"], "parent_lineage_ids": ["TRAIN_BILL_AUTOPAY_05"]}
+    design_base: "TR19_MONEY_COI"
+    relevant_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    initial_state:
+      banking: {"accounts": [{"id": "w19_account_b", "name": "Quỹ Gốm", "balance": 920000}, {"id": "w19_account_a", "name": "Quỹ Cói", "balance": 640000}, {"id": "w19_account_c", "name": "Quỹ Dự phòng", "balance": 0}], "transactions": [], "beneficiaries": []}
+      ewallet: {"balance": 450000, "transactions": []}
+      bill_payment: {"bills": [{"id": "w19_bill_a", "type": "electricity", "amount": 180000, "paid": false, "period": "2027-12"}, {"id": "w19_bill_b", "type": "water", "amount": 75000, "paid": false, "period": "2027-12"}, {"id": "w19_bill_c", "type": "electricity", "amount": 200000, "paid": true, "period": "2027-11"}], "autopays": []}
+    variants: {"balance_changed": {"banking": {"accounts": {"w19_account_a": {"balance": 700000}}}}, "wallet_changed": {"ewallet": {"balance": 510000}}, "bill_changed": {"bill_payment": {"bills": {"w19_bill_a": {"amount": 210000}}}}}
+
+  - world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR12_SHOP_LOOK", "TR12_LIB_READY"], "parent_lineage_ids": ["TRAIN_SHOP_LIFECYCLE_01", "TRAIN_LIBRARY_QUEUE_03"]}
+    design_base: "TR19_LIST_ROWS"
+    relevant_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    initial_state:
+      shopping_list: {"items": [{"id": "w19_item_b", "name": "dây đay", "quantity": 5, "checked": false}, {"id": "w19_item_a", "name": "dây đay", "quantity": 2, "checked": true}, {"id": "w19_item_c", "name": "dây đay", "quantity": 2, "checked": false}, {"id": "w19_item_d", "name": "keo giấy", "quantity": 1, "checked": false}]}
+      library: {"books": [{"id": "w19_book_b", "title": "Bờ Mây", "author": "Hạ Lộc", "available": false}, {"id": "w19_book_a", "title": "Bờ Mây", "author": "Lâm Cói", "available": true}, {"id": "w19_book_c", "title": "Lối Gốm", "author": "Lâm Cói", "available": false}], "reservations": []}
+    variants: {"book_unavailable": {"library": {"books": {"w19_book_a": {"available": false}}}}, "other_available": {"library": {"books": {"w19_book_b": {"available": true}}}}, "item_checked": {"shopping_list": {"items": {"w19_item_b": {"checked": true}}}}}
+
+  - world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR10_ALARM_LOOK", "TR11_TASK_LOOK"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02", "TRAIN_SHOP_LIFECYCLE_01"]}
+    design_base: "TR19_TASK_WEEKEND"
+    relevant_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    initial_state:
+      alarm: {"alarms": [{"id": "w19_alarm_b", "label": "Mở hiên", "time": "06:35", "repeat": "weekends", "enabled": false}, {"id": "w19_alarm_a", "label": "Mở hiên", "time": "06:35", "repeat": "weekdays", "enabled": true}, {"id": "w19_alarm_c", "label": "Nhận giấy", "time": "07:45", "repeat": "once", "enabled": true}]}
+      tasks: {"tasks": [{"id": "w19_task_b", "title": "Soát cuộn", "due": "2028-01-07T17:00:00+07:00", "priority": "normal", "done": true}, {"id": "w19_task_a", "title": "Soát cuộn", "due": "2028-01-06T17:00:00+07:00", "priority": "high", "done": false}, {"id": "w19_task_c", "title": "Chốt màu", "due": "", "priority": "low", "done": false}]}
+    variants: {"weekend_on": {"alarm": {"alarms": {"w19_alarm_b": {"enabled": true}}}}, "distractor_off": {"alarm": {"alarms": {"w19_alarm_a": {"enabled": false}}}}}
+
+  - world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR9_BANK_LOOK", "TR11_TASK_LOOK", "TR10_APPL_LOOK", "TR9_PARCEL_CODE", "TR12_LIB_READY", "TR10_REM_LOOK"], "parent_lineage_ids": ["TRAIN_BILL_AUTOPAY_05", "TRAIN_SHOP_LIFECYCLE_01", "TRAIN_PARTIAL_APPLIANCES_05", "TRAIN_LOGISTICS_DIRECTION_02", "TRAIN_LIBRARY_QUEUE_03"]}
+    design_base: "TR19_TWO_ACCOUNT_PAIR"
+    relevant_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    initial_state:
+      package_tracking: {"shipments": [{"id": "w19_parcel_b", "tracking_id": "GOM1902", "name": "Thùng dây cói", "carrier": "Bưu Gốm", "status": "delivered", "eta": "2028-01-05T10:00:00+07:00"}, {"id": "w19_parcel_a", "tracking_id": "COI1901", "name": "Thùng dây cói", "carrier": "Bưu Cói", "status": "in_transit", "eta": "2028-01-06T15:20:00+07:00", "scheduled_time": "2028-01-07T16:10:00+07:00"}, {"id": "w19_parcel_c", "tracking_id": "COI1903", "name": "Ống giấy", "carrier": "Bưu Cói", "status": "out_for_delivery", "eta": "2028-01-05T17:00:00+07:00"}], "pickups": []}
+      calendar: {"events": [{"id": "w19_evt_b", "title": "Soát bìa", "location": "Phòng Trúc", "start": "2028-01-06T14:00:00+07:00", "end": "2028-01-06T15:10:00+07:00", "status": "confirmed"}, {"id": "w19_evt_a", "title": "Soát bìa", "location": "Phòng Lan", "start": "2028-01-06T09:10:00+07:00", "end": "2028-01-06T09:55:00+07:00", "status": "confirmed"}, {"id": "w19_evt_c", "title": "Soát bìa", "location": "Phòng Lan", "start": "2028-01-07T09:10:00+07:00", "end": "2028-01-07T10:00:00+07:00", "status": "cancelled"}]}
+      reminders: {"reminders": [{"id": "w19_rem_a", "content": "Gom bìa", "time": "2028-01-06T08:30:00+07:00", "repeat": "weekly", "done": false}, {"id": "w19_rem_b", "content": "Gom bìa", "time": "2028-01-07T08:30:00+07:00", "repeat": "once", "done": true}]}
+      smart_home: {"devices": [{"id": "w19_light_b", "name": "Đèn mâm", "room": "Phòng Kho", "type": "light", "floor": 1, "state": {"power": "off", "brightness": 40}}, {"id": "w19_light_a", "name": "Đèn mâm", "room": "Phòng Dệt", "type": "light", "floor": 2, "state": {"power": "on", "brightness": 65}}, {"id": "w19_fan", "name": "Quạt góc", "room": "Phòng Dệt", "type": "fan", "floor": 2, "state": {"power": "on", "speed": 2}}, {"id": "w19_climate", "name": "Điều hòa", "room": "Phòng Dệt", "type": "climate", "floor": 2, "state": {"mode": "cool", "temperature": 26}}]}
+      appliances: {"appliances": [{"id": "w19_wash", "name": "Máy giặt hiên", "type": "washer", "cycles": ["eco", "normal"], "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}, {"id": "w19_dry", "name": "Máy sấy kho", "type": "dryer", "cycles": ["normal"], "state": {"status": "scheduled", "cycle": "normal", "delay_minutes": 25}}]}
+      banking: {"accounts": [{"id": "w19_account_b", "name": "Quỹ Gốm", "balance": 920000}, {"id": "w19_account_a", "name": "Quỹ Cói", "balance": 640000}, {"id": "w19_account_c", "name": "Quỹ Dự phòng", "balance": 0}], "transactions": [], "beneficiaries": []}
+      ewallet: {"balance": 450000, "transactions": []}
+      bill_payment: {"bills": [{"id": "w19_bill_a", "type": "electricity", "amount": 180000, "paid": false, "period": "2027-12"}, {"id": "w19_bill_b", "type": "water", "amount": 75000, "paid": false, "period": "2027-12"}, {"id": "w19_bill_c", "type": "electricity", "amount": 200000, "paid": true, "period": "2027-11"}], "autopays": []}
+      shopping_list: {"items": [{"id": "w19_item_b", "name": "dây đay", "quantity": 5, "checked": false}, {"id": "w19_item_a", "name": "dây đay", "quantity": 2, "checked": true}, {"id": "w19_item_c", "name": "dây đay", "quantity": 2, "checked": false}, {"id": "w19_item_d", "name": "keo giấy", "quantity": 1, "checked": false}]}
+      library: {"books": [{"id": "w19_book_b", "title": "Bờ Mây", "author": "Hạ Lộc", "available": false}, {"id": "w19_book_a", "title": "Bờ Mây", "author": "Lâm Cói", "available": true}, {"id": "w19_book_c", "title": "Lối Gốm", "author": "Lâm Cói", "available": false}], "reservations": []}
+      alarm: {"alarms": [{"id": "w19_alarm_b", "label": "Mở hiên", "time": "06:35", "repeat": "weekends", "enabled": false}, {"id": "w19_alarm_a", "label": "Mở hiên", "time": "06:35", "repeat": "weekdays", "enabled": true}, {"id": "w19_alarm_c", "label": "Nhận giấy", "time": "07:45", "repeat": "once", "enabled": true}]}
+      tasks: {"tasks": [{"id": "w19_task_b", "title": "Soát cuộn", "due": "2028-01-07T17:00:00+07:00", "priority": "normal", "done": true}, {"id": "w19_task_a", "title": "Soát cuộn", "due": "2028-01-06T17:00:00+07:00", "priority": "high", "done": false}, {"id": "w19_task_c", "title": "Chốt màu", "due": "", "priority": "low", "done": false}]}
+    variants: {}
+
+scenarios:
+  - scenario_id: "TR19_PARCEL_TRANSIT"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói giao tới chưa nhỉ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["status"], "expected": "in_transit", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ giao,\\ đang\\ vận\\ chuyển", "đang\\ vận\\ chuyển,\\ chưa\\ giao", "chưa giao"], "fail": {"factual_contradiction": ["giao\\ rồi"], "contradictory_answer": ["chưa\\ giao,\\ đang\\ vận\\ chuyển,\\ nhưng\\ giao\\ rồi"]}}
+      answers: ["Chưa giao, đang vận chuyển", "Đang vận chuyển, chưa giao"]
+      wrong_answer: "Giao rồi"
+      extra_probes: [{"label": "concise_not_delivered", "text": "Chưa giao.", "expected": "pass"}, {"label": "contradictory_answer", "text": "Chưa giao, đang vận chuyển, nhưng giao rồi", "expected": "fail"}, {"label": "qualified_reference", "text": "Thùng dây cói của Bưu Cói giao tới chưa nhỉ — Chưa giao, đang vận chuyển, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Chưa giao, đang vận chuyển. Tôi đã tạo lời nhắc.", "expected": "fail"}
+    pilot: true
+
+  - scenario_id: "TR19_PARCEL_DELIVERED"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "target_delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói giao tới chưa nhỉ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["status"], "expected": "delivered", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["giao\\ rồi", "đã\\ giao", "kiện\\ đã\\ được\\ giao"], "fail": {"factual_contradiction": ["chưa\\ giao,\\ đang\\ vận\\ chuyển", "chưa giao"], "contradictory_answer": ["giao\\ rồi,\\ nhưng\\ chưa\\ giao,\\ đang\\ vận\\ chuyển"]}}
+      answers: ["Giao rồi", "Đã giao"]
+      wrong_answer: "Chưa giao, đang vận chuyển"
+      review_probe: {"label": "unsupported_action", "text": "Giao rồi. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Giao rồi, nhưng chưa giao, đang vận chuyển", "expected": "fail"}, {"label": "qualified_reference", "text": "Thùng dây cói của Bưu Cói giao tới chưa nhỉ — Giao rồi, nếu đúng là mục bạn nói.", "expected": "unresolved"}, {"label": "wrong_concise_status", "text": "Chưa giao.", "expected": "fail"}]
+    pilot: true
+
+  - scenario_id: "TR19_PARCEL_DISTRACTOR"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "distractor_transit"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói giao tới chưa nhỉ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["status"], "expected": "in_transit", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ giao,\\ đang\\ vận\\ chuyển", "đang\\ vận\\ chuyển,\\ chưa\\ giao", "chưa giao"], "fail": {"factual_contradiction": ["giao\\ rồi"], "contradictory_answer": ["chưa\\ giao,\\ đang\\ vận\\ chuyển,\\ nhưng\\ giao\\ rồi"]}}
+      answers: ["Chưa giao, đang vận chuyển", "Đang vận chuyển, chưa giao"]
+      wrong_answer: "Giao rồi"
+      extra_probes: [{"label": "concise_not_delivered", "text": "Chưa giao.", "expected": "pass"}, {"label": "contradictory_answer", "text": "Chưa giao, đang vận chuyển, nhưng giao rồi", "expected": "fail"}, {"label": "qualified_reference", "text": "Thùng dây cói của Bưu Cói giao tới chưa nhỉ — Chưa giao, đang vận chuyển, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Chưa giao, đang vận chuyển. Tôi đã tạo lời nhắc.", "expected": "fail"}
+    pilot: true
+
+  - scenario_id: "TR19_PARCEL_OUT"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ống giấy của Bưu Cói đang tới đâu rồi?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Ống giấy", "carrier": "Bưu Cói"}, "path": ["status"], "expected": "out_for_delivery", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ giao,\\ đang\\ đi\\ giao", "đang\\ đi\\ giao,\\ chưa\\ giao"], "fail": {"factual_contradiction": ["giao\\ rồi"], "contradictory_answer": ["chưa\\ giao,\\ đang\\ đi\\ giao,\\ nhưng\\ giao\\ rồi"]}}
+      answers: ["Chưa giao, đang đi giao", "Đang đi giao, chưa giao"]
+      wrong_answer: "Giao rồi"
+      review_probe: {"label": "unsupported_action", "text": "Chưa giao, đang đi giao. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chưa giao, đang đi giao, nhưng giao rồi", "expected": "fail"}, {"label": "qualified_reference", "text": "Ống giấy của Bưu Cói đang tới đâu rồi — Chưa giao, đang đi giao, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_PARCEL_ETA"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói dự kiến đến lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["eta"], "expected": "2028-01-06T15:20:00+07:00", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["15:20\\ ngày\\ 6/1/2028", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 15:20\\ ngày\\ 6/1/2028"], "fail": {"factual_contradiction": ["16:10\\ ngày\\ 7/1/2028"], "contradictory_answer": ["15:20\\ ngày\\ 6/1/2028,\\ nhưng\\ 16:10\\ ngày\\ 7/1/2028"]}}
+      answers: ["15:20 ngày 6/1/2028", "Theo kết quả tra cứu, 15:20 ngày 6/1/2028"]
+      wrong_answer: "16:10 ngày 7/1/2028"
+      review_probe: {"label": "uncertain_day", "text": "15:20 ngày 6/1/2028, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "15:20 ngày 6/1/2028, nhưng 16:10 ngày 7/1/2028", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_BOOKED"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói đã hẹn giao lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["scheduled_time"], "expected": "2028-01-07T16:10:00+07:00", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["16:10\\ ngày\\ 7/1/2028", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 16:10\\ ngày\\ 7/1/2028"], "fail": {"factual_contradiction": ["15:20\\ ngày\\ 6/1/2028"], "contradictory_answer": ["16:10\\ ngày\\ 7/1/2028,\\ nhưng\\ 15:20\\ ngày\\ 6/1/2028"]}}
+      answers: ["16:10 ngày 7/1/2028", "Theo kết quả tra cứu, 16:10 ngày 7/1/2028"]
+      wrong_answer: "15:20 ngày 6/1/2028"
+      review_probe: {"label": "uncertain_day", "text": "16:10 ngày 7/1/2028, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "16:10 ngày 7/1/2028, nhưng 15:20 ngày 6/1/2028", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_CODE"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mã vận đơn của thùng dây cói bên Bưu Cói là gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["tracking_id"], "expected": "COI1901", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["coi1901", "theo\\ kết\\ quả\\ tra\\ cứu,\\ coi1901"], "fail": {"factual_contradiction": ["gom1902"], "contradictory_answer": ["coi1901,\\ nhưng\\ gom1902"]}}
+      answers: ["COI1901", "Theo kết quả tra cứu, COI1901"]
+      wrong_answer: "GOM1902"
+      review_probe: {"label": "qualified_reference", "text": "Về Thùng dây cói / Bưu Cói, cOI1901, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "COI1901, nhưng gOM1902", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_CARRIER"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiện mang mã COI1903 do hãng nào giao?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"tracking_id": "COI1903"}, "path": ["carrier"], "expected": "Bưu Cói", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {"tracking_id": "COI1903"}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["bưu\\ cói", "theo\\ kết\\ quả\\ tra\\ cứu,\\ bưu\\ cói"], "fail": {"factual_contradiction": ["bưu\\ gốm"], "contradictory_answer": ["bưu\\ cói,\\ nhưng\\ bưu\\ gốm"]}}
+      answers: ["Bưu Cói", "Theo kết quả tra cứu, Bưu Cói"]
+      wrong_answer: "Bưu Gốm"
+      review_probe: {"label": "qualified_reference", "text": "Về COI1903, bưu Cói, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Bưu Cói, nhưng bưu Gốm", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_NAME"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Vận đơn GOM1902 là kiện hàng gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"tracking_id": "GOM1902"}, "path": ["name"], "expected": "Thùng dây cói", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["thùng\\ dây\\ cói", "theo\\ kết\\ quả\\ tra\\ cứu,\\ thùng\\ dây\\ cói"], "fail": {"factual_contradiction": ["ống\\ giấy"], "contradictory_answer": ["thùng\\ dây\\ cói,\\ nhưng\\ ống\\ giấy"]}}
+      answers: ["Thùng dây cói", "Theo kết quả tra cứu, Thùng dây cói"]
+      wrong_answer: "Ống giấy"
+      review_probe: {"label": "qualified_reference", "text": "Về GOM1902, thùng dây cói, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Thùng dây cói, nhưng ống giấy", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_OTHER_CARRIER"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cũng thùng dây cói nhưng của Bưu Gốm thì đã giao chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Gốm"}, "path": ["status"], "expected": "delivered", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "ZZ1900"}]]
+      answer_rules: {"required": true, "pass": ["giao\\ rồi", "đã\\ giao", "kiện\\ đã\\ được\\ giao"], "fail": {"factual_contradiction": ["chưa\\ giao,\\ đang\\ vận\\ chuyển", "chưa giao"], "contradictory_answer": ["giao\\ rồi,\\ nhưng\\ chưa\\ giao,\\ đang\\ vận\\ chuyển"]}}
+      answers: ["Giao rồi", "Đã giao"]
+      wrong_answer: "Chưa giao, đang vận chuyển"
+      review_probe: {"label": "unsupported_action", "text": "Giao rồi. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Giao rồi, nhưng chưa giao, đang vận chuyển", "expected": "fail"}, {"label": "qualified_reference", "text": "Cũng thùng dây cói nhưng của Bưu Gốm thì đã giao chưa — Giao rồi, nếu đúng là mục bạn nói.", "expected": "unresolved"}, {"label": "wrong_concise_status", "text": "Chưa giao.", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_ALL"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có tất cả bao nhiêu kiện đang được theo dõi?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["3\\ kiện", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ kiện"], "fail": {"factual_contradiction": ["2\\ kiện"], "contradictory_answer": ["3\\ kiện,\\ nhưng\\ 2\\ kiện"]}}
+      answers: ["3 kiện", "Theo kết quả tra cứu, 3 kiện"]
+      wrong_answer: "2 kiện"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 kiện, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 kiện, nhưng 2 kiện", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_BY_CARRIER"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bưu Cói đang có bao nhiêu kiện trong danh sách?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"carrier": "Bưu Cói"}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["2\\ kiện", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ kiện"], "fail": {"factual_contradiction": ["3\\ kiện"], "contradictory_answer": ["2\\ kiện,\\ nhưng\\ 3\\ kiện"]}}
+      answers: ["2 kiện", "Theo kết quả tra cứu, 2 kiện"]
+      wrong_answer: "3 kiện"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 kiện, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 kiện, nhưng 3 kiện", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_DELIVERED_COUNT"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy kiện trong danh sách đã giao rồi?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"status": "delivered"}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["1\\ kiện", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ kiện"], "fail": {"factual_contradiction": ["2\\ kiện"], "contradictory_answer": ["1\\ kiện,\\ nhưng\\ 2\\ kiện"]}}
+      answers: ["1 kiện", "Theo kết quả tra cứu, 1 kiện"]
+      wrong_answer: "2 kiện"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 kiện, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 kiện, nhưng 2 kiện", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_PENDING_COUNT"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy kiện đang vận chuyển, chưa tới bước đi giao?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"status": "in_transit"}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["1\\ kiện", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ kiện"], "fail": {"factual_contradiction": ["2\\ kiện"], "contradictory_answer": ["1\\ kiện,\\ nhưng\\ 2\\ kiện"]}}
+      answers: ["1 kiện", "Theo kết quả tra cứu, 1 kiện"]
+      wrong_answer: "2 kiện"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 kiện, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 kiện, nhưng 2 kiện", "expected": "fail"}]
+
+  - scenario_id: "TR19_PARCEL_BY_NAME"
+    world_id: "W_TR19_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Trong danh sách có bao nhiêu kiện tên Thùng dây cói?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói"}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "GOM1902"}]]
+      answer_rules: {"required": true, "pass": ["2\\ kiện", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ kiện"], "fail": {"factual_contradiction": ["1\\ kiện"], "contradictory_answer": ["2\\ kiện,\\ nhưng\\ 1\\ kiện"]}}
+      answers: ["2 kiện", "Theo kết quả tra cứu, 2 kiện"]
+      wrong_answer: "1 kiện"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 kiện, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 kiện, nhưng 1 kiện", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_START"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai buổi Soát bìa ở Phòng Lan bắt đầu mấy giờ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["start"], "expected": "2028-01-06T09:10:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}]
+      reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["09:10", "09\\ giờ\\ 10\\ phút"], "fail": {"factual_contradiction": ["14:00"], "contradictory_answer": ["09:10,\\ nhưng\\ 14:00"]}}
+      answers: ["09:10", "09 giờ 10 phút"]
+      wrong_answer: "14:00"
+      review_probe: {"label": "uncertain_day", "text": "09:10, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "09:10, nhưng 14:00", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_END"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai buổi Soát bìa bên Phòng Lan kết thúc lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["end"], "expected": "2028-01-06T09:55:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}]
+      reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["09:55", "09\\ giờ\\ 55\\ phút"], "fail": {"factual_contradiction": ["15:10"], "contradictory_answer": ["09:55,\\ nhưng\\ 15:10"]}}
+      answers: ["09:55", "09 giờ 55 phút"]
+      wrong_answer: "15:10"
+      review_probe: {"label": "uncertain_day", "text": "09:55, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "09:55, nhưng 15:10", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_STATUS"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Buổi Soát bìa Phòng Lan ngày 6/1 còn được xác nhận không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["status"], "expected": "confirmed", "operation": "field", "dates": {"start": "2028-01-06"}}]
+      reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["đã\\ xác\\ nhận", "theo\\ kết\\ quả\\ tra\\ cứu,\\ đã\\ xác\\ nhận"], "fail": {"factual_contradiction": ["đã\\ hủy"], "contradictory_answer": ["đã\\ xác\\ nhận,\\ nhưng\\ đã\\ hủy"]}}
+      answers: ["Đã xác nhận", "Theo kết quả tra cứu, Đã xác nhận"]
+      wrong_answer: "Đã hủy"
+      review_probe: {"label": "unsupported_action", "text": "Đã xác nhận. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đã xác nhận, nhưng đã hủy", "expected": "fail"}, {"label": "qualified_reference", "text": "Buổi Soát bìa Phòng Lan ngày 6/1 còn được xác nhận không — Đã xác nhận, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_CAL_WHERE"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Buổi Soát bìa bắt đầu 09:10 ngày 6/1 diễn ra ở đâu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "start": "2028-01-06T09:10:00+07:00"}, "path": ["location"], "expected": "Phòng Lan", "operation": "field"}]
+      reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["phòng\\ lan", "theo\\ kết\\ quả\\ tra\\ cứu,\\ phòng\\ lan"], "fail": {"factual_contradiction": ["phòng\\ trúc"], "contradictory_answer": ["phòng\\ lan,\\ nhưng\\ phòng\\ trúc"]}}
+      answers: ["Phòng Lan", "Theo kết quả tra cứu, Phòng Lan"]
+      wrong_answer: "Phòng Trúc"
+      review_probe: {"label": "qualified_reference", "text": "Về Soát bìa / 2028-01-06T09:10:00+07:00, phòng Lan, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Phòng Lan, nhưng phòng Trúc", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_ROOM_OTHER"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai buổi Soát bìa ở Phòng Trúc bắt đầu lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Trúc"}, "path": ["start"], "expected": "2028-01-06T14:00:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["14:00", "14\\ giờ\\ 00\\ phút"], "fail": {"factual_contradiction": ["09:10"], "contradictory_answer": ["14:00,\\ nhưng\\ 09:10"]}}
+      answers: ["14:00", "14 giờ 00 phút"]
+      wrong_answer: "09:10"
+      review_probe: {"label": "uncertain_day", "text": "14:00, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "14:00, nhưng 09:10", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_CANCELLED"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát bìa ở Phòng Lan ngày 7/1 đang có trạng thái gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["status"], "expected": "cancelled", "operation": "field", "dates": {"start": "2028-01-07"}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {"date_from": "2028-01-07", "date_to": "2028-01-07"}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["đã\\ hủy", "theo\\ kết\\ quả\\ tra\\ cứu,\\ đã\\ hủy"], "fail": {"factual_contradiction": ["đã\\ xác\\ nhận"], "contradictory_answer": ["đã\\ hủy,\\ nhưng\\ đã\\ xác\\ nhận"]}}
+      answers: ["Đã hủy", "Theo kết quả tra cứu, Đã hủy"]
+      wrong_answer: "Đã xác nhận"
+      review_probe: {"label": "unsupported_action", "text": "Đã hủy. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đã hủy, nhưng đã xác nhận", "expected": "fail"}, {"label": "qualified_reference", "text": "Soát bìa ở Phòng Lan ngày 7/1 đang có trạng thái gì — Đã hủy, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_CAL_NEXT_END"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát bìa Phòng Lan ngày 7/1 kết thúc giờ nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["end"], "expected": "2028-01-07T10:00:00+07:00", "operation": "field", "dates": {"start": "2028-01-07"}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {"date_from": "2028-01-07", "date_to": "2028-01-07"}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-05", "date_to": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["10:00", "10\\ giờ\\ 00\\ phút"], "fail": {"factual_contradiction": ["09:55"], "contradictory_answer": ["10:00,\\ nhưng\\ 09:55"]}}
+      answers: ["10:00", "10 giờ 00 phút"]
+      wrong_answer: "09:55"
+      review_probe: {"label": "uncertain_day", "text": "10:00, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "10:00, nhưng 09:55", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_TOTAL"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có bao nhiêu mục trong lịch đang được trả về?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      answer_rules: {"required": true, "pass": ["3\\ mục", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ mục"], "fail": {"factual_contradiction": ["2\\ mục"], "contradictory_answer": ["3\\ mục,\\ nhưng\\ 2\\ mục"]}}
+      answers: ["3 mục", "Theo kết quả tra cứu, 3 mục"]
+      wrong_answer: "2 mục"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 mục, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 mục, nhưng 2 mục", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_CONFIRMED"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy lịch đang được xác nhận?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"status": "confirmed"}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      answer_rules: {"required": true, "pass": ["2\\ lịch", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ lịch"], "fail": {"factual_contradiction": ["3\\ lịch"], "contradictory_answer": ["2\\ lịch,\\ nhưng\\ 3\\ lịch"]}}
+      answers: ["2 lịch", "Theo kết quả tra cứu, 2 lịch"]
+      wrong_answer: "3 lịch"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 lịch, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 lịch, nhưng 3 lịch", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_REM_TIME"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc Gom bìa ngày 6/1 đặt mấy giờ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": ["time"], "expected": "2028-01-06T08:30:00+07:00", "operation": "field", "dates": {"time": "2028-01-06"}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {"date": "2028-01-06"}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["08:30", "08\\ giờ\\ 30\\ phút"], "fail": {"factual_contradiction": ["09:10"], "contradictory_answer": ["08:30,\\ nhưng\\ 09:10"]}}
+      answers: ["08:30", "08 giờ 30 phút"]
+      wrong_answer: "09:10"
+      review_probe: {"label": "uncertain_day", "text": "08:30, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "08:30, nhưng 09:10", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_REM_REPEAT"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lời nhắc Gom bìa ngày 6/1 lặp theo lịch gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": ["repeat"], "expected": "weekly", "operation": "field", "dates": {"time": "2028-01-06"}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {"date": "2028-01-06"}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["hằng\\ tuần", "theo\\ kết\\ quả\\ tra\\ cứu,\\ hằng\\ tuần"], "fail": {"factual_contradiction": ["một\\ lần"], "contradictory_answer": ["hằng\\ tuần,\\ nhưng\\ một\\ lần"]}}
+      answers: ["Hằng tuần", "Theo kết quả tra cứu, Hằng tuần"]
+      wrong_answer: "Một lần"
+      review_probe: {"label": "qualified_reference", "text": "Về Gom bìa, hằng tuần, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Hằng tuần, nhưng một lần", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_REM_DONE"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc Gom bìa ngày 7/1 đã xong chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": ["done"], "expected": true, "operation": "field", "dates": {"time": "2028-01-07"}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {"date": "2028-01-07"}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["đã\\ xong", "đã\\ hoàn\\ thành"], "fail": {"factual_contradiction": ["chưa\\ xong"], "contradictory_answer": ["đã\\ xong,\\ nhưng\\ chưa\\ xong"]}}
+      answers: ["Đã xong", "Đã hoàn thành"]
+      wrong_answer: "Chưa xong"
+      review_probe: {"label": "unsupported_action", "text": "Đã xong. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đã xong, nhưng chưa xong", "expected": "fail"}, {"label": "qualified_reference", "text": "Nhắc Gom bìa ngày 7/1 đã xong chưa — Đã xong, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_CAL_REM_PENDING"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gom bìa ngày 6/1 đã đánh dấu xong chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": ["done"], "expected": false, "operation": "field", "dates": {"time": "2028-01-06"}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {"date": "2028-01-06"}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-05"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ xong", "chưa\\ hoàn\\ thành"], "fail": {"factual_contradiction": ["đã\\ xong"], "contradictory_answer": ["chưa\\ xong,\\ nhưng\\ đã\\ xong"]}}
+      answers: ["Chưa xong", "Chưa hoàn thành"]
+      wrong_answer: "Đã xong"
+      review_probe: {"label": "unsupported_action", "text": "Chưa xong. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chưa xong, nhưng đã xong", "expected": "fail"}, {"label": "qualified_reference", "text": "Gom bìa ngày 6/1 đã đánh dấu xong chưa — Chưa xong, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_CAL_REM_COUNT"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có bao nhiêu lời nhắc tên Gom bìa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-06"}]]
+      answer_rules: {"required": true, "pass": ["2\\ lời\\ nhắc", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ lời\\ nhắc"], "fail": {"factual_contradiction": ["1\\ lời\\ nhắc"], "contradictory_answer": ["2\\ lời\\ nhắc,\\ nhưng\\ 1\\ lời\\ nhắc"]}}
+      answers: ["2 lời nhắc", "Theo kết quả tra cứu, 2 lời nhắc"]
+      wrong_answer: "1 lời nhắc"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 lời nhắc, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 lời nhắc, nhưng 1 lời nhắc", "expected": "fail"}]
+
+  - scenario_id: "TR19_CAL_REM_OPEN"
+    world_id: "W_TR19_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy lời nhắc chưa xong?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "reminders.list", "calendar.cancel_event"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "reminders.list", "collection": "reminders", "match": {"done": false}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["reminders.list", {}]]
+      broad_reads: [["reminders.list", {}]]
+      insufficient_reads: [["reminders.list", {"date": "2028-01-06"}]]
+      answer_rules: {"required": true, "pass": ["1\\ lời\\ nhắc", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ lời\\ nhắc"], "fail": {"factual_contradiction": ["2\\ lời\\ nhắc"], "contradictory_answer": ["1\\ lời\\ nhắc,\\ nhưng\\ 2\\ lời\\ nhắc"]}}
+      answers: ["1 lời nhắc", "Theo kết quả tra cứu, 1 lời nhắc"]
+      wrong_answer: "2 lời nhắc"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 lời nhắc, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 lời nhắc, nhưng 2 lời nhắc", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_LIGHT"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đèn mâm trong Phòng Dệt đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Đèn mâm", "room": "Phòng Dệt"}, "path": ["state", "power"], "expected": "on", "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ bật", "đèn\\ đang\\ bật"], "fail": {"factual_contradiction": ["đang\\ tắt"], "contradictory_answer": ["đang\\ bật,\\ nhưng\\ đang\\ tắt"]}}
+      answers: ["Đang bật", "Đèn đang bật"]
+      wrong_answer: "Đang tắt"
+      review_probe: {"label": "unsupported_action", "text": "Đang bật. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đang bật, nhưng đang tắt", "expected": "fail"}, {"label": "qualified_reference", "text": "Đèn mâm trong Phòng Dệt đang bật không — Đang bật, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_DEVICE_OTHER_ROOM"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đèn mâm Phòng Kho đang bật hay tắt?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Đèn mâm", "room": "Phòng Kho"}, "path": ["state", "power"], "expected": "off", "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Kho"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ tắt", "đèn\\ đang\\ tắt"], "fail": {"factual_contradiction": ["đang\\ bật"], "contradictory_answer": ["đang\\ tắt,\\ nhưng\\ đang\\ bật"]}}
+      answers: ["Đang tắt", "Đèn đang tắt"]
+      wrong_answer: "Đang bật"
+      review_probe: {"label": "unsupported_action", "text": "Đang tắt. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đang tắt, nhưng đang bật", "expected": "fail"}, {"label": "qualified_reference", "text": "Đèn mâm Phòng Kho đang bật hay tắt — Đang tắt, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_DEVICE_BRIGHT"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Độ sáng đèn mâm bên Phòng Dệt là bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Đèn mâm", "room": "Phòng Dệt"}, "path": ["state", "brightness"], "expected": 65, "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["65\\ phần\\ trăm", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 65\\ phần\\ trăm"], "fail": {"factual_contradiction": ["40\\ phần\\ trăm"], "contradictory_answer": ["65\\ phần\\ trăm,\\ nhưng\\ 40\\ phần\\ trăm"]}}
+      answers: ["65 phần trăm", "Theo kết quả tra cứu, 65 phần trăm"]
+      wrong_answer: "40 phần trăm"
+      review_probe: {"label": "qualified_reference", "text": "Về Đèn mâm / Phòng Dệt, 65 phần trăm, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "65 phần trăm, nhưng 40 phần trăm", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_FAN"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quạt góc Phòng Dệt đang ở tốc độ mấy?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Quạt góc", "room": "Phòng Dệt"}, "path": ["state", "speed"], "expected": 2, "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["mức\\ 2", "theo\\ kết\\ quả\\ tra\\ cứu,\\ mức\\ 2"], "fail": {"factual_contradiction": ["mức\\ 1"], "contradictory_answer": ["mức\\ 2,\\ nhưng\\ mức\\ 1"]}}
+      answers: ["Mức 2", "Theo kết quả tra cứu, Mức 2"]
+      wrong_answer: "Mức 1"
+      review_probe: {"label": "qualified_reference", "text": "Về Quạt góc / Phòng Dệt, mức 2, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Mức 2, nhưng mức 1", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_MODE"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Điều hòa Phòng Dệt dùng chế độ nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"type": "climate", "room": "Phòng Dệt"}, "path": ["state", "mode"], "expected": "cool", "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["chế\\ độ\\ cool", "theo\\ kết\\ quả\\ tra\\ cứu,\\ chế\\ độ\\ cool"], "fail": {"factual_contradiction": ["chế\\ độ\\ dry"], "contradictory_answer": ["chế\\ độ\\ cool,\\ nhưng\\ chế\\ độ\\ dry"]}}
+      answers: ["Chế độ cool", "Theo kết quả tra cứu, Chế độ cool"]
+      wrong_answer: "Chế độ dry"
+      review_probe: {"label": "qualified_reference", "text": "Về climate / Phòng Dệt, chế độ cool, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chế độ cool, nhưng chế độ dry", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_TEMP"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Điều hòa Phòng Dệt đang đặt bao nhiêu độ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"type": "climate", "room": "Phòng Dệt"}, "path": ["state", "temperature"], "expected": 26, "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["26\\ độ\\ c", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 26\\ độ\\ c"], "fail": {"factual_contradiction": ["24\\ độ\\ c"], "contradictory_answer": ["26\\ độ\\ c,\\ nhưng\\ 24\\ độ\\ c"]}}
+      answers: ["26 độ C", "Theo kết quả tra cứu, 26 độ C"]
+      wrong_answer: "24 độ C"
+      review_probe: {"label": "qualified_reference", "text": "Về climate / Phòng Dệt, 26 độ C, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "26 độ C, nhưng 24 độ C", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_FAN_POWER"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quạt góc trong Phòng Dệt có đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Quạt góc", "room": "Phòng Dệt"}, "path": ["state", "power"], "expected": "on", "operation": "field"}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {"room": "Phòng Dệt"}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Trống"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ bật", "quạt\\ đang\\ bật"], "fail": {"factual_contradiction": ["đang\\ tắt"], "wrong_subject": ["đèn\\ đang\\ bật"], "contradictory_answer": ["đang\\ bật,\\ nhưng\\ đang\\ tắt"]}}
+      answers: ["Đang bật", "Quạt đang bật"]
+      wrong_answer: "Đang tắt"
+      extra_probes: [{"label": "wrong_subject", "text": "Đèn đang bật", "expected": "fail"}, {"label": "contradictory_answer", "text": "Đang bật, nhưng đang tắt", "expected": "fail"}, {"label": "qualified_reference", "text": "Quạt góc trong Phòng Dệt có đang bật không — Đang bật, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Đang bật. Tôi đã tạo lời nhắc.", "expected": "fail"}
+
+  - scenario_id: "TR19_DEVICE_LIGHT_COUNT"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có tất cả mấy đèn trong nhà?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"type": "light"}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Kho"}]]
+      answer_rules: {"required": true, "pass": ["2\\ đèn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ đèn"], "fail": {"factual_contradiction": ["1\\ đèn"], "contradictory_answer": ["2\\ đèn,\\ nhưng\\ 1\\ đèn"]}}
+      answers: ["2 đèn", "Theo kết quả tra cứu, 2 đèn"]
+      wrong_answer: "1 đèn"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 đèn, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 đèn, nhưng 1 đèn", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_ON_COUNT"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Trong nhà có mấy đèn và quạt đang bật?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "smart_home.get_status", "collection": "devices", "match": {"state": {"power": "on"}}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}, "one_of": {"type": ["light", "fan"]}}]
+      reads: [["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {}]]
+      insufficient_reads: [["smart_home.get_status", {"room": "Phòng Kho"}]]
+      answer_rules: {"required": true, "pass": ["2\\ thiết\\ bị", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ thiết\\ bị"], "fail": {"factual_contradiction": ["3\\ thiết\\ bị"], "contradictory_answer": ["2\\ thiết\\ bị,\\ nhưng\\ 3\\ thiết\\ bị"]}}
+      answers: ["2 thiết bị", "Theo kết quả tra cứu, 2 thiết bị"]
+      wrong_answer: "3 thiết bị"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 thiết bị, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 thiết bị, nhưng 3 thiết bị", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_WASH_STATUS"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy giặt hiên đang chạy hay đang hẹn?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy giặt hiên"}, "path": ["state", "status"], "expected": "running", "operation": "field"}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {"type": "washer"}]]
+      insufficient_reads: [["appliances.list", {"type": "microwave"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ chạy", "theo\\ kết\\ quả\\ tra\\ cứu,\\ đang\\ chạy"], "fail": {"factual_contradiction": ["đang\\ hẹn"], "contradictory_answer": ["đang\\ chạy,\\ nhưng\\ đang\\ hẹn"]}}
+      answers: ["Đang chạy", "Theo kết quả tra cứu, Đang chạy"]
+      wrong_answer: "Đang hẹn"
+      review_probe: {"label": "unsupported_action", "text": "Đang chạy. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đang chạy, nhưng đang hẹn", "expected": "fail"}, {"label": "qualified_reference", "text": "Máy giặt hiên đang chạy hay đang hẹn — Đang chạy, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_DEVICE_DRY_STATUS"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy sấy kho hiện đang chạy hay đã hẹn?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy sấy kho"}, "path": ["state", "status"], "expected": "scheduled", "operation": "field"}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {"type": "dryer"}]]
+      insufficient_reads: [["appliances.list", {"type": "microwave"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ hẹn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ đang\\ hẹn"], "fail": {"factual_contradiction": ["đang\\ chạy"], "contradictory_answer": ["đang\\ hẹn,\\ nhưng\\ đang\\ chạy"]}}
+      answers: ["Đang hẹn", "Theo kết quả tra cứu, Đang hẹn"]
+      wrong_answer: "Đang chạy"
+      review_probe: {"label": "unsupported_action", "text": "Đang hẹn. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đang hẹn, nhưng đang chạy", "expected": "fail"}, {"label": "qualified_reference", "text": "Máy sấy kho hiện đang chạy hay đã hẹn — Đang hẹn, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_DEVICE_WASH_CYCLE"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy giặt hiên chạy chu trình gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy giặt hiên"}, "path": ["state", "cycle"], "expected": "eco", "operation": "field"}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {"type": "washer"}]]
+      insufficient_reads: [["appliances.list", {"type": "microwave"}]]
+      answer_rules: {"required": true, "pass": ["chu\\ trình\\ eco", "theo\\ kết\\ quả\\ tra\\ cứu,\\ chu\\ trình\\ eco"], "fail": {"factual_contradiction": ["chu\\ trình\\ normal"], "contradictory_answer": ["chu\\ trình\\ eco,\\ nhưng\\ chu\\ trình\\ normal"]}}
+      answers: ["Chu trình eco", "Theo kết quả tra cứu, Chu trình eco"]
+      wrong_answer: "Chu trình normal"
+      review_probe: {"label": "qualified_reference", "text": "Về Máy giặt hiên, chu trình eco, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chu trình eco, nhưng chu trình normal", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_DRY_DELAY"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy sấy kho hẹn chậm bao nhiêu phút?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy sấy kho"}, "path": ["state", "delay_minutes"], "expected": 25, "operation": "field"}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {"type": "dryer"}]]
+      insufficient_reads: [["appliances.list", {"type": "microwave"}]]
+      answer_rules: {"required": true, "pass": ["25\\ phút", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 25\\ phút"], "fail": {"factual_contradiction": ["0\\ phút"], "contradictory_answer": ["25\\ phút,\\ nhưng\\ 0\\ phút"]}}
+      answers: ["25 phút", "Theo kết quả tra cứu, 25 phút"]
+      wrong_answer: "0 phút"
+      review_probe: {"label": "qualified_reference", "text": "Về Máy sấy kho, 25 phút, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "25 phút, nhưng 0 phút", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_DRY_CYCLE"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chu trình đang hẹn ở máy sấy kho là gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy sấy kho"}, "path": ["state", "cycle"], "expected": "normal", "operation": "field"}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {"type": "dryer"}]]
+      insufficient_reads: [["appliances.list", {"type": "microwave"}]]
+      answer_rules: {"required": true, "pass": ["chu\\ trình\\ normal", "theo\\ kết\\ quả\\ tra\\ cứu,\\ chu\\ trình\\ normal"], "fail": {"factual_contradiction": ["chu\\ trình\\ eco"], "contradictory_answer": ["chu\\ trình\\ normal,\\ nhưng\\ chu\\ trình\\ eco"]}}
+      answers: ["Chu trình normal", "Theo kết quả tra cứu, Chu trình normal"]
+      wrong_answer: "Chu trình eco"
+      review_probe: {"label": "qualified_reference", "text": "Về Máy sấy kho, chu trình normal, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chu trình normal, nhưng chu trình eco", "expected": "fail"}]
+
+  - scenario_id: "TR19_DEVICE_APPLIANCE_COUNT"
+    world_id: "W_TR19_DEVICE"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Danh sách có mấy máy gia dụng?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["smart_home.get_status", "appliances.list", "smart_home.light_set", "appliances.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["appliances.list", {}]]
+      broad_reads: [["appliances.list", {}]]
+      insufficient_reads: [["appliances.list", {"type": "washer"}]]
+      answer_rules: {"required": true, "pass": ["2\\ máy", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ máy"], "fail": {"factual_contradiction": ["1\\ máy"], "contradictory_answer": ["2\\ máy,\\ nhưng\\ 1\\ máy"]}}
+      answers: ["2 máy", "Theo kết quả tra cứu, 2 máy"]
+      wrong_answer: "1 máy"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 máy, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 máy, nhưng 1 máy", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_COI"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Cói còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Cói"}, "path": ["balance"], "expected": 640000, "operation": "field"}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["640000\\ đồng", "640\\.000\\ đồng", "640000\\ vnd"], "fail": {"factual_contradiction": ["450000\\ đồng"], "contradictory_answer": ["640000\\ đồng,\\ nhưng\\ 450000\\ đồng"]}}
+      answers: ["640000 đồng", "640.000 đồng"]
+      wrong_answer: "450000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Quỹ Cói, 640000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "640000 đồng, nhưng 450000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_GOM"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Gốm còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Gốm"}, "path": ["balance"], "expected": 920000, "operation": "field"}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["920000\\ đồng", "920\\.000\\ đồng", "920000\\ vnd"], "fail": {"factual_contradiction": ["450000\\ đồng"], "contradictory_answer": ["920000\\ đồng,\\ nhưng\\ 450000\\ đồng"]}}
+      answers: ["920000 đồng", "920.000 đồng"]
+      wrong_answer: "450000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Quỹ Gốm, 920000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "920000 đồng, nhưng 450000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_ZERO"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Dự phòng còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Dự phòng"}, "path": ["balance"], "expected": 0, "operation": "field"}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["0\\ đồng", "0\\ vnd"], "fail": {"factual_contradiction": ["450000\\ đồng"], "contradictory_answer": ["0\\ đồng,\\ nhưng\\ 450000\\ đồng"]}}
+      answers: ["0 đồng", "0 VND"]
+      wrong_answer: "450000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Quỹ Dự phòng, 0 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "0 đồng, nhưng 450000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_CHANGED"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "balance_changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Cói còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Cói"}, "path": ["balance"], "expected": 700000, "operation": "field"}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["700000\\ đồng", "700\\.000\\ đồng", "700000\\ vnd"], "fail": {"factual_contradiction": ["640000\\ đồng"], "contradictory_answer": ["700000\\ đồng,\\ nhưng\\ 640000\\ đồng"]}}
+      answers: ["700000 đồng", "700.000 đồng"]
+      wrong_answer: "640000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Quỹ Cói, 700000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "700000 đồng, nhưng 640000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_ACCOUNTS"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi có mấy tài khoản trong ứng dụng ngân hàng?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["3\\ tài\\ khoản", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ tài\\ khoản"], "fail": {"factual_contradiction": ["2\\ tài\\ khoản"], "contradictory_answer": ["3\\ tài\\ khoản,\\ nhưng\\ 2\\ tài\\ khoản"]}}
+      answers: ["3 tài khoản", "Theo kết quả tra cứu, 3 tài khoản"]
+      wrong_answer: "2 tài khoản"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 tài khoản, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 tài khoản, nhưng 2 tài khoản", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_TOTAL"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tổng số dư các tài khoản ngân hàng là bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {}, "path": ["balance"], "expected": 1560000, "operation": "sum", "complete": true, "scope": {}}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["1560000\\ đồng", "1\\.560\\.000\\ đồng", "1560000\\ vnd"], "fail": {"factual_contradiction": ["640000\\ đồng"], "contradictory_answer": ["1560000\\ đồng,\\ nhưng\\ 640000\\ đồng"]}}
+      answers: ["1560000 đồng", "1.560.000 đồng"]
+      wrong_answer: "640000 đồng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1560000 đồng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1560000 đồng, nhưng 640000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_WALLET"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ví điện tử còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "ewallet.get_balance", "operation": "scalar", "path": ["balance"], "expected": 450000}]
+      reads: [["ewallet.get_balance", {}]]
+      broad_reads: [["ewallet.get_balance", {}]]
+      insufficient_reads: [["banking.get_balance", {}]]
+      answer_rules: {"required": true, "pass": ["450000\\ đồng", "450\\.000\\ đồng", "450000\\ vnd"], "fail": {"factual_contradiction": ["640000\\ đồng"], "contradictory_answer": ["450000\\ đồng,\\ nhưng\\ 640000\\ đồng"]}}
+      answers: ["450000 đồng", "450.000 đồng"]
+      wrong_answer: "640000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Ví điện tử còn bao nhiêu tiền, 450000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "450000 đồng, nhưng 640000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_WALLET_CHANGED"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "wallet_changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ví điện tử còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "ewallet.get_balance", "operation": "scalar", "path": ["balance"], "expected": 510000}]
+      reads: [["ewallet.get_balance", {}]]
+      broad_reads: [["ewallet.get_balance", {}]]
+      insufficient_reads: [["banking.get_balance", {}]]
+      answer_rules: {"required": true, "pass": ["510000\\ đồng", "510\\.000\\ đồng", "510000\\ vnd"], "fail": {"factual_contradiction": ["450000\\ đồng"], "contradictory_answer": ["510000\\ đồng,\\ nhưng\\ 450000\\ đồng"]}}
+      answers: ["510000 đồng", "510.000 đồng"]
+      wrong_answer: "450000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về Ví điện tử còn bao nhiêu tiền, 510000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "510000 đồng, nhưng 450000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_ELECTRIC"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hóa đơn điện chưa trả có số tiền bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "electricity"}, "path": ["amount"], "expected": 180000, "operation": "field"}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {"type": "electricity"}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "internet"}]]
+      answer_rules: {"required": true, "pass": ["180000\\ đồng", "180\\.000\\ đồng", "180000\\ vnd"], "fail": {"factual_contradiction": ["200000\\ đồng"], "contradictory_answer": ["180000\\ đồng,\\ nhưng\\ 200000\\ đồng"]}}
+      answers: ["180000 đồng", "180.000 đồng"]
+      wrong_answer: "200000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về electricity, 180000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "180000 đồng, nhưng 200000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_WATER"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hóa đơn nước chưa trả bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "water"}, "path": ["amount"], "expected": 75000, "operation": "field"}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {"type": "water"}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "internet"}]]
+      answer_rules: {"required": true, "pass": ["75000\\ đồng", "75\\.000\\ đồng", "75000\\ vnd"], "fail": {"factual_contradiction": ["180000\\ đồng"], "contradictory_answer": ["75000\\ đồng,\\ nhưng\\ 180000\\ đồng"]}}
+      answers: ["75000 đồng", "75.000 đồng"]
+      wrong_answer: "180000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về water, 75000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "75000 đồng, nhưng 180000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_PERIOD"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hóa đơn điện còn chưa trả thuộc kỳ nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "electricity"}, "path": ["period"], "expected": "2027-12", "operation": "field"}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {"type": "electricity"}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "internet"}]]
+      answer_rules: {"required": true, "pass": ["tháng\\ 12/2027", "theo\\ kết\\ quả\\ tra\\ cứu,\\ tháng\\ 12/2027"], "fail": {"factual_contradiction": ["tháng\\ 11/2027"], "contradictory_answer": ["tháng\\ 12/2027,\\ nhưng\\ tháng\\ 11/2027"]}}
+      answers: ["Tháng 12/2027", "Theo kết quả tra cứu, Tháng 12/2027"]
+      wrong_answer: "Tháng 11/2027"
+      review_probe: {"label": "qualified_reference", "text": "Về electricity, tháng 12/2027, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Tháng 12/2027, nhưng tháng 11/2027", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_BILL_CHANGED"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "bill_changed"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hóa đơn điện chưa trả có số tiền bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "electricity"}, "path": ["amount"], "expected": 210000, "operation": "field"}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {"type": "electricity"}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "water"}]]
+      answer_rules: {"required": true, "pass": ["210000\\ đồng", "210\\.000\\ đồng", "210000\\ vnd"], "fail": {"factual_contradiction": ["180000\\ đồng"], "contradictory_answer": ["210000\\ đồng,\\ nhưng\\ 180000\\ đồng"]}}
+      answers: ["210000 đồng", "210.000 đồng"]
+      wrong_answer: "180000 đồng"
+      review_probe: {"label": "qualified_reference", "text": "Về electricity, 210000 đồng, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "210000 đồng, nhưng 180000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_UNPAID_COUNT"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy hóa đơn chưa trả?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "water"}]]
+      answer_rules: {"required": true, "pass": ["2\\ hóa\\ đơn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ hóa\\ đơn"], "fail": {"factual_contradiction": ["3\\ hóa\\ đơn"], "contradictory_answer": ["2\\ hóa\\ đơn,\\ nhưng\\ 3\\ hóa\\ đơn"]}}
+      answers: ["2 hóa đơn", "Theo kết quả tra cứu, 2 hóa đơn"]
+      wrong_answer: "3 hóa đơn"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 hóa đơn, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 hóa đơn, nhưng 3 hóa đơn", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_UNPAID_TOTAL"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tổng tiền hóa đơn chưa trả là bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {}, "path": ["amount"], "expected": 255000, "operation": "sum", "complete": true, "scope": {}}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "water"}]]
+      answer_rules: {"required": true, "pass": ["255000\\ đồng", "255\\.000\\ đồng", "255000\\ vnd"], "fail": {"factual_contradiction": ["455000\\ đồng"], "contradictory_answer": ["255000\\ đồng,\\ nhưng\\ 455000\\ đồng"]}}
+      answers: ["255000 đồng", "255.000 đồng"]
+      wrong_answer: "455000 đồng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 255000 đồng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "255000 đồng, nhưng 455000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_MONEY_ELECTRIC_COUNT"
+    world_id: "W_TR19_MONEY"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy hóa đơn điện chưa trả?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "bill_payment.pay"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "electricity"}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {"type": "electricity"}]]
+      insufficient_reads: [["bill_payment.list_bills", {"type": "water"}]]
+      answer_rules: {"required": true, "pass": ["1\\ hóa\\ đơn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ hóa\\ đơn"], "fail": {"factual_contradiction": ["2\\ hóa\\ đơn"], "contradictory_answer": ["1\\ hóa\\ đơn,\\ nhưng\\ 2\\ hóa\\ đơn"]}}
+      answers: ["1 hóa đơn", "Theo kết quả tra cứu, 1 hóa đơn"]
+      wrong_answer: "2 hóa đơn"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 hóa đơn, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 hóa đơn, nhưng 2 hóa đơn", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_ROWS"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy dòng dây đay trong danh sách?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay"}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["3\\ dòng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ dòng"], "fail": {"factual_contradiction": ["2\\ dòng"], "contradictory_answer": ["3\\ dòng,\\ nhưng\\ 2\\ dòng"]}}
+      answers: ["3 dòng", "Theo kết quả tra cứu, 3 dòng"]
+      wrong_answer: "2 dòng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 dòng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 dòng, nhưng 2 dòng", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_OPEN_ROWS"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy dòng dây đay chưa mua?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay", "checked": false}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["2\\ dòng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ dòng"], "fail": {"factual_contradiction": ["3\\ dòng"], "contradictory_answer": ["2\\ dòng,\\ nhưng\\ 3\\ dòng"]}}
+      answers: ["2 dòng", "Theo kết quả tra cứu, 2 dòng"]
+      wrong_answer: "3 dòng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 dòng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 dòng, nhưng 3 dòng", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_OPEN_TOTAL"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tổng số lượng dây đay chưa mua là bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay", "checked": false}, "path": ["quantity"], "expected": 7, "operation": "sum", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["7", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 7"], "fail": {"factual_contradiction": ["9"], "contradictory_answer": ["7,\\ nhưng\\ 9"]}}
+      answers: ["7", "Theo kết quả tra cứu, 7"]
+      wrong_answer: "9"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 7, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "7, nhưng 9", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_ALL_TOTAL"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tổng số lượng dây đay kể cả đã mua là bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay"}, "path": ["quantity"], "expected": 9, "operation": "sum", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["9", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 9"], "fail": {"factual_contradiction": ["7"], "contradictory_answer": ["9,\\ nhưng\\ 7"]}}
+      answers: ["9", "Theo kết quả tra cứu, 9"]
+      wrong_answer: "7"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 9, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "9, nhưng 7", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_LIST_COUNT"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Danh sách có mấy dòng tất cả?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {}, "path": [], "expected": 4, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["4\\ dòng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 4\\ dòng"], "fail": {"factual_contradiction": ["3\\ dòng"], "contradictory_answer": ["4\\ dòng,\\ nhưng\\ 3\\ dòng"]}}
+      answers: ["4 dòng", "Theo kết quả tra cứu, 4 dòng"]
+      wrong_answer: "3 dòng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 4 dòng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "4 dòng, nhưng 3 dòng", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_BOUGHT_COUNT"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có bao nhiêu dòng đã đánh dấu mua?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"checked": true}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["1\\ dòng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ dòng"], "fail": {"factual_contradiction": ["2\\ dòng"], "contradictory_answer": ["1\\ dòng,\\ nhưng\\ 2\\ dòng"]}}
+      answers: ["1 dòng", "Theo kết quả tra cứu, 1 dòng"]
+      wrong_answer: "2 dòng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 dòng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 dòng, nhưng 2 dòng", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_OPEN_CHANGED"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "item_checked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy dòng dây đay chưa mua?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay", "checked": false}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["1\\ dòng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ dòng"], "fail": {"factual_contradiction": ["2\\ dòng"], "contradictory_answer": ["1\\ dòng,\\ nhưng\\ 2\\ dòng"]}}
+      answers: ["1 dòng", "Theo kết quả tra cứu, 1 dòng"]
+      wrong_answer: "2 dòng"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 dòng, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 dòng, nhưng 2 dòng", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_GLUE"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dòng keo giấy có số lượng mấy?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "keo giấy"}, "path": ["quantity"], "expected": 1, "operation": "field"}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["1", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1"], "fail": {"factual_contradiction": ["2"], "contradictory_answer": ["1,\\ nhưng\\ 2"]}}
+      answers: ["1", "Theo kết quả tra cứu, 1"]
+      wrong_answer: "2"
+      review_probe: {"label": "qualified_reference", "text": "Về keo giấy, 1, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1, nhưng 2", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_FIVE"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dòng dây đay số lượng 5 đã mua chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay", "quantity": 5}, "path": ["checked"], "expected": false, "operation": "field"}]
+      reads: [["shopping_list.get", {}]]
+      broad_reads: [["shopping_list.get", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["chưa\\ mua", "theo\\ kết\\ quả\\ tra\\ cứu,\\ chưa\\ mua"], "fail": {"factual_contradiction": ["đã\\ mua"], "contradictory_answer": ["chưa\\ mua,\\ nhưng\\ đã\\ mua"]}}
+      answers: ["Chưa mua", "Theo kết quả tra cứu, Chưa mua"]
+      wrong_answer: "Đã mua"
+      review_probe: {"label": "unsupported_action", "text": "Chưa mua. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chưa mua, nhưng đã mua", "expected": "fail"}, {"label": "qualified_reference", "text": "Dòng dây đay số lượng 5 đã mua chưa — Chưa mua, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_LIST_BOOK"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bờ Mây của Lâm Cói đang có sẵn không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"title": "Bờ Mây", "author": "Lâm Cói"}, "path": ["available"], "expected": true, "operation": "field"}]
+      reads: [["library.search", {"query": "Lâm Cói"}]]
+      broad_reads: [["library.search", {}]]
+      insufficient_reads: [["library.search", {"query": "Không Có Sách"}]]
+      answer_rules: {"required": true, "pass": ["có\\ sẵn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ có\\ sẵn"], "fail": {"factual_contradiction": ["không\\ có\\ sẵn"], "contradictory_answer": ["có\\ sẵn,\\ nhưng\\ không\\ có\\ sẵn"]}}
+      answers: ["Có sẵn", "Theo kết quả tra cứu, Có sẵn"]
+      wrong_answer: "Không có sẵn"
+      review_probe: {"label": "unsupported_action", "text": "Có sẵn. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Có sẵn, nhưng không có sẵn", "expected": "fail"}, {"label": "qualified_reference", "text": "Bờ Mây của Lâm Cói đang có sẵn không — Có sẵn, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_LIST_BOOK_OTHER"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bờ Mây do Hạ Lộc viết có sẵn không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"title": "Bờ Mây", "author": "Hạ Lộc"}, "path": ["available"], "expected": false, "operation": "field"}]
+      reads: [["library.search", {"query": "Hạ Lộc"}]]
+      broad_reads: [["library.search", {}]]
+      insufficient_reads: [["library.search", {"query": "Không Có Sách"}]]
+      answer_rules: {"required": true, "pass": ["không\\ có\\ sẵn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ không\\ có\\ sẵn"], "fail": {"factual_contradiction": ["có\\ sẵn"], "contradictory_answer": ["không\\ có\\ sẵn,\\ nhưng\\ có\\ sẵn"]}}
+      answers: ["Không có sẵn", "Theo kết quả tra cứu, Không có sẵn"]
+      wrong_answer: "Có sẵn"
+      review_probe: {"label": "unsupported_action", "text": "Không có sẵn. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Không có sẵn, nhưng có sẵn", "expected": "fail"}, {"label": "qualified_reference", "text": "Bờ Mây do Hạ Lộc viết có sẵn không — Không có sẵn, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_LIST_BOOK_CHANGED"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "book_unavailable"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bờ Mây của Lâm Cói đang có sẵn không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"title": "Bờ Mây", "author": "Lâm Cói"}, "path": ["available"], "expected": false, "operation": "field"}]
+      reads: [["library.search", {}]]
+      broad_reads: [["library.search", {"query": "Bờ Mây"}]]
+      insufficient_reads: [["library.search", {"query": "Hạ Lộc"}]]
+      answer_rules: {"required": true, "pass": ["không\\ có\\ sẵn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ không\\ có\\ sẵn"], "fail": {"factual_contradiction": ["có\\ sẵn"], "contradictory_answer": ["không\\ có\\ sẵn,\\ nhưng\\ có\\ sẵn"]}}
+      answers: ["Không có sẵn", "Theo kết quả tra cứu, Không có sẵn"]
+      wrong_answer: "Có sẵn"
+      review_probe: {"label": "unsupported_action", "text": "Không có sẵn. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Không có sẵn, nhưng có sẵn", "expected": "fail"}, {"label": "qualified_reference", "text": "Bờ Mây của Lâm Cói đang có sẵn không — Không có sẵn, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_LIST_BOOK_DISTRACTOR"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "other_available"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bờ Mây của Lâm Cói đang có sẵn không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"title": "Bờ Mây", "author": "Lâm Cói"}, "path": ["available"], "expected": true, "operation": "field"}]
+      reads: [["library.search", {}]]
+      broad_reads: [["library.search", {"query": "Bờ Mây"}]]
+      insufficient_reads: [["library.search", {"query": "Hạ Lộc"}]]
+      answer_rules: {"required": true, "pass": ["có\\ sẵn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ có\\ sẵn"], "fail": {"factual_contradiction": ["không\\ có\\ sẵn"], "contradictory_answer": ["có\\ sẵn,\\ nhưng\\ không\\ có\\ sẵn"]}}
+      answers: ["Có sẵn", "Theo kết quả tra cứu, Có sẵn"]
+      wrong_answer: "Không có sẵn"
+      review_probe: {"label": "unsupported_action", "text": "Có sẵn. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Có sẵn, nhưng không có sẵn", "expected": "fail"}, {"label": "qualified_reference", "text": "Bờ Mây của Lâm Cói đang có sẵn không — Có sẵn, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_LIST_BOOK_AUTHOR"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cuốn Lối Gốm là của ai?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"title": "Lối Gốm"}, "path": ["author"], "expected": "Lâm Cói", "operation": "field"}]
+      reads: [["library.search", {"query": "Lối Gốm"}]]
+      broad_reads: [["library.search", {}]]
+      insufficient_reads: [["library.search", {"query": "Hạ Lộc"}]]
+      answer_rules: {"required": true, "pass": ["lâm\\ cói", "theo\\ kết\\ quả\\ tra\\ cứu,\\ lâm\\ cói"], "fail": {"factual_contradiction": ["hạ\\ lộc"], "contradictory_answer": ["lâm\\ cói,\\ nhưng\\ hạ\\ lộc"]}}
+      answers: ["Lâm Cói", "Theo kết quả tra cứu, Lâm Cói"]
+      wrong_answer: "Hạ Lộc"
+      review_probe: {"label": "qualified_reference", "text": "Về Lối Gốm, lâm Cói, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Lâm Cói, nhưng hạ Lộc", "expected": "fail"}]
+
+  - scenario_id: "TR19_LIST_AVAILABLE_COUNT"
+    world_id: "W_TR19_LIST"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thư viện đang có sẵn mấy đầu sách trong danh sách?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["shopping_list.get", "library.search", "shopping_list.check", "library.reserve"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "library.search", "collection": "books", "match": {"available": true}, "path": [], "expected": 1, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["library.search", {}]]
+      broad_reads: [["library.search", {}]]
+      insufficient_reads: [["library.search", {"query": "Hạ Lộc"}]]
+      answer_rules: {"required": true, "pass": ["1\\ đầu\\ sách", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 1\\ đầu\\ sách"], "fail": {"factual_contradiction": ["2\\ đầu\\ sách"], "contradictory_answer": ["1\\ đầu\\ sách,\\ nhưng\\ 2\\ đầu\\ sách"]}}
+      answers: ["1 đầu sách", "Theo kết quả tra cứu, 1 đầu sách"]
+      wrong_answer: "2 đầu sách"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 1 đầu sách, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "1 đầu sách, nhưng 2 đầu sách", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_WEEKEND"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Mở hiên cuối tuần đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Mở hiên", "repeat": "weekends"}, "path": ["enabled"], "expected": false, "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["đang\\ tắt", "báo thức\\ đang\\ tắt"], "fail": {"factual_contradiction": ["đang\\ bật"], "wrong_subject": ["đèn\\ đang\\ tắt"], "contradictory_answer": ["đang\\ tắt,\\ nhưng\\ đang\\ bật"]}}
+      answers: ["Đang tắt", "Báo thức đang tắt"]
+      wrong_answer: "Đang bật"
+      extra_probes: [{"label": "wrong_subject", "text": "Đèn đang tắt", "expected": "fail"}, {"label": "contradictory_answer", "text": "Đang tắt, nhưng đang bật", "expected": "fail"}, {"label": "qualified_reference", "text": "Báo Mở hiên cuối tuần đang bật không — Đang tắt, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Đang tắt. Tôi đã tạo lời nhắc.", "expected": "fail"}
+
+  - scenario_id: "TR19_TASK_WEEKDAY"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Mở hiên ngày thường đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Mở hiên", "repeat": "weekdays"}, "path": ["enabled"], "expected": true, "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["đang\\ bật", "báo thức\\ đang\\ bật"], "fail": {"factual_contradiction": ["đang\\ tắt"], "wrong_subject": ["đèn\\ đang\\ bật"], "contradictory_answer": ["đang\\ bật,\\ nhưng\\ đang\\ tắt"]}}
+      answers: ["Đang bật", "Báo thức đang bật"]
+      wrong_answer: "Đang tắt"
+      extra_probes: [{"label": "wrong_subject", "text": "Đèn đang bật", "expected": "fail"}, {"label": "contradictory_answer", "text": "Đang bật, nhưng đang tắt", "expected": "fail"}, {"label": "qualified_reference", "text": "Báo Mở hiên ngày thường đang bật không — Đang bật, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Đang bật. Tôi đã tạo lời nhắc.", "expected": "fail"}
+
+  - scenario_id: "TR19_TASK_ALARM_TIME"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Nhận giấy đặt giờ nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Nhận giấy"}, "path": ["time"], "expected": "07:45", "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["07:45", "07\\ giờ\\ 45\\ phút"], "fail": {"factual_contradiction": ["06:35"], "contradictory_answer": ["07:45,\\ nhưng\\ 06:35"]}}
+      answers: ["07:45", "07 giờ 45 phút"]
+      wrong_answer: "06:35"
+      review_probe: {"label": "uncertain_day", "text": "07:45, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "07:45, nhưng 06:35", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_ALARM_REPEAT"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Nhận giấy lặp thế nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Nhận giấy"}, "path": ["repeat"], "expected": "once", "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["một\\ lần", "theo\\ kết\\ quả\\ tra\\ cứu,\\ một\\ lần"], "fail": {"factual_contradiction": ["hằng\\ tuần"], "contradictory_answer": ["một\\ lần,\\ nhưng\\ hằng\\ tuần"]}}
+      answers: ["Một lần", "Theo kết quả tra cứu, Một lần"]
+      wrong_answer: "Hằng tuần"
+      review_probe: {"label": "qualified_reference", "text": "Về Nhận giấy, một lần, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Một lần, nhưng hằng tuần", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_WEEKEND_CHANGED"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "weekend_on"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Mở hiên cuối tuần đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Mở hiên", "repeat": "weekends"}, "path": ["enabled"], "expected": true, "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["đang\\ bật", "báo thức\\ đang\\ bật"], "fail": {"factual_contradiction": ["đang\\ tắt"], "wrong_subject": ["đèn\\ đang\\ bật"], "contradictory_answer": ["đang\\ bật,\\ nhưng\\ đang\\ tắt"]}}
+      answers: ["Đang bật", "Báo thức đang bật"]
+      wrong_answer: "Đang tắt"
+      extra_probes: [{"label": "wrong_subject", "text": "Đèn đang bật", "expected": "fail"}, {"label": "contradictory_answer", "text": "Đang bật, nhưng đang tắt", "expected": "fail"}, {"label": "qualified_reference", "text": "Báo Mở hiên cuối tuần đang bật không — Đang bật, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Đang bật. Tôi đã tạo lời nhắc.", "expected": "fail"}
+
+  - scenario_id: "TR19_TASK_WEEKEND_DISTRACTOR"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "distractor_off"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Báo Mở hiên cuối tuần đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"label": "Mở hiên", "repeat": "weekends"}, "path": ["enabled"], "expected": false, "operation": "field"}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["đang\\ tắt", "báo thức\\ đang\\ tắt"], "fail": {"factual_contradiction": ["đang\\ bật"], "wrong_subject": ["đèn\\ đang\\ tắt"], "contradictory_answer": ["đang\\ tắt,\\ nhưng\\ đang\\ bật"]}}
+      answers: ["Đang tắt", "Báo thức đang tắt"]
+      wrong_answer: "Đang bật"
+      extra_probes: [{"label": "wrong_subject", "text": "Đèn đang tắt", "expected": "fail"}, {"label": "contradictory_answer", "text": "Đang tắt, nhưng đang bật", "expected": "fail"}, {"label": "qualified_reference", "text": "Báo Mở hiên cuối tuần đang bật không — Đang tắt, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+      review_probe: {"label": "unsupported_action", "text": "Đang tắt. Tôi đã tạo lời nhắc.", "expected": "fail"}
+
+  - scenario_id: "TR19_TASK_ALARM_TOTAL"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy báo thức tất cả?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["3\\ báo\\ thức", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ báo\\ thức"], "fail": {"factual_contradiction": ["2\\ báo\\ thức"], "contradictory_answer": ["3\\ báo\\ thức,\\ nhưng\\ 2\\ báo\\ thức"]}}
+      answers: ["3 báo thức", "Theo kết quả tra cứu, 3 báo thức"]
+      wrong_answer: "2 báo thức"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 báo thức, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 báo thức, nhưng 2 báo thức", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_ALARM_ENABLED"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy báo thức đang bật?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "alarm.list", "collection": "alarms", "match": {"enabled": true}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["2\\ báo\\ thức", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ báo\\ thức"], "fail": {"factual_contradiction": ["1\\ báo\\ thức"], "contradictory_answer": ["2\\ báo\\ thức,\\ nhưng\\ 1\\ báo\\ thức"]}}
+      answers: ["2 báo thức", "Theo kết quả tra cứu, 2 báo thức"]
+      wrong_answer: "1 báo thức"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 báo thức, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 báo thức, nhưng 1 báo thức", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_TASK_DONE"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát cuộn hạn 17 giờ ngày 7/1 đã xong chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Soát cuộn", "due": "2028-01-07T17:00:00+07:00"}, "path": ["done"], "expected": true, "operation": "field"}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {}]]
+      insufficient_reads: [["tasks.list", {"status": "open"}]]
+      answer_rules: {"required": true, "pass": ["đã\\ xong", "đã\\ hoàn\\ thành"], "fail": {"factual_contradiction": ["chưa\\ xong"], "contradictory_answer": ["đã\\ xong,\\ nhưng\\ chưa\\ xong"]}}
+      answers: ["Đã xong", "Đã hoàn thành"]
+      wrong_answer: "Chưa xong"
+      review_probe: {"label": "unsupported_action", "text": "Đã xong. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đã xong, nhưng chưa xong", "expected": "fail"}, {"label": "qualified_reference", "text": "Soát cuộn hạn 17 giờ ngày 7/1 đã xong chưa — Đã xong, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_TASK_TASK_OPEN"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát cuộn hạn 17 giờ ngày 6/1 đã xong chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Soát cuộn", "due": "2028-01-06T17:00:00+07:00"}, "path": ["done"], "expected": false, "operation": "field"}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ xong", "chưa\\ hoàn\\ thành"], "fail": {"factual_contradiction": ["đã\\ xong"], "contradictory_answer": ["chưa\\ xong,\\ nhưng\\ đã\\ xong"]}}
+      answers: ["Chưa xong", "Chưa hoàn thành"]
+      wrong_answer: "Đã xong"
+      review_probe: {"label": "unsupported_action", "text": "Chưa xong. Tôi đã tạo lời nhắc.", "expected": "fail"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chưa xong, nhưng đã xong", "expected": "fail"}, {"label": "qualified_reference", "text": "Soát cuộn hạn 17 giờ ngày 6/1 đã xong chưa — Chưa xong, nếu đúng là mục bạn nói.", "expected": "unresolved"}]
+
+  - scenario_id: "TR19_TASK_PRIORITY"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát cuộn hạn ngày 6/1 có mức ưu tiên gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Soát cuộn"}, "path": ["priority"], "expected": "high", "operation": "field", "dates": {"due": "2028-01-06"}}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["ưu\\ tiên\\ cao", "theo\\ kết\\ quả\\ tra\\ cứu,\\ ưu\\ tiên\\ cao"], "fail": {"factual_contradiction": ["ưu\\ tiên\\ thường"], "contradictory_answer": ["ưu\\ tiên\\ cao,\\ nhưng\\ ưu\\ tiên\\ thường"]}}
+      answers: ["Ưu tiên cao", "Theo kết quả tra cứu, Ưu tiên cao"]
+      wrong_answer: "Ưu tiên thường"
+      review_probe: {"label": "qualified_reference", "text": "Về Soát cuộn, ưu tiên cao, nếu tôi hiểu đúng mục bạn hỏi.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Ưu tiên cao, nhưng ưu tiên thường", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_DUE"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Việc Chốt màu đã có hạn chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Chốt màu"}, "path": ["due"], "expected": "", "operation": "field"}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["chưa\\ đặt\\ hạn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ chưa\\ đặt\\ hạn"], "fail": {"factual_contradiction": ["ngày\\ 6/1/2028"], "contradictory_answer": ["chưa\\ đặt\\ hạn,\\ nhưng\\ ngày\\ 6/1/2028"]}}
+      answers: ["Chưa đặt hạn", "Theo kết quả tra cứu, Chưa đặt hạn"]
+      wrong_answer: "Ngày 6/1/2028"
+      review_probe: {"label": "uncertain_day", "text": "Chưa đặt hạn, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Chưa đặt hạn, nhưng ngày 6/1/2028", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_DUE_TIME"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát cuộn chưa xong có hạn lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Soát cuộn", "done": false}, "path": ["due"], "expected": "2028-01-06T17:00:00+07:00", "operation": "field"}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {"status": "open"}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["17\\ giờ\\ ngày\\ 6/1/2028", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 17\\ giờ\\ ngày\\ 6/1/2028"], "fail": {"factual_contradiction": ["17\\ giờ\\ ngày\\ 7/1/2028"], "contradictory_answer": ["17\\ giờ\\ ngày\\ 6/1/2028,\\ nhưng\\ 17\\ giờ\\ ngày\\ 7/1/2028"]}}
+      answers: ["17 giờ ngày 6/1/2028", "Theo kết quả tra cứu, 17 giờ ngày 6/1/2028"]
+      wrong_answer: "17 giờ ngày 7/1/2028"
+      review_probe: {"label": "uncertain_day", "text": "17 giờ ngày 6/1/2028, nhưng tôi chưa rõ đây có phải ngày bạn muốn hỏi không.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "17 giờ ngày 6/1/2028, nhưng 17 giờ ngày 7/1/2028", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_TASK_OPEN_COUNT"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có bao nhiêu việc chưa hoàn thành?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"done": false}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {"status": "open"}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["2\\ việc", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ việc"], "fail": {"factual_contradiction": ["1\\ việc"], "contradictory_answer": ["2\\ việc,\\ nhưng\\ 1\\ việc"]}}
+      answers: ["2 việc", "Theo kết quả tra cứu, 2 việc"]
+      wrong_answer: "1 việc"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 2 việc, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 việc, nhưng 1 việc", "expected": "fail"}]
+
+  - scenario_id: "TR19_TASK_TASK_TOTAL"
+    world_id: "W_TR19_TASK"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Danh sách có tất cả mấy việc?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["alarm.list", "tasks.list", "alarm.update", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {}, "path": [], "expected": 3, "operation": "count", "complete": true, "scope": {}}]
+      reads: [["tasks.list", {}]]
+      broad_reads: [["tasks.list", {}]]
+      insufficient_reads: [["tasks.list", {"status": "done"}]]
+      answer_rules: {"required": true, "pass": ["3\\ việc", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 3\\ việc"], "fail": {"factual_contradiction": ["2\\ việc"], "contradictory_answer": ["3\\ việc,\\ nhưng\\ 2\\ việc"]}}
+      answers: ["3 việc", "Theo kết quả tra cứu, 3 việc"]
+      wrong_answer: "2 việc"
+      review_probe: {"label": "uncertain_scope", "text": "Tổng theo tôi nhớ là 3 việc, chưa rõ đã tính đủ các mục bạn hỏi chưa.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "3 việc, nhưng 2 việc", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_ACCOUNT_PAIR"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Cói và Quỹ Gốm mỗi quỹ còn bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Cói"}, "path": ["balance"], "expected": 640000, "operation": "field"}, {"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Gốm"}, "path": ["balance"], "expected": 920000, "operation": "field"}]
+      reads: [["banking.get_balance", {}]]
+      broad_reads: [["banking.get_balance", {}]]
+      insufficient_reads: []
+      answer_rules: {"required": true, "pass": ["quỹ\\ cói\\ 640000\\ đồng,\\ quỹ\\ gốm\\ 920000\\ đồng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ quỹ\\ cói\\ 640000\\ đồng,\\ quỹ\\ gốm\\ 920000\\ đồng"], "fail": {"factual_contradiction": ["quỹ\\ cói\\ 920000\\ đồng,\\ quỹ\\ gốm\\ 640000\\ đồng"], "incomplete_answer": ["quỹ\\ cói\\ 640000\\ đồng"], "contradictory_answer": ["quỹ\\ cói\\ 640000\\ đồng,\\ quỹ\\ gốm\\ 920000\\ đồng,\\ nhưng\\ quỹ\\ cói\\ 920000\\ đồng,\\ quỹ\\ gốm\\ 640000\\ đồng"]}}
+      answers: ["Quỹ Cói 640000 đồng, Quỹ Gốm 920000 đồng", "Theo kết quả tra cứu, Quỹ Cói 640000 đồng, Quỹ Gốm 920000 đồng"]
+      wrong_answer: "Quỹ Cói 920000 đồng, Quỹ Gốm 640000 đồng"
+      incomplete_answer: "Quỹ Cói 640000 đồng"
+      review_probe: {"label": "uncertain_second_fact", "text": "Quỹ Cói 640000 đồng, Quỹ Gốm 920000 đồng, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Quỹ Cói 640000 đồng, Quỹ Gốm 920000 đồng, nhưng quỹ Cói 920000 đồng, Quỹ Gốm 640000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_WALLET_BILL"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ví còn bao nhiêu, và hóa đơn nước chưa trả là bao nhiêu tiền?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "ewallet.get_balance", "operation": "scalar", "path": ["balance"], "expected": 450000}, {"tool": "bill_payment.list_bills", "collection": "bills", "match": {"type": "water"}, "path": ["amount"], "expected": 75000, "operation": "field"}]
+      reads: [["ewallet.get_balance", {}], ["bill_payment.list_bills", {"type": "water"}]]
+      broad_reads: [["bill_payment.list_bills", {}], ["ewallet.get_balance", {}]]
+      insufficient_reads: [["ewallet.get_balance", {}]]
+      answer_rules: {"required": true, "pass": ["ví\\ 450000\\ đồng,\\ nước\\ 75000\\ đồng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ ví\\ 450000\\ đồng,\\ nước\\ 75000\\ đồng"], "fail": {"factual_contradiction": ["ví\\ 75000\\ đồng,\\ nước\\ 450000\\ đồng"], "incomplete_answer": ["ví\\ 450000\\ đồng"], "contradictory_answer": ["ví\\ 450000\\ đồng,\\ nước\\ 75000\\ đồng,\\ nhưng\\ ví\\ 75000\\ đồng,\\ nước\\ 450000\\ đồng"]}}
+      answers: ["Ví 450000 đồng, nước 75000 đồng", "Theo kết quả tra cứu, Ví 450000 đồng, nước 75000 đồng"]
+      wrong_answer: "Ví 75000 đồng, nước 450000 đồng"
+      incomplete_answer: "Ví 450000 đồng"
+      review_probe: {"label": "uncertain_second_fact", "text": "Ví 450000 đồng, nước 75000 đồng, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Ví 450000 đồng, nước 75000 đồng, nhưng ví 75000 đồng, nước 450000 đồng", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_CAL_REM"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát bìa ở Phòng Lan ngày 6/1 bắt đầu mấy giờ, và nhắc Gom bìa ngày đó lúc nào?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["start"], "expected": "2028-01-06T09:10:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}, {"tool": "reminders.list", "collection": "reminders", "match": {"content": "Gom bìa"}, "path": ["time"], "expected": "2028-01-06T08:30:00+07:00", "operation": "field", "dates": {"time": "2028-01-06"}}]
+      reads: [["calendar.list_events", {}], ["reminders.list", {}]]
+      broad_reads: [["reminders.list", {}], ["calendar.list_events", {}]]
+      insufficient_reads: [["calendar.list_events", {}]]
+      answer_rules: {"required": true, "pass": ["lịch\\ 09:10,\\ nhắc\\ 08:30", "theo\\ kết\\ quả\\ tra\\ cứu,\\ lịch\\ 09:10,\\ nhắc\\ 08:30"], "fail": {"factual_contradiction": ["lịch\\ 08:30,\\ nhắc\\ 09:10"], "incomplete_answer": ["lịch\\ 09:10"], "contradictory_answer": ["lịch\\ 09:10,\\ nhắc\\ 08:30,\\ nhưng\\ lịch\\ 08:30,\\ nhắc\\ 09:10"]}}
+      answers: ["Lịch 09:10, nhắc 08:30", "Theo kết quả tra cứu, Lịch 09:10, nhắc 08:30"]
+      wrong_answer: "Lịch 08:30, nhắc 09:10"
+      incomplete_answer: "Lịch 09:10"
+      review_probe: {"label": "uncertain_second_fact", "text": "Lịch 09:10, nhắc 08:30, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Lịch 09:10, nhắc 08:30, nhưng lịch 08:30, nhắc 09:10", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_DEVICE_PAIR"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy giặt hiên đang làm gì và đèn mâm Phòng Dệt có bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy giặt hiên"}, "path": ["state", "status"], "expected": "running", "operation": "field"}, {"tool": "smart_home.get_status", "collection": "devices", "match": {"name": "Đèn mâm", "room": "Phòng Dệt"}, "path": ["state", "power"], "expected": "on", "operation": "field"}]
+      reads: [["appliances.list", {}], ["smart_home.get_status", {}]]
+      broad_reads: [["smart_home.get_status", {}], ["appliances.list", {}]]
+      insufficient_reads: [["appliances.list", {}]]
+      answer_rules: {"required": true, "pass": ["máy\\ giặt\\ đang\\ chạy,\\ đèn\\ đang\\ bật", "theo\\ kết\\ quả\\ tra\\ cứu,\\ máy\\ giặt\\ đang\\ chạy,\\ đèn\\ đang\\ bật"], "fail": {"factual_contradiction": ["máy\\ giặt\\ đang\\ hẹn,\\ đèn\\ đang\\ tắt"], "incomplete_answer": ["máy\\ giặt\\ đang\\ chạy"], "contradictory_answer": ["máy\\ giặt\\ đang\\ chạy,\\ đèn\\ đang\\ bật,\\ nhưng\\ máy\\ giặt\\ đang\\ hẹn,\\ đèn\\ đang\\ tắt"]}}
+      answers: ["Máy giặt đang chạy, đèn đang bật", "Theo kết quả tra cứu, Máy giặt đang chạy, đèn đang bật"]
+      wrong_answer: "Máy giặt đang hẹn, đèn đang tắt"
+      incomplete_answer: "Máy giặt đang chạy"
+      review_probe: {"label": "uncertain_second_fact", "text": "Máy giặt đang chạy, đèn đang bật, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Máy giặt đang chạy, đèn đang bật, nhưng máy giặt đang hẹn, đèn đang tắt", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_SHOP_BOOK"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Có mấy dòng dây đay chưa mua, và Bờ Mây của Lâm Cói có sẵn không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "shopping_list.get", "collection": "items", "match": {"name": "dây đay", "checked": false}, "path": [], "expected": 2, "operation": "count", "complete": true, "scope": {}}, {"tool": "library.search", "collection": "books", "match": {"title": "Bờ Mây", "author": "Lâm Cói"}, "path": ["available"], "expected": true, "operation": "field"}]
+      reads: [["shopping_list.get", {}], ["library.search", {"query": "Lâm Cói"}]]
+      broad_reads: [["library.search", {}], ["shopping_list.get", {}]]
+      insufficient_reads: [["shopping_list.get", {}]]
+      answer_rules: {"required": true, "pass": ["2\\ dòng,\\ sách\\ có\\ sẵn", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 2\\ dòng,\\ sách\\ có\\ sẵn"], "fail": {"factual_contradiction": ["3\\ dòng,\\ sách\\ không\\ có\\ sẵn"], "incomplete_answer": ["2\\ dòng"], "contradictory_answer": ["2\\ dòng,\\ sách\\ có\\ sẵn,\\ nhưng\\ 3\\ dòng,\\ sách\\ không\\ có\\ sẵn"]}}
+      answers: ["2 dòng, sách có sẵn", "Theo kết quả tra cứu, 2 dòng, sách có sẵn"]
+      wrong_answer: "3 dòng, sách không có sẵn"
+      incomplete_answer: "2 dòng"
+      review_probe: {"label": "uncertain_second_fact", "text": "2 dòng, sách có sẵn, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "2 dòng, sách có sẵn, nhưng 3 dòng, sách không có sẵn", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_TASK_ALARM"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát cuộn hạn ngày 6/1 xong chưa và báo Mở hiên cuối tuần đang bật không?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "tasks.list", "collection": "tasks", "match": {"title": "Soát cuộn"}, "path": ["done"], "expected": false, "operation": "field", "dates": {"due": "2028-01-06"}}, {"tool": "alarm.list", "collection": "alarms", "match": {"label": "Mở hiên", "repeat": "weekends"}, "path": ["enabled"], "expected": false, "operation": "field"}]
+      reads: [["tasks.list", {}], ["alarm.list", {}]]
+      broad_reads: [["alarm.list", {}], ["tasks.list", {}]]
+      insufficient_reads: [["alarm.list", {}]]
+      answer_rules: {"required": true, "pass": ["việc\\ chưa\\ xong,\\ báo\\ đang\\ tắt", "theo\\ kết\\ quả\\ tra\\ cứu,\\ việc\\ chưa\\ xong,\\ báo\\ đang\\ tắt"], "fail": {"factual_contradiction": ["việc\\ đã\\ xong,\\ báo\\ đang\\ bật"], "incomplete_answer": ["việc\\ chưa\\ xong"], "contradictory_answer": ["việc\\ chưa\\ xong,\\ báo\\ đang\\ tắt,\\ nhưng\\ việc\\ đã\\ xong,\\ báo\\ đang\\ bật"]}}
+      answers: ["Việc chưa xong, báo đang tắt", "Theo kết quả tra cứu, Việc chưa xong, báo đang tắt"]
+      wrong_answer: "Việc đã xong, báo đang bật"
+      unauthorized_write: ["tasks.complete", {"task_id": "w19_task_a"}]
+      incomplete_answer: "Việc chưa xong"
+      review_probe: {"label": "uncertain_second_fact", "text": "Việc chưa xong, báo đang tắt, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Việc chưa xong, báo đang tắt, nhưng việc đã xong, báo đang bật", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_PARCEL_PAIR"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thùng dây cói của Bưu Cói và của Bưu Gốm, mỗi kiện giao rồi chưa?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Cói"}, "path": ["status"], "expected": "in_transit", "operation": "field"}, {"tool": "package_tracking.track", "collection": "shipments", "match": {"name": "Thùng dây cói", "carrier": "Bưu Gốm"}, "path": ["status"], "expected": "delivered", "operation": "field"}]
+      reads: [["package_tracking.track", {}]]
+      broad_reads: [["package_tracking.track", {}]]
+      insufficient_reads: [["package_tracking.track", {"tracking_id": "COI1901"}]]
+      answer_rules: {"required": true, "pass": ["bưu\\ cói\\ chưa\\ giao,\\ bưu\\ gốm\\ giao\\ rồi", "theo\\ kết\\ quả\\ tra\\ cứu,\\ bưu\\ cói\\ chưa\\ giao,\\ bưu\\ gốm\\ giao\\ rồi"], "fail": {"factual_contradiction": ["bưu\\ cói\\ giao\\ rồi,\\ bưu\\ gốm\\ chưa\\ giao"], "incomplete_answer": ["bưu\\ cói\\ chưa\\ giao"], "contradictory_answer": ["bưu\\ cói\\ chưa\\ giao,\\ bưu\\ gốm\\ giao\\ rồi,\\ nhưng\\ bưu\\ cói\\ giao\\ rồi,\\ bưu\\ gốm\\ chưa\\ giao"]}}
+      answers: ["Bưu Cói chưa giao, Bưu Gốm giao rồi", "Theo kết quả tra cứu, Bưu Cói chưa giao, Bưu Gốm giao rồi"]
+      wrong_answer: "Bưu Cói giao rồi, Bưu Gốm chưa giao"
+      incomplete_answer: "Bưu Cói chưa giao"
+      review_probe: {"label": "uncertain_second_fact", "text": "Bưu Cói chưa giao, Bưu Gốm giao rồi, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Bưu Cói chưa giao, Bưu Gốm giao rồi, nhưng bưu Cói giao rồi, Bưu Gốm chưa giao", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_START_END"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Soát bìa ở Phòng Lan ngày 6/1 bắt đầu và kết thúc lúc mấy giờ?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["start"], "expected": "2028-01-06T09:10:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}, {"tool": "calendar.list_events", "collection": "events", "match": {"title": "Soát bìa", "location": "Phòng Lan"}, "path": ["end"], "expected": "2028-01-06T09:55:00+07:00", "operation": "field", "dates": {"start": "2028-01-06"}}]
+      reads: [["calendar.list_events", {}]]
+      broad_reads: [["calendar.list_events", {"date_from": "2028-01-06", "date_to": "2028-01-06"}]]
+      insufficient_reads: [["calendar.list_events", {"date_from": "2028-01-07", "date_to": "2028-01-07"}]]
+      answer_rules: {"required": true, "pass": ["09:10\\ đến\\ 09:55", "theo\\ kết\\ quả\\ tra\\ cứu,\\ 09:10\\ đến\\ 09:55"], "fail": {"factual_contradiction": ["09:10\\ đến\\ 10:30"], "incomplete_answer": ["đã\\ xem\\ một\\ phần"], "contradictory_answer": ["09:10\\ đến\\ 09:55,\\ nhưng\\ 09:10\\ đến\\ 10:30"]}}
+      answers: ["09:10 đến 09:55", "Theo kết quả tra cứu, 09:10 đến 09:55"]
+      wrong_answer: "09:10 đến 10:30"
+      incomplete_answer: "Đã xem một phần."
+      review_probe: {"label": "uncertain_second_fact", "text": "09:10 đến 09:55, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "09:10 đến 09:55, nhưng 09:10 đến 10:30", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_CYCLE_STATE"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy sấy kho đang chạy hay hẹn, chu trình gì?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy sấy kho"}, "path": ["state", "status"], "expected": "scheduled", "operation": "field"}, {"tool": "appliances.list", "collection": "appliances", "match": {"name": "Máy sấy kho"}, "path": ["state", "cycle"], "expected": "normal", "operation": "field"}]
+      reads: [["appliances.list", {"type": "dryer"}]]
+      broad_reads: [["appliances.list", {}]]
+      insufficient_reads: [["appliances.list", {"type": "washer"}]]
+      answer_rules: {"required": true, "pass": ["đang\\ hẹn,\\ chu\\ trình\\ normal", "theo\\ kết\\ quả\\ tra\\ cứu,\\ đang\\ hẹn,\\ chu\\ trình\\ normal"], "fail": {"factual_contradiction": ["đang\\ chạy,\\ chu\\ trình\\ eco"], "incomplete_answer": ["đang\\ hẹn"], "contradictory_answer": ["đang\\ hẹn,\\ chu\\ trình\\ normal,\\ nhưng\\ đang\\ chạy,\\ chu\\ trình\\ eco"]}}
+      answers: ["Đang hẹn, chu trình normal", "Theo kết quả tra cứu, Đang hẹn, chu trình normal"]
+      wrong_answer: "Đang chạy, chu trình eco"
+      incomplete_answer: "Đang hẹn"
+      review_probe: {"label": "uncertain_second_fact", "text": "Đang hẹn, chu trình normal, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Đang hẹn, chu trình normal, nhưng đang chạy, chu trình eco", "expected": "fail"}]
+
+  - scenario_id: "TR19_TWO_BALANCE_BILL"
+    world_id: "W_TR19_TWO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Quỹ Cói còn bao nhiêu và tổng hóa đơn chưa trả bao nhiêu?"
+      context: {"current_time": "2028-01-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "calendar.list_events", "reminders.list", "smart_home.get_status", "appliances.list", "banking.get_balance", "ewallet.get_balance", "bill_payment.list_bills", "shopping_list.get", "library.search", "alarm.list", "tasks.list", "tasks.complete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "collection": "accounts", "match": {"name": "Quỹ Cói"}, "path": ["balance"], "expected": 640000, "operation": "field"}, {"tool": "bill_payment.list_bills", "collection": "bills", "match": {}, "path": ["amount"], "expected": 255000, "operation": "sum", "complete": true, "scope": {}}]
+      reads: [["banking.get_balance", {}], ["bill_payment.list_bills", {}]]
+      broad_reads: [["bill_payment.list_bills", {}], ["banking.get_balance", {}]]
+      insufficient_reads: [["banking.get_balance", {}]]
+      answer_rules: {"required": true, "pass": ["quỹ\\ cói\\ 640000\\ đồng,\\ hóa\\ đơn\\ 255000\\ đồng", "theo\\ kết\\ quả\\ tra\\ cứu,\\ quỹ\\ cói\\ 640000\\ đồng,\\ hóa\\ đơn\\ 255000\\ đồng"], "fail": {"factual_contradiction": ["quỹ\\ cói\\ 255000\\ đồng,\\ hóa\\ đơn\\ 640000\\ đồng"], "incomplete_answer": ["quỹ\\ cói\\ 640000\\ đồng"], "contradictory_answer": ["quỹ\\ cói\\ 640000\\ đồng,\\ hóa\\ đơn\\ 255000\\ đồng,\\ nhưng\\ quỹ\\ cói\\ 255000\\ đồng,\\ hóa\\ đơn\\ 640000\\ đồng"]}}
+      answers: ["Quỹ Cói 640000 đồng, hóa đơn 255000 đồng", "Theo kết quả tra cứu, Quỹ Cói 640000 đồng, hóa đơn 255000 đồng"]
+      wrong_answer: "Quỹ Cói 255000 đồng, hóa đơn 640000 đồng"
+      incomplete_answer: "Quỹ Cói 640000 đồng"
+      review_probe: {"label": "uncertain_second_fact", "text": "Quỹ Cói 640000 đồng, hóa đơn 255000 đồng, nhưng chỉ ý thứ nhất là chắc chắn.", "expected": "unresolved"}
+      extra_probes: [{"label": "contradictory_answer", "text": "Quỹ Cói 640000 đồng, hóa đơn 255000 đồng, nhưng quỹ Cói 255000 đồng, hóa đơn 640000 đồng", "expected": "fail"}]

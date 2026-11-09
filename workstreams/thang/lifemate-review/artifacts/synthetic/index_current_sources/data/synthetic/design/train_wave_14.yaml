@@ -1,0 +1,1524 @@
+# $alias.field names a permitted response field; @reader denotes the declared scan scope.
+version: train_wave_14
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_CAL_DEFAULT","TR11_CAL_FINAL"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR14_DATE_BEFORE"
+    relevant_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    initial_state:
+      calendar:
+        events:
+          - {"id":"w14_old_event","title":"Giữ Gỗ","start":"2027-08-10T12:00:00+07:00","end":"2027-08-10T13:00:00+07:00","status":"confirmed"}
+      reminders:
+        reminders: []
+      tasks:
+        tasks: []
+    variants: {}
+    readers:
+      events: ["calendar.list_events","events",{}]
+    witnesses:
+      old: ["events",{"title":"Giữ Gỗ"}]
+    tool_variants: {}
+
+  - world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR11_PICK_SECOND","TR12_SOURCE_FOUND"]
+      parent_lineage_ids: ["TRAIN_LOGISTICS_DIRECTION_02","TRAIN_NOTE_LIFECYCLE_01"]
+    design_base: "TR14_PICK_HOME"
+    relevant_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    initial_state:
+      package_tracking:
+        shipments:
+          - {"id":"w14_incoming","tracking_id":"NEP1401","status":"in_transit","eta":"2027-08-11T13:00:00+07:00"}
+        pickups:
+          - {"id":"w14_pick_old","address":"2 Ngõ Xưa","date":"2027-08-09","status":"scheduled"}
+      reminders:
+        reminders: []
+    variants: {}
+    readers:
+      track: ["package_tracking.track","shipments",{}]
+    witnesses:
+      incoming: ["track",{"tracking_id":"NEP1401"}]
+    tool_variants: {}
+
+  - world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_WEATHER_BELOW","TR9_WEATHER_WRONGCITY"]
+      parent_lineage_ids: ["TRAIN_WEATHER_FIELDWORK_09"]
+    design_base: "TR14_CITY_HUE"
+    relevant_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    initial_state:
+      weather:
+        forecast:
+          - {"id":"w14_hue","date":"2027-08-11","location":"Huế","rain_pct":60}
+          - {"id":"w14_danang","date":"2027-08-11","location":"Đà Nẵng","rain_pct":45}
+          - {"id":"w14_hue12","date":"2027-08-12","location":"Huế","rain_pct":80}
+          - {"id":"w14_danang12","date":"2027-08-12","location":"Đà Nẵng","rain_pct":70}
+        current: []
+      reminders:
+        reminders: []
+      tasks:
+        tasks: []
+    variants: {}
+    readers:
+      hue: ["weather.get_forecast","forecast",{"location":"Huế","date":"2027-08-11"},{"date":"2027-08-11"}]
+      da: ["weather.get_forecast","forecast",{"location":"Đà Nẵng","date":"2027-08-11"},{"date":"2027-08-11"}]
+      missing: ["weather.get_forecast","forecast",{"location":"Cần Thơ","date":"2027-08-11"},{"date":"2027-08-11"}]
+      next: ["weather.get_forecast","forecast",{"location":"Huế","date":"2027-08-12"},{"date":"2027-08-12"}]
+      danext: ["weather.get_forecast","forecast",{"location":"Đà Nẵng","date":"2027-08-12"},{"date":"2027-08-12"}]
+    witnesses:
+      hue: ["hue",{"date":"2027-08-11","location":"Huế","rain_pct":60}]
+      da: ["da",{"date":"2027-08-11","location":"Đà Nẵng","rain_pct":45}]
+      fallback: ["missing",{"date":"2027-08-11","location":"Huế","rain_pct":60}]
+      next: ["next",{"date":"2027-08-12","location":"Huế","rain_pct":80}]
+      danext: ["danext",{"date":"2027-08-12","location":"Đà Nẵng","rain_pct":70}]
+    tool_variants: {}
+
+  - world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR4_F_LOG_NOW","TR4_F_LOG_PAST"]
+      parent_lineage_ids: ["TRAIN_FITNESS_DATES_04"]
+    design_base: "TR14_FIT_NOW"
+    relevant_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    initial_state:
+      fitness:
+        activity: {}
+        goal_steps: 5000
+        workouts:
+          - {"id":"w14_work_old","type":"cycling","minutes":12,"time":"2027-08-09T06:00:00+07:00"}
+      reminders:
+        reminders: []
+      tasks:
+        tasks: []
+    variants: {}
+    readers: {}
+    witnesses: {}
+    tool_variants: {}
+
+  - world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR10_REM_COMPLETE","TR10_ALARM_MOVE","TR11_TASK_FINAL","TR9_CAL_DEFAULT"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01","TRAIN_ALARM_EDIT_02"]
+    design_base: "TR14_PLAN_ALARM"
+    relevant_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    initial_state:
+      alarm:
+        alarms:
+          - {"id":"w14_alarm_old","time":"05:00","label":"Giữ Cũ","repeat":"once","enabled":false}
+      reminders:
+        reminders: []
+      calendar:
+        events: []
+      tasks:
+        tasks:
+          - {"id":"w14_task_old","title":"Giữ Cũ","due":"","priority":"normal","done":true}
+    variants: {}
+    readers: {}
+    witnesses: {}
+    tool_variants: {}
+scenarios:
+  - scenario_id: "TR14_DATE_BEFORE"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây lúc 09:00 sáng mai theo múi giờ hiện tại. Giữ thời lượng mặc định."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0}]
+
+  - scenario_id: "TR14_DATE_AFTER"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây lúc 09:00 sáng mai theo múi giờ hiện tại. Giữ thời lượng mặc định."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+      changes: "context_only"
+
+  - scenario_id: "TR14_DATE_ZONEUTC"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây lúc 09:00 ngày mai theo múi giờ trong hồ sơ."
+      context:
+        current_time: "2027-08-10T18:00:00+00:00"
+        timezone: "UTC"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+00:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+
+  - scenario_id: "TR14_DATE_ZONEVN"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây lúc 09:00 ngày mai theo múi giờ trong hồ sơ."
+      context:
+        current_time: "2027-08-10T18:00:00+00:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+00:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_ZONEUTC"
+      changes: "context_only"
+
+  - scenario_id: "TR14_DATE_TODAY"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc tôi soát dây mây lúc 19:00 hôm nay theo giờ địa phương."
+      context:
+        current_time: "2027-08-10T17:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-10T19:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-11T19:00:00+07:00"}]]
+      context_checks: [{"argument":"time","days":0,"clock":"19:00","action":0}]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+
+  - scenario_id: "TR14_DATE_TODAYNEXT"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc tôi soát dây mây lúc 19:00 hôm nay theo giờ địa phương."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-11T19:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-10T19:00:00+07:00"}]]
+      context_checks: [{"argument":"time","days":0,"clock":"19:00","action":0}]
+    contrast:
+      with: "TR14_DATE_TODAY"
+      changes: "context_only"
+
+  - scenario_id: "TR14_DATE_ABSOLUTE"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây ngày 14/8/2027 lúc 09:00 giờ Việt Nam. Dùng ngày tôi vừa nêu."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-14T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+    contrast:
+      with: "TR14_DATE_AFTER"
+
+  - scenario_id: "TR14_DATE_DUE"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo việc Soát Dây Mây với hạn 09:00 sáng mai, không đặt thông báo."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Soát Dây Mây","due":"2027-08-12T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-12T09:00:00+07:00"}]]
+      context_checks: [{"argument":"due","days":1,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_AFTER"
+
+  - scenario_id: "TR14_DATE_BOTH"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch Soát Dây Mây lúc 09:00 mai và nhắc riêng lúc 08:45 cùng ngày."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}],["reminders.create",{"content":"Soát Dây Mây","time":"2027-08-12T08:45:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0},{"argument":"time","days":1,"clock":"08:45","action":1}]
+    contrast:
+      with: "TR14_DATE_AFTER"
+
+  - scenario_id: "TR14_DATE_SHORT"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xếp lịch Soát Dây Mây từ 09:00 đến 09:30 sáng mai."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00","end":"2027-08-11T09:30:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":1,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+
+  - scenario_id: "TR14_DATE_DAYAFTER"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch Soát Dây Mây lúc 09:00 ngày kia theo giờ địa phương."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-12T09:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00"}]]
+      context_checks: [{"argument":"start","days":2,"clock":"09:00","action":0}]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+
+  - scenario_id: "TR14_DATE_ONLYLOOK"
+    world_id: "W_TR14_DATE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem lịch Giữ Gỗ hiện có. Không tạo lịch, việc hay lời nhắc mới."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["calendar.create_event","reminders.create","tasks.add","calendar.list_events"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["old"]]
+      counterexample: [["calendar.create_event",{"title":"Soát Dây Mây","start":"2027-08-11T09:00:00+07:00"}]]
+    contrast:
+      with: "TR14_DATE_BEFORE"
+
+  - scenario_id: "TR14_PICK_HOME"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ở địa chỉ nhà trong hồ sơ vào ngày 11/8/2027."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"}]
+
+  - scenario_id: "TR14_PICK_HOMECHANGE"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ở địa chỉ nhà trong hồ sơ vào ngày 11/8/2027."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"29 Hẻm Nếp Gỗ","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"29 Hẻm Nếp Gỗ","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"}]
+    contrast:
+      with: "TR14_PICK_HOME"
+      changes: "context_only"
+
+  - scenario_id: "TR14_PICK_WORK"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ở địa chỉ làm việc trong hồ sơ vào ngày 11/8/2027."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"work_address"}]
+    contrast:
+      with: "TR14_PICK_HOME"
+
+  - scenario_id: "TR14_PICK_WORKCHANGE"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện ở địa chỉ làm việc trong hồ sơ vào ngày 11/8/2027."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"29 Hẻm Nếp Gỗ"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"29 Hẻm Nếp Gỗ","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"work_address"}]
+    contrast:
+      with: "TR14_PICK_WORK"
+      changes: "context_only"
+
+  - scenario_id: "TR14_PICK_EXPLICIT"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lấy kiện tại 29 Hẻm Nếp Gỗ ngày 11/8/2027; dùng địa chỉ này thay địa chỉ nhà trong hồ sơ."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"29 Hẻm Nếp Gỗ","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+    contrast:
+      with: "TR14_PICK_HOME"
+
+  - scenario_id: "TR14_PICK_TWO"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt hai lượt lấy riêng ngày 11/8/2027: một ở nhà, một ở nơi làm việc, dùng hai địa chỉ trong hồ sơ."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}],["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"},{"action":1,"argument":"address","profile":"work_address"}]
+    contrast:
+      with: "TR14_PICK_WORK"
+
+  - scenario_id: "TR14_PICK_REL"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lấy kiện ở nhà theo hồ sơ vào ngày mai."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-12"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"},{"action":0,"argument":"date","days":1}]
+    contrast:
+      with: "TR14_PICK_HOME"
+
+  - scenario_id: "TR14_PICK_RELNEXT"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lấy kiện ở nhà theo hồ sơ vào ngày mai."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-12"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"},{"action":0,"argument":"date","days":1}]
+    contrast:
+      with: "TR14_PICK_REL"
+      changes: "context_only"
+
+  - scenario_id: "TR14_PICK_REM"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc tôi chuẩn bị kiện gửi lúc 08:00 ngày 11/8/2027. Chưa đặt lấy ở địa chỉ nhà."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"content":"Chuẩn bị kiện gửi","time":"2027-08-11T08:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+    contrast:
+      with: "TR14_PICK_HOME"
+
+  - scenario_id: "TR14_PICK_BOOKREM"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy kiện ngày 11/8/2027 ở nhà theo hồ sơ, rồi nhắc riêng lúc 08:00 cùng ngày chuẩn bị kiện."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}],["reminders.create",{"content":"Chuẩn bị kiện gửi","time":"2027-08-11T08:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"content":"Chuẩn bị kiện gửi","time":"2027-08-11T08:00:00+07:00"}],["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"home_address"}]
+      ordered: true
+    contrast:
+      with: "TR14_PICK_REM"
+
+  - scenario_id: "TR14_PICK_SHIPONLY"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem kiện đến NEP1401 đang ở trạng thái nào. Đừng đặt lấy kiện gửi."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["incoming"]]
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+    contrast:
+      with: "TR14_PICK_HOME"
+
+  - scenario_id: "TR14_PICK_WORKOTHERDATE"
+    world_id: "W_TR14_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy kiện ở chỗ làm theo hồ sơ vào ngày 13/8/2027 và một lượt ở nhà vào ngày 11/8/2027."
+      context:
+        current_time: "2027-08-10T12:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"home_address":"18 Ngõ Chạc Mây","work_address":"42 Dốc Vải"}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup","package_tracking.track","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-13"}],["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-11"}]]
+      decision_evidence: []
+      counterexample: [["package_tracking.schedule_pickup",{"address":"18 Ngõ Chạc Mây","date":"2027-08-13"}],["package_tracking.schedule_pickup",{"address":"42 Dốc Vải","date":"2027-08-11"}]]
+      context_checks: [{"action":0,"argument":"address","profile":"work_address"},{"action":1,"argument":"address","profile":"home_address"}]
+    contrast:
+      with: "TR14_PICK_TWO"
+
+  - scenario_id: "TR14_CITY_HUE"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem dự báo ngày mai cho thành phố ghi trong hồ sơ. Nếu xác suất mưa ít nhất 60% thì nhắc tôi mang tấm che lúc 07:00 ngày mai; thiếu dự báo đúng nơi hoặc dưới mức đó thì không đặt nhắc."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      decision_evidence: [["hue"]]
+      counterexample: [["tasks.add",{"title":"Chuẩn bị tấm che","due":"2027-08-11T07:00:00+07:00"}]]
+      forecast_city: "Huế"
+      context_checks: [{"action":0,"argument":"time","days":1,"clock":"07:00"}]
+
+  - scenario_id: "TR14_CITY_DA"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem dự báo ngày mai cho thành phố ghi trong hồ sơ. Nếu xác suất mưa ít nhất 60% thì nhắc tôi mang tấm che lúc 07:00 ngày mai; thiếu dự báo đúng nơi hoặc dưới mức đó thì không đặt nhắc."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Đà Nẵng"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["da"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Đà Nẵng"
+    contrast:
+      with: "TR14_CITY_HUE"
+      changes: "context_only"
+
+  - scenario_id: "TR14_CITY_MISSING"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem dự báo ngày mai cho thành phố ghi trong hồ sơ. Nếu xác suất mưa ít nhất 60% thì nhắc tôi mang tấm che lúc 07:00 ngày mai; thiếu dự báo đúng nơi hoặc dưới mức đó thì không đặt nhắc."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Cần Thơ"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["@missing","fallback"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Cần Thơ"
+    contrast:
+      with: "TR14_CITY_HUE"
+      changes: "context_only"
+
+  - scenario_id: "TR14_CITY_NEXT"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem dự báo ngày mai cho thành phố ghi trong hồ sơ. Nếu xác suất mưa ít nhất 60% thì nhắc tôi mang tấm che lúc 07:00 ngày mai; thiếu dự báo đúng nơi hoặc dưới mức đó thì không đặt nhắc."
+      context:
+        current_time: "2027-08-11T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Mang tấm che"}]]
+      decision_evidence: [["next"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Huế"
+      context_checks: [{"action":0,"argument":"time","days":1,"clock":"07:00"}]
+    contrast:
+      with: "TR14_CITY_HUE"
+      changes: "context_only"
+
+  - scenario_id: "TR14_CITY_DANEXT"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem dự báo ngày mai cho thành phố ghi trong hồ sơ. Nếu xác suất mưa ít nhất 60% thì nhắc tôi mang tấm che lúc 07:00 ngày mai; thiếu dự báo đúng nơi hoặc dưới mức đó thì không đặt nhắc."
+      context:
+        current_time: "2027-08-11T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Đà Nẵng"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Mang tấm che"}]]
+      decision_evidence: [["danext"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Đà Nẵng"
+      context_checks: [{"action":0,"argument":"time","days":1,"clock":"07:00"}]
+    contrast:
+      with: "TR14_CITY_DA"
+      changes: "context_only"
+
+  - scenario_id: "TR14_CITY_EXPLICIT"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dù hồ sơ ghi thành phố khác, dùng dự báo Huế ngày 11/8/2027. Nếu mưa ít nhất 60%, nhắc tôi mang tấm che lúc 07:00 ngày đó."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Đà Nẵng"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      decision_evidence: [["hue"]]
+      counterexample: [["tasks.add",{"title":"Chuẩn bị tấm che","due":"2027-08-11T07:00:00+07:00"}]]
+    contrast:
+      with: "TR14_CITY_DA"
+
+  - scenario_id: "TR14_CITY_STRICT"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Theo dự báo thành phố trong hồ sơ ngày mai, chỉ nhắc mang tấm che lúc 07:00 nếu xác suất mưa trên 60%."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["hue"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Huế"
+    contrast:
+      with: "TR14_CITY_HUE"
+
+  - scenario_id: "TR14_CITY_TASK"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Theo dự báo Huế ngày mai, nếu mưa ít nhất 60% thì tạo việc Chuẩn bị tấm che hạn 07:00 ngày mai. Không đặt nhắc."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Chuẩn bị tấm che","due":"2027-08-11T07:00:00+07:00"}]]
+      decision_evidence: [["hue"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      context_checks: [{"action":0,"argument":"due","days":1,"clock":"07:00"}]
+    contrast:
+      with: "TR14_CITY_HUE"
+
+  - scenario_id: "TR14_CITY_EITHER"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu ngày 11/8/2027 ít nhất một trong hai nơi Huế và Đà Nẵng có xác suất mưa từ 60%, nhắc tôi mang tấm che lúc 07:00 cùng ngày."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Đà Nẵng"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      decision_evidence: [["hue"]]
+      counterexample: [["tasks.add",{"title":"Chuẩn bị tấm che","due":"2027-08-11T07:00:00+07:00"}]]
+    contrast:
+      with: "TR14_CITY_HUE"
+
+  - scenario_id: "TR14_CITY_BOTH"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc mang tấm che lúc 07:00 ngày 11/8/2027 nếu cả Huế và Đà Nẵng đều có xác suất mưa từ 60%."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["da"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+    contrast:
+      with: "TR14_CITY_EITHER"
+
+  - scenario_id: "TR14_CITY_TWO"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu cả Huế và Đà Nẵng có xác suất mưa ít nhất 60% ngày 12/8/2027, đặt hai lời nhắc mang tấm che riêng lúc 07:00 cùng ngày, ghi rõ thành phố."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Huế"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Mang tấm che ở Huế"}],["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Mang tấm che ở Đà Nẵng"}]]
+      decision_evidence: [["next","danext"]]
+      counterexample: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Mang tấm che ở Huế"}]]
+    contrast:
+      with: "TR14_CITY_BOTH"
+
+  - scenario_id: "TR14_CITY_LOOK"
+    world_id: "W_TR14_CITY"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem dự báo của thành phố trong hồ sơ ngày mai, không tạo nhắc hay việc."
+      context:
+        current_time: "2027-08-10T10:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+        user_profile: {"city":"Đà Nẵng"}
+      history: []
+      allowed_tools: ["weather.get_forecast","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["da"]]
+      counterexample: [["reminders.create",{"time":"2027-08-11T07:00:00+07:00","content":"Mang tấm che"}]]
+      forecast_city: "Đà Nẵng"
+    contrast:
+      with: "TR14_CITY_DA"
+
+  - scenario_id: "TR14_FIT_NOW"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút vào đúng thời điểm hiện tại."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-11T00:05:00+07:00"}]]
+      context_checks: [{"action":0,"argument":"time","runtime_now":true}]
+      alternatives:
+        explicit_now: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-10T23:55:00+07:00"}]]
+
+  - scenario_id: "TR14_FIT_NOWSHIFT"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút vào đúng thời điểm hiện tại."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-10T23:55:00+07:00"}]]
+      context_checks: [{"action":0,"argument":"time","runtime_now":true}]
+    contrast:
+      with: "TR14_FIT_NOW"
+      changes: "context_only"
+
+  - scenario_id: "TR14_FIT_YESTERDAY"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút lúc 20:00 tối hôm qua theo giờ địa phương."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-10T20:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      context_checks: [{"argument":"time","days":-1,"clock":"20:00","action":0}]
+    contrast:
+      with: "TR14_FIT_NOW"
+
+  - scenario_id: "TR14_FIT_YESTERDAYSHIFT"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút lúc 20:00 tối hôm qua theo giờ địa phương."
+      context:
+        current_time: "2027-08-10T23:55:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-09T20:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-10T20:00:00+07:00"}]]
+      context_checks: [{"argument":"time","days":-1,"clock":"20:00","action":0}]
+    contrast:
+      with: "TR14_FIT_YESTERDAY"
+      changes: "context_only"
+
+  - scenario_id: "TR14_FIT_EXPLICIT"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút lúc 20:00 ngày 9/8/2027 giờ Việt Nam. Đừng dùng giờ hiện tại."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-09T20:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+    contrast:
+      with: "TR14_FIT_NOW"
+
+  - scenario_id: "TR14_FIT_GOAL"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt mục tiêu 6500 bước. Không ghi buổi đi bộ hay tạo nhắc."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.set_goal",{"steps":6500}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+    contrast:
+      with: "TR14_FIT_NOW"
+
+  - scenario_id: "TR14_FIT_GOALLOG"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút lúc này và đặt mục tiêu 6500 bước. Hai việc độc lập."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25}],["fitness.set_goal",{"steps":6500}]]
+      decision_evidence: []
+      counterexample: [["fitness.set_goal",{"steps":6500}]]
+      context_checks: [{"action":0,"argument":"time","runtime_now":true}]
+    contrast:
+      with: "TR14_FIT_GOAL"
+
+  - scenario_id: "TR14_FIT_FUTURE"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc tôi đi bộ 25 phút lúc 07:00 sáng mai. Đây là kế hoạch, chưa ghi buổi tập."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Đi bộ 25 phút"}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      context_checks: [{"argument":"time","days":1,"clock":"07:00","action":0}]
+    contrast:
+      with: "TR14_FIT_NOW"
+
+  - scenario_id: "TR14_FIT_TASK"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo việc Đi bộ 25 phút với hạn 07:00 sáng mai; không đặt nhắc hay ghi buổi tập."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Đi bộ 25 phút","due":"2027-08-12T07:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Đi bộ 25 phút"}]]
+      context_checks: [{"argument":"due","days":1,"clock":"07:00","action":0}]
+    contrast:
+      with: "TR14_FIT_FUTURE"
+
+  - scenario_id: "TR14_FIT_LOGREM"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi đi bộ 25 phút lúc này và nhắc tôi đi bộ tiếp lúc 07:00 sáng mai."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25}],["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Đi bộ 25 phút"}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      context_checks: [{"action":0,"argument":"time","runtime_now":true},{"argument":"time","days":1,"clock":"07:00","action":1}]
+    contrast:
+      with: "TR14_FIT_FUTURE"
+
+  - scenario_id: "TR14_FIT_TWO"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi hai buổi riêng: đi bộ 25 phút lúc 20:00 tối hôm qua và đạp xe 15 phút ngay lúc này."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"walking","minutes":25,"time":"2027-08-10T20:00:00+07:00"}],["fitness.log_workout",{"type":"cycling","minutes":15}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":40}]]
+      context_checks: [{"argument":"time","days":-1,"clock":"20:00","action":0},{"action":1,"argument":"time","runtime_now":true}]
+    contrast:
+      with: "TR14_FIT_YESTERDAY"
+
+  - scenario_id: "TR14_FIT_CORRECTION"
+    world_id: "W_TR14_FIT"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi yoga 25 phút lúc này, không phải đi bộ. Giữ mục tiêu bước."
+      context:
+        current_time: "2027-08-11T00:05:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["fitness.log_workout","fitness.set_goal","reminders.create","tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout",{"type":"yoga","minutes":25}]]
+      decision_evidence: []
+      counterexample: [["fitness.log_workout",{"type":"walking","minutes":25}]]
+      context_checks: [{"action":0,"argument":"time","runtime_now":true}]
+    contrast:
+      with: "TR14_FIT_NOW"
+
+  - scenario_id: "TR14_PLAN_ALARM"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt chuông báo thức Kiểm Mành lúc 06:30, chỉ một lần. Không thêm việc hay lịch."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["alarm.create",{"time":"06:30","label":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+      alternatives:
+        explicit_once: [["alarm.create",{"time":"06:30","label":"Kiểm Mành","repeat":"once"}]]
+
+  - scenario_id: "TR14_PLAN_REM"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nhắc tôi Kiểm Mành lúc 06:30 ngày 12/8/2027 giờ Việt Nam. Chỉ thông báo, không bật chuông báo thức."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["alarm.create",{"time":"06:30","label":"Kiểm Mành"}]]
+    contrast:
+      with: "TR14_PLAN_ALARM"
+
+  - scenario_id: "TR14_PLAN_CAL"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chặn lịch Kiểm Mành từ 06:30 đến 07:00 ngày 12/8/2027 giờ Việt Nam. Không tạo thông báo riêng."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:30:00+07:00","end":"2027-08-12T07:00:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+    contrast:
+      with: "TR14_PLAN_REM"
+
+  - scenario_id: "TR14_PLAN_TASK"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Kiểm Mành vào danh sách, hạn 06:30 ngày 12/8/2027 giờ Việt Nam. Không đặt báo thức."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T06:30:00+07:00"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:30:00+07:00"}]]
+    contrast:
+      with: "TR14_PLAN_CAL"
+
+  - scenario_id: "TR14_PLAN_UNDATED"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm Kiểm Mành vào danh sách việc, để trống hạn và dùng ưu tiên mặc định."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+      alternatives:
+        explicit_normal: [["tasks.add",{"title":"Kiểm Mành","priority":"normal"}]]
+    contrast:
+      with: "TR14_PLAN_TASK"
+
+  - scenario_id: "TR14_PLAN_URGENT"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Kiểm Mành ưu tiên cao, hạn 06:30 ngày 12/8/2027 giờ Việt Nam. Không lập lịch họp."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T06:30:00+07:00","priority":"high"}]]
+      decision_evidence: []
+      counterexample: [["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T06:30:00+07:00"}]]
+    contrast:
+      with: "TR14_PLAN_TASK"
+
+  - scenario_id: "TR14_PLAN_WEEKDAY"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt chuông Kiểm Mành 06:30 lặp ngày trong tuần. Đừng tạo lời nhắc hằng ngày."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["alarm.create",{"time":"06:30","label":"Kiểm Mành","repeat":"weekdays"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành","repeat":"daily"}]]
+    contrast:
+      with: "TR14_PLAN_ALARM"
+
+  - scenario_id: "TR14_PLAN_WEEKLY"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc Kiểm Mành 06:30 ngày 12/8/2027 giờ Việt Nam và lặp hằng tuần, không dùng chuông báo thức."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành","repeat":"weekly"}]]
+      decision_evidence: []
+      counterexample: [["alarm.create",{"time":"06:30","label":"Kiểm Mành","repeat":"weekdays"}]]
+    contrast:
+      with: "TR14_PLAN_REM"
+
+  - scenario_id: "TR14_PLAN_WAKEANDREM"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt báo thức Kiểm Mành lúc 06:30 một lần, và nhắc riêng lúc 07:00 ngày 12/8/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["alarm.create",{"time":"06:30","label":"Kiểm Mành"}],["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}],["reminders.create",{"time":"2027-08-12T07:00:00+07:00","content":"Kiểm Mành"}]]
+    contrast:
+      with: "TR14_PLAN_ALARM"
+
+  - scenario_id: "TR14_PLAN_BLOCKANDTASK"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chặn lịch Kiểm Mành 06:30–07:00 ngày 12/8/2027 giờ Việt Nam và thêm việc Kiểm Mành không hạn."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:30:00+07:00","end":"2027-08-12T07:00:00+07:00"}],["tasks.add",{"title":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T06:30:00+07:00"}]]
+    contrast:
+      with: "TR14_PLAN_CAL"
+
+  - scenario_id: "TR14_PLAN_TASKTHENREM"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Kiểm Mành hạn 07:00 ngày 12/8/2027 giờ Việt Nam. Chỉ sau khi tạo việc mới đặt nhắc riêng lúc 06:30 cùng ngày."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T07:00:00+07:00"}],["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}],["tasks.add",{"title":"Kiểm Mành","due":"2027-08-12T07:00:00+07:00"}]]
+      ordered: true
+    contrast:
+      with: "TR14_PLAN_TASK"
+
+  - scenario_id: "TR14_PLAN_BLOCKREM"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chặn lịch Kiểm Mành 06:30–07:00 ngày 12/8/2027 giờ Việt Nam, nhắc trước lúc 06:15. Giữ hai mục riêng."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:30:00+07:00","end":"2027-08-12T07:00:00+07:00"}],["reminders.create",{"time":"2027-08-12T06:15:00+07:00","content":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:15:00+07:00","end":"2027-08-12T07:00:00+07:00"}]]
+    contrast:
+      with: "TR14_PLAN_CAL"
+
+  - scenario_id: "TR14_PLAN_CORRECT"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "À, tôi đổi ý: Kiểm Mành chỉ là một việc cần làm, không phải lịch hẹn. Để trống hạn."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: [{"role":"user","text":"Ban đầu tôi tính chặn lịch Kiểm Mành lúc 06:30 ngày 12/8/2027."}]
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add",{"title":"Kiểm Mành"}]]
+      decision_evidence: []
+      counterexample: [["calendar.create_event",{"title":"Kiểm Mành","start":"2027-08-12T06:30:00+07:00"}]]
+    contrast:
+      with: "TR14_PLAN_UNDATED"
+
+  - scenario_id: "TR14_PLAN_MISSING"
+    world_id: "W_TR14_PLAN"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lời nhắc Kiểm Mành, nhưng tôi chưa chọn giờ hoặc ngày. Hỏi lại thời điểm trước khi tạo."
+      context:
+        current_time: "2027-08-11T11:00:00+07:00"
+        timezone: "Asia/Ho_Chi_Minh"
+      history: []
+      allowed_tools: ["alarm.create","reminders.create","calendar.create_event","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions: [["sys.ask_missing_info",{"tool_name":"reminders.create","params":["time"]}]]
+      decision_evidence: []
+      counterexample: [["reminders.create",{"time":"2027-08-12T06:30:00+07:00","content":"Kiểm Mành"}]]
+    contrast:
+      with: "TR14_PLAN_REM"

@@ -1,0 +1,188 @@
+{
+  "scenario": {
+    "scenario_id": "B02_N_C",
+    "world_id": "W_B02_REMINDER_SOURCE",
+    "lineage_id": "DEV_B02_REMINDER_SOURCE_01",
+    "status": "spec_only",
+    "fixture_variant": "requested_event_title_absent",
+    "failure_hypothesis": "Mượn start hợp lệ của event không khớp title để tạo reminder, hoặc bỏ read và hỏi ngay.",
+    "agent_visible": {
+      "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng giờ bắt đầu sự kiện \"Trao đổi mẫu gốm\" trong lịch của tôi.",
+      "context": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "timezone": "Asia/Saigon"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "oracle_draft": {
+      "outcome": "ask_missing",
+      "required_evidence": {
+        "time": "calendar.list_events không filter phải xác minh toàn events không có title Trao đổi mẫu gốm; chỉ có Họp phân công kiểm kê kho với start hợp lệ. Start này không thuộc event user yêu cầu và không cấp evidence cho time. Một date filter tùy ý trả rỗng không chứng minh absence vì user không nêu ngày.",
+        "available_arguments": "content đã nêu đủ; repeat mặc định once, không phải slot cần hỏi. Thiếu đúng parameter time của reminders.create."
+      },
+      "required_effects": {
+        "new_reminder_count": 0,
+        "app_state_delta": "none",
+        "ask_tool": "sys.ask_missing_info",
+        "ask_arguments": {
+          "tool_name": "reminders.create",
+          "params": [
+            "time"
+          ]
+        },
+        "ask_count": 1
+      },
+      "forbidden_changes": [
+        "Không create bằng start của event không khớp title hoặc giờ đoán/default/current_time; không sửa calendar; không hỏi event_id/start/content thay time; không bỏ lookup."
+      ],
+      "acceptable_trajectories": "Unfiltered list xác minh không có title đích, sau đó đúng một ask; có thể read lặp vô hại. Nếu trước đó date-filter read rỗng, cần unfiltered listing trước kết luận thiếu. Đây không phải hỏi xác nhận hành động nguy hiểm."
+    },
+    "contrast": {
+      "with": "B02_N_B",
+      "changes": "fixture.calendar_title_only",
+      "invariant": "Toàn agent_visible bằng hệt B; chỉ thay title event thành Họp phân công kiểm kê kho, giữ ID/start/status, mọi field khác và quyền create."
+    },
+    "wrong_behavior": {
+      "example": "Sau list, copy start của Họp phân công kiểm kê kho rồi tạo reminder Nộp phiếu giao hàng.",
+      "wrong_call": {
+        "name": "reminders.create",
+        "arguments": {
+          "content": "Nộp phiếu giao hàng",
+          "time": "2026-11-14T15:40:00+07:00"
+        }
+      },
+      "caught_by": "Timestamp đúng định dạng và tình cờ bằng expected time của B vẫn fail: không có observed event khớp Trao đổi mẫu gốm để nối tới start này. Đây là lỗi grounding liên kết title-event-time, không phải lỗi timestamp. Oracle C đòi zero reminder mới, app state không đổi và ask time sau lookup chứng minh thiếu event đích."
+    }
+  },
+  "initial_state": {
+    "calendar": {
+      "events": [
+        {
+          "id": "b02_evt_68",
+          "title": "Họp phân công kiểm kê kho",
+          "start": "2026-11-14T15:40:00+07:00",
+          "status": "confirmed"
+        }
+      ]
+    },
+    "reminders": {
+      "reminders": []
+    },
+    "sys": {}
+  },
+  "final_state": {
+    "calendar": {
+      "events": [
+        {
+          "id": "b02_evt_68",
+          "title": "Họp phân công kiểm kê kho",
+          "start": "2026-11-14T15:40:00+07:00",
+          "status": "confirmed"
+        }
+      ]
+    },
+    "reminders": {
+      "reminders": []
+    },
+    "sys": {}
+  },
+  "visible": {
+    "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng giờ bắt đầu sự kiện \"Trao đổi mẫu gốm\" trong lịch của tôi.",
+    "context": {
+      "current_time": "2026-11-13T11:10:00+07:00",
+      "timezone": "Asia/Saigon",
+      "installed_apps": {
+        "calendar": {
+          "tools": [
+            "calendar.list_events"
+          ]
+        },
+        "reminders": {
+          "tools": [
+            "reminders.create"
+          ]
+        },
+        "sys": {
+          "tools": [
+            "sys.ask_missing_info"
+          ]
+        }
+      }
+    },
+    "history": [],
+    "allowed_tools": [
+      "calendar.list_events",
+      "reminders.create",
+      "sys.ask_missing_info"
+    ]
+  },
+  "reference_calls": [
+    {
+      "name": "calendar.list_events",
+      "arguments": {},
+      "result": {
+        "ok": true,
+        "events": [
+          {
+            "id": "b02_evt_68",
+            "title": "Họp phân công kiểm kê kho",
+            "start": "2026-11-14T15:40:00+07:00",
+            "status": "confirmed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "sys.ask_missing_info",
+      "arguments": {
+        "tool_name": "reminders.create",
+        "params": [
+          "time"
+        ]
+      },
+      "result": {
+        "ok": true,
+        "waiting_for_user": true
+      }
+    }
+  ],
+  "events": {},
+  "gold_actions": [],
+  "oracle": {
+    "outcome": "ask_missing",
+    "required_evidence": {
+      "time": "calendar.list_events không filter phải xác minh toàn events không có title Trao đổi mẫu gốm; chỉ có Họp phân công kiểm kê kho với start hợp lệ. Start này không thuộc event user yêu cầu và không cấp evidence cho time. Một date filter tùy ý trả rỗng không chứng minh absence vì user không nêu ngày.",
+      "available_arguments": "content đã nêu đủ; repeat mặc định once, không phải slot cần hỏi. Thiếu đúng parameter time của reminders.create."
+    },
+    "required_effects": {
+      "new_reminder_count": 0,
+      "app_state_delta": "none",
+      "ask_tool": "sys.ask_missing_info",
+      "ask_arguments": {
+        "tool_name": "reminders.create",
+        "params": [
+          "time"
+        ]
+      },
+      "ask_count": 1
+    },
+    "forbidden_changes": [
+      "Không create bằng start của event không khớp title hoặc giờ đoán/default/current_time; không sửa calendar; không hỏi event_id/start/content thay time; không bỏ lookup."
+    ],
+    "acceptable_trajectories": "Unfiltered list xác minh không có title đích, sau đó đúng một ask; có thể read lặp vô hại. Nếu trước đó date-filter read rỗng, cần unfiltered listing trước kết luận thiếu. Đây không phải hỏi xác nhận hành động nguy hiểm."
+  },
+  "canonical_local_verdict": {
+    "verdict": "pass",
+    "state_reasons": [],
+    "trace_reasons": [],
+    "grounding_reasons": [],
+    "text_errors": [],
+    "text_review": [],
+    "unnecessary_read_count": 0
+  }
+}

@@ -1,0 +1,3751 @@
+{
+  "created_utc": "2026-11-03T09:05:03.956685+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "unique_scenarios_replayed": 4,
+    "positive_runtime_paths": 12,
+    "negative_runtime_traces": 17,
+    "snapshot_checks": 4,
+    "partial_observation_checks": 3,
+    "total_pass_verdicts": 13,
+    "total_reject_verdicts": 23,
+    "all_expectations_met": true,
+    "spec_only": 4,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "provenance": {
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "design": "data\\synthetic\\design\\batch_05.yaml",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/smart_home.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "reproduction_command": "python scripts/replay_batch05.py",
+  "fixtures": {
+    "B_original": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "B_reversed": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "A_original": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "A_reversed": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "C_original": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "off"
+            }
+          },
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "C_reversed": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "D_original": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    },
+    "D_reversed": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "b05_light_28",
+            "name": "đèn kẹp tài liệu",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "b05_light_63",
+            "name": "đèn bàn vẽ",
+            "type": "light",
+            "room": "góc thủ công",
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-26T09:10:00+07:00"
+      }
+    }
+  },
+  "agent_visible": {
+    "B_original": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B_reversed": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "A_original": {
+      "request": "Tắt đèn bàn vẽ ở góc thủ công giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "A_reversed": {
+      "request": "Tắt đèn bàn vẽ ở góc thủ công giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C_original": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C_reversed": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D_original": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "sys.ask_missing_info"
+      ]
+    },
+    "D_reversed": {
+      "request": "Nếu đèn bàn vẽ ở góc thủ công đang bật thì tắt đèn đó giúp tôi.",
+      "context": {
+        "current_time": "2026-11-26T09:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_D",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "A_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "C_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_D",
+      "fixture_variant": "base",
+      "device_order": "reversed",
+      "trace_case": "standard",
+      "initial_fixture_ref": "D_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "A_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "room": "góc thủ công",
+            "type": "light"
+          },
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "room": "góc thủ công",
+            "type": "light"
+          },
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "filtered",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "room": "góc thủ công",
+            "type": "light"
+          },
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "repeated_reads",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "room": "góc thủ công",
+            "type": "light"
+          },
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "hidden_ID",
+      "initial_fixture_ref": "A_original",
+      "expected_verdict": "reject",
+      "required_reason": "target_ID_not_observed_before_write",
+      "calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [
+          "target_ID_not_observed_before_write"
+        ],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "late_read",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "target_true_not_observed_before_write",
+      "calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [
+          "target_ID_not_observed_before_write"
+        ],
+        "condition_reasons": [
+          "target_true_not_observed_before_write"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "wrong_device",
+      "initial_fixture_ref": "A_original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_28",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "wrong_device",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_target_attempt",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_28",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "no_write",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "total_write_count",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "light_write_count",
+          "total_write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "empty_log",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "missing_target_false_observation",
+      "calls": [],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "missing_target_false_observation"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "redundant",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "total_write_count",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "light_write_count",
+          "total_write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "write_despite_false_condition"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "distractor_condition",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "write_despite_false_condition",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "light_write_count",
+          "total_write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "write_despite_false_condition"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "ask_device",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "unjustified_ask",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "smart_home.light_set",
+            "params": [
+              "device_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": [
+          "unjustified_ask"
+        ]
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "ask_power",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "unjustified_ask",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "smart_home.light_set",
+            "params": [
+              "power"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": [
+          "unjustified_ask"
+        ]
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "empty_filter",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "missing_target_false_observation",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "type": "fan"
+          },
+          "result": {
+            "ok": true,
+            "devices": []
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "missing_target_false_observation"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "total_write_count",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "light_write_count",
+          "total_write_count"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_D",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "harmless_read",
+      "initial_fixture_ref": "D_original",
+      "expected_verdict": "reject",
+      "required_reason": "D_nonempty_attempt_log",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": [
+          "D_nonempty_attempt_log"
+        ]
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_D",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "ask",
+      "initial_fixture_ref": "D_original",
+      "expected_verdict": "reject",
+      "required_reason": "D_nonempty_attempt_log",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "smart_home.light_set",
+            "params": [
+              "device_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": [
+          "unjustified_ask",
+          "D_nonempty_attempt_log"
+        ]
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_D",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "unavailable_write",
+      "initial_fixture_ref": "D_original",
+      "expected_verdict": "reject",
+      "required_reason": "unpermitted_attempt",
+      "calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'smart_home.light_set' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "failed_call",
+          "light_write_count",
+          "total_write_count",
+          "unpermitted_attempt"
+        ],
+        "ID_grounding_reasons": [
+          "target_ID_not_observed_before_write"
+        ],
+        "condition_reasons": [],
+        "ask_capability_reasons": [
+          "D_nonempty_attempt_log"
+        ]
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "failed_call",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "failed_call",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "power": "off"
+          },
+          "result": {
+            "ok": false,
+            "error": "thiếu tham số bắt buộc: device_id"
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "failed_call",
+          "light_write_count",
+          "total_write_count",
+          "wrong_target_attempt"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "nonexistent",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "noop_call",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_nonexistent",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "done": false,
+            "message": "không tìm thấy device_id='b05_nonexistent'"
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "noop_call",
+          "wrong_target_attempt"
+        ],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "actual_runtime_trace",
+      "construction": "deliberate_negative_may_use_private_IDs"
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "unrelated_field_snapshot",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "state_or_frame_mismatch",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "Verifier-only tampering",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "target_field_snapshot",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "state_or_frame_mismatch",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off",
+                "brightness": 30
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "device_deleted_snapshot",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "device_count",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch",
+          "device_count"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "list_order_snapshot",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "state_or_frame_mismatch",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_snapshot",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "actual_runtime_final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B05_L_A",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "identity_only_projection",
+      "initial_fixture_ref": "A_original",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_partial_observation",
+      "construction": "hand_authored_positive",
+      "verifier_input_calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {}
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "B05_L_B",
+      "fixture_variant": "base",
+      "device_order": "original",
+      "trace_case": "identity_only_projection",
+      "initial_fixture_ref": "B_original",
+      "expected_verdict": "reject",
+      "required_reason": "target_true_not_observed_before_write",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "target_true_not_observed_before_write"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_partial_observation",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "verifier_input_calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {}
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "b05_light_63",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "B05_L_C",
+      "fixture_variant": "target_power_off",
+      "device_order": "original",
+      "trace_case": "distractor_only_projection",
+      "initial_fixture_ref": "C_original",
+      "expected_verdict": "reject",
+      "required_reason": "missing_target_false_observation",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_63",
+                "name": "đèn bàn vẽ",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "b05_light_63",
+              "name": "đèn bàn vẽ",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "b05_light_28",
+              "name": "đèn kẹp tài liệu",
+              "type": "light",
+              "room": "góc thủ công",
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "ID_grounding_reasons": [],
+        "condition_reasons": [
+          "missing_target_false_observation"
+        ],
+        "ask_capability_reasons": []
+      },
+      "evidence_kind": "verifier_only_partial_observation",
+      "construction": "deliberate_negative_may_use_private_IDs",
+      "verifier_input_calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "b05_light_28",
+                "name": "đèn kẹp tài liệu",
+                "type": "light",
+                "room": "góc thủ công",
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No model evaluation, general condition interpreter or team harness validation.",
+    "D conditional-OOS empty-log behavior is a project draft, not official semantic acceptance.",
+    "No natural-language final explanation is evaluated; target identity comes from reviewed specification."
+  ]
+}

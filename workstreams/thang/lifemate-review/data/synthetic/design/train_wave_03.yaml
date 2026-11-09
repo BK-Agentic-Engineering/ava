@@ -1,0 +1,443 @@
+version: train_wave_03
+authored_date: '2026-11-03'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  selection: docs/implementation/TRAIN_WAVE_03_HANDOFF.md
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  schema: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  authorship: 'Independent synthetic requests/fixtures/gold; organizer interface source only. No dev templates, organizer records or benchmark seeds.'
+conventions:
+  visibility: 'Only agent_visible. Fixture IDs, reward costs, balances and oracle private until exposed by permitted responses. Explicit program/track/book names are supplied by user.'
+  review: 'Implementor reviewed Vietnamese and gold before successful trace implementation; no general language interpreter. observe_no_write is a local semantic outcome, not an official submission format.'
+  preserve: 'All unrelated fields/records/apps; no additional asks or writes. Permitted harmless reads and independent write order accepted.'
+worlds:
+  - world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR3_R_BASE
+    relevant_tools: &rtools [loyalty.get_points, loyalty.redeem, sys.ask_missing_info]
+    assumptions: 'Program names unique; same reward ID/name intentionally exists under two programs. Program scope determines cost/value. get_points returns full programs including nested rewards.'
+    variants: {exact: {points: 400}, low: {points: 399}}
+    initial_state:
+      loyalty:
+        programs:
+          - id: tr3_program_21
+            name: Vườn Sen
+            merchant: Gốm Lụa
+            points: 500
+            tier: bạc
+            rewards: [{id: tr3_reward_tea, name: Phiếu trà, cost: 400, value: 20000}]
+          - id: tr3_program_76
+            name: Ngõ Trúc
+            merchant: Mây Trúc
+            points: 900
+            tier: đồng
+            rewards: [{id: tr3_reward_tea, name: Phiếu trà, cost: 250, value: 15000}]
+        vouchers: [{id: tr3_vch_09, merchant: Nếp Cũ, name: Phiếu cũ, value: 5000, expires: '2027-01-01', used: false}]
+  - world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR3_L_READY
+    relevant_tools: &ltools [library.search, library.reserve, sys.ask_missing_info]
+    assumptions: 'Titles unique. search exposes available and IDs, not private reservations. Target books have no pending reservations; do not assume that from an undocumented search field. A separate third-book reservation must survive.'
+    variants: {unavailable: {available: false}}
+    initial_state:
+      library:
+        books:
+          - {id: tr3_book_31, title: Giấy và mực, author: Lê Mộc, available: true}
+          - {id: tr3_book_64, title: Sợi đầu mùa, author: Vũ Sương, available: false}
+          - {id: tr3_book_92, title: Bản đồ lá, author: Phan Lành, available: false}
+        reservations: [{id: tr3_res_05, book_id: tr3_book_92, status: ready}]
+  - world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR3_M_ADD
+    relevant_tools: &mtools [music.list_tracks, music.add_to_playlist, music.play, sys.ask_missing_info]
+    assumptions: 'Track title and first playlist name deliberately collide; the words bài versus danh sách select namespace. All names unique within namespace. list_tracks returns tracks and playlists with track_ids.'
+    variants: {member: {member: true}}
+    initial_state:
+      music:
+        tracks:
+          - {id: tr3_track_12, title: Sương sân, artist: Hà Lụa}
+          - {id: tr3_track_83, title: Ngọn đèn giấy, artist: Duy Gió}
+        playlists:
+          - {id: tr3_list_44, name: Sương sân, track_ids: [tr3_track_83]}
+          - {id: tr3_list_71, name: Đường về, track_ids: []}
+        now_playing: {track_id: tr3_track_83, title: Ngọn đèn giấy, status: playing}
+        volume: 28
+scenarios:
+  - scenario_id: TR3_R_BASE
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &rrequest 'Đổi đúng một "Phiếu trà" bằng điểm chương trình "Vườn Sen" nếu đủ điểm; nếu không đủ thì chỉ xem và giữ nguyên, không đổi chương trình khác.'
+      context: &ctx {current_time: '2026-12-25T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: *rtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Program/reward names and one-unit intent. Cost, points and scoped reward ID must be observed before decision/write.'
+      program: Vườn Sen
+      reward: Phiếu trà
+      minimum_remaining: 0
+      points_after: 100
+      voucher: {merchant: Gốm Lụa, name: Phiếu trà, value: 20000, program_id: tr3_program_21, reward_id: tr3_reward_tea, used: false}
+      preserve: 'Other program and all existing vouchers; debit once, add exactly one voucher.'
+    contrast: {with: [TR3_R_EXACT, TR3_R_LOW], changes: source_points_only}
+    wrong_behavior: 'Redeem same-named reward from the other program or guess its ID without observing.'
+  - scenario_id: TR3_R_EXACT
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: exact
+    agent_visible: {request: *rrequest, context: *ctx, history: [], allowed_tools: *rtools}
+    oracle_draft:
+      outcome: execute
+      supplied: 'Same request; points=cost is sufficient, no strict-greater requirement.'
+      program: Vườn Sen
+      reward: Phiếu trà
+      minimum_remaining: 0
+      points_after: 0
+      voucher: {merchant: Gốm Lụa, name: Phiếu trà, value: 20000, program_id: tr3_program_21, reward_id: tr3_reward_tea, used: false}
+      preserve: 'One voucher and exact debit; zero balance valid.'
+    contrast: {with: TR3_R_LOW, changes: one_source_point_crosses_cost_boundary}
+    wrong_behavior: 'Do nothing at equality despite observing enough points.'
+  - scenario_id: TR3_R_LOW
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: low
+    agent_visible: {request: *rrequest, context: *ctx, history: [], allowed_tools: *rtools}
+    oracle_draft:
+      outcome: observe_no_write
+      supplied: 'Same request; observed 399 points versus cost 400 means no redemption attempt or clarification.'
+      program: Vườn Sen
+      reward: Phiếu trà
+      minimum_remaining: 0
+      points_after: 399
+      voucher: null
+      preserve: 'Whole app state unchanged after required observation; zero writes/asks.'
+    contrast: {with: TR3_R_EXACT, changes: source_points_only}
+    wrong_behavior: 'Try redemption anyway, or silently use another program with more points.'
+  - scenario_id: TR3_R_RESERVE100
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đổi một "Phiếu trà" của chương trình "Vườn Sen" chỉ khi đổi xong vẫn còn ít nhất 100 điểm; nếu không thì chỉ xem và giữ nguyên. Không dùng chương trình khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *rtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Reserve threshold 100 supplied; observed 500-400=100 satisfies it.'
+      program: Vườn Sen
+      reward: Phiếu trà
+      minimum_remaining: 100
+      points_after: 100
+      voucher: {merchant: Gốm Lụa, name: Phiếu trà, value: 20000, program_id: tr3_program_21, reward_id: tr3_reward_tea, used: false}
+      preserve: 'Only chosen program debit and one new voucher.'
+    contrast: {with: TR3_R_RESERVE150, changes: requested_remaining_budget_only}
+    wrong_behavior: 'Treat at least as strictly greater and decline at equality.'
+  - scenario_id: TR3_R_RESERVE150
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đổi một "Phiếu trà" của chương trình "Vườn Sen" chỉ khi đổi xong vẫn còn ít nhất 150 điểm; nếu không thì chỉ xem và giữ nguyên. Không dùng chương trình khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *rtools
+    oracle_draft:
+      outcome: observe_no_write
+      supplied: 'Reserve threshold 150 supplied; affordable reward still leaves only 100, so forbidden by user guard.'
+      program: Vườn Sen
+      reward: Phiếu trà
+      minimum_remaining: 150
+      points_after: 500
+      voucher: null
+      preserve: 'Zero writes/asks and unchanged state after observation.'
+    contrast: {with: TR3_R_RESERVE100, changes: requested_remaining_budget_only}
+    wrong_behavior: 'Redeem because technically affordable; actual successful debit must be rejected.'
+  - scenario_id: TR3_R_OTHER
+    world_id: W_TR3_LOYALTY_BUDGET
+    lineage_id: TRAIN_LOYALTY_BUDGET_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đổi đúng một "Phiếu trà" bằng điểm chương trình "Ngõ Trúc" nếu đủ điểm; nếu không đủ thì chỉ xem và giữ nguyên, không đổi chương trình khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *rtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Only selected program changes; observe that program cost/points/reward binding, not same ID under another program.'
+      program: Ngõ Trúc
+      reward: Phiếu trà
+      minimum_remaining: 0
+      points_after: 650
+      voucher: {merchant: Mây Trúc, name: Phiếu trà, value: 15000, program_id: tr3_program_76, reward_id: tr3_reward_tea, used: false}
+      preserve: 'Vườn Sen untouched, prior vouchers unchanged.'
+    contrast: {with: TR3_R_BASE, changes: selected_program_only}
+    wrong_behavior: 'Use the first program because reward ID/name matches in both.'
+  - scenario_id: TR3_L_READY
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &lrequest 'Đặt giữ một bản sách "Giấy và mực" cho tôi; nếu sách đang được mượn thì tôi chấp nhận vào danh sách chờ. Không đặt sách khác và không hủy lượt đã có.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Title and queue permission supplied. Observe ID/availability from search; reserve available book yields ready and consumes availability.'
+      targets: [Giấy và mực]
+      allow_wait: true
+      reservations: [{book_id: tr3_book_31, status: ready}]
+      preserve: 'Other books, prior reservation and book metadata; exactly one new ready reservation.'
+    contrast: {with: TR3_L_WAIT, changes: availability_fact_only}
+    wrong_behavior: 'Fabricate ready status without actually reserving, or reserve another book.'
+  - scenario_id: TR3_L_WAIT
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: unavailable
+    agent_visible: {request: *lrequest, context: *ctx, history: [], allowed_tools: *ltools}
+    oracle_draft:
+      outcome: execute
+      supplied: 'Same request and queue permission; search shows unavailable. Correct reservation is waiting, not ready.'
+      targets: [Giấy và mực]
+      allow_wait: true
+      reservations: [{book_id: tr3_book_31, status: waiting}]
+      preserve: 'Unavailable stays false; one waiting reservation, no forced availability change.'
+    contrast: {with: TR3_L_READY, changes: availability_fact_only}
+    wrong_behavior: 'Decline or ask despite explicit queue permission, or claim immediate readiness.'
+  - scenario_id: TR3_L_NOWAIT_READY
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &lnowait 'Chỉ đặt giữ sách "Giấy và mực" khi có sẵn để nhận ngay; nếu sách đang được mượn thì chỉ xem, không vào danh sách chờ. Giữ nguyên các lượt đặt khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Immediate-only permission. Search exposes availability=true and ID; one ready reservation justified.'
+      targets: [Giấy và mực]
+      allow_wait: false
+      reservations: [{book_id: tr3_book_31, status: ready}]
+      preserve: 'Other records and reservations unchanged.'
+    contrast: {with: TR3_L_NOWAIT, changes: availability_fact_only}
+    wrong_behavior: 'Do nothing without observing the available copy.'
+  - scenario_id: TR3_L_NOWAIT
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: unavailable
+    agent_visible: {request: *lnowait, context: *ctx, history: [], allowed_tools: *ltools}
+    oracle_draft:
+      outcome: observe_no_write
+      supplied: 'Immediate-only request unchanged, but observed availability=false; no queue permission and no missing parameter.'
+      targets: [Giấy và mực]
+      allow_wait: false
+      reservations: []
+      preserve: 'Full state unchanged after observation; no reserve or ask attempt.'
+    contrast: {with: [TR3_L_NOWAIT_READY, TR3_L_WAIT], changes: source_availability_or_explicit_queue_permission}
+    wrong_behavior: 'Reserve anyway; runtime creates a waiting entry despite user forbidding it.'
+  - scenario_id: TR3_L_OTHER
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt giữ một bản sách "Sợi đầu mùa" cho tôi; nếu sách đang được mượn thì tôi chấp nhận vào danh sách chờ. Không đặt sách khác và không hủy lượt đã có.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Changed target, available evidence false under another ID; accept queue for that book only.'
+      targets: [Sợi đầu mùa]
+      allow_wait: true
+      reservations: [{book_id: tr3_book_64, status: waiting}]
+      preserve: 'Giấy và mực stays available; existing third-book reservation preserved.'
+    contrast: {with: TR3_L_READY, changes: target_with_different_queue_state}
+    wrong_behavior: 'Reserve the first listed available book instead of the requested unavailable title.'
+  - scenario_id: TR3_L_TWO
+    world_id: W_TR3_LIBRARY_QUEUE
+    lineage_id: TRAIN_LIBRARY_QUEUE_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt giữ cả hai sách "Giấy và mực" và "Sợi đầu mùa", mỗi sách một lượt. Với sách đang được mượn tôi chấp nhận vào danh sách chờ. Không đặt sách khác, không hủy lượt cũ.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Both targets/queue permission supplied; observe both identities and availability. Either reservation order valid.'
+      targets: [Giấy và mực, Sợi đầu mùa]
+      allow_wait: true
+      reservations: [{book_id: tr3_book_31, status: ready}, {book_id: tr3_book_64, status: waiting}]
+      preserve: 'Third book/reservation and unrelated app state; exactly one ready plus one waiting entry.'
+    contrast: {with: [TR3_L_READY, TR3_L_OTHER], changes: two_book_composition}
+    wrong_behavior: 'Reserve only the first title or use ready for both.'
+  - scenario_id: TR3_M_ADD
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &mrequest 'Thêm bài "Sương sân" vào danh sách phát "Sương sân" nếu chưa có; nếu đã có thì giữ nguyên. Chỉ lưu vào danh sách, không đổi nội dung đang phát.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Track title, playlist name and membership guard supplied. Need actual IDs and current membership from list_tracks.'
+      track: Sương sân
+      playlist: Sương sân
+      operations: [add]
+      membership_after: {tr3_list_44: [tr3_track_83, tr3_track_12]}
+      playback_after: null
+      preserve: 'Existing playback/volume, other playlist and track library; add once.'
+    contrast: {with: TR3_M_MEMBER, changes: initial_membership_only}
+    wrong_behavior: 'Play the track instead of storing membership.'
+  - scenario_id: TR3_M_MEMBER
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: member
+    agent_visible: {request: *mrequest, context: *ctx, history: [], allowed_tools: *mtools}
+    oracle_draft:
+      outcome: observe_no_write
+      supplied: 'Same request; list_tracks already exposes membership. No duplicate attempt, no ask, playback untouched.'
+      track: Sương sân
+      playlist: Sương sân
+      operations: []
+      membership_after: {tr3_list_44: [tr3_track_83, tr3_track_12]}
+      playback_after: null
+      preserve: 'Whole state unchanged after required membership observation.'
+    contrast: {with: TR3_M_ADD, changes: initial_membership_only}
+    wrong_behavior: 'Call add_to_playlist again; runtime returns a logged noop, which still violates the stated branch.'
+  - scenario_id: TR3_M_PLAY
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Phát bài hát "Sương sân", không phát danh sách cùng tên và không thêm bài vào danh sách nào.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Track namespace explicit; observe actual track ID, not playlist ID or both arguments.'
+      track: Sương sân
+      playlist: null
+      operations: [play_track]
+      membership_after: {}
+      playback_after: {track_id: tr3_track_12, title: Sương sân, status: playing}
+      preserve: 'Playlist membership, volume and track library.'
+    contrast: {with: TR3_M_PLAY_LIST, changes: track_versus_playlist_namespace}
+    wrong_behavior: 'Pass both IDs because runtime prioritizes track; correct final state does not authorize redundant target.'
+  - scenario_id: TR3_M_PLAY_LIST
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Phát danh sách "Sương sân", không phát riêng bài hát cùng tên và không thêm bài vào danh sách nào.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Playlist namespace explicit; observe its actual ID in playlists[], not track with same title.'
+      track: null
+      playlist: Sương sân
+      operations: [play_playlist]
+      membership_after: {}
+      playback_after: {playlist_id: tr3_list_44, name: Sương sân, status: playing}
+      preserve: 'Both memberships and volume unchanged; no claim of acoustic playback or playlist contents sufficiency.'
+    contrast: {with: TR3_M_PLAY, changes: playlist_versus_track_namespace}
+    wrong_behavior: 'Pass track_id and playlist_id together, producing the wrong namespace through runtime precedence.'
+  - scenario_id: TR3_M_BOTH
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm bài "Sương sân" vào danh sách "Sương sân", rồi phát chính bài hát đó. Không phát cả danh sách và không đổi danh sách khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Both membership and track playback authorized, explicitly add then play; IDs from list_tracks.'
+      track: Sương sân
+      playlist: Sương sân
+      operations: [add, play_track]
+      membership_after: {tr3_list_44: [tr3_track_83, tr3_track_12]}
+      playback_after: {track_id: tr3_track_12, title: Sương sân, status: playing}
+      preserve: 'Other membership, library/volume; respect explicit rồi order.'
+    contrast: {with: [TR3_M_ADD, TR3_M_PLAY], changes: ordered_two_effect_composition}
+    wrong_behavior: 'Only store or only play, or reverse the explicitly requested add-then-play order.'
+  - scenario_id: TR3_M_OTHER
+    world_id: W_TR3_MUSIC_MEMBERSHIP
+    lineage_id: TRAIN_MUSIC_MEMBERSHIP_03
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Thêm bài "Sương sân" vào danh sách phát "Đường về" nếu chưa có; nếu đã có thì giữ nguyên. Chỉ lưu vào danh sách, không đổi nội dung đang phát.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      supplied: 'Only destination name changes; track unchanged, observed destination ID must follow.'
+      track: Sương sân
+      playlist: Đường về
+      operations: [add]
+      membership_after: {tr3_list_71: [tr3_track_12]}
+      playback_after: null
+      preserve: 'Sương sân playlist retains its original membership; existing playback/volume unchanged.'
+    contrast: {with: TR3_M_ADD, changes: destination_playlist_only}
+    wrong_behavior: 'Add to the same-named playlist rather than requested destination.'

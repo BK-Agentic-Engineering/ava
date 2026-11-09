@@ -1,0 +1,437 @@
+# Private authoring design; only agent_visible belongs in solver input.
+version: train_wave_02
+authored_date: '2026-11-03'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  pre_authoring_selection: docs/implementation/TRAIN_WAVE_02_HANDOFF.md
+  interface_release: v3.2.0
+  catalog_schema_version: '2.7.0'
+  archive: 'D:/Downloads/train+public_test.zip'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  authorship: 'Independently authored requests, histories, records and gold. Interface source only; no organizer/benchmark records or dev templates.'
+authoring_conventions:
+  visibility: 'WORLD, variants, private IDs and oracle never visible. Installed tools derive from each allowed_tools list.'
+  semantic_review: 'Visible Vietnamese reviewed before trace implementation. Literal dates are future local +07:00. No assumed travel time, scheduler execution or actual robot motion.'
+  clarification: 'Local parameter-level ask policy, not official acceptance. A supplied address in earlier user context is available; an explicitly unchosen address is not recoverable from shipment metadata. No exact question wording required.'
+  alternatives: 'Harmless permitted reads, supported target lookup filters, independent action order, equivalent explicit/default configured robot mode and split alarm field updates may be valid; see each oracle.'
+worlds:
+  - world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR2_P_HISTORY
+    independence: 'Incoming shipment rescheduling versus new outbound pickup at a user-context address. No dev ride/contact/email-state template; broad missing-argument mechanism shared with R2/B02_E_C, not their entity relationships.'
+    relevant_tools: &package_tools [package_tracking.track, package_tracking.reschedule_delivery, package_tracking.schedule_pickup, sys.ask_missing_info]
+    assumptions: 'Shipment names/codes unique and statuses active. track exposes shipments only, no pickup address/default; existing pickup belongs to a separate prior booking. No contact/address tool installed.'
+    variants: {}
+    initial_state:
+      package_tracking:
+        shipments:
+          - {id: tr2_ship_24, tracking_id: LMTR82471, carrier: Chuyển Mộc, name: Cuộn vải lanh, status: in_transit, eta: '2026-12-21T16:00:00+07:00'}
+          - {id: tr2_ship_69, tracking_id: LMTR19635, carrier: Chuyển Mộc, name: Bộ khuôn giấy, status: out_for_delivery, eta: '2026-12-21T16:00:00+07:00'}
+        pickups: [{id: tr2_pick_08, address: 5 ngõ Bạc, date: '2026-12-19', status: scheduled}]
+  - world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR2_V_ROOM
+    independence: 'Single job replacement with mode and room-set semantics, not per-device switching or shopping row mutation. Existing dev L1/L2 and train TR1_S_CHECK_TWO are comparison controls only, not parent templates.'
+    relevant_tools: &robot_tools [robot_vacuum.get_status, robot_vacuum.start, robot_vacuum.stop, sys.ask_missing_info]
+    assumptions: 'Battery sufficient. Robot is already cleaning a different room; start replaces the job, not queues it. Configured mode and active job mode may differ; no physical completion claimed.'
+    variants: {configured_mop: {configured_mode: mop}}
+    initial_state:
+      robot_vacuum:
+        battery: 82
+        status: cleaning
+        mode: vacuum
+        rooms: [phòng dệt, phòng cắt, hiên sau]
+        current_job: {rooms: [hiên sau], whole_house: false, mode: vacuum}
+  - world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR2_A_TIME
+    independence: 'Preserve independent fields on persistent alarms, with two-way time exchange. No dev relative reminder or cancellation template. Train note direction and shopping retention are nearest broad controls, not instantiated fixtures.'
+    relevant_tools: &alarm_tools [alarm.list, alarm.update, alarm.delete, alarm.create, sys.ask_missing_info]
+    assumptions: 'Unique labels, valid future full timestamps and repeat flags. Update patches only supplied fields; delete/create is not equivalent to editing retained records.'
+    variants: {disabled: {alarm_enabled: false}}
+    initial_state:
+      alarm:
+        alarms:
+          - {id: tr2_alarm_17, label: Mở sạp, time: '2026-12-23T06:10:00+07:00', repeat: weekdays, enabled: true}
+          - {id: tr2_alarm_53, label: Nhận bánh, time: '2026-12-23T07:20:00+07:00', repeat: once, enabled: false}
+          - {id: tr2_alarm_89, label: Kiểm cửa, time: '2026-12-23T20:00:00+07:00', repeat: daily, enabled: true}
+scenarios:
+  - scenario_id: TR2_P_HISTORY
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &pickup_request 'Hẹn bưu tá đến lấy một kiện tôi gửi đi vào ngày 22 tháng 12 năm 2026 tại điểm lấy hàng của tôi. Chỉ đặt một lần, không đổi lịch các kiện đang giao đến.'
+      context: &context {current_time: '2026-12-20T09:10:00+07:00', timezone: Asia/Saigon}
+      history: [{role: user, text: 'Điểm lấy hàng của tôi là 18 ngõ Chồi, phường Vườn.'}]
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Date from latest request; address exactly 18 ngõ Chồi, phường Vườn from earlier user turn. No address lookup necessary; no opaque ID required.'
+      observations: []
+      writes: [{name: package_tracking.schedule_pickup, arguments: {address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22'}}]
+      effects: {shipment_times: {}, new_pickups: [{address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22', status: scheduled}]}
+      preserve: 'Every incoming shipment and existing pickup; exactly one outbound booking.'
+    contrast: {with: TR2_P_ASK, changes: history_address_fact_only}
+    wrong_behavior: 'Ask address although previous user turn supplied it, or reschedule an incoming shipment instead.'
+  - scenario_id: TR2_P_ASK
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: *pickup_request
+      context: *context
+      history: [{role: user, text: Tôi chưa chọn điểm lấy hàng.}]
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: ask_missing
+      values: 'Date supplied; address explicitly not selected. Installed track only returns incoming shipment status/eta/codes, not a pickup address. Existing private prior pickup cannot justify a default.'
+      observations: []
+      writes: []
+      ask: {tool_name: package_tracking.schedule_pickup, params: [address]}
+      effects: {shipment_times: {}, new_pickups: []}
+      preserve: 'Zero mutations, exactly one correctly targeted clarification, optional track reads. Any natural phrasing asking the pickup address is acceptable.'
+    contrast: {with: TR2_P_HISTORY, changes: history_address_fact_only}
+    wrong_behavior: 'Guess a syntactically valid address and create a pickup; local runtime accepts it but user has not provided it.'
+  - scenario_id: TR2_P_EXPLICIT
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Hẹn bưu tá đến lấy một kiện tôi gửi đi vào ngày 22 tháng 12 năm 2026 tại 18 ngõ Chồi, phường Vườn. Chỉ đặt một lần, không đổi lịch các kiện đang giao đến.'
+      context: *context
+      history: [{role: user, text: Tôi chưa chọn điểm lấy hàng.}]
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Latest request supplies address/date, settling the earlier missing address; direct create valid.'
+      observations: []
+      writes: [{name: package_tracking.schedule_pickup, arguments: {address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22'}}]
+      effects: {shipment_times: {}, new_pickups: [{address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22', status: scheduled}]}
+      preserve: 'Incoming shipments and prior pickup unchanged.'
+    contrast: {with: TR2_P_ASK, changes: latest_address_supplied}
+    wrong_behavior: 'Keep asking because earlier user had not selected an address, ignoring latest explicit value.'
+  - scenario_id: TR2_P_DELIVERY
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Hẹn lại kiện "Cuộn vải lanh" đang giao đến sang 14 giờ 30 ngày 22 tháng 12 năm 2026, giờ Việt Nam. Không đặt bưu tá lấy hàng gửi đi và không đổi kiện khác.'
+      context: *context
+      history: []
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Shipment name and new instant supplied; observed track maps name to its tracking_id before rescheduling.'
+      observations: [{tool: package_tracking.track, collection: shipments, id: tr2_ship_24, fields: {name: Cuộn vải lanh, tracking_id: LMTR82471}, before_tool: package_tracking.reschedule_delivery, argument: tracking_id, value: LMTR82471}]
+      writes: [{name: package_tracking.reschedule_delivery, arguments: {tracking_id: LMTR82471, time: '2026-12-22T14:30:00+07:00'}}]
+      effects: {shipment_times: {tr2_ship_24: '2026-12-22T14:30:00+07:00'}, new_pickups: []}
+      preserve: 'Other shipment, status/eta/identity fields and all pickups unchanged.'
+    contrast: {with: TR2_P_DELIVERY_OTHER, changes: incoming_target_name_only}
+    wrong_behavior: 'Use other valid shipment code or create an outbound pickup.'
+  - scenario_id: TR2_P_DELIVERY_OTHER
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Hẹn lại kiện "Bộ khuôn giấy" đang giao đến sang 14 giờ 30 ngày 22 tháng 12 năm 2026, giờ Việt Nam. Không đặt bưu tá lấy hàng gửi đi và không đổi kiện khác.'
+      context: *context
+      history: []
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Only selected shipment name changes; time remains supplied, code must be observed.'
+      observations: [{tool: package_tracking.track, collection: shipments, id: tr2_ship_69, fields: {name: Bộ khuôn giấy, tracking_id: LMTR19635}, before_tool: package_tracking.reschedule_delivery, argument: tracking_id, value: LMTR19635}]
+      writes: [{name: package_tracking.reschedule_delivery, arguments: {tracking_id: LMTR19635, time: '2026-12-22T14:30:00+07:00'}}]
+      effects: {shipment_times: {tr2_ship_69: '2026-12-22T14:30:00+07:00'}, new_pickups: []}
+      preserve: 'Other shipment and all pickups unchanged.'
+    contrast: {with: TR2_P_DELIVERY, changes: incoming_target_name_only}
+    wrong_behavior: 'Reschedule the first listed shipment rather than the requested one.'
+  - scenario_id: TR2_P_BOTH
+    world_id: W_TR2_LOGISTICS_DIRECTION
+    lineage_id: TRAIN_LOGISTICS_DIRECTION_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Hẹn bưu tá đến lấy một kiện tôi gửi đi ngày 22 tháng 12 năm 2026 tại 18 ngõ Chồi, phường Vườn; đồng thời hẹn lại kiện "Cuộn vải lanh" đang giao đến sang 14 giờ 30 cùng ngày, giờ Việt Nam. Mỗi việc một lần, không đổi kiện khác.'
+      context: *context
+      history: []
+      allowed_tools: *package_tools
+    oracle_draft:
+      outcome: execute
+      values: 'New pickup address/date and incoming delivery time/name all supplied; only shipment code requires track observation. Independent action order allowed.'
+      observations: [{tool: package_tracking.track, collection: shipments, id: tr2_ship_24, fields: {name: Cuộn vải lanh, tracking_id: LMTR82471}, before_tool: package_tracking.reschedule_delivery, argument: tracking_id, value: LMTR82471}]
+      writes:
+        - {name: package_tracking.schedule_pickup, arguments: {address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22'}}
+        - {name: package_tracking.reschedule_delivery, arguments: {tracking_id: LMTR82471, time: '2026-12-22T14:30:00+07:00'}}
+      effects: {shipment_times: {tr2_ship_24: '2026-12-22T14:30:00+07:00'}, new_pickups: [{address: '18 ngõ Chồi, phường Vườn', date: '2026-12-22', status: scheduled}]}
+      preserve: 'Other shipment, prior pickup and unrelated state; no duplicated operation.'
+    contrast: {with: [TR2_P_EXPLICIT, TR2_P_DELIVERY], changes: composition_of_two_named_train_controls}
+    wrong_behavior: 'Complete only pickup or only rescheduling, conflating the directions.'
+  - scenario_id: TR2_V_ROOM
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Cho robot chuyển sang chỉ hút bụi phòng dệt, thay việc đang làm. Không lau và không dọn phòng khác.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'User supplies sole room and vacuum mode; direct start with these arguments valid, optional status read.'
+      observations: []
+      writes: [{name: robot_vacuum.start, arguments: {rooms: [phòng dệt], mode: vacuum}}]
+      effects: {status: cleaning, current_job: {rooms: [phòng dệt], whole_house: false, mode: vacuum}}
+      preserve: 'Configured mode, battery and room inventory unchanged. Replace prior job, not append hiên sau.'
+    contrast: {with: TR2_V_MOP, changes: cleaning_mode_only}
+    wrong_behavior: 'Use default whole-house scope or mop instead of vacuum.'
+  - scenario_id: TR2_V_MOP
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Cho robot chuyển sang chỉ lau phòng dệt, thay việc đang làm. Không hút bụi và không dọn phòng khác.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'User supplies sole room and mop mode, not configured vacuum.'
+      observations: []
+      writes: [{name: robot_vacuum.start, arguments: {rooms: [phòng dệt], mode: mop}}]
+      effects: {status: cleaning, current_job: {rooms: [phòng dệt], whole_house: false, mode: mop}}
+      preserve: 'Battery, configured mode=vacuum and room inventory unchanged; job mode=mop.'
+    contrast: {with: TR2_V_ROOM, changes: cleaning_mode_only}
+    wrong_behavior: 'Omit mode, silently using configured vacuum rather than requested mop.'
+  - scenario_id: TR2_V_TWO
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Cho robot chuyển sang vừa hút bụi vừa lau phòng dệt và phòng cắt, thay việc đang làm. Chỉ hai phòng đó, không dọn hiên sau.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'User supplies both mode and exact two-room set. Input room order irrelevant.'
+      observations: []
+      writes: [{name: robot_vacuum.start, arguments: {rooms: [phòng dệt, phòng cắt], mode: both}}]
+      effects: {status: cleaning, current_job: {rooms: [phòng dệt, phòng cắt], whole_house: false, mode: both}}
+      preserve: 'Inventory/battery/configuration unchanged; hiên sau excluded from replacement job.'
+    contrast: {with: TR2_V_ALL, changes: selected_subset_versus_whole_house}
+    wrong_behavior: 'Only start the first room or retain the old hiên sau scope.'
+  - scenario_id: TR2_V_ALL
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Cho robot chuyển sang vừa hút bụi vừa lau toàn bộ nhà, thay việc đang làm, bao gồm mọi phòng có trong robot.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Whole-house scope and both mode supplied. Omitting rooms or [] invokes whole-house; enumerating all rooms is equivalent for this task.'
+      observations: []
+      writes: [{name: robot_vacuum.start, arguments: {mode: both}}]
+      effects: {status: cleaning, current_job: {rooms: [phòng dệt, phòng cắt, hiên sau], whole_house: true, mode: both}}
+      preserve: 'All room names remain inventoried; no battery/configuration change. whole_house flag may be false with explicit complete enumeration, treated as a valid bounded equivalent.'
+    contrast: {with: TR2_V_TWO, changes: whole_house_versus_subset}
+    wrong_behavior: 'Restrict to current hiên sau job or only two rooms.'
+  - scenario_id: TR2_V_STOP
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Dừng việc robot đang làm và cho về dock, không khởi động việc dọn mới.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Stop/dock action supplied. Runtime clears current_job; no opaque target ID.'
+      observations: []
+      writes: [{name: robot_vacuum.stop, arguments: {}}]
+      effects: {status: docked, current_job: null}
+      preserve: 'Battery, room inventory and configured mode unchanged.'
+    contrast: {with: TR2_V_ROOM, changes: stop_versus_replace_job}
+    wrong_behavior: 'Start another job, or stop then unnecessarily restart.'
+  - scenario_id: TR2_V_INHERIT
+    world_id: W_TR2_ROBOT_JOB
+    lineage_id: TRAIN_ROBOT_JOB_02
+    status: spec_only
+    exportable: false
+    fixture_variant: configured_mop
+    agent_visible:
+      request: 'Cho robot chuyển sang dọn riêng phòng dệt, thay việc đang làm, giữ chế độ đang cài cho robot; không lấy chế độ của công việc đang chạy làm chuẩn.'
+      context: *context
+      history: []
+      allowed_tools: *robot_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Room supplied; configured mode from get_status.mode=mop, unlike current_job.mode=vacuum. Omit mode to preserve runtime configuration directly, or observe mode before passing it explicitly.'
+      observations: [{tool: robot_vacuum.get_status, fields: {mode: mop}, before_tool: robot_vacuum.start, argument: mode, value: mop}]
+      writes: [{name: robot_vacuum.start, arguments: {rooms: [phòng dệt]}}]
+      effects: {status: cleaning, current_job: {rooms: [phòng dệt], whole_house: false, mode: mop}}
+      preserve: 'Configured mode=mop remains; prior job is replaced, no whole-house expansion.'
+    contrast: {with: TR2_V_ROOM, changes: configured_mode_source_versus_explicit_vacuum}
+    wrong_behavior: 'Read status but use current_job.mode=vacuum instead of top-level mode=mop.'
+  - scenario_id: TR2_A_DISABLE
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tắt báo thức "Mở sạp" nhưng giữ bản ghi, giờ, nhãn và lịch lặp hiện có. Không xóa và không tạo báo thức khác.'
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Label selects existing alarm; alarm.list must expose its ID. User supplies enabled=false, not deletion.'
+      observations: [{tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17}]
+      writes: [{name: alarm.update, arguments: {alarm_id: tr2_alarm_17, enabled: false}}]
+      effects: {updates: {tr2_alarm_17: {enabled: false}}}
+      preserve: 'All IDs, time/repeat/label and unrelated alarms unchanged.'
+    contrast: {with: TR2_A_TIME, changes: enabled_field_versus_time_field}
+    wrong_behavior: 'Delete the alarm because tắt was mistaken for removal.'
+  - scenario_id: TR2_A_TIME
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &alarm_time_request 'Chỉ đổi giờ báo thức "Mở sạp" sang 6 giờ 45 ngày 23 tháng 12 năm 2026, giờ Việt Nam. Giữ trạng thái bật hoặc tắt đang có, nhãn và lịch lặp; không tạo mới.'
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'New full instant supplied; ID from label lookup. Preserve enabled=true, not a new default.'
+      observations: [{tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17}]
+      writes: [{name: alarm.update, arguments: {alarm_id: tr2_alarm_17, time: '2026-12-23T06:45:00+07:00'}}]
+      effects: {updates: {tr2_alarm_17: {time: '2026-12-23T06:45:00+07:00'}}}
+      preserve: 'Existing identity, enabled, label, repeat and all other records.'
+    contrast: {with: TR2_A_TIME_DISABLED, changes: fixture_enabled_only}
+    wrong_behavior: 'Recreate with default repeat=once or overwrite the recurrence.'
+  - scenario_id: TR2_A_TIME_DISABLED
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: disabled
+    agent_visible:
+      request: *alarm_time_request
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Same visible request as TIME; only initial enabled flag differs. Keep false while updating time.'
+      observations: [{tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17}]
+      writes: [{name: alarm.update, arguments: {alarm_id: tr2_alarm_17, time: '2026-12-23T06:45:00+07:00'}}]
+      effects: {updates: {tr2_alarm_17: {time: '2026-12-23T06:45:00+07:00'}}}
+      preserve: 'Retain enabled=false and all identity/label/repeat fields.'
+    contrast: {with: TR2_A_TIME, changes: fixture_enabled_only}
+    wrong_behavior: 'Automatically enable the alarm when its time is changed.'
+  - scenario_id: TR2_A_LABEL
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Chỉ đổi nhãn báo thức "Mở sạp" thành nguyên văn "Chuẩn bị sạp". Giữ giờ, trạng thái bật và lịch lặp, không tạo mới.'
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'New literal label supplied; existing ID from observed original label.'
+      observations: [{tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17}]
+      writes: [{name: alarm.update, arguments: {alarm_id: tr2_alarm_17, label: Chuẩn bị sạp}}]
+      effects: {updates: {tr2_alarm_17: {label: Chuẩn bị sạp}}}
+      preserve: 'Only label changes; no implicit time change.'
+    contrast: {with: TR2_A_TIME_LABEL, changes: additional_time_edit}
+    wrong_behavior: 'Create a new alarm with the requested label rather than rename the existing one.'
+  - scenario_id: TR2_A_TIME_LABEL
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đổi báo thức "Mở sạp" sang 6 giờ 45 ngày 23 tháng 12 năm 2026, giờ Việt Nam, đồng thời đổi nhãn thành nguyên văn "Chuẩn bị sạp". Giữ trạng thái bật và lịch lặp, không tạo mới.'
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'ID observed, time and label supplied. One combined update or two disjoint field updates acceptable.'
+      observations: [{tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17}]
+      writes: [{name: alarm.update, arguments: {alarm_id: tr2_alarm_17, time: '2026-12-23T06:45:00+07:00', label: Chuẩn bị sạp}}]
+      effects: {updates: {tr2_alarm_17: {time: '2026-12-23T06:45:00+07:00', label: Chuẩn bị sạp}}}
+      preserve: 'ID, repeat, enabled and all other alarms unchanged; no duplicated field edits.'
+    contrast: {with: [TR2_A_TIME, TR2_A_LABEL], changes: two_field_composition}
+    wrong_behavior: 'Update just the label, leaving old time.'
+  - scenario_id: TR2_A_SWAP
+    world_id: W_TR2_ALARM_EDIT
+    lineage_id: TRAIN_ALARM_EDIT_02
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đổi chỗ hai thời điểm hiện có của báo thức "Mở sạp" và "Nhận bánh" cho nhau. Mỗi báo thức giữ nguyên nhãn, trạng thái bật hoặc tắt và lịch lặp của chính nó. Không đổi báo thức khác, không tạo mới.'
+      context: *context
+      history: []
+      allowed_tools: *alarm_tools
+    oracle_draft:
+      outcome: execute
+      values: 'Both IDs and original full times from one pre-edit alarm.list snapshot; copy original times in opposite directions, not sequentially read the already-updated value.'
+      observations:
+        - {tool: alarm.list, collection: alarms, id: tr2_alarm_17, fields: {label: Mở sạp, time: '2026-12-23T06:10:00+07:00'}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_17, original_snapshot: true}
+        - {tool: alarm.list, collection: alarms, id: tr2_alarm_53, fields: {label: Nhận bánh, time: '2026-12-23T07:20:00+07:00'}, before_tool: alarm.update, argument: alarm_id, value: tr2_alarm_53, original_snapshot: true}
+      writes:
+        - {name: alarm.update, arguments: {alarm_id: tr2_alarm_17, time: '2026-12-23T07:20:00+07:00'}}
+        - {name: alarm.update, arguments: {alarm_id: tr2_alarm_53, time: '2026-12-23T06:10:00+07:00'}}
+      effects: {updates: {tr2_alarm_17: {time: '2026-12-23T07:20:00+07:00'}, tr2_alarm_53: {time: '2026-12-23T06:10:00+07:00'}}}
+      preserve: 'Identity, labels, enabled flags and recurrence stay attached to their original alarm records.'
+    contrast: {with: TR2_A_TIME, changes: observed_two_way_time_exchange_versus_supplied_time}
+    wrong_behavior: 'Read the first alarm after changing it and copy that new time to the second, making both times equal.'

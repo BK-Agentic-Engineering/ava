@@ -1,0 +1,116 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "TR15_PLANNING_TOMORROW",
+  "run_id": "prepared-tr15_planning_tomorrow-v01",
+  "agent_visible": {
+    "request": "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé.",
+    "context": {
+      "current_time": "2027-09-17T00:10:00+07:00",
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "history": [
+      {
+        "role": "user",
+        "audio_text": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam."
+      },
+      {
+        "role": "assistant",
+        "text": "",
+        "tool_calls": [
+          {
+            "call_id": "prepared-tr15_planning_tomorrow-v01/history/1/0",
+            "name": "reminders.create",
+            "arguments": {
+              "content": "Rà dây neo",
+              "time": "2027-09-18T08:20:00+07:00"
+            }
+          }
+        ],
+        "tool_results": [
+          {
+            "result_id": "prepared-tr15_planning_tomorrow-v01/history/1/0/result",
+            "call_id": "prepared-tr15_planning_tomorrow-v01/history/1/0",
+            "payload": {
+              "ok": true,
+              "id": "rem_02",
+              "item": {
+                "id": "rem_02",
+                "repeat": "once",
+                "done": false,
+                "content": "Rà dây neo",
+                "time": "2027-09-18T08:20:00+07:00"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "tool_schema_refs": [
+      {
+        "path": "tool_schemas.json",
+        "selector": "/calendar.create_event"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/calendar.list_events"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/reminders.create"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/reminders.list"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/sys.ask_missing_info"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/tasks.add"
+      }
+    ]
+  },
+  "private_execution": {
+    "scenario_ref": {
+      "path": "private/TR15_PLANNING_TOMORROW.json",
+      "selector": "/scenario"
+    },
+    "oracle_ref": {
+      "path": "private/TR15_PLANNING_TOMORROW.json",
+      "selector": "/oracle"
+    },
+    "visible_source_ref": {
+      "path": "private/TR15_PLANNING_TOMORROW.json",
+      "selector": "/visible"
+    },
+    "initial_state_ref": {
+      "path": "private/TR15_PLANNING_TOMORROW.json",
+      "selector": "/initial_state"
+    },
+    "current_time": "2027-09-17T00:10:00+07:00",
+    "tools": [
+      "reminders.create",
+      "reminders.list",
+      "calendar.create_event",
+      "calendar.list_events",
+      "tasks.add"
+    ],
+    "latest_turn_log": [],
+    "runtime": {
+      "release": "v3.2.0",
+      "schema": "2.7.0",
+      "split": "train"
+    },
+    "timezone": "Asia/Ho_Chi_Minh",
+    "effective_tools": [
+      "calendar.create_event",
+      "calendar.list_events",
+      "reminders.create",
+      "reminders.list",
+      "sys.ask_missing_info",
+      "tasks.add"
+    ]
+  }
+}

@@ -1,0 +1,200 @@
+# Nội bộ tác giả/verifier; solver chỉ nhận agent_visible của một scenario.
+version: batch_03
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+release_target: {approximately: 2000, unit: verified_scenarios_across_train_dev_test, sufficiency_claim: false}
+batch_scope: 'Một WORLD, một development lineage, bốn scenario về referent trong hội thoại; không scale hoặc xuất training.'
+provenance:
+  format_references: [data/synthetic/design/pilot_v1.yaml, data/synthetic/design/batch_02.yaml]
+  policy: docs/plans/WORLD_FAILURE_DATASET_PLAN.md
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  independent_authorship: 'Hai event, câu mới, histories và oracle được viết độc lập trong Batch 03. Các file trước chỉ tham chiếu format/cơ chế; không mượn organizer sample/label/audio/environment contents hay ASR benchmark làm seed.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/calendar.py, apps/sys.py, apps/base.py]
+  capability_contracts:
+    calendar.list_events:
+      required: []
+      optional_used: [date_from, date_to]
+      observable_fields: ['events[].id', 'events[].title', 'events[].start', 'events[].end', 'events[].location', 'events[].status']
+      behavior: 'Trả events qua generic read; không có current-event default. Filter khoảng ngày dựa start nếu truyền; không filter trả toàn danh sách. ID chỉ được lộ khi read hợp lệ thực sự trả record.'
+    calendar.cancel_event:
+      required: [event_id]
+      optional_used: []
+      behavior: 'event_id thuộc calendar.events và nguồn ID theo catalog là calendar.list_events. Source patch record có ID đó, đặt status=cancelled, giữ field khác. ID không tồn tại trả no-op; ok=true không đủ chứng minh đạt oracle.'
+    sys.ask_missing_info:
+      required: [tool_name, params]
+      optional_used: []
+      behavior: 'Meta call không đổi app state; không có field candidates, question hoặc ambiguity_reason. Runtime không tự kiểm missingness đúng hay sai.'
+authoring_conventions:
+  private_side: 'worlds/fixture/oracle/contrast/verifier examples không nằm trong prompt solver; opaque IDs dưới đây chỉ thuộc phía tác giả.'
+  permissions: 'allowed_tools là toàn quyền nhìn thấy; materializer phải đồng bộ context.installed_apps và runtime _meta.tools. Không có update/create hay công cụ xóa event thay thế.'
+  history_representation: 'Giữ role/text như các batch thiết kế trước. Đây là text authoring view; Tài chưa map vào harness. Không bịa audio paths, tool_calls/results hoặc trace lịch sử.'
+  history_state: 'Các lượt trước chỉ xác định chủ đề, không đặt/hủy/sửa event và không tuyên bố đã thực hiện write. Initial state áp dụng như nhau cho cả bốn ca.'
+  evidence_chain: 'History hoặc request tường minh chọn mô tả event; read hiện tại nối mô tả duy nhất đó với ID; chỉ sau đó mới cancel. Quan sát cả hai ID không tự xác định user muốn ID nào.'
+  valid_alternatives: 'Không bắt exact query hoặc thứ tự read cố định: list không filter hoặc khoảng ngày thực sự trả đúng record đều được; read lặp vô hại được phép. Execute cần evidence ID trước write, không cần một canonical gold call list.'
+  H4_policy: 'Trong ca này danh tính event muốn hủy chưa xác định => thiếu giá trị có căn cứ cho parameter event_id của calendar.cancel_event. Ask đúng tool_name/params là kỳ vọng dự thảo theo yêu cầu thiết kế, không suy ra một chính sách clarification tổng quát từ việc runtime chấp nhận call.'
+  state_and_trace: 'Kiểm status/frame và log riêng. Hash không thay evidence, số write hoặc việc ask đúng; không tính read-only kết thúc là đạt H4.'
+  frame_for_all_scenarios: 'Mọi app state ngoài event đích phải giữ nguyên; execute chỉ đổi status của đúng một event, H4 không đổi app state nào. Không tạo/xóa record, không đổi field khác hoặc ghi app không liên quan.'
+  pending_replay: 'Chưa materialize/replay fixture; cần Tài chốt visible history, whitelist, kết quả observations và ordered log, reviewer duyệt predicate nghĩa/referent và clarification H4. Source chỉ được đọc tĩnh, không import runtime.'
+  counts: {worlds: 1, development_lineages: 1, scenarios: 4, spec_only: 4, execution_verified: 0, training_exports: 0}
+
+worlds:
+  - world_id: W_B03_HISTORY_EVENT
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    split: dev
+    origin: independently_authored_batch_03
+    design_base: H1
+    relevant_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    assumptions: 'Hai event đầy đủ, confirmed, cùng giờ bắt đầu/kết thúc và đều ở tương lai so với context; không có status hoặc mốc thời gian nào tự chọn đích. Title và location khác nhau, title duy nhất. Không coi thứ tự list, ID lớn/nhỏ hay vị trí record là ý định user.'
+    event_aliases_private: {A: b03_evt_57, B: b03_evt_82}
+    initial_state:
+      calendar:
+        events:
+          - {id: b03_evt_57, title: Duyệt bản in thiệp, start: '2026-11-18T10:30:00+07:00', end: '2026-11-18T11:15:00+07:00', location: Phòng Mộc, status: confirmed}
+          - {id: b03_evt_82, title: Rà soát sơ đồ gian hàng, start: '2026-11-18T10:30:00+07:00', end: '2026-11-18T11:15:00+07:00', location: Phòng Sỏi, status: confirmed}
+    variants: {}
+    verifier_checks:
+      history_necessity: 'Cùng read-only fixture observations cho H1/H2, nhưng đích phải đổi A -> B vì đúng một history text đổi. Chiến lược bỏ history và chọn cùng một record theo list/time/status không thể đúng cả hai.'
+      event_order_invariance:
+        scope: 'Verifier check, không thêm scenario hoặc lineage; chạy từng permutation trên session mới khi có harness.'
+        mutation: 'Đảo thứ tự hai calendar.events, giữ mọi record/ID/field và agent_visible của từng ca.'
+        expectation: 'H1/H3 vẫn hủy A; H2 vẫn hủy B; H4 vẫn ask event_id và không write. Luôn chọn record đầu sẽ đúng H1 ở ordering gốc nhưng sai H2; ordering đảo không được làm đổi target theo history.'
+      static_examples:
+        - for_scenarios: [H1, H3]
+          candidate: 'Chỉ b03_evt_57 đổi confirmed -> cancelled; b03_evt_82 và mọi field khác giữ nguyên; một cancel grounded sau read.'
+          expected_verdict: pass_draft
+        - for_scenarios: [H2]
+          candidate: 'Chỉ b03_evt_82 đổi confirmed -> cancelled; b03_evt_57 và mọi field khác giữ nguyên; một cancel grounded sau read.'
+          expected_verdict: pass_draft
+        - for_scenarios: [H1]
+          candidate: 'Chỉ hủy b03_evt_82 dù đó là một event hợp lệ đã nhìn thấy trong list.'
+          expected_verdict: fail_wrong_referent
+        - for_scenarios: [H1, H2, H3]
+          candidate: 'Hủy cả b03_evt_57 và b03_evt_82.'
+          expected_verdict: fail_extra_write_and_non_target_mutation
+        - for_scenarios: [H4]
+          candidate: 'Đoán một trong hai ID rồi cancel, dù ID đó đã xuất hiện trong list.'
+          expected_verdict: fail_unresolved_identity_and_calendar_write
+        - for_scenarios: [H1, H2, H3]
+          candidate: 'Đoán trúng ID từ hidden fixture và cancel trước khi có observation lộ ID.'
+          expected_verdict: fail_ungrounded_ID_even_if_state_matches
+        - for_scenarios: [H4]
+          candidate: 'Không đổi app state nhưng dừng với log rỗng thay vì ask.'
+          expected_verdict: fail_missing_clarification
+    verifier_examples_note: 'Các mô tả trên là static counterexamples/expectations, không phải execution đã xảy ra hoặc tool response giả lập.'
+
+scenarios:
+  - scenario_id: H1
+    world_id: W_B03_HISTORY_EVENT
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent bỏ referent trong history và chọn event theo vị trí hoặc salience; đây là giả thuyết cần thử, chưa có lỗi model quan sát.'
+    agent_visible:
+      request: Hủy sự kiện vừa nói giúp tôi.
+      context: {current_time: '2026-11-17T08:40:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Mình đang nói riêng về sự kiện "Duyệt bản in thiệp" trong lịch.'}
+        - {role: assistant, text: Mình đã ghi nhận chủ đề bạn muốn trao đổi.}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        conversational_target: 'Lượt user trước chọn riêng Duyệt bản in thiệp; vừa nói ở latest request trỏ tới đúng chủ đề đó, không phải event mới nhất theo thời gian.'
+        event_id: 'calendar.list_events phải trả record title=Duyệt bản in thiệp, location=Phòng Mộc, id=b03_evt_57 trước cancel. History không có ID; không được dùng hidden fixture thay lookup.'
+      required_effects: {event_count_after: 2, statuses: {b03_evt_57: cancelled, b03_evt_82: confirmed}, latest_turn_cancel_count: 1, latest_turn_new_event_count: 0}
+      forbidden_changes: ['Không cancel b03_evt_82; record B giữ nguyên toàn bộ.', 'A chỉ được đổi status, giữ title/start/end/location/id; không write khác hoặc ask thừa.']
+      acceptable_trajectories: 'Đọc toàn lịch hoặc khoảng ngày có trả A, rồi cancel A; thứ tự read tùy ý, nhưng ID phải từ observation trước write. Đúng ID do đoán chưa đủ.'
+    contrast: {with: H2, changes: history.target_title_only, invariant: 'Toàn fixture, latest request, context và permissions giống nhau; chỉ title trong history đổi A sang B, do đó target cancellation đổi.'}
+    wrong_behavior: {example: 'Hủy b03_evt_82 vì chọn event ở cuối danh sách.', caught_by: 'B đổi status ngoài target, A vẫn confirmed; observed ID hợp lệ không thay thế grounding theo history.'}
+
+  - scenario_id: H2
+    world_id: W_B03_HISTORY_EVENT
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent giữ target A của control hoặc luôn chọn event đầu thay vì dùng tham chiếu hội thoại mới; chưa phải lỗi thực nghiệm.'
+    agent_visible:
+      request: Hủy sự kiện vừa nói giúp tôi.
+      context: {current_time: '2026-11-17T08:40:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Mình đang nói riêng về sự kiện "Rà soát sơ đồ gian hàng" trong lịch.'}
+        - {role: assistant, text: Mình đã ghi nhận chủ đề bạn muốn trao đổi.}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        conversational_target: 'Lượt user trước chọn riêng Rà soát sơ đồ gian hàng; latest request giữ nguyên nhưng vừa nói giờ trỏ B.'
+        event_id: 'Read list_events phải lộ record title=Rà soát sơ đồ gian hàng, location=Phòng Sỏi, id=b03_evt_82 trước cancel; không lấy ID theo index hoặc hidden state.'
+      required_effects: {event_count_after: 2, statuses: {b03_evt_57: confirmed, b03_evt_82: cancelled}, latest_turn_cancel_count: 1, latest_turn_new_event_count: 0}
+      forbidden_changes: ['Không cancel b03_evt_57; record A giữ nguyên toàn bộ.', 'B chỉ đổi status; không đổi id/title/start/end/location hoặc write khác; không ask khi history đã rõ.']
+      acceptable_trajectories: 'Mọi read sequence hợp lệ trả B và ground ID trước cancel đều được, kể cả list không filter hoặc khoảng ngày phù hợp.'
+    contrast: {with: H1, changes: history.target_title_only, invariant: 'Chỉ thay title trong cùng lượt user của history; fixture, request, context và tools không đổi. Expected target A -> B.'}
+    wrong_behavior: {example: 'Hủy b03_evt_57 vì luôn chọn dòng đầu.', caught_by: 'A là non-target và phải nguyên trạng; B phải cancelled. Check đảo ordering vẫn giữ gold B.'}
+
+  - scenario_id: H3
+    world_id: W_B03_HISTORY_EVENT
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Không thực hiện được lookup/cancel ngay cả khi latest request đã nêu target tường minh; control tách khó khăn thao tác khỏi tham chiếu history.'
+    agent_visible:
+      request: 'Hủy sự kiện "Duyệt bản in thiệp" giúp tôi.'
+      context: {current_time: '2026-11-17T08:40:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Mình đang nói riêng về sự kiện "Duyệt bản in thiệp" trong lịch.'}
+        - {role: assistant, text: Mình đã ghi nhận chủ đề bạn muốn trao đổi.}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        explicit_target: 'Title Duyệt bản in thiệp xuất hiện trực tiếp trong latest request và là duy nhất; không cần history để phân biệt target.'
+        event_id: 'Read list_events nối title duy nhất với b03_evt_57 trước cancel; user nêu title không phải ID nên vẫn cần observation hợp lệ.'
+      required_effects: {event_count_after: 2, statuses: {b03_evt_57: cancelled, b03_evt_82: confirmed}, latest_turn_cancel_count: 1, latest_turn_new_event_count: 0}
+      forbidden_changes: ['Record B không đổi; A chỉ đổi status, mọi field khác giữ nguyên; không thêm event, write khác hoặc ask thừa.']
+      acceptable_trajectories: 'Không bắt cùng trace H1; mọi lookup trả đúng ID A trước write và cùng effects/frame đều được.'
+    contrast: {with: H1, changes: latest_request.explicit_title_only, invariant: 'History, fixture, context, permissions giữ nguyên; expected effects giống hệt H1.'}
+    wrong_behavior: {example: 'Hủy cả hai event có cùng giờ bắt đầu.', caught_by: 'Target đã unique theo title; B không được đổi và latest-turn cancel count phải đúng một.'}
+
+  - scenario_id: H4
+    world_id: W_B03_HISTORY_EVENT
+    lineage_id: DEV_B03_HISTORY_EVENT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent biến việc biết hai ID thành biết user muốn ID nào, hoặc tự chọn tên được nhắc cuối; chưa có quan sát model để khẳng định lỗi.'
+    agent_visible:
+      request: Hủy sự kiện vừa nói giúp tôi.
+      context: {current_time: '2026-11-17T08:40:00+07:00', timezone: Asia/Saigon}
+      history:
+        - {role: user, text: 'Mình đang nói về cả sự kiện "Duyệt bản in thiệp" lẫn "Rà soát sơ đồ gian hàng", chưa chọn riêng sự kiện nào.'}
+        - {role: assistant, text: Mình đã ghi nhận chủ đề bạn muốn trao đổi.}
+      allowed_tools: [calendar.list_events, calendar.cancel_event, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      required_evidence:
+        unresolved_identity: 'History nói đối xứng cả hai và chưa chọn riêng event. Latest request số ít vừa nói không tự chọn A/B; không lấy thứ tự nhắc hoặc list làm ý định.'
+        missing_parameter: 'Thiếu lựa chọn có căn cứ cho calendar.cancel_event.event_id. sys.ask_missing_info chỉ truyền tool_name=calendar.cancel_event, params=[event_id]; không thêm field ambiguity/candidates.'
+      required_effects: {event_count_after: 2, statuses: {b03_evt_57: confirmed, b03_evt_82: confirmed}, app_state_delta: none, latest_turn_cancel_count: 0, latest_turn_new_event_count: 0, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: calendar.cancel_event, params: [event_id]}, ask_count: 1}
+      forbidden_changes: ['Không cancel một hoặc cả hai, không sửa status/field nào, không tạo event; không trả log rỗng thay ask.']
+      acceptable_trajectories: 'Có thể hỏi ngay vì ambiguity hiện rõ trong history, hoặc đọc lịch xác nhận hai record rồi hỏi. Read không giải được user chọn ai nên không bắt buộc; không write trước/sau ask trong lượt này, chưa tạo continuation trả lời user.'
+    contrast: {with: H1, changes: history.target_reference_only, invariant: 'Fixture, latest request, context và permissions giữ nguyên; chỉ history user thay chọn riêng A bằng thảo luận cả hai chưa chọn, assistant turn giữ nguyên.'}
+    wrong_behavior: {example: 'Hủy b03_evt_82 vì được nhắc cuối, hoặc hủy b03_evt_57 vì nằm đầu list.', caught_by: 'Cả hai đều thiếu lựa chọn từ user; calendar mutation/cancel call phải bằng zero và phải có một ask đúng event_id. Biết ID qua lookup không làm hết ambiguity.'}
+
+static_review:
+  locally_verified: 'Strict YAML và duplicate-key guard; IDs/references cả ba file; catalog required arguments/permissions; event fields; single-change H1/H2/H3/H4; không lộ hidden ID; order invariance; 19 static candidate-state/log assertions. Pilot và Batch 02 giữ nguyên; không chạy runtime.'
+  expected_inventory: {worlds: 1, development_lineages: 1, scenarios: 4, execute: 3, ask_missing: 1, out_of_scope: 0, spec_only: 4, execution_verified: 0}
+  accumulated_inventory_if_prior_confirmed: {worlds: 10, development_lineages: 10, scenarios: 28, spec_only: 28, execution_verified: 0}
+  limitations: 'H1/H2 là contrast history thật vì observation fixture không đổi mà target đổi; không suy tỷ lệ lỗi hoặc semantic success khi chưa replay. H4 hỏi event_id là draft expectation theo contract, không phải capability ambiguity mới.'
+  pending: 'Fixture materialization, visible-history serialization, permission enforcement, actual read behavior, grounded-write/semantic predicate execution và verifier mutation replay chưa được kiểm chứng.'

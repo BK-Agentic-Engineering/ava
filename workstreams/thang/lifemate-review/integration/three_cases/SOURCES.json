@@ -1,0 +1,211 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "committee_release": "v3.2.0",
+  "catalog_schema": "2.7.0",
+  "sdk_source": "train+public_test/train/zaic_tools/",
+  "evidence_kind": "authored_hand_traces_executed_locally",
+  "cases": {
+    "TR15_PLANNING_TOMORROW": {
+      "split": "train",
+      "status": "spec_only",
+      "exportable": false,
+      "design_project_locator": "data/synthetic/design/train_wave_15.yaml#/scenarios/0",
+      "canonical_row_project_locator": "artifacts/synthetic/train_wave_15_replay/replay.json#/replays/0",
+      "initial_snapshot_project_locator": "artifacts/synthetic/train_wave_15_replay/replay.json#/scenarios/TR15_PLANNING_TOMORROW/post_history_state"
+    },
+    "B02_N_C": {
+      "split": "dev",
+      "status": "spec_only",
+      "exportable": false,
+      "design_project_locator": "data/synthetic/design/batch_02.yaml#/scenarios/6",
+      "canonical_row_project_locator": "artifacts/synthetic/batch_02_replay/replay.json#/replays/7",
+      "initial_snapshot_project_locator": "artifacts/synthetic/batch_02_replay/replay.json#/fixtures/B02_N_C"
+    },
+    "TR16_APP_KEEP": {
+      "split": "train",
+      "status": "spec_only",
+      "exportable": false,
+      "design_project_locator": "data/synthetic/design/train_wave_16.yaml#/scenarios/22",
+      "canonical_row_project_locator": "artifacts/synthetic/train_wave_16_replay/replay.json#/replays/65",
+      "initial_snapshot_project_locator": "artifacts/synthetic/train_wave_16_replay/replay.json#/scenarios/TR16_APP_KEEP/post_history_state"
+    }
+  },
+  "verifier_extractions": [
+    {
+      "file": "verifiers/payloads.py",
+      "symbol": "payload",
+      "source": "scripts/replay_train_wave_14.py",
+      "lines": [
+        17,
+        32
+      ]
+    },
+    {
+      "file": "verifiers/payloads.py",
+      "symbol": "COLLECTIONS",
+      "source": "scripts/replay_train_wave_14.py",
+      "lines": [
+        35,
+        38
+      ]
+    },
+    {
+      "file": "verifiers/history.py",
+      "symbol": "argument",
+      "source": "scripts/replay_train_wave_13.py",
+      "lines": [
+        21,
+        37
+      ]
+    },
+    {
+      "file": "verifiers/history.py",
+      "symbol": "successful",
+      "source": "scripts/replay_train_wave_13.py",
+      "lines": [
+        40,
+        41
+      ]
+    },
+    {
+      "file": "verifiers/canonical.py",
+      "symbol": "canonical",
+      "source": "scripts/replay_train_wave_01.py",
+      "lines": [
+        19,
+        20
+      ]
+    },
+    {
+      "file": "verifiers/wave15.py",
+      "symbol": "READS",
+      "source": "scripts/replay_train_wave_15.py",
+      "lines": [
+        22,
+        23
+      ]
+    },
+    {
+      "file": "verifiers/wave15.py",
+      "symbol": "CREATES",
+      "source": "scripts/replay_train_wave_15.py",
+      "lines": [
+        24,
+        24
+      ]
+    },
+    {
+      "file": "verifiers/wave15.py",
+      "symbol": "effect",
+      "source": "scripts/replay_train_wave_15.py",
+      "lines": [
+        27,
+        30
+      ]
+    },
+    {
+      "file": "verifiers/wave15.py",
+      "symbol": "comparable",
+      "source": "scripts/replay_train_wave_15.py",
+      "lines": [
+        33,
+        41
+      ]
+    },
+    {
+      "file": "verifiers/wave15.py",
+      "symbol": "verify",
+      "source": "scripts/replay_train_wave_15.py",
+      "lines": [
+        44,
+        102
+      ]
+    },
+    {
+      "file": "verifiers/batch02.py",
+      "symbol": "KNOWN_WRONG_TEXT",
+      "source": "scripts/replay_batch02.py",
+      "lines": [
+        20,
+        26
+      ]
+    },
+    {
+      "file": "verifiers/batch02.py",
+      "symbol": "text_judgment",
+      "source": "scripts/replay_batch02.py",
+      "lines": [
+        29,
+        34
+      ]
+    },
+    {
+      "file": "verifiers/batch02.py",
+      "symbol": "verify",
+      "source": "scripts/replay_batch02.py",
+      "lines": [
+        37,
+        142
+      ]
+    },
+    {
+      "file": "verifiers/wave16.py",
+      "symbol": "READS",
+      "source": "scripts/replay_train_wave_16.py",
+      "lines": [
+        21,
+        22
+      ]
+    },
+    {
+      "file": "verifiers/wave16.py",
+      "symbol": "expected_after",
+      "source": "scripts/replay_train_wave_16.py",
+      "lines": [
+        25,
+        56
+      ]
+    },
+    {
+      "file": "verifiers/wave16.py",
+      "symbol": "verify",
+      "source": "scripts/replay_train_wave_16.py",
+      "lines": [
+        59,
+        145
+      ]
+    }
+  ],
+  "sdk_members": [
+    "train+public_test/train/zaic_tools/__init__.py",
+    "train+public_test/train/zaic_tools/executor.py",
+    "train+public_test/train/zaic_tools/validate.py",
+    "train+public_test/train/zaic_tools/utils.py",
+    "train+public_test/train/zaic_tools/apps/__init__.py",
+    "train+public_test/train/zaic_tools/apps/base.py",
+    "train+public_test/train/zaic_tools/apps/sys.py",
+    "train+public_test/train/zaic_tools/apps/calendar.py",
+    "train+public_test/train/zaic_tools/apps/reminders.py",
+    "train+public_test/train/zaic_tools/apps/tasks.py",
+    "train+public_test/train/zaic_tools/apps/appliances.py"
+  ],
+  "catalog_projection": {
+    "source": "train+public_test/train/train_tools_catalog.json",
+    "included_tools": [
+      "appliances.list",
+      "appliances.start_cycle",
+      "appliances.stop",
+      "calendar.create_event",
+      "calendar.list_events",
+      "reminders.create",
+      "reminders.list",
+      "sys.ask_missing_info",
+      "tasks.add"
+    ],
+    "policy": "Only exact original app metadata and selected tool definitions. No changed schemas."
+  },
+  "verifier_extraction_policy": "Named functions and constants copied from canonical source without AST changes. Only module imports adapted to the bundled dependency layout.",
+  "python_requirement": "Python 3.10+; stdlib only; no pip installation.",
+  "runtime_distribution": "SDK/catalog/schema redistribution authorization not established. None bundled; supply authorized v3.2.0 archive.",
+  "packaging_checked": "2026-11-06; current canonical verifier function/constant ASTs match"
+}

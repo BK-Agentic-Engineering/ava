@@ -1,0 +1,3956 @@
+{
+  "created_utc": "2026-11-03T08:01:14.255104+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "positive_replays": 13,
+    "negative_checks": 32,
+    "text_review_checks": 1,
+    "all_expectations_met": true,
+    "spec_only": 8,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "provenance": {
+    "design": "data\\synthetic\\design\\batch_02.yaml",
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/calendar.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/contacts.py",
+      "train+public_test/train/zaic_tools/apps/email.py",
+      "train+public_test/train/zaic_tools/apps/reminders.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "reproduction_command": "python scripts/replay_batch02.py",
+  "text_scope": {
+    "exact_requested_text": "accepted for these hand-authored traces",
+    "reviewed_wrong_examples": {
+      "Tôi chỉ nhận bảy thùng giấy, không nhận thêm.": "changed_quantity",
+      "Tôi chỉ nhận sáu thùng giấy, nhận thêm.": "reversed_restriction",
+      "Tôi nhận sáu thùng giấy.": "removed_restriction",
+      "Hủy phiếu giao hàng": "changed_action",
+      "Nộp phiếu thu": "changed_object"
+    },
+    "other_paraphrases": "human_review_required"
+  },
+  "limitations": [
+    "No model evaluation, team conversation harness or official semantic-policy acceptance.",
+    "Intended source identity is supplied by reviewed specification, not an NLP interpreter.",
+    "Exact text plus explicit diagnostic errors is not a complete semantic oracle."
+  ],
+  "fixtures": {
+    "B02_E_B": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "b02_ct_47",
+            "name": "Đỗ Bảo Yến",
+            "relation": "điều phối viên xưởng",
+            "email": "bao.yen@tramnam.example.test"
+          }
+        ]
+      },
+      "email": {
+        "emails": [],
+        "sent": [],
+        "drafts": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "tools": [
+          "contacts.search",
+          "email.send",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_E_A": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "b02_ct_47",
+            "name": "Đỗ Bảo Yến",
+            "relation": "điều phối viên xưởng",
+            "email": "bao.yen@tramnam.example.test"
+          }
+        ]
+      },
+      "email": {
+        "emails": [],
+        "sent": [],
+        "drafts": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "tools": [
+          "contacts.search",
+          "email.send",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_E_C": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "b02_ct_47",
+            "name": "Đỗ Bảo Yến",
+            "relation": "điều phối viên xưởng"
+          }
+        ]
+      },
+      "email": {
+        "emails": [],
+        "sent": [],
+        "drafts": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "tools": [
+          "contacts.search",
+          "email.send",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_E_D": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "b02_ct_47",
+            "name": "Đỗ Bảo Yến",
+            "relation": "điều phối viên xưởng",
+            "email": "bao.yen@tramnam.example.test"
+          }
+        ]
+      },
+      "email": {
+        "emails": [],
+        "sent": [],
+        "drafts": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "tools": [
+          "contacts.search",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_N_B": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b02_evt_68",
+            "title": "Trao đổi mẫu gốm",
+            "start": "2026-11-14T15:40:00+07:00",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "reminders": {
+        "reminders": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_N_A": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b02_evt_68",
+            "title": "Trao đổi mẫu gốm",
+            "start": "2026-11-14T15:40:00+07:00",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "reminders": {
+        "reminders": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_N_C": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b02_evt_68",
+            "title": "Họp phân công kiểm kê kho",
+            "start": "2026-11-14T15:40:00+07:00",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "reminders": {
+        "reminders": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "reminders.create",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "B02_N_D": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b02_evt_68",
+            "title": "Trao đổi mẫu gốm",
+            "start": "2026-11-14T15:40:00+07:00",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "reminders": {
+        "reminders": []
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "sys.ask_missing_info"
+        ]
+      }
+    }
+  },
+  "agent_visible": {
+    "B02_E_B": {
+      "request": "Gửi email cho Đỗ Bảo Yến tới địa chỉ email của chị ấy trong danh bạ, với tiêu đề \"Xác nhận vật tư\", nội dung \"Tôi chỉ nhận sáu thùng giấy, không nhận thêm.\"",
+      "context": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "email": {
+            "tools": [
+              "email.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "email.send",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_E_A": {
+      "request": "Gửi email cho Đỗ Bảo Yến tới địa chỉ bao.yen@tramnam.example.test, với tiêu đề \"Xác nhận vật tư\", nội dung \"Tôi chỉ nhận sáu thùng giấy, không nhận thêm.\"",
+      "context": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "email": {
+            "tools": [
+              "email.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "email.send",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_E_C": {
+      "request": "Gửi email cho Đỗ Bảo Yến tới địa chỉ email của chị ấy trong danh bạ, với tiêu đề \"Xác nhận vật tư\", nội dung \"Tôi chỉ nhận sáu thùng giấy, không nhận thêm.\"",
+      "context": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "email": {
+            "tools": [
+              "email.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "email.send",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_E_D": {
+      "request": "Gửi email cho Đỗ Bảo Yến tới địa chỉ bao.yen@tramnam.example.test, với tiêu đề \"Xác nhận vật tư\", nội dung \"Tôi chỉ nhận sáu thùng giấy, không nhận thêm.\"",
+      "context": {
+        "current_time": "2026-11-13T09:20:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_N_B": {
+      "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng giờ bắt đầu sự kiện \"Trao đổi mẫu gốm\" trong lịch của tôi.",
+      "context": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_N_A": {
+      "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng 15 giờ 40 ngày 14 tháng 11 năm 2026, giờ Việt Nam.",
+      "context": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_N_C": {
+      "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng giờ bắt đầu sự kiện \"Trao đổi mẫu gốm\" trong lịch của tôi.",
+      "context": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events"
+            ]
+          },
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "B02_N_D": {
+      "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng 15 giờ 40 ngày 14 tháng 11 năm 2026, giờ Việt Nam.",
+      "context": {
+        "current_time": "2026-11-13T11:10:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "B02_E_A",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_E_A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_C",
+      "fixture_variant": "recipient_email_missing",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_E_C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "email.send",
+            "params": [
+              "to"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_D",
+      "fixture_variant": "base",
+      "trace_case": "no_calls",
+      "initial_fixture_ref": "B02_E_D",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "sys": {},
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        }
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_A",
+      "fixture_variant": "base",
+      "trace_case": "read_write",
+      "initial_fixture_ref": "B02_E_A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 1
+      }
+    },
+    {
+      "scenario_id": "B02_N_A",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_N_A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "standard",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Họp phân công kiểm kê kho",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_D",
+      "fixture_variant": "base",
+      "trace_case": "no_calls",
+      "initial_fixture_ref": "B02_N_D",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {},
+        "reminders": {
+          "reminders": []
+        }
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_A",
+      "fixture_variant": "base",
+      "trace_case": "read_write",
+      "initial_fixture_ref": "B02_N_A",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 1
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "full_listing",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "date_range",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-11-14",
+            "date_to": "2026-11-14"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "empty_then_unfiltered",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "construction": "hand_authored_positive",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-01-01",
+            "date_to": "2027-01-02"
+          },
+          "result": {
+            "ok": true,
+            "events": []
+          }
+        },
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Họp phân công kiểm kê kho",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "guess_B",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "write_without_matching_source_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_C",
+      "fixture_variant": "recipient_email_missing",
+      "trace_case": "ask_no_lookup",
+      "initial_fixture_ref": "B02_E_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_without_required_absence_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "email.send",
+            "params": [
+              "to"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ask_without_required_absence_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_C",
+      "fixture_variant": "recipient_email_missing",
+      "trace_case": "wrong_tool",
+      "initial_fixture_ref": "B02_E_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.create_event",
+            "params": [
+              "to"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_C",
+      "fixture_variant": "recipient_email_missing",
+      "trace_case": "wrong_parameter",
+      "initial_fixture_ref": "B02_E_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "email.send",
+            "params": [
+              "subject"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_A",
+      "fixture_variant": "base",
+      "trace_case": "ask_in_A",
+      "initial_fixture_ref": "B02_E_A",
+      "expected_verdict": "reject",
+      "required_reason": "unexpected_ask",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "email.send",
+            "params": [
+              "to"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "unexpected_ask",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_D",
+      "fixture_variant": "base",
+      "trace_case": "read_only",
+      "initial_fixture_ref": "B02_E_D",
+      "expected_verdict": "reject",
+      "required_reason": "D_nonempty_attempt_log",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "sys": {},
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "D_nonempty_attempt_log"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_D",
+      "fixture_variant": "base",
+      "trace_case": "attempt_write",
+      "initial_fixture_ref": "B02_E_D",
+      "expected_verdict": "reject",
+      "required_reason": "unpermitted_attempt",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'email.send' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "sys": {},
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "D_nonempty_attempt_log",
+          "failed_call",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_02",
+            "email": {
+              "id": "sent_02",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            },
+            {
+              "id": "sent_02",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "wrong_value",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "recipient",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "other@example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "other@example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "other@example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "recipient"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "guess_B",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "write_without_matching_source_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "ask_no_lookup",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_without_required_absence_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ask_without_required_absence_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "wrong_tool",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Họp phân công kiểm kê kho",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.create_event",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "wrong_parameter",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_arguments",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Họp phân công kiểm kê kho",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "start"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_A",
+      "fixture_variant": "base",
+      "trace_case": "ask_in_A",
+      "initial_fixture_ref": "B02_N_A",
+      "expected_verdict": "reject",
+      "required_reason": "unexpected_ask",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "unexpected_ask",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_D",
+      "fixture_variant": "base",
+      "trace_case": "read_only",
+      "initial_fixture_ref": "B02_N_D",
+      "expected_verdict": "reject",
+      "required_reason": "D_nonempty_attempt_log",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {},
+        "reminders": {
+          "reminders": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "D_nonempty_attempt_log"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_D",
+      "fixture_variant": "base",
+      "trace_case": "attempt_write",
+      "initial_fixture_ref": "B02_N_D",
+      "expected_verdict": "reject",
+      "required_reason": "unpermitted_attempt",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'reminders.create' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {},
+        "reminders": {
+          "reminders": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "D_nonempty_attempt_log",
+          "failed_call",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "wrong_value",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_time",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T16:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T16:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T16:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_time"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "cc",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "unintended_cc",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm.",
+            "cc": [
+              "extra@example.test"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [
+                "extra@example.test"
+              ],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [
+                "extra@example.test"
+              ],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "unintended_cc"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_C",
+      "fixture_variant": "recipient_email_missing",
+      "trace_case": "guess_C",
+      "initial_fixture_ref": "B02_E_C",
+      "expected_verdict": "reject",
+      "required_reason": "write_without_matching_source_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_state_change",
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "ask_count",
+          "write_count"
+        ],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "unrelated_time",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "reject",
+      "required_reason": "write_without_matching_source_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Họp phân công kiểm kê kho",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_state_change",
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "ask_count",
+          "write_count"
+        ],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_C",
+      "fixture_variant": "requested_event_title_absent",
+      "trace_case": "filtered_only",
+      "initial_fixture_ref": "B02_N_C",
+      "expected_verdict": "reject",
+      "required_reason": "ask_without_required_absence_observation",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-01-01",
+            "date_to": "2027-01-02"
+          },
+          "result": {
+            "ok": true,
+            "events": []
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "time"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Họp phân công kiểm kê kho",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "ask_without_required_absence_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "wrong_repeat",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_repeat",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00",
+            "repeat": "daily"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "daily",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "daily",
+              "done": false,
+              "content": "Nộp phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_repeat"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "quantity",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "body:changed_quantity",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận bảy thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận bảy thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận bảy thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "body:changed_quantity"
+        ],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "restriction",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "body:reversed_restriction",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "body:reversed_restriction"
+        ],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "removed_restriction",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "body:removed_restriction",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi nhận sáu thùng giấy."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi nhận sáu thùng giấy."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi nhận sáu thùng giấy."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "body:removed_restriction"
+        ],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "action",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "content:changed_action",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Hủy phiếu giao hàng",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Hủy phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Hủy phiếu giao hàng",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "content:changed_action"
+        ],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "object",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "reject",
+      "required_reason": "content:changed_object",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nộp phiếu thu",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu thu",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nộp phiếu thu",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "content:changed_object"
+        ],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "noop",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "noop_call",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "invalid-address"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "done": false,
+            "message": "to: địa chỉ email không hợp lệ 'invalid-address'"
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "noop_call"
+        ],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "extra_write",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "additional_write_attempt",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        },
+        {
+          "name": "email.create_draft",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'email.create_draft' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "additional_write_attempt",
+          "failed_call",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "failed_call",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "failed_call",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {},
+          "result": {
+            "ok": false,
+            "error": "thiếu tham số bắt buộc: to, subject, body"
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "failed_call",
+          "write_count"
+        ],
+        "grounding_reasons": [
+          "write_without_matching_source_observation"
+        ],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      }
+    },
+    {
+      "scenario_id": "B02_E_B",
+      "fixture_variant": "base",
+      "trace_case": "snapshot",
+      "initial_fixture_ref": "B02_E_B",
+      "expected_verdict": "reject",
+      "required_reason": "unrelated_state_changed",
+      "construction": "verifier_only_snapshot_mutation",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "Đỗ Bảo Yến"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "b02_ct_47",
+                "name": "Đỗ Bảo Yến",
+                "relation": "điều phối viên xưởng",
+                "email": "bao.yen@tramnam.example.test"
+              }
+            ]
+          }
+        },
+        {
+          "name": "email.send",
+          "arguments": {
+            "to": [
+              "bao.yen@tramnam.example.test"
+            ],
+            "subject": "Xác nhận vật tư",
+            "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+          },
+          "result": {
+            "ok": true,
+            "id": "sent_01",
+            "email": {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "Tampered verifier snapshot",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "unrelated_state_changed"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [],
+        "unnecessary_read_count": 0
+      },
+      "actual_runtime_final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "b02_ct_47",
+              "name": "Đỗ Bảo Yến",
+              "relation": "điều phối viên xưởng",
+              "email": "bao.yen@tramnam.example.test"
+            }
+          ]
+        },
+        "email": {
+          "emails": [],
+          "sent": [
+            {
+              "id": "sent_01",
+              "to": [
+                "bao.yen@tramnam.example.test"
+              ],
+              "cc": [],
+              "subject": "Xác nhận vật tư",
+              "body": "Tôi chỉ nhận sáu thùng giấy, không nhận thêm."
+            }
+          ],
+          "drafts": []
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "B02_N_B",
+      "fixture_variant": "base",
+      "trace_case": "paraphrase",
+      "initial_fixture_ref": "B02_N_B",
+      "expected_verdict": "review_required",
+      "required_reason": "content:human_review_required",
+      "construction": "deliberate_diagnostic_may_use_private_values",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b02_evt_68",
+                "title": "Trao đổi mẫu gốm",
+                "start": "2026-11-14T15:40:00+07:00",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Nhắc mình nộp phiếu giao hàng nhé",
+            "time": "2026-11-14T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_01",
+            "item": {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nhắc mình nộp phiếu giao hàng nhé",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b02_evt_68",
+              "title": "Trao đổi mẫu gốm",
+              "start": "2026-11-14T15:40:00+07:00",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_01",
+              "repeat": "once",
+              "done": false,
+              "content": "Nhắc mình nộp phiếu giao hàng nhé",
+              "time": "2026-11-14T15:40:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "review_required",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [
+          "content:human_review_required"
+        ],
+        "unnecessary_read_count": 0
+      }
+    }
+  ]
+}

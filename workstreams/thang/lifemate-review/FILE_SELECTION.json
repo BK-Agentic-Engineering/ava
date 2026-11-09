@@ -1,0 +1,1533 @@
+{
+  "files": {
+    "artifacts/synthetic/batch_02_replay/replay.json": {
+      "source": "artifacts/synthetic/batch_02_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/batch_03_replay/replay.json": {
+      "source": "artifacts/synthetic/batch_03_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/batch_04_replay/replay.json": {
+      "source": "artifacts/synthetic/batch_04_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/batch_05_replay/replay.json": {
+      "source": "artifacts/synthetic/batch_05_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/expansion_batch_02_replay/replay.json": {
+      "source": "artifacts/synthetic/expansion_batch_02_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/expansion_batch_03_replay/replay.json": {
+      "source": "artifacts/synthetic/expansion_batch_03_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/expansion_batch_04_replay/replay.json": {
+      "source": "artifacts/synthetic/expansion_batch_04_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/expansion_pilot_v1_replay/replay.json": {
+      "source": "artifacts/synthetic/expansion_pilot_v1_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/pilot_v1_replay/replay.json": {
+      "source": "artifacts/synthetic/pilot_v1_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_01_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_01_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_02_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_02_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_03_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_03_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_04_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_04_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_05_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_05_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_06_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_06_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_07_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_07_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_08_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_08_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_09_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_09_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_10_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_10_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_11_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_11_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_12_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_12_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_13_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_13_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_14_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_14_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_15_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_15_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_16_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_16_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_17_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_17_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_18_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_18_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_19_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_19_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "artifacts/synthetic/train_wave_20_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_20_replay/replay.json",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/batch_02.yaml": {
+      "source": "data/synthetic/design/batch_02.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/batch_03.yaml": {
+      "source": "data/synthetic/design/batch_03.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/batch_04.yaml": {
+      "source": "data/synthetic/design/batch_04.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/batch_05.yaml": {
+      "source": "data/synthetic/design/batch_05.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/expansion_batch_02.yaml": {
+      "source": "data/synthetic/design/expansion_batch_02.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/expansion_batch_03.yaml": {
+      "source": "data/synthetic/design/expansion_batch_03.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/expansion_batch_04.yaml": {
+      "source": "data/synthetic/design/expansion_batch_04.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/expansion_pilot_v1.yaml": {
+      "source": "data/synthetic/design/expansion_pilot_v1.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/pilot_v1.yaml": {
+      "source": "data/synthetic/design/pilot_v1.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_01.yaml": {
+      "source": "data/synthetic/design/train_wave_01.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_02.yaml": {
+      "source": "data/synthetic/design/train_wave_02.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_03.yaml": {
+      "source": "data/synthetic/design/train_wave_03.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_04.yaml": {
+      "source": "data/synthetic/design/train_wave_04.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_05.yaml": {
+      "source": "data/synthetic/design/train_wave_05.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_06.yaml": {
+      "source": "data/synthetic/design/train_wave_06.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_07.yaml": {
+      "source": "data/synthetic/design/train_wave_07.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_08.yaml": {
+      "source": "data/synthetic/design/train_wave_08.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_09.yaml": {
+      "source": "data/synthetic/design/train_wave_09.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_10.yaml": {
+      "source": "data/synthetic/design/train_wave_10.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_11.yaml": {
+      "source": "data/synthetic/design/train_wave_11.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_12.yaml": {
+      "source": "data/synthetic/design/train_wave_12.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_13.yaml": {
+      "source": "data/synthetic/design/train_wave_13.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_14.yaml": {
+      "source": "data/synthetic/design/train_wave_14.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_15.yaml": {
+      "source": "data/synthetic/design/train_wave_15.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_16.yaml": {
+      "source": "data/synthetic/design/train_wave_16.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_17.yaml": {
+      "source": "data/synthetic/design/train_wave_17.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_18.yaml": {
+      "source": "data/synthetic/design/train_wave_18.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_19.yaml": {
+      "source": "data/synthetic/design/train_wave_19.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/design/train_wave_20.yaml": {
+      "source": "data/synthetic/design/train_wave_20.yaml",
+      "purpose": "canonical synthetic design or authored SDK replay; all 1,000 IDs retained"
+    },
+    "data/synthetic/factual_answer_pilot.yaml": {
+      "source": "data/synthetic/factual_answer_pilot.yaml",
+      "purpose": "required local source/evidence"
+    },
+    "artifacts/synthetic/quality_audit_1000/per_sample_review.jsonl": {
+      "source": "artifacts/synthetic/quality_audit_1000/per_sample_review.jsonl",
+      "purpose": "required local source/evidence"
+    },
+    "artifacts/synthetic/quality_audit_1000/repair_reconciliation.json": {
+      "source": "artifacts/synthetic/quality_audit_1000/repair_reconciliation.json",
+      "purpose": "required local source/evidence"
+    },
+    "artifacts/synthetic/quality_audit_1000/resumed_repair_reconciliation.json": {
+      "source": "artifacts/synthetic/quality_audit_1000/resumed_repair_reconciliation.json",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/replay_batch03.py": {
+      "source": "scripts/replay_batch03.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_pilot_v1.py": {
+      "source": "scripts/replay_pilot_v1.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_batch02.py": {
+      "source": "scripts/replay_batch02.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_batch04.py": {
+      "source": "scripts/replay_batch04.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_batch05.py": {
+      "source": "scripts/replay_batch05.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_expansion_pilot_v1.py": {
+      "source": "scripts/replay_expansion_pilot_v1.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_expansion_batch_02.py": {
+      "source": "scripts/replay_expansion_batch_02.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_expansion_batch_03.py": {
+      "source": "scripts/replay_expansion_batch_03.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_expansion_batch_04.py": {
+      "source": "scripts/replay_expansion_batch_04.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_01.py": {
+      "source": "scripts/replay_train_wave_01.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_02.py": {
+      "source": "scripts/replay_train_wave_02.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_03.py": {
+      "source": "scripts/replay_train_wave_03.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_04.py": {
+      "source": "scripts/replay_train_wave_04.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_05.py": {
+      "source": "scripts/replay_train_wave_05.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_06.py": {
+      "source": "scripts/replay_train_wave_06.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_07.py": {
+      "source": "scripts/replay_train_wave_07.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_08.py": {
+      "source": "scripts/replay_train_wave_08.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_09.py": {
+      "source": "scripts/replay_train_wave_09.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_10.py": {
+      "source": "scripts/replay_train_wave_10.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_11.py": {
+      "source": "scripts/replay_train_wave_11.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_12.py": {
+      "source": "scripts/replay_train_wave_12.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_13.py": {
+      "source": "scripts/replay_train_wave_13.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_14.py": {
+      "source": "scripts/replay_train_wave_14.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_15.py": {
+      "source": "scripts/replay_train_wave_15.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/audit_synthetic_coverage.py": {
+      "source": "scripts/audit_synthetic_coverage.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_16.py": {
+      "source": "scripts/replay_train_wave_16.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/replay_train_wave_17.py": {
+      "source": "scripts/replay_train_wave_17.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "scripts/replay_train_wave_18.py": {
+      "source": "scripts/replay_train_wave_18.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/evaluate_factual_answer_pilot.py": {
+      "source": "scripts/evaluate_factual_answer_pilot.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/replay_train_wave_19.py": {
+      "source": "scripts/replay_train_wave_19.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/replay_train_wave_20.py": {
+      "source": "scripts/replay_train_wave_20.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/check_synthetic_quality_audit.py": {
+      "source": "scripts/check_synthetic_quality_audit.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/factual_trace_adapter.py": {
+      "source": "scripts/factual_trace_adapter.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/score_vimd_test.py": {
+      "source": "scripts/score_vimd_test.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/score_vnslu_test.py": {
+      "source": "scripts/score_vnslu_test.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/run_valsea_vimd.py": {
+      "source": "scripts/run_valsea_vimd.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/compare_vimd_models.py": {
+      "source": "scripts/compare_vimd_models.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/compare_vnslu_models.py": {
+      "source": "scripts/compare_vnslu_models.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "Only generated report prose replaces original machine-specific working-directory locator; scoring unchanged"
+    },
+    "scripts/gipformer15_smoke.py": {
+      "source": "scripts/gipformer15_smoke.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/prepare_vimd_test.py": {
+      "source": "scripts/prepare_vimd_test.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/prepare_vnslu_test.py": {
+      "source": "scripts/prepare_vnslu_test.py",
+      "purpose": "required local source/evidence"
+    },
+    "scripts/run_valsea_vnslu.py": {
+      "source": "scripts/run_valsea_vnslu.py",
+      "purpose": "required local source/evidence"
+    },
+    "lifemate/__init__.py": {
+      "source": "lifemate/__init__.py",
+      "purpose": "frozen normalization/edit/bootstrap utilities"
+    },
+    "lifemate/benchmark.py": {
+      "source": "lifemate/benchmark.py",
+      "purpose": "frozen normalization/edit/bootstrap utilities"
+    },
+    "tests/test_replay_expansion_batch_04.py": {
+      "source": "tests/test_replay_expansion_batch_04.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_01.py": {
+      "source": "tests/test_replay_train_wave_01.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_02.py": {
+      "source": "tests/test_replay_train_wave_02.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_03.py": {
+      "source": "tests/test_replay_train_wave_03.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_04.py": {
+      "source": "tests/test_replay_train_wave_04.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_05.py": {
+      "source": "tests/test_replay_train_wave_05.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_06.py": {
+      "source": "tests/test_replay_train_wave_06.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_07.py": {
+      "source": "tests/test_replay_train_wave_07.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_08.py": {
+      "source": "tests/test_replay_train_wave_08.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_09.py": {
+      "source": "tests/test_replay_train_wave_09.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_10.py": {
+      "source": "tests/test_replay_train_wave_10.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_11.py": {
+      "source": "tests/test_replay_train_wave_11.py",
+      "purpose": "focused synthetic regression; external requirements documented",
+      "adaptation": "SDK archive default uses LIFEMATE_SDK_ARCHIVE; no oracle changes"
+    },
+    "tests/test_replay_train_wave_12.py": {
+      "source": "tests/test_replay_train_wave_12.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_13.py": {
+      "source": "tests/test_replay_train_wave_13.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_14.py": {
+      "source": "tests/test_replay_train_wave_14.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_15.py": {
+      "source": "tests/test_replay_train_wave_15.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_16.py": {
+      "source": "tests/test_replay_train_wave_16.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_18.py": {
+      "source": "tests/test_replay_train_wave_18.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_19.py": {
+      "source": "tests/test_replay_train_wave_19.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_replay_train_wave_20.py": {
+      "source": "tests/test_replay_train_wave_20.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_audit_calendar_absence.py": {
+      "source": "tests/test_audit_calendar_absence.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_factual_answer_pilot.py": {
+      "source": "tests/test_factual_answer_pilot.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_factual_trace_adapter.py": {
+      "source": "tests/test_factual_trace_adapter.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_benchmark.py": {
+      "source": "tests/test_benchmark.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_score_vimd_test.py": {
+      "source": "tests/test_score_vimd_test.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_score_vnslu_test.py": {
+      "source": "tests/test_score_vnslu_test.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_compare_vimd_models.py": {
+      "source": "tests/test_compare_vimd_models.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "tests/test_compare_vnslu_models.py": {
+      "source": "tests/test_compare_vnslu_models.py",
+      "purpose": "focused synthetic regression; external requirements documented"
+    },
+    "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md": {
+      "source": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Package-specific evidence/source map consolidates withheld-input annotations; filenames and aggregate results preserved"
+    },
+    "docs/implementation/VIMD_BENCHMARK_SUMMARY.md": {
+      "source": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes",
+      "current_revision_note": "Historical two-model scope made explicit; detailed evidence retained"
+    },
+    "docs/implementation/SYNTHETIC_1000_QUALITY_AUDIT.md": {
+      "source": "docs/implementation/SYNTHETIC_1000_QUALITY_AUDIT.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/implementation/WORLD_LOCAL_COVERAGE.md": {
+      "source": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/implementation/WORLD_HARNESS_CONTRACT_PROPOSAL.md": {
+      "source": "docs/implementation/WORLD_HARNESS_CONTRACT_PROPOSAL.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes",
+      "current_revision_note": "Current external-SDK command at top; old bundled workflow marked historical in its original section"
+    },
+    "docs/implementation/FACTUAL_ANSWER_PILOT_HANDOFF.md": {
+      "source": "docs/implementation/FACTUAL_ANSWER_PILOT_HANDOFF.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md": {
+      "source": "docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/implementation/TRAIN_WAVE_20_HANDOFF.md": {
+      "source": "docs/implementation/TRAIN_WAVE_20_HANDOFF.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md": {
+      "source": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "purpose": "retained source/plan; current status in package README",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/project/README.md": {
+      "source": "docs/project/README.md",
+      "purpose": "retained source/plan; current status in package README",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "docs/project/description.md": {
+      "source": "docs/project/description.md",
+      "purpose": "retained source/plan; current status in package README",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "artifacts/scoring/valsea_vs_gipformer_vimd_20261101/metrics.json": {
+      "source": "artifacts/scoring/valsea_vs_gipformer_vimd_20261101/metrics.json",
+      "purpose": "saved aggregate findings; underlying third-party reference/prediction texts withheld"
+    },
+    "artifacts/scoring/valsea_vs_gipformer_vimd_20261101/report.md": {
+      "source": "artifacts/scoring/valsea_vs_gipformer_vimd_20261101/report.md",
+      "purpose": "saved aggregate findings; underlying third-party reference/prediction texts withheld",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/metrics.json": {
+      "source": "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/metrics.json",
+      "purpose": "saved aggregate findings; underlying third-party reference/prediction texts withheld"
+    },
+    "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/report.md": {
+      "source": "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/report.md",
+      "purpose": "saved aggregate findings; underlying third-party reference/prediction texts withheld",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "integration/three_cases/TR15_PLANNING_TOMORROW.input.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/TR15_PLANNING_TOMORROW.input.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/TR15_PLANNING_TOMORROW.output.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/TR15_PLANNING_TOMORROW.output.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/private/TR15_PLANNING_TOMORROW.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/private/TR15_PLANNING_TOMORROW.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/B02_N_C.input.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/B02_N_C.input.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/B02_N_C.output.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/B02_N_C.output.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/private/B02_N_C.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/private/B02_N_C.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/TR16_APP_KEEP.input.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/TR16_APP_KEEP.input.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/TR16_APP_KEEP.output.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/TR16_APP_KEEP.output.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/private/TR16_APP_KEEP.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/private/TR16_APP_KEEP.json",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/__init__.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/__init__.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/batch02.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/batch02.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "verify function refreshed from current canonical replay_batch02.py, same oracle"
+    },
+    "integration/three_cases/verifiers/canonical.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/canonical.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/history.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/history.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/payloads.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/payloads.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/wave15.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/wave15.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/verifiers/wave16.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verifiers/wave16.py",
+      "purpose": "required local source/evidence"
+    },
+    "integration/three_cases/SOURCES.json": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/SOURCES.json",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK/catalog removed; authorized archive supplied externally; current extracted verifier retained"
+    },
+    "integration/three_cases/verify.py": {
+      "source": "artifacts/synthetic/lifemate_harness_handoff_v01/verify.py",
+      "purpose": "required local source/evidence",
+      "adaptation": "SDK/catalog removed; authorized archive supplied externally; current extracted verifier retained"
+    },
+    "review/blind/reviewer_sheet_vi.md": {
+      "source": "artifacts/synthetic/train_wave_17_semantic_review/reviewer_sheet_vi.md",
+      "purpose": "send this file alone before any gold-bearing review",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    "review/private/PRIVATE_comparison_key_vi.md": {
+      "source": "artifacts/synthetic/train_wave_17_semantic_review/PRIVATE_comparison_key_vi.md",
+      "purpose": "private key; never send with blind sheet",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes"
+    },
+    ".gitignore": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff"
+    },
+    "DRAFT_PR.md": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "FILE_SELECTION.json": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+    },
+    "HANDOFF_VI.md": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+    },
+    "README.md": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "scripts/check_team_review.py": {
+      "source": "authored for this review package",
+      "purpose": "package README, validation, integration or publication handoff",
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+    },
+    "artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/configuration.json": {
+      "source": "artifacts/valsea_vnslu/valsea_vnslu_test_20261102_01/configuration.json",
+      "purpose": "saved submitted configuration and authored source; no reference text/provider output; validates smoke/full policy"
+    },
+    "artifacts/valsea_vnslu/valsea_vnslu_dev_smoke_20261102_01/configuration.json": {
+      "source": "artifacts/valsea_vnslu/valsea_vnslu_dev_smoke_20261102_01/configuration.json",
+      "purpose": "saved submitted configuration and authored source; no reference text/provider output; validates smoke/full policy"
+    },
+    "benchmarks/vimd_gipformer_frozen_configuration.json": {
+      "source": "artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/configuration.json",
+      "purpose": "exact dependency/revision/precision configuration",
+      "adaptation": "implementation source field omitted; all remaining configuration values unchanged"
+    },
+    "benchmarks/vnslu_gipformer_frozen_configuration.json": {
+      "source": "artifacts/kaggle_vnslu_test/gip15_vnslu_test_fp16_20261102_06/configuration.json",
+      "purpose": "exact dependency/revision/precision configuration",
+      "adaptation": "implementation source field omitted; all remaining configuration values unchanged"
+    },
+    "VALIDATION.md": {
+      "source": "authored for this review package",
+      "purpose": "review documentation, validation or external-SDK integration",
+      "current_revision_note": "2026-11-09 candidate integration handoff; historical 1,000-ID evidence and index preserved separately; current candidate has 1,063 source IDs"
+    },
+    "integration/three_cases/README.md": {
+      "source": "authored for this review package",
+      "purpose": "review documentation, validation or external-SDK integration"
+    },
+    "docs/project/WORKSPACE_GUIDANCE.md": {
+      "source": "AGENTS.md",
+      "purpose": "required local source/evidence",
+      "adaptation": "Missing local links explicitly annotated as excluded; historical/current scope clarified, no metric changes",
+      "current_revision_note": "Relocated to a non-instruction reference document; original workspace policy text retained, no automatic scope on team repository"
+    },
+    "artifacts/synthetic/failure_mode_index.jsonl": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Evidence-linked individual failure-mode mappings for all 1,000 IDs; existing holds/statuses preserved",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "docs/implementation/FAILURE_MODE_INDEX.md": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Derived taxonomy definitions, overlapping counts, worked evidence links and mapping limitations",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "scripts/check_failure_mode_index.py": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Read-only source-linked comparison, selector/status/count validator; optional guide rendering never assigns tags",
+      "status": "local uncommitted addition; individual mapping complete, publication pending review",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "tests/test_failure_mode_index.py": {
+      "source": "authored locally for failure-mode index review",
+      "purpose": "Focused comparison consistency, reference provenance and unique-scenario union regressions; no semantic label duplication",
+      "status": "local uncommitted addition",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vimd/metrics.json",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vimd/report.md": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vimd/report.md",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts",
+      "adaptation": "Portable-input/reproduction qualification appended; all aggregate results unchanged"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vnslu/metrics.json": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vnslu/metrics.json",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts"
+    },
+    "artifacts/scoring/quan_vs_baselines_20261107/vnslu/report.md": {
+      "source": "artifacts/scoring/quan_vs_baselines_20261107/vnslu/report.md",
+      "purpose": "saved three-model aggregate comparison; no per-sample transcripts",
+      "adaptation": "Portable-input/reproduction qualification appended; all aggregate results unchanged"
+    },
+    "dataset_v1_candidate/development.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/development.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/eligibility.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/eligibility.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/grade_final_wave_answers.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/grade_final_wave_answers.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/metadata.json": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/metadata.json",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/README.md": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/README.md",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot",
+      "adaptation": "Added later review restriction for TR12_BANK_LOOK; snapshot counts unchanged",
+      "current_revision_note": "2026-11-09 full 1,063-ID index, repaired evidence reconciliation; original 16 holds and later currency restriction unchanged"
+    },
+    "dataset_v1_candidate/tool_schemas.json": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/tool_schemas.json",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/trace_grounding.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/trace_grounding.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/training.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/training.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/validate.py": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/validate.py",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "dataset_v1_candidate/private/answer_reviews.jsonl": {
+      "source": "artifacts/synthetic/dataset_v1_candidate/private/answer_reviews.jsonl",
+      "purpose": "Current model-independent candidate; external private source locators do not refer to historical package snapshot"
+    },
+    "tests/test_candidate_verifiers.py": {
+      "source": "authored for portable candidate finalization",
+      "purpose": "Scoped verifier repair regressions and current integration boundaries"
+    },
+    "docs/implementation/DATASET_V1_FINALIZATION.md": {
+      "source": "authored for portable candidate finalization",
+      "purpose": "Scoped verifier repair regressions and current integration boundaries"
+    },
+    "artifacts/synthetic/manual_rubric_29_review_20261109/README.md": {
+      "source": "artifacts/synthetic/manual_rubric_29_review_20261109/README.md",
+      "purpose": "Approved AI semantic review of exact 29 canonical answers; 28 pass, one unresolved",
+      "adaptation": "Publication status wording only"
+    },
+    "artifacts/synthetic/manual_rubric_29_review_20261109/judgments.jsonl": {
+      "source": "artifacts/synthetic/manual_rubric_29_review_20261109/judgments.jsonl",
+      "purpose": "Approved AI semantic review of exact 29 canonical answers; 28 pass, one unresolved",
+      "adaptation": "byte-identical source ledger"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_06_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_06_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_08_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_08_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_09_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_09_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_12_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_12_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_14_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_14_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_15_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_15_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_21_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_21_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_22_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_22_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/artifacts/synthetic/train_wave_23_replay/replay.json": {
+      "source": "artifacts/synthetic/train_wave_23_replay/replay.json",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_08.yaml": {
+      "source": "data/synthetic/design/train_wave_08.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_09.yaml": {
+      "source": "data/synthetic/design/train_wave_09.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_12.yaml": {
+      "source": "data/synthetic/design/train_wave_12.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_14.yaml": {
+      "source": "data/synthetic/design/train_wave_14.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_15.yaml": {
+      "source": "data/synthetic/design/train_wave_15.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_21.yaml": {
+      "source": "data/synthetic/design/train_wave_21.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_22.yaml": {
+      "source": "data/synthetic/design/train_wave_22.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/design/train_wave_23.yaml": {
+      "source": "data/synthetic/design/train_wave_23.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/index_current_sources/data/synthetic/factual_answer_pilot.yaml": {
+      "source": "data/synthetic/factual_answer_pilot.yaml",
+      "purpose": "Current source design/replay copy for refreshed index; historical package artifact preserved",
+      "adaptation": "byte-identical source copy"
+    },
+    "artifacts/synthetic/failure_mode_sources.json": {
+      "source": "authored index reconciliation",
+      "purpose": "Current-to-original source mapping and explicit old/new mapping reconciliation"
+    },
+    "artifacts/synthetic/failure_mode_reconciliation.json": {
+      "source": "authored index reconciliation",
+      "purpose": "Current-to-original source mapping and explicit old/new mapping reconciliation"
+    }
+  },
+  "excluded_document_links": [
+    {
+      "document": "docs/implementation/FACTUAL_ANSWER_PILOT_HANDOFF.md",
+      "source_target": "TRAIN_WAVE_16_HANDOFF.md#redundant-attempt-policy-clarification"
+    },
+    {
+      "document": "docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md",
+      "source_target": "../plans/WORLD_DATA_PLAN.md"
+    },
+    {
+      "document": "docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md",
+      "source_target": "WORLD_DATA_PREPARATION.md"
+    },
+    {
+      "document": "docs/implementation/SYNTHETIC_1000_QUALITY_AUDIT.md",
+      "source_target": "../../artifacts/synthetic/train_wave_20_replay/replay.pre_audit.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/configuration.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../plans/KAGGLE_ASR_BENCHMARK.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../plans/ASR_BENCHMARK_PLAN.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../manifests/vimd_test.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/gipformer-inspection/dataset_card.txt"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/configuration.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/run_metadata.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/completion_summary.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/configuration.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/attempts.jsonl"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/run_metadata.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/scoring/valsea_vs_gipformer_vimd_20261101/per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparison_20261102/report.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/evidence.jsonl"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/review/gip15_vimd_test_fp16_20261101_02/review.csv"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/review/gip15_vimd_test_fp16_20261101_02/README.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/review/vimd_one_per_province/README.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../manifests/vimd_test.json"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/gipformer-inspection/dataset_card.txt"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/predictions.jsonl"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/scoring/gip15_vimd_test_fp16_20261101_02/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/valsea/valsea_vimd_full_20261101_01/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/valsea/valsea_vimd_smoke_pacing_20261101_01/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparison_20261102/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/review/vimd_one_per_province/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/review/gip15_vimd_test_fp16_20261101_02/"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../notebooks/02_gipformer15_vimd_test_kaggle.ipynb"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../scripts/gipformer15_vimd_test.py"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "GIPFORMER15_VIMD_TEST_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../../artifacts/kaggle_vimd_test/gip15_vimd_test_fp16_20261101_02/gip15_vimd_test_fp16_20261101_02_results.zip"
+    },
+    {
+      "document": "docs/implementation/VIMD_BENCHMARK_SUMMARY.md",
+      "source_target": "../research/THANG_LifeMate_Deep_Research_COMPLETE_2026-10-31.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_HARNESS_CONTRACT_PROPOSAL.md",
+      "source_target": "../../artifacts/synthetic/harness_contract_examples/README.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_HARNESS_CONTRACT_PROPOSAL.md",
+      "source_target": "../../artifacts/synthetic/lifemate_harness_handoff_v01/README.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_HARNESS_CONTRACT_PROPOSAL.md",
+      "source_target": "../../artifacts/synthetic/lifemate_harness_handoff_v01.zip"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "PILOT_V1_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "BATCH02_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "BATCH04_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "BATCH03_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "EXPANSION_BATCH_04_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "../plans/WORLD_FAILURE_DATASET_PLAN.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "../research/WORLD_FAILURE_EVIDENCE_2026-11-03.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "BATCH05_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "BATCH04_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "EXPANSION_BATCH_02_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "EXPANSION_BATCH_03_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "EXPANSION_BATCH_04_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_01_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_02_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_01_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_03_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_04_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_05_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_06_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_07_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_08_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_08_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_08_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_09_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_10_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_10_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_11_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_11_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_11_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_12_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_13_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "EXPANSION_PILOT_V1_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_14_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_15_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_07_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_16_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_18_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/WORLD_LOCAL_COVERAGE.md",
+      "source_target": "TRAIN_WAVE_19_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_16_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/EXPANSION_PILOT_V1_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "WORLD_FAILURE_DATASET_PLAN.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../research/WORLD_FAILURE_EVIDENCE_2026-11-03.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/EXPANSION_BATCH_02_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/EXPANSION_BATCH_03_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/EXPANSION_BATCH_04_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_01_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_02_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_03_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_04_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_05_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_06_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_07_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/EXPANSION_PILOT_V1_REPLAY_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_08_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_09_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_10_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_11_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_12_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_13_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_14_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_15_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_16_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_18_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_19_HANDOFF.md"
+    },
+    {
+      "document": "docs/plans/WORLD_DATASET_EXPANSION_PLAN.md",
+      "source_target": "../implementation/TRAIN_WAVE_19_HANDOFF.md#review-repair-and-reconciliation"
+    },
+    {
+      "document": "docs/project/description.md",
+      "source_target": "image.png"
+    },
+    {
+      "document": "artifacts/scoring/valsea_vs_gipformer_vnslu_20261102/report.md",
+      "source_target": "per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../manifests/vimd_test.json"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "VIMD_TEST_MANIFEST_AUDIT.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../manifests/vnslu_test.json"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "VNSLU_TEST_PREPARATION.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_SCORING_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_VIMD_RESULT_REVIEW.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_VNSLU_RESULT_REVIEW.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_BENCHMARK_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/scoring/quan_vs_baselines_20261107/vimd/per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/scoring/quan_vs_baselines_20261107/vnslu/per_sample.jsonl"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../scripts/score_quan_comparison.py"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "QUAN_SCORING_HANDOFF.md"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vnslu_paired_errors/report.md#individual-paired-text-review"
+    },
+    {
+      "document": "docs/implementation/ASR_BENCHMARK_CLOSEOUT.md",
+      "source_target": "../../artifacts/analysis/vimd_comparative_limitations_20261102/report.md#reference-confirmation-for-three-cases"
+    }
+  ],
+  "not_bundled": [
+    "organizer SDK/catalog/schema files",
+    "organizer samples/environments",
+    "ASR reference/prediction text and provider raw responses",
+    "audio",
+    "weights/caches",
+    "credentials",
+    "historical duplicate snapshots"
+  ],
+  "publication_status": {
+    "repository": "https://github.com/BK-Agentic-Engineering/ava",
+    "base_branch": "main",
+    "base_commit": "8df3357450f1a7e657ef033536bd95eb40e0e500",
+    "destination": "workstreams/thang/lifemate-review",
+    "review_branch": "review/thang-lifemate-asr-synthetic",
+    "draft_pr": null,
+    "instruction_scope": "No active AGENTS.md copied; original workspace guidance retained as docs/project/WORKSPACE_GUIDANCE.md",
+    "access_observation": "One branch push rejected with HTTP 403: permission denied to johnnguyenthang2709-coder",
+    "remote_branch_created": false,
+    "blocker": "Write permission or authentication with a write-capable account required"
+  },
+  "publication_current": {
+    "repository": "BK-Agentic-Engineering/ava",
+    "fork": "johnnguyenthang2709-coder/zaloAI",
+    "base": "main",
+    "branch": "review/thang-lifemate-asr-synthetic",
+    "draft_pr": "https://github.com/BK-Agentic-Engineering/ava/pull/5",
+    "state_observed": "open draft; update prepared; success recorded by PR/commit history"
+  }
+}

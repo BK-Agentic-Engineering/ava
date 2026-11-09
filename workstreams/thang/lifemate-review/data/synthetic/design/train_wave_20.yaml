@@ -1,0 +1,682 @@
+version: "train_wave_20"
+split: "train"
+status: "spec_only"
+exportable: false
+provenance: {"release": "v3.2.0", "schema": "2.7.0", "runtime_root": "train+public_test/train/zaic_tools/", "catalog_member": "train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR13_CONTACT_INSPECT", "TR13_CONTACT_CURRENT_CHECK"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02"]}
+    design_base: "TR20_CONTACT_OLD"
+    relevant_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    initial_state:
+      contacts: {"contacts": [{"id": "w20_other", "name": "Nguyễn Diệp Thanh", "relation": "bạn", "email": "thanh@lat.example.test", "phone": "0900002012"}, {"id": "w20_tram", "name": "Nguyễn Diệp Trâm", "relation": "đồng nghiệp", "email": "tram.cu@lat.example.test", "phone": "0900002011"}]}
+      notes: {"notes": [{"id": "w20_keep", "title": "Việc riêng", "content": "Giữ lại."}]}
+    variants: {"old_changed": {"contacts": {"contacts": {"w20_tram": {"email": "tram.bantruoc@lat.example.test"}}}}}
+
+  - world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR13_BANK_A", "TR19_MONEY_COI"], "parent_lineage_ids": ["TRAIN_BILL_AUTOPAY_05"]}
+    design_base: "TR20_BANK_FIRST"
+    relevant_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    initial_state:
+      banking: {"accounts": [{"id": "w20_fund", "name": "Quỹ Lá", "balance": 900000}, {"id": "w20_spare", "name": "Quỹ Mực", "balance": 400000}], "beneficiaries": [{"id": "w20_recipient", "name": "Lê Nhã Vân", "account_number": "2012345678", "bank": "NH Lá"}], "transactions": [], "savings": []}
+      notes: {"notes": [{"id": "w20_keep", "title": "Riêng tư", "content": "Giữ nguyên."}]}
+    variants: {}
+
+  - world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR15_PLANNING_TOMORROW", "TR14_DATE_BEFORE", "TR19_CAL_START"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02"]}
+    design_base: "TR20_CAL_TODAY_EVENING"
+    relevant_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    initial_state:
+      calendar: {"events": [{"id": "w20_event_guard", "title": "Gặp bên giấy", "start": "2028-02-12T15:00:00+07:00", "end": "2028-02-12T16:00:00+07:00", "location": "Phòng Cói", "status": "confirmed"}]}
+      notes: {"notes": [{"id": "w20_keep", "title": "Giữ lại", "content": "Đừng sửa."}]}
+    variants: {}
+
+scenarios:
+  - scenario_id: "TR20_CONTACT_OLD"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Email của Trâm trước lần đổi vừa rồi là gì?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.cu@lat.example.test", "history_tag": "read", "history_position": 0}]
+      reads: []
+      alternative_reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      answers: ["tram.cu@lat.example.test", "Email cũ là tram.cu@lat.example.test"]
+      wrong_answer: "tram.moi@lat.example.test"
+      manual_answer: "Mình hiểu ý bạn là tram.cu@lat.example.test, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["tram\\.cu@lat\\.example\\.test", "email\\ cũ\\ là\\ tram\\.cu@lat\\.example\\.test"], "fail": {"wrong_fact": ["tram\\.moi@lat\\.example\\.test"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CONTACT_CURRENT"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Tra lại giúp mình email hiện đang lưu của Nguyễn Diệp Trâm."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.moi@lat.example.test"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["tram.moi@lat.example.test", "Email hiện tại là tram.moi@lat.example.test"]
+      wrong_answer: "tram.cu@lat.example.test"
+      manual_answer: "Mình hiểu ý bạn là tram.moi@lat.example.test, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["tram\\.moi@lat\\.example\\.test", "email\\ hiện\\ tại\\ là\\ tram\\.moi@lat\\.example\\.test"], "fail": {"wrong_fact": ["tram\\.cu@lat\\.example\\.test"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CONTACT_BOTH"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Email cũ đã đọc của Trâm và email đang lưu bây giờ khác nhau thế nào? Đọc lại địa chỉ hiện tại nhé."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.cu@lat.example.test", "history_tag": "read", "history_position": 0}, {"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.moi@lat.example.test"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["Cũ tram.cu@lat.example.test, hiện tại tram.moi@lat.example.test", "Trước là tram.cu@lat.example.test, bây giờ là tram.moi@lat.example.test"]
+      wrong_answer: "Cũ tram.moi@lat.example.test, hiện tại tram.cu@lat.example.test"
+      manual_answer: "Mình hiểu ý bạn là Cũ tram.cu@lat.example.test, hiện tại tram.moi@lat.example.test, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["cũ\\ tram\\.cu@lat\\.example\\.test,\\ hiện\\ tại\\ tram\\.moi@lat\\.example\\.test", "trước\\ là\\ tram\\.cu@lat\\.example\\.test,\\ bây\\ giờ\\ là\\ tram\\.moi@lat\\.example\\.test"], "fail": {"wrong_fact": ["cũ\\ tram\\.moi@lat\\.example\\.test,\\ hiện\\ tại\\ tram\\.cu@lat\\.example\\.test"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CONTACT_OLD_PHONE"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Số điện thoại của Trâm trong kết quả tra trước khi sửa là số nào?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["phone"], "expected": "0900002011", "history_tag": "read", "history_position": 0}]
+      reads: []
+      alternative_reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      answers: ["0900002011", "Số cũ là 0900002011"]
+      wrong_answer: "0900002021"
+      manual_answer: "Mình hiểu ý bạn là 0900002011, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["0900002011", "số\\ cũ\\ là\\ 0900002011"], "fail": {"wrong_fact": ["0900002021"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CONTACT_CURRENT_PHONE"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Xem lại số điện thoại hiện tại của Nguyễn Diệp Trâm giúp mình."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["phone"], "expected": "0900002021"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["0900002021", "Số hiện tại là 0900002021"]
+      wrong_answer: "0900002011"
+      manual_answer: "Mình hiểu ý bạn là 0900002021, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["0900002021", "số\\ hiện\\ tại\\ là\\ 0900002021"], "fail": {"wrong_fact": ["0900002011"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CONTACT_OLD_CHANGED"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "old_changed"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Email của Trâm trước lần đổi vừa rồi là gì?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.bantruoc@lat.example.test", "history_tag": "read", "history_position": 0}]
+      reads: []
+      alternative_reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      answers: ["tram.bantruoc@lat.example.test", "Email cũ là tram.bantruoc@lat.example.test"]
+      wrong_answer: "tram.moi@lat.example.test"
+      manual_answer: "Mình hiểu ý bạn là tram.bantruoc@lat.example.test, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["tram\\.bantruoc@lat\\.example\\.test", "email\\ cũ\\ là\\ tram\\.bantruoc@lat\\.example\\.test"], "fail": {"wrong_fact": ["tram\\.moi@lat\\.example\\.test"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+    contrast: {"with": "TR20_CONTACT_OLD", "changes": "pre_history_email_only"}
+
+  - scenario_id: "TR20_CONTACT_CURRENT_CHANGED"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.nhan@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.nhan@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Tra lại giúp mình email hiện đang lưu của Nguyễn Diệp Trâm."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.nhan@lat.example.test"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["tram.nhan@lat.example.test", "Email hiện tại là tram.nhan@lat.example.test"]
+      wrong_answer: "tram.moi@lat.example.test"
+      manual_answer: "Mình hiểu ý bạn là tram.nhan@lat.example.test, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["tram\\.nhan@lat\\.example\\.test", "email\\ hiện\\ tại\\ là\\ tram\\.nhan@lat\\.example\\.test"], "fail": {"wrong_fact": ["tram\\.moi@lat\\.example\\.test"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+    contrast: {"with": "TR20_CONTACT_CURRENT", "changes": "historical_update_request_and_email_value", "consequence": "Changed returned email and post-history contact email; not a fixed-state history-only contrast."}
+
+  - scenario_id: "TR20_CONTACT_NOTE_OLD"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Lưu địa chỉ email trước khi đổi của Trâm vào ghi chú tên Liên hệ trước đây."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.cu@lat.example.test", "history_tag": "read", "history_position": 0}]
+      reads: []
+      alternative_reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      answers: ["Đã lưu email cũ.", "Mình đã ghi lại địa chỉ cũ."]
+      wrong_answer: "Đã lưu email mới."
+      manual_answer: "Mình hiểu ý bạn là Đã lưu email cũ., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ lưu\\ email\\ cũ", "mình\\ đã\\ ghi\\ lại\\ địa\\ chỉ\\ cũ"], "fail": {"wrong_fact": ["đã\\ lưu\\ email\\ mới"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Liên hệ trước đây", "content": "tram.cu@lat.example.test"}
+      equivalent_note_contents: ["Email cũ: tram.cu@lat.example.test"]
+
+  - scenario_id: "TR20_CONTACT_NOTE_CURRENT"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Tra email hiện tại của Nguyễn Diệp Trâm rồi lưu vào ghi chú tên Đầu mối nhận."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.moi@lat.example.test"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["Đã lưu email hiện tại.", "Mình đã ghi lại địa chỉ hiện tại."]
+      wrong_answer: "Đã lưu email cũ."
+      manual_answer: "Mình hiểu ý bạn là Đã lưu email hiện tại., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ lưu\\ email\\ hiện\\ tại", "mình\\ đã\\ ghi\\ lại\\ địa\\ chỉ\\ hiện\\ tại"], "fail": {"wrong_fact": ["đã\\ lưu\\ email\\ cũ"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Đầu mối nhận", "content": "tram.moi@lat.example.test"}
+      equivalent_note_contents: ["Email hiện tại: tram.moi@lat.example.test"]
+
+  - scenario_id: "TR20_CONTACT_NOTE_BOTH"
+    world_id: "W_TR20_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Tra liên hệ Nguyễn Diệp Trâm rồi đổi email thành tram.moi@lat.example.test và điện thoại thành 0900002021 nhé.", "calls": [{"tag": "read", "name": "contacts.search", "arguments": {}}, {"tag": "update", "name": "contacts.update", "arguments": {"contact_id": {"observed": "read", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "field": "id"}, "email": "tram.moi@lat.example.test", "phone": "0900002021"}}]}]
+    agent_visible:
+      request: "Tạo ghi chú Đổi địa chỉ, ghi email cũ đã đọc và email hiện tại của Trâm, mỗi địa chỉ một dòng có nhãn Cũ và Hiện tại. Tra lại địa chỉ hiện tại trước nhé."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "notes.create", "notes.list"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.cu@lat.example.test", "history_tag": "read", "history_position": 0}, {"tool": "contacts.search", "operation": "field", "collection": "contacts", "match": {"name": "Nguyễn Diệp Trâm"}, "path": ["email"], "expected": "tram.moi@lat.example.test"}]
+      reads: [["contacts.search", {"query": "Nguyễn Diệp Trâm"}]]
+      alternative_reads: [["contacts.search", {}]]
+      answers: ["Đã lưu cả địa chỉ cũ và hiện tại.", "Mình đã ghi hai địa chỉ theo mốc tương ứng."]
+      wrong_answer: "Hai địa chỉ giống nhau."
+      manual_answer: "Mình hiểu ý bạn là Đã lưu cả địa chỉ cũ và hiện tại., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ lưu\\ cả\\ địa\\ chỉ\\ cũ\\ và\\ hiện\\ tại", "mình\\ đã\\ ghi\\ hai\\ địa\\ chỉ\\ theo\\ mốc\\ tương\\ ứng"], "fail": {"wrong_fact": ["hai\\ địa\\ chỉ\\ giống\\ nhau"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Đổi địa chỉ", "content": "Cũ: tram.cu@lat.example.test\nHiện tại: tram.moi@lat.example.test"}
+      equivalent_note_contents: ["Hiện tại: tram.moi@lat.example.test\nCũ: tram.cu@lat.example.test"]
+
+  - scenario_id: "TR20_BANK_FIRST"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Lần chuyển ghi Tiền khung vừa rồi đã ghi nợ bao nhiêu?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.transfer", "operation": "scalar", "path": ["transaction", "amount"], "expected": -120000, "history_tag": "first", "history_position": 2}]
+      reads: []
+      alternative_reads: [["banking.list_transactions", {}]]
+      answers: ["Ghi nợ 120000 đồng", "Đã trừ 120.000 đồng"]
+      wrong_answer: "Ghi nợ 50000 đồng"
+      manual_answer: "Mình hiểu ý bạn là Ghi nợ 120000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["ghi\\ nợ\\ 120000\\ đồng", "đã\\ trừ\\ 120\\.000\\ đồng"], "fail": {"wrong_fact": ["ghi\\ nợ\\ 50000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_SECOND"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Khoản vừa chuyển sau cùng đã ghi nợ bao nhiêu?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.transfer", "operation": "scalar", "path": ["transaction", "amount"], "expected": -50000, "history_tag": "second", "history_position": 3}]
+      reads: []
+      alternative_reads: [["banking.list_transactions", {}]]
+      answers: ["Ghi nợ 50000 đồng", "Đã trừ 50.000 đồng"]
+      wrong_answer: "Ghi nợ 120000 đồng"
+      manual_answer: "Mình hiểu ý bạn là Ghi nợ 50000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["ghi\\ nợ\\ 50000\\ đồng", "đã\\ trừ\\ 50\\.000\\ đồng"], "fail": {"wrong_fact": ["ghi\\ nợ\\ 120000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_RECEIPT_BALANCE"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Ngay sau khoản Tiền khung, kết quả trả về nói Quỹ Lá còn bao nhiêu?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.transfer", "operation": "scalar", "path": ["balance"], "expected": 780000, "history_tag": "first", "history_position": 2}]
+      reads: []
+      alternative_reads: [["banking.get_balance", {}]]
+      answers: ["780000 đồng", "780.000 đồng"]
+      wrong_answer: "730000 đồng"
+      manual_answer: "Mình hiểu ý bạn là 780000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["780000\\ đồng", "780\\.000\\ đồng"], "fail": {"wrong_fact": ["730000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_CURRENT_BALANCE"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Xem lại Quỹ Lá bây giờ còn bao nhiêu tiền."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.get_balance", "operation": "field", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "path": ["balance"], "expected": 730000}]
+      reads: [["banking.get_balance", {}]]
+      alternative_reads: [["banking.list_transactions", {}], ["banking.get_balance", {}]]
+      answers: ["730000 đồng", "730.000 đồng"]
+      wrong_answer: "780000 đồng"
+      manual_answer: "Mình hiểu ý bạn là 730000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["730000\\ đồng", "730\\.000\\ đồng"], "fail": {"wrong_fact": ["780000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_LEDGER"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Tra lịch sử giao dịch, Quỹ Lá đã bị trừ tổng cộng bao nhiêu trong các khoản đang có?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.list_transactions", "operation": "sum", "collection": "transactions", "match": {}, "path": ["amount"], "expected": -170000, "complete": true, "scope": {}, "account_name": "Quỹ Lá"}]
+      reads: [["banking.list_transactions", {}]]
+      alternative_reads: [["banking.get_balance", {}], ["banking.list_transactions", {"account_id": "w20_fund"}]]
+      answers: ["170000 đồng", "170.000 đồng"]
+      wrong_answer: "120000 đồng"
+      manual_answer: "Mình hiểu ý bạn là 170000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["170000\\ đồng", "170\\.000\\ đồng"], "fail": {"wrong_fact": ["120000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_BALANCE_COMPARE"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "So với số dư trả về ngay sau khoản Tiền khung, Quỹ Lá hiện còn bao nhiêu? Nêu cả hai số và tra lại số dư hiện tại."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "banking.transfer", "operation": "scalar", "path": ["balance"], "expected": 780000, "history_tag": "first", "history_position": 2}, {"tool": "banking.get_balance", "operation": "field", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "path": ["balance"], "expected": 730000}]
+      reads: [["banking.get_balance", {}]]
+      alternative_reads: [["banking.list_transactions", {}], ["banking.get_balance", {}]]
+      answers: ["Sau Tiền khung 780000 đồng, hiện tại 730000 đồng", "Trước 780.000 đồng, nay 730.000 đồng"]
+      wrong_answer: "Sau Tiền khung 730000 đồng, hiện tại 780000 đồng"
+      manual_answer: "Mình hiểu ý bạn là Sau Tiền khung 780000 đồng, hiện tại 730000 đồng, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["sau\\ tiền\\ khung\\ 780000\\ đồng,\\ hiện\\ tại\\ 730000\\ đồng", "trước\\ 780\\.000\\ đồng,\\ nay\\ 730\\.000\\ đồng"], "fail": {"wrong_fact": ["sau\\ tiền\\ khung\\ 730000\\ đồng,\\ hiện\\ tại\\ 780000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_BANK_NOTE_RECEIPT"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Ghi số tiền đã trừ của khoản Tiền khung vào ghi chú Chi khung, không dùng số dư."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "banking.transfer", "operation": "scalar", "path": ["transaction", "amount"], "expected": -120000, "history_tag": "first", "history_position": 2}]
+      reads: []
+      alternative_reads: [["banking.list_transactions", {}]]
+      answers: ["Đã ghi khoản trừ 120000 đồng.", "Mình đã lưu số tiền chuyển cho khung."]
+      wrong_answer: "Đã ghi số dư 780000 đồng."
+      manual_answer: "Mình hiểu ý bạn là Đã ghi khoản trừ 120000 đồng., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ ghi\\ khoản\\ trừ\\ 120000\\ đồng", "mình\\ đã\\ lưu\\ số\\ tiền\\ chuyển\\ cho\\ khung"], "fail": {"wrong_fact": ["đã\\ ghi\\ số\\ dư\\ 780000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Chi khung", "content": "120000 đồng"}
+      equivalent_note_contents: ["120.000 đồng"]
+
+  - scenario_id: "TR20_BANK_NOTE_LEDGER"
+    world_id: "W_TR20_BANK"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Xem Quỹ Lá và người nhận Lê Nhã Vân. Chuyển từ Quỹ Lá cho chị ấy 120000 đồng ghi Tiền khung, rồi chuyển riêng 50000 đồng ghi Tiền nẹp.", "calls": [{"tag": "funds", "name": "banking.get_balance", "arguments": {}}, {"tag": "people", "name": "banking.list_beneficiaries", "arguments": {}}, {"tag": "first", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 120000, "note": "Tiền khung"}}, {"tag": "second", "name": "banking.transfer", "arguments": {"from_account_id": {"observed": "funds", "collection": "accounts", "match": {"name": "Quỹ Lá"}, "field": "id"}, "beneficiary_id": {"observed": "people", "collection": "beneficiaries", "match": {"name": "Lê Nhã Vân"}, "field": "id"}, "amount": 50000, "note": "Tiền nẹp"}}]}]
+    agent_visible:
+      request: "Tra giao dịch của Quỹ Lá và ghi tổng tiền đã trừ vào ghi chú Tổng chi."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["banking.get_balance", "banking.list_transactions", "banking.list_beneficiaries", "banking.transfer", "notes.create"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "banking.list_transactions", "operation": "sum", "collection": "transactions", "match": {}, "path": ["amount"], "expected": -170000, "complete": true, "scope": {}, "account_name": "Quỹ Lá"}]
+      reads: [["banking.list_transactions", {}]]
+      alternative_reads: [["banking.get_balance", {}], ["banking.list_transactions", {"account_id": "w20_fund"}]]
+      answers: ["Đã lưu tổng chi 170000 đồng.", "Mình đã ghi tổng tiền đã trừ."]
+      wrong_answer: "Đã lưu 120000 đồng."
+      manual_answer: "Mình hiểu ý bạn là Đã lưu tổng chi 170000 đồng., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ lưu\\ tổng\\ chi\\ 170000\\ đồng", "mình\\ đã\\ ghi\\ tổng\\ tiền\\ đã\\ trừ"], "fail": {"wrong_fact": ["đã\\ lưu\\ 120000\\ đồng"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Tổng chi", "content": "170000 đồng"}
+      equivalent_note_contents: ["170.000 đồng"]
+
+  - scenario_id: "TR20_CAL_TODAY_EVENING"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Lịch Kiểm nan hôm nay bắt đầu giờ nào? Cho mình giờ Việt Nam nhé."
+      context: {"current_time": "2028-02-10T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["start"], "expected": "2028-02-10T20:00:00+07:00", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-08", "date_to": "2028-02-12"}]]
+      answers: ["20:00", "20 giờ"]
+      wrong_answer: "09:00"
+      manual_answer: "Mình hiểu ý bạn là 20:00, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["20:00", "20\\ giờ"], "fail": {"wrong_fact": ["09:00"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CAL_TODAY_MORNING"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Lịch Kiểm nan hôm nay bắt đầu giờ nào? Cho mình giờ Việt Nam nhé."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["start"], "expected": "2028-02-11T09:00:00+07:00", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-09", "date_to": "2028-02-13"}]]
+      answers: ["09:00", "9 giờ"]
+      wrong_answer: "20:00"
+      manual_answer: "Mình hiểu ý bạn là 09:00, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["09:00", "9\\ giờ"], "fail": {"wrong_fact": ["20:00"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+    contrast: {"with": "TR20_CAL_TODAY_EVENING", "changes": "context_current_time_only"}
+
+  - scenario_id: "TR20_CAL_TODAY_UTC"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Lịch Kiểm nan hôm nay bắt đầu giờ nào? Cho mình giờ Việt Nam nhé."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "UTC"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["start"], "expected": "2028-02-10T20:00:00+07:00", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-08", "date_to": "2028-02-12"}]]
+      answers: ["20:00", "20 giờ"]
+      wrong_answer: "09:00"
+      manual_answer: "Mình hiểu ý bạn là 20:00, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["20:00", "20\\ giờ"], "fail": {"wrong_fact": ["09:00"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+    contrast: {"with": "TR20_CAL_TODAY_MORNING", "changes": "context_timezone_only"}
+
+  - scenario_id: "TR20_CAL_TOMORROW"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Ngày mai có mấy buổi Kiểm nan trong lịch?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "count", "collection": "events", "match": {"title": "Kiểm nan"}, "path": [], "expected": 0, "complete": true, "scope": {}, "relative_day": 1}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-10", "date_to": "2028-02-14"}]]
+      answers: ["Không có buổi nào", "0 buổi"]
+      wrong_answer: "1 buổi"
+      manual_answer: "Mình hiểu ý bạn là Không có buổi nào, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["không\\ có\\ buổi\\ nào", "0\\ buổi"], "fail": {"wrong_fact": ["1\\ buổi"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CAL_TODAY_END"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Buổi Kiểm nan hôm nay kết thúc khi nào, theo giờ Việt Nam?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["end"], "expected": "2028-02-11T10:00:00+07:00", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-09", "date_to": "2028-02-13"}]]
+      answers: ["10:00", "10 giờ"]
+      wrong_answer: "21:00"
+      manual_answer: "Mình hiểu ý bạn là 10:00, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["10:00", "10\\ giờ"], "fail": {"wrong_fact": ["21:00"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CAL_TODAY_ROOM"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Hôm nay buổi Kiểm nan ở phòng nào?"
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["location"], "expected": "Phòng Tằm", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-09", "date_to": "2028-02-13"}]]
+      answers: ["Phòng Tằm", "Ở Phòng Tằm"]
+      wrong_answer: "Phòng Sậy"
+      manual_answer: "Mình hiểu ý bạn là Phòng Tằm, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["phòng\\ tằm", "ở\\ phòng\\ tằm"], "fail": {"wrong_fact": ["phòng\\ sậy"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+
+  - scenario_id: "TR20_CAL_NOTE_TODAY"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Tra lịch hôm nay rồi ghi tên phòng của buổi Kiểm nan vào ghi chú Phòng hôm nay."
+      context: {"current_time": "2028-02-11T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "execute"
+      facts: [{"tool": "calendar.list_events", "operation": "field", "collection": "events", "match": {"title": "Kiểm nan"}, "path": ["location"], "expected": "Phòng Tằm", "relative_day": 0}]
+      reads: [["calendar.list_events", {}]]
+      alternative_reads: [["calendar.list_events", {"date_from": "2028-02-09", "date_to": "2028-02-13"}]]
+      answers: ["Đã lưu Phòng Tằm.", "Mình đã ghi phòng của buổi hôm nay."]
+      wrong_answer: "Đã lưu Phòng Sậy."
+      manual_answer: "Mình hiểu ý bạn là Đã lưu Phòng Tằm., nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["đã\\ lưu\\ phòng\\ tằm", "mình\\ đã\\ ghi\\ phòng\\ của\\ buổi\\ hôm\\ nay"], "fail": {"wrong_fact": ["đã\\ lưu\\ phòng\\ sậy"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]
+      note: {"title": "Phòng hôm nay", "content": "Phòng Tằm"}
+      equivalent_note_contents: ["Phòng của buổi Kiểm nan: Phòng Tằm"]
+
+  - scenario_id: "TR20_CAL_HISTORICAL"
+    world_id: "W_TR20_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    history_time: "2028-02-10T18:00:00+07:00"
+    historical_turns: [{"user": "Thêm lịch Kiểm nan tối nay 20 giờ đến 21 giờ ở Phòng Sậy và sáng mai 9 giờ đến 10 giờ ở Phòng Tằm, giờ Việt Nam.", "calls": [{"tag": "morning", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-11T09:00:00+07:00", "end": "2028-02-11T10:00:00+07:00", "location": "Phòng Tằm"}}, {"tag": "evening", "name": "calendar.create_event", "arguments": {"title": "Kiểm nan", "start": "2028-02-10T20:00:00+07:00", "end": "2028-02-10T21:00:00+07:00", "location": "Phòng Sậy"}}]}]
+    agent_visible:
+      request: "Lúc nãy lịch đầu tiên đã tạo bắt đầu thời điểm nào? Nêu đủ ngày và giờ Việt Nam."
+      context: {"current_time": "2028-02-10T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["calendar.list_events", "calendar.create_event", "calendar.update_event", "notes.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      facts: [{"tool": "calendar.create_event", "operation": "scalar", "path": ["item", "start"], "expected": "2028-02-11T09:00:00+07:00", "history_tag": "morning", "history_position": 0}]
+      reads: []
+      alternative_reads: [["calendar.list_events", {}]]
+      answers: ["09:00 ngày 11/2/2028", "9 giờ ngày 11/2/2028"]
+      wrong_answer: "20:00 ngày 10/2/2028"
+      manual_answer: "Mình hiểu ý bạn là 09:00 ngày 11/2/2028, nhưng chưa rõ có đúng mốc bạn muốn so sánh không."
+      answer_rules: {"required": true, "pass": ["09:00\\ ngày\\ 11/2/2028", "9\\ giờ\\ ngày\\ 11/2/2028"], "fail": {"wrong_fact": ["20:00\\ ngày\\ 10/2/2028"]}}
+      wrong_write: ["notes.create", {"title": "Ngoài yêu cầu", "content": "Tự ý lưu"}]

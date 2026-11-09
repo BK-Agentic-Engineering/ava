@@ -1,0 +1,154 @@
+{
+  "pre_repair": "artifacts/synthetic/train_wave_20_replay/replay.pre_audit.json",
+  "canonical": "artifacts/synthetic/train_wave_20_replay/replay.json",
+  "fresh_process_match": true,
+  "excluded_fields": [
+    "created_utc",
+    "replay_wall_seconds"
+  ],
+  "old_rows": 80,
+  "new_rows": 84,
+  "unchanged_existing_rows": 59,
+  "changed_existing_rows": [
+    {
+      "run_id": "TR20_CAL_TODAY_EVENING/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_EVENING/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_EVENING/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_MORNING/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_MORNING/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_MORNING/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_UTC/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_UTC/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_UTC/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TOMORROW/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TOMORROW/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TOMORROW/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_END/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_END/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_END/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_ROOM/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_ROOM/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_TODAY_ROOM/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_NOTE_TODAY/standard",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_NOTE_TODAY/alternative_lookup",
+      "changed_fields": [
+        "calls"
+      ]
+    },
+    {
+      "run_id": "TR20_CAL_NOTE_TODAY/wrong_write",
+      "changed_fields": [
+        "calls"
+      ]
+    }
+  ],
+  "added_rows": [
+    "TR20_CAL_NOTE_TODAY/equivalent_note",
+    "TR20_CONTACT_NOTE_BOTH/equivalent_note",
+    "TR20_CONTACT_NOTE_CURRENT/equivalent_note",
+    "TR20_CONTACT_NOTE_OLD/equivalent_note"
+  ],
+  "all_existing_final_states_and_verdicts_unchanged": true,
+  "unchanged_top_level_fields": [
+    "declared_volatile_fields",
+    "inventory",
+    "provenance",
+    "scenarios",
+    "answer_probes"
+  ]
+}

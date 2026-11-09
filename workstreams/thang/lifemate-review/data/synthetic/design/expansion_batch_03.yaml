@@ -1,0 +1,162 @@
+# Nội bộ tác giả; chỉ agent_visible được đưa cho solver.
+version: expansion_batch_03
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+provenance:
+  plan: docs/plans/WORLD_DATASET_EXPANSION_PLAN.md
+  format_reference: data/synthetic/design/pilot_v1.yaml
+  independent_content: 'Tên, câu, IDs và balances được tự soạn; cơ chế derivative của T1/T2, không lấy organizer samples/labels/audio/environment hoặc ASR benchmark records.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  checked_sources: [apps/banking.py, apps/base.py, executor.py]
+  capability_contracts:
+    banking.get_balance: {required: [], optional_used: []}
+    banking.list_beneficiaries: {required: [], optional_used: []}
+    banking.transfer: {required: [from_account_id, beneficiary_id, amount], optional_used: []}
+    sys.ask_missing_info: {required: [tool_name, params], optional_used: []}
+  behavior: 'Read trả accounts[] / beneficiaries[]. Transfer amount integer >0; debit nguồn, append transaction amount âm, trả {ok, transaction, balance}; không credit tài khoản đích. Không có currency argument; note optional, không được yêu cầu ở đây. Unknown IDs/insufficient balance là business no-op; mọi attempt vẫn lưu log.'
+authoring_conventions:
+  visibility: 'Fixture/oracle/ancestry là private, không nhúng opaque IDs hoặc balances vào agent_visible. Materializer đồng bộ installed_apps và _meta.tools/current_time.'
+  intent: 'Mọi correction diễn ra trong cùng request trước execution: chỉ một transfer cuối, không bổ sung hoặc đảo ngược giao dịch. Oracle được author từ nghĩa request và fixture trước trace, không suy từ runtime output.'
+  coverage: 'A/C là matched controls của cơ chế direct/amount correction đã có; B/D thêm recipient và joint correction. Bốn scenario không là bốn cơ chế độc lập.'
+  alternatives: 'Cho phép đảo hai lookup và harmless repeated permitted reads; IDs cần observation đúng namespace trước mỗi mutation. Không thêm confirmation/ask policy.'
+  failures: 'Giữ failed/no-op attempts như diagnostic evidence; authored amount/recipient/write counts/frame quyết định reject, không universal failed-call rule. Recovery chưa được định nghĩa.'
+  semantics: 'Verifier dùng reviewed final_transfer riêng mỗi scenario, không NLP correction parser. Unknown paraphrase cần independent human review, không tự coi tương đương.'
+worlds:
+  - world_id: W_EX3_TRANSFER_CORRECTIONS
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    split: dev
+    origin: independently_authored_content_derived_task
+    ancestry:
+      parent_world_ids: [W_TRANSFER]
+      parent_scenario_ids: [T1, T2]
+      parent_lineage_ids: [DEV_TRANSFER_REPAIR_01]
+      contribution: 'Giữ direct/amount controls và thêm trục recipient repair, rồi joint repair. WORLD mới không là lineage độc lập.'
+    design_base: EX3_T_A
+    relevant_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    initial_state:
+      banking:
+        accounts:
+          - {id: ex3_acc_26, name: Ngân sách xưởng, balance: 5000000}
+          - {id: ex3_acc_91, name: Dự trữ dài hạn, balance: 8000000}
+        beneficiaries:
+          - {id: ex3_ben_64, name: Đào Minh Uyên}
+          - {id: ex3_ben_37, name: Phạm Gia Lâm}
+        transactions:
+          - {id: ex3_tx_keep_73, account_id: ex3_acc_91, beneficiary_id: ex3_ben_37, amount: -110000, note: lần chuyển trước độc lập}
+    variants: {}
+    assumptions: 'Source và beneficiary names đều unique. Cả hai account và beneficiaries có thật trong synthetic state; 5000000 đủ cho obsolete 620000 cộng corrected 350000. Không dùng thiếu số dư để chặn negative, không có recipient-account balance.'
+    request_components:
+      prefix: 'Chuyển từ tài khoản Ngân sách xưởng '
+      recipient_direct: 'cho Đào Minh Uyên, '
+      recipient_corrected: 'cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, '
+      amount_direct: 'số tiền ba trăm năm mươi nghìn đồng. '
+      amount_corrected: 'số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. '
+      suffix: Chỉ chuyển một lần.
+    shared_oracle:
+      required_observations: 'get_balance ánh xạ source name -> account ID và balance; list_beneficiaries ánh xạ final recipient name -> beneficiary ID. Names trong user request không lộ IDs. Mỗi transfer phải grounded trước khi mutate.'
+      effects: 'Chỉ debit source theo final positive amount; đúng một transaction mới chứa account_id/beneficiary_id đúng và amount=-final_amount. ID runtime phải valid/unique/match response, không hardcode literal ID. Note không phải semantic gold.'
+      frame: 'Giữ source record ngoài balance, toàn other accounts, beneficiaries, prior transaction, collection count/order ngoài một append được yêu cầu, và mọi app khác. Không invent destination credit.'
+      trace: 'Đúng một banking.transfer và không write khác/ask; obsolete call không được che bởi corrected call sau đó. Không state_hash/ok=true thay kiểm state và log.'
+      invariance: 'Đảo beneficiaries trên fresh sessions, giữ identities/fields/visible input; same intended transfer. Không thêm scenario.'
+    contrast_axes:
+      recipient_only_pairs: [[EX3_T_A, EX3_T_B], [EX3_T_C, EX3_T_D]]
+      amount_only_pairs: [[EX3_T_A, EX3_T_C], [EX3_T_B, EX3_T_D]]
+scenarios:
+  - scenario_id: EX3_T_A
+    world_id: W_EX3_TRANSFER_CORRECTIONS
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Matched direct control cho lookup/transfer mechanics; không phải cơ chế mới.'
+    agent_visible:
+      request: Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.
+      context: {current_time: '2026-12-07T10:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      final_transfer: {source_account_name: Ngân sách xưởng, from_account_id: ex3_acc_26, beneficiary_name: Đào Minh Uyên, beneficiary_id: ex3_ben_64, amount: 350000}
+      superseded: {}
+      required_evidence: 'Final names và 350000 VND từ request; source/beneficiary opaque IDs từ actual reads trước transfer. Áp shared observations/effects/frame.'
+      required_effects: {new_transaction_count: 1, total_write_count: 1, ask_count: 0, account_balance_after: {ex3_acc_26: 4650000, ex3_acc_91: 8000000}, transaction: {account_id: ex3_acc_26, beneficiary_id: ex3_ben_64, amount: -350000}}
+      forbidden_changes: ['Không wrong source/recipient, duplicate/extra mutation, ask hoặc credit destination; giữ shared frame.']
+      acceptable_trajectories: 'Hai read đảo thứ tự hoặc lặp vô hại, rồi một transfer theo final IDs/amount; không đòi note.'
+    contrast: {with: EX3_T_B, changes: request.recipient_correction_only, invariant: 'Cùng fixture/context/history/tools/final effects; B chỉ thêm obsolete recipient và sửa thành final.'}
+    wrong_behavior: {example: Đoán IDs đúng rồi transfer trước read., caught_by: 'State đúng vẫn thiếu ordered grounding.'}
+  - scenario_id: EX3_T_B
+    world_id: W_EX3_TRANSFER_CORRECTIONS
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Giữ obsolete recipient hoặc thực hiện hai transfers cho hai tên; chưa có model evidence.'
+    agent_visible:
+      request: Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.
+      context: {current_time: '2026-12-07T10:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      final_transfer: {source_account_name: Ngân sách xưởng, from_account_id: ex3_acc_26, beneficiary_name: Đào Minh Uyên, beneficiary_id: ex3_ben_64, amount: 350000}
+      superseded: {beneficiary_name: Phạm Gia Lâm, beneficiary_id: ex3_ben_37}
+      required_evidence: 'À không thay recipient Lâm bằng Uyên trước execution; amount vẫn 350000. Lookup cả namespaces theo shared observations; không confirmation ngoài request.'
+      required_effects: {new_transaction_count: 1, total_write_count: 1, ask_count: 0, account_balance_after: {ex3_acc_26: 4650000, ex3_acc_91: 8000000}, transaction: {account_id: ex3_acc_26, beneficiary_id: ex3_ben_64, amount: -350000}}
+      forbidden_changes: ['Không send obsolete recipient dù tồn tại và đủ balance; giữ shared frame và đúng một write.']
+      acceptable_trajectories: 'Như A; recipient correction không tạo thêm transfer hoặc reversal.'
+    contrast: {with: EX3_T_A, changes: request.recipient_correction_only, invariant: 'Amount/source/final recipient/effects không đổi.'}
+    wrong_behavior: {example: Transfer 350000 cho Lâm., caught_by: 'Wrong beneficiary trong call/transaction dù debit đúng source/amount.'}
+  - scenario_id: EX3_T_C
+    world_id: W_EX3_TRANSFER_CORRECTIONS
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Matched amount-repair control của T1/T2; giữ 620000 thay corrected 350000.'
+    agent_visible:
+      request: Chuyển từ tài khoản Ngân sách xưởng cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.
+      context: {current_time: '2026-12-07T10:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      final_transfer: {source_account_name: Ngân sách xưởng, from_account_id: ex3_acc_26, beneficiary_name: Đào Minh Uyên, beneficiary_id: ex3_ben_64, amount: 350000}
+      superseded: {amount: 620000}
+      required_evidence: '620000 đồng bị sửa thành 350000 đồng trước execution, final recipient giữ Uyên; actual IDs từ hai lookup.'
+      required_effects: {new_transaction_count: 1, total_write_count: 1, ask_count: 0, account_balance_after: {ex3_acc_26: 4650000, ex3_acc_91: 8000000}, transaction: {account_id: ex3_acc_26, beneficiary_id: ex3_ben_64, amount: -350000}}
+      forbidden_changes: ['Không 620000, không cộng hai amounts hoặc hai writes; giữ shared frame.']
+      acceptable_trajectories: 'Hai lookup ở cả hai thứ tự, repeat reads vô hại; một positive-amount transfer.'
+    contrast: {with: EX3_T_A, changes: request.amount_correction_only, invariant: 'Source/recipient/fixture/visible fields khác giữ nguyên, effects bằng nhau.'}
+    wrong_behavior: {example: Transfer 620000 cho Uyên., caught_by: 'Wrong positive call amount, negative transaction/debit không bằng gold.'}
+  - scenario_id: EX3_T_D
+    world_id: W_EX3_TRANSFER_CORRECTIONS
+    lineage_id: DEV_TRANSFER_REPAIR_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Chỉ cập nhật một trục hoặc thực hiện obsolete rồi corrected như hai lệnh; new joint repair coverage chưa đo model.'
+    agent_visible:
+      request: Chuyển từ tài khoản Ngân sách xưởng cho Phạm Gia Lâm, à không, cho Đào Minh Uyên, số tiền sáu trăm hai mươi nghìn đồng, à không, ba trăm năm mươi nghìn đồng. Chỉ chuyển một lần.
+      context: {current_time: '2026-12-07T10:20:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [banking.get_balance, banking.list_beneficiaries, banking.transfer, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      final_transfer: {source_account_name: Ngân sách xưởng, from_account_id: ex3_acc_26, beneficiary_name: Đào Minh Uyên, beneficiary_id: ex3_ben_64, amount: 350000}
+      superseded: {beneficiary_name: Phạm Gia Lâm, beneficiary_id: ex3_ben_37, amount: 620000}
+      required_evidence: 'Hai à không áp riêng recipient và amount; final Uyên/350000 tạo một transfer từ source đã nêu. Quan sát source và final beneficiary IDs trước mutation.'
+      required_effects: {new_transaction_count: 1, total_write_count: 1, ask_count: 0, account_balance_after: {ex3_acc_26: 4650000, ex3_acc_91: 8000000}, transaction: {account_id: ex3_acc_26, beneficiary_id: ex3_ben_64, amount: -350000}}
+      forbidden_changes: ['Không obsolete recipient/amount hoặc combo một cũ một mới, không obsolete+corrected hai transfers, giữ shared frame.']
+      acceptable_trajectories: 'Như controls: hai reads có thể đảo, mutation chỉ sau grounded IDs và đúng một final transfer.'
+    contrast: {with: EX3_T_B, changes: request.amount_correction_only, invariant: 'Recipient correction giữ nguyên; thêm amount correction, final effects bằng nhau. So C/D chỉ recipient correction khác.'}
+    wrong_behavior: {example: Transfer Lâm 620000 rồi Uyên 350000., caught_by: 'Cả hai phải execute được trong negative, nhưng hai calls/transactions và debit tổng 970000 là unauthorized.'}
+static_review:
+  counts: {new_scenarios: 4, new_world_instances: 1, reused_lineage_ids: 1, new_independent_lineages: 0}
+  pending: 'Local replay/semantic review lưu riêng, không promote status. Không general correction parser; unknown request paraphrase chưa có gold.'

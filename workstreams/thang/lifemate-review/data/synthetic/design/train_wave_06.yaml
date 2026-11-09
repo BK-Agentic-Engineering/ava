@@ -1,0 +1,437 @@
+version: train_wave_06
+authored_date: '2026-11-04'
+split: train
+status: spec_only
+exportable: false
+provenance:
+  selection: docs/implementation/TRAIN_WAVE_06_HANDOFF.md
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  schema: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  authorship: 'Synthetic content only; energy is declared train derivative. Organizer interface catalog/source only, no samples/audio/labels/environment or benchmark seeds.'
+conventions:
+  visibility: 'Only agent_visible. Private IDs, snapshots and oracle values are not solver input. Positive literals supplied by user, actual read results or documented defaults.'
+  review: 'Gold reviewed from Vietnamese before successful trace. No general language parser; required/permitted/forbidden effects explicit.'
+  alternatives: 'Extra reads, local arithmetic or calculator, independent write orders accepted. No exact shortest trace or arbitrary numeric conditional variants.'
+worlds:
+  - world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    split: train
+    origin: train_derivative
+    ancestry:
+      parent_world_ids: [W_TR4_FITNESS_DATES]
+      parent_scenario_ids: [TR4_F_LATEST, TR4_F_BOTH]
+      parent_lineage_ids: [TRAIN_FITNESS_DATES_04]
+    design_base: TR6_E_MONTH
+    relevant_tools: &etools [home_energy.get_usage, home_energy.set_alert, calculator.calculate, sys.ask_missing_info]
+    assumptions: 'Required period is explicit, positive integer results, no missing usage. get_usage returns stored snapshots/current threshold, not a computed live forecast. Alert is monthly even when user explicitly scales week usage.'
+    variants: {month_changed: {month_kwh: 220}}
+    initial_state:
+      home_energy:
+        usage:
+          today: {from: '2027-01-08', to: '2027-01-08', kwh: 12, cost: 24000}
+          week: {from: '2027-01-02', to: '2027-01-08', kwh: 80, cost: 160000}
+          month: {from: '2027-01-01', to: '2027-01-08', kwh: 200, cost: 400000}
+        alert_threshold_kwh: 300
+  - world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR6_M_SAVE
+    relevant_tools: &mtools [maps.search_place, maps.save_place, sys.ask_missing_info]
+    assumptions: 'Search matches ANY tokens and ranks, not exact identity. Two places share full name; explicit address chooses target. No read tool exposes saved_places; save_place handles documented upsert, so agent need not infer prior bookmark state.'
+    variants: {already_saved: {saved: {id: tr6_saved_41, place_id: tr6_place_22, label: Nhãn trước}}}
+    initial_state:
+      maps:
+        places:
+          - {id: tr6_place_74, name: Xưởng Gấp, address: 40 ngõ Dẻ, category: xưởng}
+          - {id: tr6_place_22, name: Xưởng Gấp, address: 12 ngõ Dẻ, category: xưởng}
+          - {id: tr6_place_95, name: Quầy giấy Gấp, address: 8 phố Mộc, category: cửa hàng}
+        saved_places: [{id: tr6_saved_old, place_id: tr6_place_95, label: Điểm cũ}]
+  - world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    split: train
+    origin: independently_authored
+    ancestry: {parent_world_ids: [], parent_scenario_ids: [], parent_lineage_ids: []}
+    design_base: TR6_L_ADD
+    relevant_tools: &ltools [learning.list_courses, learning.log_progress, learning.enroll, learning.schedule_lesson, sys.ask_missing_info]
+    assumptions: 'Unique course names; progress_minutes is cumulative state, progress[] is an existing ledger which list_courses does not expose. User supplies meaning of new entry. Backend logging/scheduling does not require enrolled; do not invent enrollment side effect.'
+    variants: {changed_progress: {progress: 50}}
+    initial_state:
+      learning:
+        courses:
+          - {id: tr6_course_28, name: Đan giỏ nhỏ, enrolled: true, progress_minutes: 40}
+          - {id: tr6_course_67, name: Vẽ men, enrolled: false, progress_minutes: 10}
+          - {id: tr6_course_94, name: Gấp hộp, enrolled: true, progress_minutes: 80}
+        progress: [{id: tr6_prog_old, course_id: tr6_course_28, minutes: 40}]
+        lessons: [{id: tr6_lesson_old, course_id: tr6_course_94, time: '2027-01-10T15:00:00+07:00', status: scheduled}]
+scenarios:
+  - scenario_id: TR6_E_MONTH
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &month_request 'Đặt ngưỡng cảnh báo điện tháng bằng số kWh đã dùng từ đầu tháng đến nay cộng thêm 30 kWh. Không sửa số liệu tiêu thụ.'
+      context: &ctx {current_time: '2027-01-08T10:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: *etools
+    oracle_draft:
+      outcome: execute
+      sources: 'User supplies month and +30. Actual get_usage(month).usage.kwh supplies 200; compute 230, no copied private result.'
+      period: month
+      field: usage.kwh
+      multiply: 1
+      add: 30
+      threshold: 230
+      preserve: 'Only alert_threshold_kwh changes; all snapshots/costs unchanged.'
+    contrast: {with: TR6_E_CHANGED, changes: month_kwh_only}
+    wrong_behavior: 'Copy current threshold or today/week value instead of observed month+30.'
+  - scenario_id: TR6_E_CHANGED
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: month_changed
+    agent_visible: {request: *month_request, context: *ctx, history: [], allowed_tools: *etools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same visible request, only month.kwh becomes 220; compute 250. Cost and other periods intentionally unchanged; no tariff inference.'
+      period: month
+      field: usage.kwh
+      multiply: 1
+      add: 30
+      threshold: 250
+      preserve: 'Every snapshot untouched by action; new threshold follows changed read value.'
+    contrast: {with: TR6_E_MONTH, changes: month_kwh_only}
+    wrong_behavior: 'Reuse previous threshold230 despite actual source220.'
+  - scenario_id: TR6_E_WEEK
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt ngưỡng cảnh báo điện tháng bằng đúng bốn lần số kWh dùng trong bảy ngày gần nhất đang lưu trong ứng dụng. Không lấy số liệu từ đầu tháng và không sửa tiêu thụ.'
+      context: *ctx
+      history: []
+      allowed_tools: *etools
+    oracle_draft:
+      outcome: execute
+      sources: 'User supplies week and factor4. get_usage(week) returns80; compute320. This is requested arithmetic, not a scientifically estimated forecast.'
+      period: week
+      field: usage.kwh
+      multiply: 4
+      add: 0
+      threshold: 320
+      preserve: 'Usage unchanged; threshold only.'
+    contrast: {with: TR6_E_MONTH, changes: specified_period_and_transform}
+    wrong_behavior: 'Use month200 times4 or week cost instead of kWh.'
+  - scenario_id: TR6_E_PERCENT
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt ngưỡng cảnh báo điện tháng bằng số kWh đã dùng từ đầu tháng đến nay tăng thêm 20 phần trăm, không phải chỉ lấy 20 phần trăm. Không sửa số liệu tiêu thụ.'
+      context: *ctx
+      history: []
+      allowed_tools: *etools
+    oracle_draft:
+      outcome: execute
+      sources: 'Actual month.kwh200, supplied increase20%; multiply by120/100, integer240. No rounding policy needed in this fixture.'
+      period: month
+      field: usage.kwh
+      multiply: 1.2
+      add: 0
+      threshold: 240
+      preserve: 'All source data unchanged.'
+    contrast: {with: TR6_E_MONTH, changes: additive_versus_percentage_transform}
+    wrong_behavior: 'Set40 (only20%) or220 (add20 literal kWh).'
+  - scenario_id: TR6_E_CURRENT
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Tăng ngưỡng cảnh báo điện tháng đang đặt thêm 50 kWh. Không lấy lượng điện tiêu thụ làm mốc và không sửa số liệu tiêu thụ.'
+      context: *ctx
+      history: []
+      allowed_tools: *etools
+    oracle_draft:
+      outcome: execute
+      sources: 'Any supported get_usage period exposes alert_threshold_kwh300; add supplied50 to350. Do not force month lookup when another actual response exposes this same field.'
+      period: null
+      field: alert_threshold_kwh
+      multiply: 1
+      add: 50
+      threshold: 350
+      preserve: 'Snapshot state/costs unchanged; threshold rises from old300.'
+    contrast: {with: TR6_E_MONTH, changes: current_threshold_versus_consumption_source}
+    wrong_behavior: 'Use consumption200+50=250, or guess private300 without observing.'
+  - scenario_id: TR6_E_LITERAL
+    world_id: W_TR6_ENERGY_TRANSFORM
+    lineage_id: TRAIN_FITNESS_DATES_04
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt ngưỡng cảnh báo điện tháng đúng 230 kWh; không cần tính từ số liệu tiêu thụ và không sửa số liệu đó.'
+      context: *ctx
+      history: []
+      allowed_tools: *etools
+    oracle_draft:
+      outcome: execute
+      sources: 'Literal230 supplied; direct set_alert valid, unnecessary reads/calculation not required.'
+      period: null
+      field: null
+      multiply: 1
+      add: 0
+      threshold: 230
+      preserve: 'Only threshold, no source mutation.'
+    contrast: {with: TR6_E_MONTH, changes: supplied_value_versus_derived_value_same_effect}
+    wrong_behavior: 'Choose another threshold because unrelated observed data looks more relevant.'
+  - scenario_id: TR6_M_SAVE
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &save_request 'Lưu đúng địa điểm tên "Xưởng Gấp" ở 12 ngõ Dẻ với nhãn nguyên văn "Điểm nhận". Nếu đã lưu địa điểm đó thì chỉ cập nhật nhãn, không tạo bản lưu trùng và không đổi địa điểm khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Exact name/address and label supplied. Actual search result binds both fields to place ID; first result by name alone is wrong. Saved-state delegation is supported upsert, no private saved ID needed.'
+      saves: [{name: Xưởng Gấp, address: 12 ngõ Dẻ, label: Điểm nhận}]
+      preserve: 'Place inventory and old other-place bookmark; one new bookmark for correct place.'
+    contrast: {with: [TR6_M_OTHER, TR6_M_EXISTING], changes: address_only_or_existing_bookmark_fact}
+    wrong_behavior: 'Save first-ranked same-named place40 or private correct ID before observation.'
+  - scenario_id: TR6_M_OTHER
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Lưu đúng địa điểm tên "Xưởng Gấp" ở 40 ngõ Dẻ với nhãn nguyên văn "Điểm nhận". Nếu đã lưu địa điểm đó thì chỉ cập nhật nhãn, không tạo bản lưu trùng và không đổi địa điểm khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Only address changes, selected ID follows observed exact address/name, not other same-name location.'
+      saves: [{name: Xưởng Gấp, address: 40 ngõ Dẻ, label: Điểm nhận}]
+      preserve: '12 ngõ Dẻ remains unsaved; old bookmark intact.'
+    contrast: {with: TR6_M_SAVE, changes: address_only}
+    wrong_behavior: 'Reuse12 ID from matched control.'
+  - scenario_id: TR6_M_EXISTING
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: already_saved
+    agent_visible: {request: *save_request, context: *ctx, history: [], allowed_tools: *mtools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same request; prior same-place bookmark exists privately. Search binds place ID; supported save operation relabels while preserving existing bookmark ID/count.'
+      saves: [{name: Xưởng Gấp, address: 12 ngõ Dẻ, label: Điểm nhận}]
+      preserve: 'Existing tr6_saved_41 stable ID, no new duplicate, old other bookmark intact.'
+    contrast: {with: TR6_M_SAVE, changes: prior_bookmark_only}
+    wrong_behavior: 'Append a duplicate or change another saved row.'
+  - scenario_id: TR6_M_LABEL
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: already_saved
+    agent_visible:
+      request: 'Lưu đúng địa điểm tên "Xưởng Gấp" ở 12 ngõ Dẻ với nhãn nguyên văn "Điểm giao". Nếu đã lưu địa điểm đó thì chỉ cập nhật nhãn, không tạo bản lưu trùng và không đổi địa điểm khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Only authorized literal label changes on the same existing-place fixture.'
+      saves: [{name: Xưởng Gấp, address: 12 ngõ Dẻ, label: Điểm giao}]
+      preserve: 'Bookmark identity/count and place inventory unchanged; label only.'
+    contrast: {with: TR6_M_EXISTING, changes: supplied_label_only}
+    wrong_behavior: 'Keep Điểm nhận instead of requested Điểm giao.'
+  - scenario_id: TR6_M_TWO
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Lưu hai địa điểm tên "Xưởng Gấp": địa chỉ 12 ngõ Dẻ nhãn "Điểm nhận", địa chỉ 40 ngõ Dẻ nhãn "Điểm giao". Mỗi địa điểm một bản lưu; nếu đã lưu thì cập nhật nhãn, giữ địa điểm khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Two name/address/label bindings supplied. Can read both first or search/save each independently; order immaterial.'
+      saves: [{name: Xưởng Gấp, address: 12 ngõ Dẻ, label: Điểm nhận}, {name: Xưởng Gấp, address: 40 ngõ Dẻ, label: Điểm giao}]
+      preserve: 'Two distinct place keys; old bookmark and inventory unchanged.'
+    contrast: {with: [TR6_M_SAVE, TR6_M_OTHER], changes: two_place_label_assignment}
+    wrong_behavior: 'Swap labels, save one place twice or omit one.'
+  - scenario_id: TR6_M_SAME_LABEL
+    world_id: W_TR6_MAPS_UPSERT
+    lineage_id: TRAIN_MAPS_UPSERT_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Lưu cả hai địa điểm tên "Xưởng Gấp" ở 12 ngõ Dẻ và 40 ngõ Dẻ, cả hai cùng nhãn "Điểm nhận". Giữ hai bản riêng theo địa điểm, không gộp vì trùng tên hay nhãn, không đổi địa điểm khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *mtools
+    oracle_draft:
+      outcome: execute
+      sources: 'Both place identities observed, same label supplied. Label is not a unique key; both saves mandatory.'
+      saves: [{name: Xưởng Gấp, address: 12 ngõ Dẻ, label: Điểm nhận}, {name: Xưởng Gấp, address: 40 ngõ Dẻ, label: Điểm nhận}]
+      preserve: 'Separate place-keyed bookmarks despite duplicate labels; old row preserved.'
+    contrast: {with: TR6_M_TWO, changes: second_label_equal_not_merge_permission}
+    wrong_behavior: 'Deduplicate the second requested place by equal label.'
+  - scenario_id: TR6_L_ADD
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi thêm đúng 25 phút tiến độ cho khóa "Đan giỏ nhỏ". Không đặt buổi học mới và không đổi trạng thái đăng ký hay khóa khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      sources: 'Increment25 supplied; actual list_courses binds unique course ID. Backend adds to40 ->65 and creates one progress entry25.'
+      course: Đan giỏ nhỏ
+      mode: add
+      value: 25
+      delta: 25
+      total_after: 65
+      lesson: null
+      preserve: 'Enrollment, other courses, old progress/lessons; one new delta log.'
+    contrast: {with: TR6_L_TOTAL, changes: incremental_versus_target_total_instruction}
+    wrong_behavior: 'Treat25 as desired total or write current+25=65 as the delta.'
+  - scenario_id: TR6_L_TOTAL
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: &total_request 'Ghi một phần tiến độ bổ sung để tổng thời gian của khóa "Đan giỏ nhỏ" lên đúng 60 phút. Không ghi thêm 60 phút, không đặt buổi học và không đổi trạng thái đăng ký.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      sources: 'Target total60 supplied, original cumulative40 and ID observed; delta20 is consuming write argument.'
+      course: Đan giỏ nhỏ
+      mode: total
+      value: 60
+      delta: 20
+      total_after: 60
+      lesson: null
+      preserve: 'One delta20 ledger row, no direct overwrite or enrollment/schedule side effects.'
+    contrast: {with: TR6_L_CHANGED, changes: original_progress_only}
+    wrong_behavior: 'Pass60 to log_progress, producing100 instead of requested60.'
+  - scenario_id: TR6_L_CHANGED
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: changed_progress
+    agent_visible: {request: *total_request, context: *ctx, history: [], allowed_tools: *ltools}
+    oracle_draft:
+      outcome: execute
+      sources: 'Same visible total60 request, original cumulative50 => delta10. Private progress ledger remains old evidence, not rewritten to manufacture consistency.'
+      course: Đan giỏ nhỏ
+      mode: total
+      value: 60
+      delta: 10
+      total_after: 60
+      lesson: null
+      preserve: 'Existing ledger and other fields untouched; observed cumulative snapshot determines delta.'
+    contrast: {with: TR6_L_TOTAL, changes: original_progress_only}
+    wrong_behavior: 'Reuse20 from control, reaching70.'
+  - scenario_id: TR6_L_OTHER
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi thêm đúng 25 phút tiến độ cho khóa "Vẽ men". Không đặt buổi học mới và không đổi trạng thái đăng ký hay khóa khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      sources: 'Changed target, supplied increment25; list_courses ID maps to Vẽ men10 ->35. Backend logging permitted even enrolled=false; do not silently enroll.'
+      course: Vẽ men
+      mode: add
+      value: 25
+      delta: 25
+      total_after: 35
+      lesson: null
+      preserve: 'Vẽ men enrolled=false, other courses and old rows unchanged.'
+    contrast: {with: TR6_L_ADD, changes: course_target_only}
+    wrong_behavior: 'Enroll the course first without permission or log on first course.'
+  - scenario_id: TR6_L_SCHEDULE
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Đặt một buổi học khóa "Đan giỏ nhỏ" vào 14 giờ ngày 9 tháng 1 năm 2027, giờ Việt Nam. Chưa ghi tiến độ học, giữ trạng thái đăng ký và khóa khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      sources: 'Course ID from actual list, timestamp supplied. Future schedule is distinct from recording completed minutes.'
+      course: Đan giỏ nhỏ
+      mode: schedule
+      value: null
+      delta: null
+      total_after: 40
+      lesson: '2027-01-09T14:00:00+07:00'
+      preserve: 'Progress total/ledger and enrollment unchanged, one scheduled lesson only.'
+    contrast: {with: TR6_L_ADD, changes: scheduled_lesson_versus_completed_progress}
+    wrong_behavior: 'Log minutes rather than schedule, or do both.'
+  - scenario_id: TR6_L_BOTH
+    world_id: W_TR6_LEARNING_DELTA
+    lineage_id: TRAIN_LEARNING_DELTA_06
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    agent_visible:
+      request: 'Ghi thêm đúng 25 phút tiến độ khóa "Đan giỏ nhỏ" và đặt một buổi học khóa đó lúc 14 giờ ngày 9 tháng 1 năm 2027, giờ Việt Nam. Giữ trạng thái đăng ký và khóa khác.'
+      context: *ctx
+      history: []
+      allowed_tools: *ltools
+    oracle_draft:
+      outcome: execute
+      sources: 'Observed ID, supplied delta/time, both effects required. Either independent write order valid; no prerequisite enroll.'
+      course: Đan giỏ nhỏ
+      mode: add
+      value: 25
+      delta: 25
+      total_after: 65
+      lesson: '2027-01-09T14:00:00+07:00'
+      preserve: 'Other totals/old ledger/lessons and enrollment; one delta log and one new lesson.'
+    contrast: {with: [TR6_L_ADD, TR6_L_SCHEDULE], changes: two_independent_authorized_effects}
+    wrong_behavior: 'Complete only one effect or add enrollment.'

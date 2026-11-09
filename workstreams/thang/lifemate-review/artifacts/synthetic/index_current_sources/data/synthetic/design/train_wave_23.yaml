@@ -1,0 +1,408 @@
+# Independently authored bounded final wave; private gold is never model input.
+{
+  "version": "train_wave_23",
+  "split": "train",
+  "status": "spec_only",
+  "exportable": false,
+  "provenance": {
+    "release": "v3.2.0",
+    "schema": "2.7.0",
+    "runtime_root": "train+public_test/train/zaic_tools/",
+    "catalog_member": "train+public_test/train/train_tools_catalog.json",
+    "source_policy": "Independently authored requests, fixtures and gold; permitted SDK/catalog interfaces only."
+  },
+  "worlds": [
+    {
+      "world_id": "W_TR23_SMS_DIRECTION",
+      "lineage_id": "TRAIN_NOTE_LIFECYCLE_01",
+      "split": "train",
+      "origin": "train_derivative",
+      "ancestry": {
+        "parent_world_ids": [
+          "W_TR7_OTT_FORWARD"
+        ],
+        "parent_scenario_ids": [
+          "TR7_C_FORWARD"
+        ],
+        "parent_lineage_ids": [
+          "TRAIN_NOTE_LIFECYCLE_01"
+        ]
+      },
+      "design_base": "TR23_SMS_RECEIVED",
+      "relevant_tools": [
+        "contacts.search",
+        "sms.read_recent",
+        "notes.create",
+        "sys.ask_missing_info"
+      ],
+      "initial_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "tr23_contact_lan",
+              "name": "Đào Trúc Lan",
+              "phone": "0900002301",
+              "relation": "thợ đóng giấy"
+            },
+            {
+              "id": "tr23_contact_tam",
+              "name": "Lê Ngọc Tâm",
+              "phone": "0900002302",
+              "relation": "bạn"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "tr23_sms_other",
+              "contact_id": "tr23_contact_tam",
+              "phone_number": "0900002302",
+              "direction": "incoming",
+              "content": "Tôi gửi thùng khác."
+            },
+            {
+              "id": "tr23_sms_out",
+              "contact_id": "tr23_contact_lan",
+              "phone_number": "0900002301",
+              "direction": "outgoing",
+              "content": "Tôi nhận đúng 3 ram, không lấy 4."
+            },
+            {
+              "id": "tr23_sms_in",
+              "contact_id": "tr23_contact_lan",
+              "phone_number": "0900002301",
+              "direction": "incoming",
+              "content": "Giao 4 ram giấy lúc 8 giờ; không đổi điểm hẹn."
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "id": "tr23_note_guard",
+              "title": "Việc riêng",
+              "content": "Giữ nguyên hẹn thợ mộc."
+            }
+          ]
+        }
+      },
+      "variants": {
+        "ambiguous": {
+          "additional_message": {
+            "id": "tr23_sms_extra",
+            "contact_id": "tr23_contact_lan",
+            "phone_number": "0900002301",
+            "direction": "incoming",
+            "content": "Hẹn 10 giờ tại cửa phía sau."
+          }
+        }
+      },
+      "coverage_gain": "Received versus sent direction and unique-message versus ambiguous-content clarification. Not merely chat→SMS substitution; full response scope is required because limit is ignored."
+    },
+    {
+      "world_id": "W_TR23_ORDER_STATUS",
+      "lineage_id": "TRAIN_LOGISTICS_DIRECTION_02",
+      "split": "train",
+      "origin": "train_derivative",
+      "ancestry": {
+        "parent_world_ids": [
+          "W_TR9_PARCEL"
+        ],
+        "parent_scenario_ids": [
+          "TR9_PARCEL_DONE"
+        ],
+        "parent_lineage_ids": [
+          "TRAIN_LOGISTICS_DIRECTION_02"
+        ]
+      },
+      "design_base": "TR23_ORDER_CANCEL",
+      "relevant_tools": [
+        "food_delivery.list_restaurants",
+        "food_delivery.order_history",
+        "food_delivery.cancel_order"
+      ],
+      "initial_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "tr23_rest_nau",
+              "name": "Bếp Bông Nâu",
+              "menu": [
+                {
+                  "id": "tr23_item_1",
+                  "name": "Cơm nấm",
+                  "price": 45000
+                }
+              ]
+            },
+            {
+              "id": "tr23_rest_lua",
+              "name": "Bếp Hạt Lúa",
+              "menu": [
+                {
+                  "id": "tr23_item_other",
+                  "name": "Mì",
+                  "price": 40000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "tr23_order_other",
+              "restaurant_id": "tr23_rest_lua",
+              "items": [
+                {
+                  "item_id": "tr23_item_other",
+                  "name": "Mì",
+                  "quantity": 1,
+                  "note": null
+                }
+              ],
+              "total": 40000,
+              "address": "16 ngõ Bẹ Trúc",
+              "payment": "cash",
+              "status": "placed"
+            },
+            {
+              "id": "tr23_order_target",
+              "restaurant_id": "tr23_rest_nau",
+              "items": [
+                {
+                  "item_id": "tr23_item_1",
+                  "name": "Cơm nấm",
+                  "quantity": 1,
+                  "note": null
+                }
+              ],
+              "total": 45000,
+              "address": "16 ngõ Bẹ Trúc",
+              "payment": "cash",
+              "status": "placed"
+            },
+            {
+              "id": "tr23_order_elsewhere",
+              "restaurant_id": "tr23_rest_nau",
+              "items": [
+                {
+                  "item_id": "tr23_item_1",
+                  "name": "Cơm nấm",
+                  "quantity": 1,
+                  "note": null
+                }
+              ],
+              "total": 45000,
+              "address": "28 dốc Tơ",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "id": "tr23_food_guard",
+              "title": "Ghi riêng",
+              "content": "Không sửa."
+            }
+          ]
+        }
+      },
+      "variants": {
+        "cancelled": {
+          "status": "cancelled"
+        },
+        "delivered": {
+          "status": "delivered"
+        }
+      },
+      "coverage_gain": "Join restaurant name→restaurant_id→addressed order, then honor user status restriction even though SDK cancellation blindly succeeds for delivered orders."
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "TR23_SMS_RECEIVED",
+      "world_id": "W_TR23_SMS_DIRECTION",
+      "lineage_id": "TRAIN_NOTE_LIFECYCLE_01",
+      "fixture_variant": "base",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Chép nguyên văn tin SMS tôi nhận từ Đào Trúc Lan vào ghi chú mới tên Mốc giao giấy. Nếu có nhiều tin nhận của chị ấy thì hỏi tôi muốn dùng tin nào, đừng tự chọn.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "contacts.search",
+          "sms.read_recent",
+          "notes.create",
+          "sys.ask_missing_info"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "execute",
+        "direction": "incoming",
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": false,
+        "contact_name": "Đào Trúc Lan",
+        "note_title": "Mốc giao giấy",
+        "evidence": "Permitted contact search uniquely binds ID; complete SMS response for that ID binds direction and unique content before note or clarification. Correct hidden ID/content is not evidence."
+      }
+    },
+    {
+      "scenario_id": "TR23_SMS_AMBIGUOUS",
+      "world_id": "W_TR23_SMS_DIRECTION",
+      "lineage_id": "TRAIN_NOTE_LIFECYCLE_01",
+      "fixture_variant": "ambiguous",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Chép nguyên văn tin SMS tôi nhận từ Đào Trúc Lan vào ghi chú mới tên Mốc giao giấy. Nếu có nhiều tin nhận của chị ấy thì hỏi tôi muốn dùng tin nào, đừng tự chọn.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "contacts.search",
+          "sms.read_recent",
+          "notes.create",
+          "sys.ask_missing_info"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "ask_missing",
+        "direction": "incoming",
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": false,
+        "contact_name": "Đào Trúc Lan",
+        "note_title": "Mốc giao giấy",
+        "evidence": "Permitted contact search uniquely binds ID; complete SMS response for that ID binds direction and unique content before note or clarification. Correct hidden ID/content is not evidence."
+      }
+    },
+    {
+      "scenario_id": "TR23_SMS_SENT",
+      "world_id": "W_TR23_SMS_DIRECTION",
+      "lineage_id": "TRAIN_NOTE_LIFECYCLE_01",
+      "fixture_variant": "base",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Chép nguyên văn tin SMS tôi đã gửi cho Đào Trúc Lan vào ghi chú mới tên Mốc giao giấy, không lấy tin chị ấy gửi cho tôi.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "contacts.search",
+          "sms.read_recent",
+          "notes.create",
+          "sys.ask_missing_info"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "execute",
+        "direction": "outgoing",
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": false,
+        "contact_name": "Đào Trúc Lan",
+        "note_title": "Mốc giao giấy",
+        "evidence": "Permitted contact search uniquely binds ID; complete SMS response for that ID binds direction and unique content before note or clarification. Correct hidden ID/content is not evidence."
+      }
+    },
+    {
+      "scenario_id": "TR23_ORDER_CANCEL",
+      "world_id": "W_TR23_ORDER_STATUS",
+      "lineage_id": "TRAIN_LOGISTICS_DIRECTION_02",
+      "fixture_variant": "base",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Hủy đơn của Bếp Bông Nâu giao tới 16 ngõ Bẹ Trúc nếu còn đang đặt. Nếu đã giao thì chỉ báo tôi; đã hủy rồi thì đừng hủy lại. Đừng đụng đơn khác.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "food_delivery.list_restaurants",
+          "food_delivery.order_history",
+          "food_delivery.cancel_order"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "execute",
+        "direction": null,
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": false,
+        "restaurant_name": "Bếp Bông Nâu",
+        "address": "16 ngõ Bẹ Trúc",
+        "evidence": "Observe restaurant identity and uniquely joined order/address/status before cancellation or no-write branch. Order ID alone without restaurant-name join is insufficient."
+      }
+    },
+    {
+      "scenario_id": "TR23_ORDER_ALREADY",
+      "world_id": "W_TR23_ORDER_STATUS",
+      "lineage_id": "TRAIN_LOGISTICS_DIRECTION_02",
+      "fixture_variant": "cancelled",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Hủy đơn của Bếp Bông Nâu giao tới 16 ngõ Bẹ Trúc nếu còn đang đặt. Nếu đã giao thì chỉ báo tôi; đã hủy rồi thì đừng hủy lại. Đừng đụng đơn khác.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "food_delivery.list_restaurants",
+          "food_delivery.order_history",
+          "food_delivery.cancel_order"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "observe_no_write",
+        "direction": null,
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": false,
+        "restaurant_name": "Bếp Bông Nâu",
+        "address": "16 ngõ Bẹ Trúc",
+        "evidence": "Observe restaurant identity and uniquely joined order/address/status before cancellation or no-write branch. Order ID alone without restaurant-name join is insufficient."
+      }
+    },
+    {
+      "scenario_id": "TR23_ORDER_DELIVERED",
+      "world_id": "W_TR23_ORDER_STATUS",
+      "lineage_id": "TRAIN_LOGISTICS_DIRECTION_02",
+      "fixture_variant": "delivered",
+      "status": "spec_only",
+      "exportable": false,
+      "agent_visible": {
+        "request": "Hủy đơn của Bếp Bông Nâu giao tới 16 ngõ Bẹ Trúc nếu còn đang đặt. Nếu đã giao thì chỉ báo tôi; đã hủy rồi thì đừng hủy lại. Đừng đụng đơn khác.",
+        "context": {
+          "current_time": "2028-04-12T09:00:00+07:00",
+          "timezone": "Asia/Ho_Chi_Minh"
+        },
+        "history": [],
+        "allowed_tools": [
+          "food_delivery.list_restaurants",
+          "food_delivery.order_history",
+          "food_delivery.cancel_order"
+        ]
+      },
+      "oracle_draft": {
+        "outcome": "observe_no_write",
+        "direction": null,
+        "preserve": "All unrelated state and all source records; only intended new note or target order status may change.",
+        "required_answer": true,
+        "restaurant_name": "Bếp Bông Nâu",
+        "address": "16 ngõ Bẹ Trúc",
+        "evidence": "Observe restaurant identity and uniquely joined order/address/status before cancellation or no-write branch. Order ID alone without restaurant-name join is insufficient."
+      }
+    }
+  ]
+}

@@ -1,0 +1,4291 @@
+version: train_wave_21
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+- world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  split: train
+  origin: independently_authored
+  ancestry:
+    parent_world_ids: []
+    parent_scenario_ids: []
+    parent_lineage_ids: []
+  design_base: TR21_CALC_LENGTH
+  relevant_tools: &id001
+  - calculator.calculate
+  - calculator.convert_unit
+  - sys.ask_missing_info
+  initial_state:
+    calculator: {}
+    notes:
+      notes:
+      - id: w21_guard
+        title: Bản lưu
+        content: Không thay đổi.
+    sys: {}
+  variants: {}
+- world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  split: train
+  origin: train_derivative
+  ancestry:
+    parent_world_ids: []
+    parent_scenario_ids:
+    - TR20_BANK_NOTE_RECEIPT
+    parent_lineage_ids:
+    - TRAIN_BILL_AUTOPAY_05
+  design_base: TR21_FX_DIRECT
+  relevant_tools: &id025
+  - exchange_rate.get_rate
+  - exchange_rate.convert
+  - calculator.calculate
+  - notes.create
+  - sys.ask_missing_info
+  initial_state:
+    exchange_rate:
+      rates:
+      - id: w21_usd
+        from: USD
+        to: VND
+        rate: 25000
+      - id: w21_eur
+        from: EUR
+        to: VND
+        rate: 30000
+    calculator: {}
+    notes:
+      notes:
+      - id: w21_keep_note
+        title: Mảnh gốm
+        content: Giữ bản nháp cũ.
+    sys: {}
+  variants:
+    rate_up:
+      exchange_rate:
+        rates:
+          w21_usd:
+            rate: 26000
+    other_rate:
+      exchange_rate:
+        rates:
+          w21_eur:
+            rate: 31000
+- world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  split: train
+  origin: train_derivative
+  ancestry:
+    parent_world_ids: []
+    parent_scenario_ids:
+    - TR18_WORK_A
+    - TR15_PLANNING_TOMORROW
+    parent_lineage_ids:
+    - TRAIN_MAPS_UPSERT_06
+    - TRAIN_ALARM_EDIT_02
+  design_base: TR21_ROUTE_BASE
+  relevant_tools: &id040
+  - maps.get_route
+  - reminders.create
+  - sys.ask_missing_info
+  initial_state:
+    maps:
+      places: []
+      saved_places: []
+      routes:
+      - id: w21_out
+        from:
+        - Cổng Bến Vải
+        to:
+        - Xưởng Sáp
+        distance_km: 12
+        duration_min:
+          car: 30
+          motorbike: 25
+          walk: 90
+      - id: w21_back
+        from:
+        - Xưởng Sáp
+        to:
+        - Cổng Bến Vải
+        distance_km: 8
+        duration_min:
+          car: 20
+          motorbike: 18
+          walk: 75
+      - id: w21_home
+        from:
+        - 4 Bến Mơ
+        to:
+        - Xưởng Sáp
+        distance_km: 20
+        duration_min:
+          car: 60
+          motorbike: 45
+          walk: 180
+    reminders:
+      reminders:
+      - id: w21_old_rem
+        content: Giữ hẹn cũ
+        time: '2028-04-03T10:00:00+07:00'
+        repeat: weekly
+        done: true
+    sys: {}
+  variants:
+    longer:
+      maps:
+        routes:
+          w21_out:
+            duration_min:
+              car: 45
+              motorbike: 25
+              walk: 90
+    other_direction:
+      maps:
+        routes:
+          w21_back:
+            duration_min:
+              car: 50
+              motorbike: 18
+              walk: 75
+- world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  split: train
+  origin: train_derivative
+  ancestry:
+    parent_world_ids: []
+    parent_scenario_ids:
+    - TR8_SUB_CAP
+    parent_lineage_ids:
+    - TRAIN_FLIGHT_CHOICE_07
+  design_base: TR21_FOOD_BASE
+  relevant_tools: &id072
+  - food_delivery.list_restaurants
+  - food_delivery.get_menu
+  - food_delivery.place_order
+  - food_delivery.cancel_order
+  - sys.ask_missing_info
+  initial_state:
+    food_delivery:
+      restaurants:
+      - id: w21_r1
+        name: Bếp Mầm Hương
+        menu:
+        - id: w21_m1
+          name: Cơm nấm
+          price: 24000
+        - id: w21_d1
+          name: Trà bí
+          price: 10000
+      - id: w21_r2
+        name: Bếp Mầm Hương Phố
+        menu:
+        - id: w21_m2
+          name: Cơm nấm
+          price: 20000
+        - id: w21_d2
+          name: Trà bí
+          price: 12000
+      orders:
+      - id: w21_old_order
+        restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          name: Cơm nấm
+          quantity: 1
+          note: null
+        total: 24000
+        address: 18 Ngõ Đá
+        payment: cash
+        status: delivered
+    sys: {}
+  variants:
+    price_up:
+      food_delivery:
+        restaurants:
+          w21_r1:
+            menu:
+            - id: w21_m1
+              name: Cơm nấm
+              price: 26000
+            - id: w21_d1
+              name: Trà bí
+              price: 10000
+    other_menu:
+      food_delivery:
+        restaurants:
+          w21_r2:
+            menu:
+            - id: w21_m2
+              name: Cơm nấm
+              price: 90000
+            - id: w21_d2
+              name: Trà bí
+              price: 12000
+scenarios:
+- scenario_id: TR21_CALC_LENGTH
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: 'Dùng máy tính: dây dài 2 mét, cắt đi 35 cm thì còn bao nhiêu cm?'
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id002
+            expression: 200-35
+          path:
+          - value
+        values:
+        - 165
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id003
+            expression: 2*100-35
+          path:
+          - value
+        values:
+        - 165
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id002
+    alternative:
+    - - calculator.calculate
+      - *id003
+    negative:
+    - - calculator.calculate
+      - expression: 200+35
+    answers:
+    - Còn 165 cm.
+    - 165 cm
+    wrong_answer: Còn 235 cm.
+    manual_answer: Một trăm sáu mươi lăm xăng-ti-mét.
+    answer_rules:
+      required: true
+      pass:
+      - còn\ 165\ cm
+      - 165\ cm
+      fail:
+        wrong_value_or_unit:
+        - còn\ 235\ cm
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Convert the supplied metres before subtraction; no length is retrieved from hidden state. All supplied
+      numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_MASS
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính chia đều 1,2 kg bột thành 3 túi. Mỗi túi bao nhiêu gam?
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id004
+            expression: 1200/3
+          path:
+          - value
+        values:
+        - 400
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id005
+            expression: 1.2*1000/3
+          path:
+          - value
+        values:
+        - 400
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id004
+    alternative:
+    - - calculator.calculate
+      - *id005
+    negative:
+    - - calculator.calculate
+      - expression: 12/3
+    answers:
+    - Mỗi túi 400 gam.
+    - 400 g
+    wrong_answer: Mỗi túi 4 gam.
+    manual_answer: Bốn trăm gam cho mỗi túi.
+    answer_rules:
+      required: true
+      pass:
+      - mỗi\ túi\ 400\ gam
+      - 400\ g
+      fail:
+        wrong_value_or_unit:
+        - mỗi\ túi\ 4\ gam
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Convert total kilograms to grams, then divide by three; not 1.2 divided without unit conversion. All
+      supplied numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_VOLUME
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính cộng 0,75 lít nước với 250 ml. Tổng là bao nhiêu ml?
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id006
+            expression: 0.75*1000+250
+          path:
+          - value
+        values:
+        - 1000
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id007
+            expression: 750+250
+          path:
+          - value
+        values:
+        - 1000
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id006
+    alternative:
+    - - calculator.calculate
+      - *id007
+    negative:
+    - - calculator.calculate
+      - expression: 0.75+250
+    answers:
+    - Tổng 1000 ml.
+    - 1000 ml
+    wrong_answer: Tổng 250,75 ml.
+    manual_answer: Một nghìn mi-li-lít.
+    answer_rules:
+      required: true
+      pass:
+      - tổng\ 1000\ ml
+      - 1000\ ml
+      fail:
+        wrong_value_or_unit:
+        - tổng\ 250,75\ ml
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Convert litres before addition; volume is not a mass conversion. All supplied numbers are visible;
+      a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_TEMP_C
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng công cụ đổi 20 độ C sang độ F giúp tôi.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.convert_unit
+          arguments:
+          - &id008
+            value: 20
+            from_unit: c
+            to_unit: f
+          path:
+          - value
+        values:
+        - 68
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id009
+            expression: 20*9/5+32
+          path:
+          - value
+        values:
+        - 68
+    actions: []
+    standard:
+    - - calculator.convert_unit
+      - *id008
+    alternative:
+    - - calculator.calculate
+      - *id009
+    negative:
+    - - calculator.convert_unit
+      - value: 20
+        from_unit: c
+        to_unit: c
+    answers:
+    - 68 độ F.
+    - 68 °F
+    wrong_answer: 20 độ F.
+    manual_answer: Sáu mươi tám độ Fahrenheit.
+    answer_rules:
+      required: true
+      pass:
+      - 68\ độ\ f
+      - 68\ °f
+      fail:
+        wrong_value_or_unit:
+        - 20\ độ\ f
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Affine temperature conversion includes the 32-degree offset; C is the supplied unit. All supplied
+      numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_TEMP_F
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng công cụ đổi 68 độ F sang độ C giúp tôi.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.convert_unit
+          arguments:
+          - &id010
+            value: 68
+            from_unit: f
+            to_unit: c
+          path:
+          - value
+        values:
+        - 20
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id011
+            expression: (68-32)*5/9
+          path:
+          - value
+        values:
+        - 20
+    actions: []
+    standard:
+    - - calculator.convert_unit
+      - *id010
+    alternative:
+    - - calculator.calculate
+      - *id011
+    negative:
+    - - calculator.convert_unit
+      - value: 68
+        from_unit: f
+        to_unit: f
+    answers:
+    - 20 độ C.
+    - 20 °C
+    wrong_answer: 68 độ C.
+    manual_answer: Hai mươi độ Celsius.
+    answer_rules:
+      required: true
+      pass:
+      - 20\ độ\ c
+      - 20\ °c
+      fail:
+        wrong_value_or_unit:
+        - 68\ độ\ c
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Direction is F to C; this matched inverse control must not reuse the Celsius-to-Fahrenheit formula.
+      All supplied numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_DISCOUNT_FIRST
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: 'Dùng máy tính: 200.000 đồng giảm 10%, sau đó mới cộng 20.000 đồng phí. Tổng bao nhiêu?'
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id012
+            expression: 200000*(1-10/100)+20000
+          path:
+          - value
+        values:
+        - 200000
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id013
+            expression: 200000-200000*10%+20000
+          path:
+          - value
+        values:
+        - 200000
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id012
+    alternative:
+    - - calculator.calculate
+      - *id013
+    negative:
+    - - calculator.calculate
+      - expression: (200000+20000)*(1-10/100)
+    answers:
+    - Tổng 200000 đồng.
+    - 200.000 đồng
+    wrong_answer: Tổng 198000 đồng.
+    manual_answer: Hai trăm nghìn đồng cả phí.
+    answer_rules:
+      required: true
+      pass:
+      - tổng\ 200000\ đồng
+      - 200\.000\ đồng
+      fail:
+        wrong_value_or_unit:
+        - tổng\ 198000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: The fee is outside the discount base; order differs from DISCOUNT_ALL. All supplied numbers are visible;
+      a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  contrast:
+    with: TR21_CALC_DISCOUNT_ALL
+    isolation: Same amounts; only whether the fee belongs to the discount base changes.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_DISCOUNT_ALL
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: 'Dùng máy tính: cộng 200.000 đồng với 20.000 đồng phí rồi giảm 10% trên cả tổng đó. Còn bao nhiêu?'
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id014
+            expression: (200000+20000)*(1-10/100)
+          path:
+          - value
+        values:
+        - 198000
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id015
+            expression: 220000-220000*10%
+          path:
+          - value
+        values:
+        - 198000
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id014
+    alternative:
+    - - calculator.calculate
+      - *id015
+    negative:
+    - - calculator.calculate
+      - expression: 200000*(1-10/100)+20000
+    answers:
+    - Còn 198000 đồng.
+    - 198.000 đồng
+    wrong_answer: Còn 200000 đồng.
+    manual_answer: Một trăm chín mươi tám nghìn đồng.
+    answer_rules:
+      required: true
+      pass:
+      - còn\ 198000\ đồng
+      - 198\.000\ đồng
+      fail:
+        wrong_value_or_unit:
+        - còn\ 200000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Both price and fee are discounted, unlike DISCOUNT_FIRST; same supplied amounts, different operation
+      order. All supplied numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  contrast:
+    with: TR21_CALC_DISCOUNT_FIRST
+    isolation: Same amounts; only discount scope changes.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_SPLIT
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính chia đều 85.000 đồng cho 4 người, mỗi người trả bao nhiêu?
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id016
+            expression: 85000/4
+          path:
+          - value
+        values:
+        - 21250
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id017
+            expression: 85000*0.25
+          path:
+          - value
+        values:
+        - 21250
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id016
+    alternative:
+    - - calculator.calculate
+      - *id017
+    negative:
+    - - calculator.calculate
+      - expression: 85000*4
+    answers:
+    - Mỗi người 21250 đồng.
+    - 21.250 đồng
+    wrong_answer: Mỗi người 340000 đồng.
+    manual_answer: Hai mươi mốt nghìn hai trăm năm mươi đồng mỗi người.
+    answer_rules:
+      required: true
+      pass:
+      - mỗi\ người\ 21250\ đồng
+      - 21\.250\ đồng
+      fail:
+        wrong_value_or_unit:
+        - mỗi\ người\ 340000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Equal monetary shares, no integer truncation or invented fee. All supplied numbers are visible; a
+      permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_REMAINDER
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính xem chia 17 bó thành 4 phần nguyên bằng nhau thì còn dư mấy bó?
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id018
+            expression: 17%4
+          path:
+          - value
+        values:
+        - 1
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id019
+            expression: 17-4*4
+          path:
+          - value
+        values:
+        - 1
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id018
+    alternative:
+    - - calculator.calculate
+      - *id019
+    negative:
+    - - calculator.calculate
+      - expression: '4'
+    answers:
+    - Dư 1 bó.
+    - 1 bó
+    wrong_answer: Dư 4 bó.
+    manual_answer: Còn thừa một bó.
+    answer_rules:
+      required: true
+      pass:
+      - dư\ 1\ bó
+      - 1\ bó
+      fail:
+        wrong_value_or_unit:
+        - dư\ 4\ bó
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Remainder, not quotient; SDK percent between operands is modulo, not a percent suffix. All supplied
+      numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_AREA
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính tính diện tích tấm chữ nhật dài 2,5 m, rộng 1,2 m theo cm vuông.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id020
+            expression: 250*120
+          path:
+          - value
+        values:
+        - 30000
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id021
+            expression: 2.5*1.2*10000
+          path:
+          - value
+        values:
+        - 30000
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id020
+    alternative:
+    - - calculator.calculate
+      - *id021
+    negative:
+    - - calculator.calculate
+      - expression: 2.5*1.2*100
+    answers:
+    - Diện tích 30000 cm vuông.
+    - 30000 cm²
+    wrong_answer: Diện tích 300 cm vuông.
+    manual_answer: Ba mươi nghìn xăng-ti-mét vuông.
+    answer_rules:
+      required: true
+      pass:
+      - diện\ tích\ 30000\ cm\ vuông
+      - 30000\ cm²
+      fail:
+        wrong_value_or_unit:
+        - diện\ tích\ 300\ cm\ vuông
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Square-unit conversion uses 10000, not the linear factor 100; no unsupported area convert_unit call.
+      All supplied numbers are visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_PERCENT_ONLY
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng máy tính tính riêng 10% của 200.000 đồng, không lấy số tiền còn lại.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id022
+            expression: 200000*10%
+          path:
+          - value
+        values:
+        - 20000
+      - witnesses:
+        - tool: calculator.calculate
+          arguments:
+          - &id023
+            expression: 200000*10/100
+          path:
+          - value
+        values:
+        - 20000
+    actions: []
+    standard:
+    - - calculator.calculate
+      - *id022
+    alternative:
+    - - calculator.calculate
+      - *id023
+    negative:
+    - - calculator.calculate
+      - expression: 200000*(1-10/100)
+    answers:
+    - Phần giảm là 20000 đồng.
+    - 20.000 đồng
+    wrong_answer: Phần giảm là 180000 đồng.
+    manual_answer: Hai mươi nghìn đồng là phần giảm.
+    answer_rules:
+      required: true
+      pass:
+      - phần\ giảm\ là\ 20000\ đồng
+      - 20\.000\ đồng
+      fail:
+        wrong_value_or_unit:
+        - phần\ giảm\ là\ 180000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Asked for discount amount, not price after discount; negation is explicit. All supplied numbers are
+      visible; a permitted matching observation is required; state stays unchanged.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_CALC_MISSING_UNIT
+  world_id: W_TR21_QUANTITY
+  lineage_id: TRAIN_QUANTITY_REASONING_21
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đổi số đo 3 sang kg bằng công cụ nhé. Tôi chưa nói đơn vị ban đầu; hỏi tôi trước, đừng đoán.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id001
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: ask_missing
+    evidence: []
+    actions: []
+    ask: &id024
+      tool_name: calculator.convert_unit
+      params:
+      - from_unit
+    standard:
+    - - sys.ask_missing_info
+      - *id024
+    alternative:
+    - - sys.ask_missing_info
+      - *id024
+    negative:
+    - - calculator.convert_unit
+      - value: 3
+        from_unit: g
+        to_unit: kg
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Value 3 and destination kg are supplied; original unit is explicitly absent. No lookup can invent
+      it; ask convert_unit.from_unit, with no write. Guessing grams cannot satisfy the explicit request.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_DIRECT
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Theo bảng tỷ giá đang có, dùng công cụ đổi 3 USD sang VND, không cộng phí.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id026
+            amount: 3
+            from_currency: USD
+            to_currency: VND
+          path:
+          - result
+        values:
+        - 75000
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id026
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 4
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - 75000 VND.
+    - 75.000 VND
+    wrong_answer: 78000 VND.
+    manual_answer: Bảy mươi lăm nghìn đồng.
+    answer_rules:
+      required: true
+      pass:
+      - 75000\ vnd
+      - 75\.000\ vnd
+      fail:
+        wrong_fact_or_scope:
+        - 78000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Three supplied USD at observed 25000; no fee or unrelated EUR rate. All original records are preserved.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FX_CHANGED
+    isolation: Only declared rate fixture fact differs; visible request/context/history/permissions are identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_CHANGED
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: rate_up
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Theo bảng tỷ giá đang có, dùng công cụ đổi 3 USD sang VND, không cộng phí.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id027
+            amount: 3
+            from_currency: USD
+            to_currency: VND
+          path:
+          - result
+        values:
+        - 78000
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 26000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id027
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 4
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - 78000 VND.
+    - 78.000 VND
+    wrong_answer: 75000 VND.
+    manual_answer: Bảy mươi tám nghìn đồng.
+    answer_rules:
+      required: true
+      pass:
+      - 78000\ vnd
+      - 78\.000\ vnd
+      fail:
+        wrong_fact_or_scope:
+        - 75000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only USD/VND rate changes; same visible input must now yield 78000 rather than 75000. All original
+      records are preserved.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FX_DIRECT
+    isolation: Only declared rate fixture fact differs; visible request/context/history/permissions are identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_DISTRACTOR
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: other_rate
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Theo bảng tỷ giá đang có, dùng công cụ đổi 3 USD sang VND, không cộng phí.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id028
+            amount: 3
+            from_currency: USD
+            to_currency: VND
+          path:
+          - result
+        values:
+        - 75000
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id028
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 4
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - 75000 VND.
+    - 75.000 VND
+    wrong_answer: 93000 VND.
+    manual_answer: Bảy mươi lăm nghìn đồng, không tính euro.
+    answer_rules:
+      required: true
+      pass:
+      - 75000\ vnd
+      - 75\.000\ vnd
+      fail:
+        wrong_fact_or_scope:
+        - 93000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only irrelevant EUR rate changes; USD conversion stays 75000. All original records are preserved.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FX_DIRECT
+    isolation: Only declared rate fixture fact differs; visible request/context/history/permissions are identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_INVERSE
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng bảng tỷ giá đổi 100.000 VND sang USD giúp tôi, không phí.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id029
+            amount: 100000
+            from_currency: VND
+            to_currency: USD
+          path:
+          - result
+        values:
+        - 4
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id029
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 100001
+        from_currency: VND
+        to_currency: USD
+    answers:
+    - 4 USD.
+    - 4 đô la Mỹ
+    wrong_answer: 2500000000 USD.
+    manual_answer: Bốn đô la Mỹ.
+    answer_rules:
+      required: true
+      pass:
+      - 4\ usd
+      - 4\ đô\ la\ mỹ
+      fail:
+        wrong_fact_or_scope:
+        - 2500000000\ usd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Use reciprocal of observed USD/VND; do not multiply the VND amount by the forward rate. All original
+      records are preserved.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_CROSS
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng bảng tỷ giá đổi 10 USD sang EUR, lấy kết quả làm tròn hai chữ số thập phân.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id030
+            amount: 10
+            from_currency: USD
+            to_currency: EUR
+          path:
+          - result
+        values:
+        - 8.33
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: EUR
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: EUR
+            to: VND
+        values:
+        - 25000
+        - 30000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id030
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: EUR
+        to_currency: VND
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 11
+        from_currency: USD
+        to_currency: EUR
+    answers:
+    - 8,33 EUR.
+    - 8.33 EUR
+    wrong_answer: 12 EUR.
+    manual_answer: Tám euro ba mươi ba xu.
+    answer_rules:
+      required: true
+      pass:
+      - 8,33\ eur
+      - 8\.33\ eur
+      fail:
+        wrong_fact_or_scope:
+        - 12\ eur
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Both directional rates are necessary for the USD/VND/EUR bridge; reciprocal direction matters. All
+      original records are preserved.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_ZERO
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng công cụ quy đổi 0 USD sang VND, không phí. Trả lại cả số 0 nhé.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id031
+            amount: 0
+            from_currency: USD
+            to_currency: VND
+          path:
+          - result
+        values:
+        - 0
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id031
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 1
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - 0 VND.
+    - 0 đồng
+    wrong_answer: 25000 VND.
+    manual_answer: Không đồng.
+    answer_rules:
+      required: true
+      pass:
+      - 0\ vnd
+      - 0\ đồng
+      fail:
+        wrong_fact_or_scope:
+        - 25000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Zero is a valid supplied amount, not a missing parameter; preserve the requested zero result. All
+      original records are preserved.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_ROUND
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đổi 100.000 VND sang EUR theo công cụ, làm tròn hai chữ số thập phân, không phí.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id032
+            amount: 100000
+            from_currency: VND
+            to_currency: EUR
+          path:
+          - result
+        values:
+        - 3.33
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: EUR
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: EUR
+            to: VND
+        values:
+        - 30000
+    actions: []
+    standard:
+    - - exchange_rate.convert
+      - *id032
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: EUR
+        to_currency: VND
+    negative:
+    - - exchange_rate.convert
+      - amount: 100001
+        from_currency: VND
+        to_currency: EUR
+    answers:
+    - 3,33 EUR.
+    - 3.33 EUR
+    wrong_answer: 3 EUR.
+    manual_answer: Ba euro ba mươi ba xu.
+    answer_rules:
+      required: true
+      pass:
+      - 3,33\ eur
+      - 3\.33\ eur
+      fail:
+        wrong_fact_or_scope:
+        - 3\ eur
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Inverse EUR conversion plus two-decimal service rounding, not integer truncation. All original records
+      are preserved.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_FEE
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đổi 3 USD sang VND theo công cụ rồi cộng thêm 5.000 VND phí cố định. Tổng phải trả bao nhiêu VND?
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - &id035
+      alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id033
+            amount: 3
+            from_currency: USD
+            to_currency: VND
+          path:
+          - result
+        values:
+        - 75000
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+    actions: []
+    standard:
+    - &id034
+      - exchange_rate.convert
+      - *id033
+    alternative:
+    - *id034
+    - - calculator.calculate
+      - expression: 75000+5000
+    negative:
+    - - exchange_rate.convert
+      - amount: 3
+        from_currency: EUR
+        to_currency: VND
+    answers:
+    - Tổng 80000 VND.
+    - 80.000 VND cả phí
+    wrong_answer: Tổng 75000 VND.
+    manual_answer: Tám mươi nghìn đồng cả phí.
+    answer_rules:
+      required: true
+      pass:
+      - tổng\ 80000\ vnd
+      - 80\.000\ vnd\ cả\ phí
+      fail:
+        wrong_fact_or_scope:
+        - tổng\ 75000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Observed 75000 conversion plus user-supplied 5000 fixed fee; a correct conversion-only number omits
+      a required cost.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_NOTE
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đổi 3 USD sang VND theo công cụ. Tạo ghi chú riêng tên Quy đổi hôm nay, nội dung chỉ gồm kết quả nguyên
+      không dấu phân cách rồi một dấu cách và VND.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - *id035
+    actions:
+    - &id036
+      - notes.create
+      - title: Quy đổi hôm nay
+        content: 75000 VND
+    standard:
+    - *id034
+    - *id036
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    - *id036
+    negative:
+    - *id034
+    - - notes.create
+      - title: Quy đổi hôm nay
+        content: 78000 VND
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Unique new note, not append/rewrite the existing note. Explicit output format is bare integer + VND.
+      Rate evidence must precede creation.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_HISTORY
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng đúng tỷ giá vừa tra trong cuộc trò chuyện, tính 2 USD thành bao nhiêu VND. Không tra lại tỷ giá.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: &id037
+  - user: Tra tỷ giá USD sang VND, chỉ xem thôi.
+    calls:
+    - tag: old_rate
+      name: exchange_rate.get_rate
+      arguments:
+        from_currency: USD
+        to_currency: VND
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.get_rate
+          arguments:
+          - from_currency: USD
+            to_currency: VND
+          path:
+          - rate
+          collection: rates
+          match:
+            from: USD
+            to: VND
+        values:
+        - 25000
+      source: history
+    actions: []
+    standard: []
+    alternative:
+    - - calculator.calculate
+      - expression: 2*25000
+    negative:
+    - - exchange_rate.convert
+      - amount: 2
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - 50000 VND.
+    - 50.000 VND
+    wrong_answer: 25000 VND.
+    manual_answer: Năm mươi nghìn đồng theo lần tra trước.
+    answer_rules:
+      required: true
+      pass:
+      - 50000\ vnd
+      - 50\.000\ vnd
+      fail:
+        wrong_fact_or_scope:
+        - 25000\ vnd
+    forbidden_latest_tools:
+    - exchange_rate.get_rate
+    - exchange_rate.convert
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Actual historical USD/VND read supplies 25000; multiply by the newly supplied 2. No current-rate query
+      is authorized; calculator arithmetic is harmless.
+    independent_adjudication: false
+    counterexample_review: The numerical answer can be correct but the fresh rate query violates the explicit no-requery
+      history instruction.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_CURRENT
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Bây giờ tra lại bằng công cụ xem đổi 3 USD được bao nhiêu VND, không dùng riêng kết quả cũ.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: *id037
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - *id035
+    actions: []
+    standard:
+    - *id034
+    alternative:
+    - - exchange_rate.get_rate
+      - from_currency: USD
+        to_currency: VND
+    negative: []
+    answers:
+    - 75000 VND.
+    - 75.000 VND
+    wrong_answer: 25000 VND.
+    manual_answer: Bảy mươi lăm nghìn đồng theo lần kiểm tra mới.
+    answer_rules:
+      required: true
+      pass:
+      - 75000\ vnd
+      - 75\.000\ vnd
+      fail:
+        wrong_fact_or_scope:
+        - 25000\ vnd
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Fresh evidence is explicitly required even when the fixture rate has not changed. Historical value
+      alone is insufficient.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FX_NO_RATE
+  world_id: W_TR21_EXCHANGE
+  lineage_id: TRAIN_BILL_AUTOPAY_05
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Thử đổi 7 JPY sang GBP bằng công cụ. Nếu không có tỷ giá thì báo chưa có dữ liệu, đừng đoán và đừng
+      ghi gì.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id025
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    allow_noop: true
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: exchange_rate.convert
+          arguments:
+          - &id038
+            amount: 7
+            from_currency: JPY
+            to_currency: GBP
+          path:
+          - done
+          allow_noop: true
+        - tool: exchange_rate.convert
+          arguments:
+          - amount: 7
+            from_currency: JPY
+            to_currency: GBP
+          path:
+          - message
+          allow_noop: true
+        values:
+        - false
+        - không có tỷ giá JPY/GBP
+    actions: []
+    standard:
+    - &id039
+      - exchange_rate.convert
+      - *id038
+    alternative:
+    - *id039
+    negative:
+    - - exchange_rate.convert
+      - amount: 7
+        from_currency: USD
+        to_currency: VND
+    answers:
+    - Chưa có dữ liệu tỷ giá JPY/GBP.
+    - Công cụ chưa có tỷ giá JPY sang GBP.
+    wrong_answer: Được 7 GBP.
+    manual_answer: Chưa thể quy đổi yên Nhật sang bảng Anh từ bảng này.
+    answer_rules:
+      required: true
+      pass:
+      - chưa\ có\ dữ\ liệu\ tỷ\ giá\ jpy/gbp
+      - công\ cụ\ chưa\ có\ tỷ\ giá\ jpy\ sang\ gbp
+      fail:
+        wrong_fact_or_scope:
+        - được\ 7\ gbp
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Actual convert no-op establishes unavailable pair, not zero exchange value. Request supplies all arguments;
+      no invented parameter question or monetary action.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_BASE
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra thời gian đi ô tô từ Cổng Bến Vải đến Xưởng Sáp. Tôi cần đến lúc 09:00 ngày 1/4/2028 giờ Việt Nam;
+      đặt nhắc Rời cổng đúng giờ cần xuất phát, không cộng đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id041
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions:
+    - &id042
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:30:00+07:00'
+    standard:
+    - &id043
+      - maps.get_route
+      - *id041
+    - *id042
+    alternative:
+    - *id043
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T01:30:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T09:00:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Arrival minus 30 minutes, not a reminder at arrival; names fix route direction. Preserve the existing
+      completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Reminder at arrival rather than departure.
+  contrast:
+    with: TR21_ROUTE_CHANGED
+    isolation: Declared target-duration/distractor-duration or visible home-address change only; requests remain
+      identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_CHANGED
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: longer
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra thời gian đi ô tô từ Cổng Bến Vải đến Xưởng Sáp. Tôi cần đến lúc 09:00 ngày 1/4/2028 giờ Việt Nam;
+      đặt nhắc Rời cổng đúng giờ cần xuất phát, không cộng đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id044
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 45
+    actions:
+    - &id045
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:15:00+07:00'
+    standard:
+    - &id046
+      - maps.get_route
+      - *id044
+    - *id045
+    alternative:
+    - *id046
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T01:15:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:30:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only target car duration changes 30 to 45; same visible input changes departure 08:30 to 08:15. Preserve
+      the existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Stale sibling 08:30 ignores target duration increase.
+  contrast:
+    with: TR21_ROUTE_BASE
+    isolation: Declared target-duration/distractor-duration or visible home-address change only; requests remain
+      identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_DISTRACTOR
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: other_direction
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra thời gian đi ô tô từ Cổng Bến Vải đến Xưởng Sáp. Tôi cần đến lúc 09:00 ngày 1/4/2028 giờ Việt Nam;
+      đặt nhắc Rời cổng đúng giờ cần xuất phát, không cộng đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id047
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions:
+    - &id048
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:30:00+07:00'
+    standard:
+    - &id049
+      - maps.get_route
+      - *id047
+    - *id048
+    alternative:
+    - *id049
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T01:30:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:10:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only reverse-trip duration changes; outbound departure must remain 08:30. Preserve the existing completed
+      weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Uses irrelevant changed return-trip duration.
+  contrast:
+    with: TR21_ROUTE_BASE
+    isolation: Declared target-duration/distractor-duration or visible home-address change only; requests remain
+      identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_WALK
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra đường đi bộ từ Cổng Bến Vải đến Xưởng Sáp. Cần đến 09:00 ngày 1/4/2028 giờ Việt Nam; nhắc Rời cổng
+      đúng giờ xuất phát, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id050
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: walk
+          path:
+          - route
+          - duration_min
+        values:
+        - 90
+    actions:
+    - &id051
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T07:30:00+07:00'
+    standard:
+    - &id052
+      - maps.get_route
+      - *id050
+    - *id051
+    alternative:
+    - *id052
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T00:30:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T07:30:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Walking duration 90, not car 30; mode changes the decisive observation and departure. Preserve the
+      existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Correct final reminder and valid calls, but the observation has the wrong mode, direction
+      or profile origin; no relevant duration was observed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_BUFFER
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra thời gian đi ô tô từ Cổng Bến Vải đến Xưởng Sáp để đến 09:00 ngày 1/4/2028 giờ Việt Nam. Trừ thêm
+      10 phút dự phòng rồi đặt nhắc Rời cổng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id053
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions:
+    - &id054
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:20:00+07:00'
+    standard:
+    - &id055
+      - maps.get_route
+      - *id053
+    - *id054
+    alternative:
+    - *id055
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T01:20:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:30:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Subtract both observed 30 minutes and supplied 10-minute buffer exactly once. Preserve the existing
+      completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Omits explicitly requested ten-minute buffer.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_REVERSE
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra chuyến ô tô từ Xưởng Sáp về Cổng Bến Vải, cần đến 09:00 ngày 1/4/2028 giờ Việt Nam. Nhắc Rời xưởng
+      vào giờ xuất phát, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id056
+            origin: Xưởng Sáp
+            destination: Cổng Bến Vải
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 20
+    actions:
+    - &id057
+      - reminders.create
+      - content: Rời xưởng
+        time: '2028-04-01T08:40:00+07:00'
+    standard:
+    - &id058
+      - maps.get_route
+      - *id056
+    - *id057
+    alternative:
+    - *id058
+    - - reminders.create
+      - content: Rời xưởng
+        time: '2028-04-01T01:40:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời xưởng
+        time: '2028-04-01T08:40:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Reverse route is not assumed symmetric; actual reverse response supplies 20 minutes. Preserve the
+      existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Correct final reminder and valid calls, but the observation has the wrong mode, direction
+      or profile origin; no relevant duration was observed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_PROFILE
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra ô tô từ nhà trong hồ sơ đến Xưởng Sáp. Cần đến 09:00 ngày 1/4/2028 giờ Việt Nam; nhắc Rời nhà đúng
+      giờ xuất phát, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+      user_profile:
+        home_address: Cổng Bến Vải
+        work_address: 9 Sân Nắng
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id059
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions:
+    - &id060
+      - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T08:30:00+07:00'
+    standard:
+    - &id061
+      - maps.get_route
+      - *id059
+    - *id060
+    alternative:
+    - *id061
+    - - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T01:30:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: 9 Sân Nắng
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T08:30:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only supplied home_address resolves origin; the work address is not an alternative origin. Preserve
+      the existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Correct final effect cannot excuse using work_address instead of supplied home_address
+      in the route read.
+  contrast:
+    with: TR21_ROUTE_PROFILE_CHANGED
+    isolation: Declared target-duration/distractor-duration or visible home-address change only; requests remain
+      identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_PROFILE_CHANGED
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra ô tô từ nhà trong hồ sơ đến Xưởng Sáp. Cần đến 09:00 ngày 1/4/2028 giờ Việt Nam; nhắc Rời nhà đúng
+      giờ xuất phát, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+      user_profile:
+        home_address: 4 Bến Mơ
+        work_address: 9 Sân Nắng
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id062
+            origin: 4 Bến Mơ
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 60
+    actions:
+    - &id063
+      - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T08:00:00+07:00'
+    standard:
+    - &id064
+      - maps.get_route
+      - *id062
+    - *id063
+    alternative:
+    - *id064
+    - - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T01:00:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời nhà
+        time: '2028-04-01T08:00:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only visible home profile changes; route response now supplies 60 minutes and departure 08:00. Preserve
+      the existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Correct final reminder and valid calls, but the observation has the wrong mode, direction
+      or profile origin; no relevant duration was observed.
+  contrast:
+    with: TR21_ROUTE_PROFILE
+    isolation: Declared target-duration/distractor-duration or visible home-address change only; requests remain
+      identical.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_MIDNIGHT
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra ô tô từ Cổng Bến Vải đến Xưởng Sáp. Cần đến 00:10 ngày 2/4/2028 giờ Việt Nam; nhắc Rời cổng đúng
+      giờ xuất phát, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id065
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions:
+    - &id066
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T23:40:00+07:00'
+    standard:
+    - &id067
+      - maps.get_route
+      - *id065
+    - *id066
+    alternative:
+    - *id067
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T16:40:00+00:00'
+        repeat: once
+    negative:
+    - - maps.get_route
+      - origin: Cổng Bến Vải
+        destination: Xưởng Sáp
+        mode: car
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-02T23:40:00+07:00'
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Subtraction crosses midnight into the preceding date; the reminder remains future relative to context.
+      Preserve the existing completed weekly reminder and all route/saved-place records.
+    independent_adjudication: false
+    counterexample_review: Wrong departure date across midnight.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_ANSWER
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra ô tô từ Cổng Bến Vải đến Xưởng Sáp. Để đến 09:00 ngày 1/4/2028 giờ Việt Nam thì rời lúc mấy giờ
+      và đi bao nhiêu phút? Chỉ trả lời, không đặt nhắc.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - &id068
+            origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+    actions: []
+    standard:
+    - &id069
+      - maps.get_route
+      - *id068
+    alternative:
+    - *id069
+    negative:
+    - - maps.get_route
+      - origin: Xưởng Sáp
+        destination: Cổng Bến Vải
+        mode: car
+    answers:
+    - Rời lúc 08:30, đi 30 phút.
+    - 08:30; 30 phút
+    wrong_answer: Rời lúc 09:00, đi 30 phút.
+    manual_answer: Tám rưỡi khởi hành, nửa giờ trên đường.
+    answer_rules:
+      required: true
+      pass:
+      - rời\ lúc\ 08:30,\ đi\ 30\ phút
+      - 08:30;\ 30\ phút
+      fail:
+        wrong_fact_or_scope:
+        - rời\ lúc\ 09:00,\ đi\ 30\ phút
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: 'Two facts required: departure 08:30 and journey duration 30. A reverse-route read cannot support
+      the correct-looking outbound answer.'
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_HISTORY
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Dùng thời lượng chuyến ô tô vừa tra, không tra lại. Nhắc Rời cổng để đến Xưởng Sáp lúc 09:00 ngày 1/4/2028
+      giờ Việt Nam, không đệm.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns:
+  - user: Tra giúp chuyến ô tô từ Cổng Bến Vải đến Xưởng Sáp.
+    calls:
+    - tag: route
+      name: maps.get_route
+      arguments: *id068
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: maps.get_route
+          arguments:
+          - origin: Cổng Bến Vải
+            destination: Xưởng Sáp
+            mode: car
+          path:
+          - route
+          - duration_min
+        values:
+        - 30
+      source: history
+    actions:
+    - &id070
+      - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T08:30:00+07:00'
+    standard:
+    - *id070
+    alternative:
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T01:30:00+00:00'
+        repeat: once
+    negative:
+    - - reminders.create
+      - content: Rời cổng
+        time: '2028-04-01T09:00:00+07:00'
+    forbidden_latest_tools:
+    - maps.get_route
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Actual historical route response supplies 30 minutes; latest reminder must subtract it from the arrival
+      instant, not re-execute history or query again.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_ROUTE_MISSING
+  world_id: W_TR21_DEPARTURE
+  lineage_id: TRAIN_MAPS_UPSERT_06
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Tra ô tô từ Cổng Bến Vải để tôi tới chỗ hẹn lúc 09:00 ngày 1/4/2028 giờ Việt Nam rồi nhắc giờ xuất
+      phát. Tôi chưa chọn địa điểm hẹn; hỏi tôi trước nhé.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id040
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: ask_missing
+    evidence: []
+    actions: []
+    ask: &id071
+      tool_name: maps.get_route
+      params:
+      - destination
+    standard:
+    - - sys.ask_missing_info
+      - *id071
+    alternative:
+    - - sys.ask_missing_info
+      - *id071
+    negative:
+    - *id069
+    - *id070
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Origin and arrival time are supplied; destination is explicitly undecided. Hidden route fixtures cannot
+      choose the user’s destination; ask maps.get_route.destination and create zero reminders.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_BASE
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Ở Bếp Mầm Hương, đặt 2 phần Cơm nấm và 1 Trà bí giao 18 Ngõ Đá, trả tiền mặt, chỉ nếu tổng tiền món
+      không quá 60.000 đồng. Quá mức thì không đặt, báo tổng tiền.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - &id074 {}
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - &id073
+            restaurant_id: w21_r1
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id075
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 58000
+    standard:
+    - &id076
+      - food_delivery.list_restaurants
+      - *id074
+    - &id077
+      - food_delivery.get_menu
+      - *id073
+    - *id075
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 2
+        address: 18 Ngõ Đá
+        payment: cash
+    negative:
+    - - food_delivery.list_restaurants
+      - {}
+    - - food_delivery.get_menu
+      - restaurant_id: w21_r1
+    - - food_delivery.get_menu
+      - restaurant_id: w21_r2
+    - - food_delivery.place_order
+      - restaurant_id: w21_r2
+        items:
+        - item_id: w21_m2
+          quantity: 2
+        - item_id: w21_d2
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    additional_counterexamples:
+      wrong_tool:
+      - - food_delivery.list_restaurants
+        - {}
+      - - food_delivery.get_menu
+        - restaurant_id: w21_r1
+      - - food_delivery.cancel_order
+        - order_id: w21_old_order
+      collateral_after_correct:
+      - - food_delivery.list_restaurants
+        - {}
+      - - food_delivery.get_menu
+        - restaurant_id: w21_r1
+      - - food_delivery.place_order
+        - restaurant_id: w21_r1
+          items:
+          - item_id: w21_m1
+            quantity: 2
+          - item_id: w21_d1
+            quantity: 1
+          address: 18 Ngõ Đá
+          payment: cash
+      - - food_delivery.cancel_order
+        - order_id: w21_old_order
+      wrong_menu_parent:
+      - - food_delivery.list_restaurants
+        - {}
+      - - food_delivery.get_menu
+        - restaurant_id: w21_r2
+      - - food_delivery.place_order
+        - restaurant_id: w21_r1
+          items:
+          - item_id: w21_m1
+            quantity: 2
+          - item_id: w21_d1
+            quantity: 1
+          address: 18 Ngõ Đá
+          payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Two line quantities give 58000, below cap; exclude the cheaper namesake restaurant. Menu ID/price
+      must follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+    counterexample_review: Both menus are actually read; wrong namesake order succeeds but violates the explicitly
+      requested restaurant. Rejection has effect/state consequences; causal isolation is not inferred from multiple
+      reasons.
+    additional_checks: Actual cancel_order succeeds on the old delivered order; this is a forbidden operation, not
+      an SDK error. A correct new order followed by that cancellation tests collateral damage. Reading the wrong
+      parent menu then submitting the correct hidden item IDs must reject despite correct final new order.
+  contrast:
+    with: TR21_FOOD_CHANGED
+    isolation: Only declared menu price/distractor price or explicit cap differs; basket and preservation obligations
+      remain fixed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_CHANGED
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: price_up
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Ở Bếp Mầm Hương, đặt 2 phần Cơm nấm và 1 Trà bí giao 18 Ngõ Đá, trả tiền mặt, chỉ nếu tổng tiền món
+      không quá 60.000 đồng. Quá mức thì không đặt, báo tổng tiền.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 26000
+        - w21_d1
+        - 10000
+    actions: []
+    order_total: 62000
+    standard:
+    - *id076
+    - *id077
+    alternative:
+    - *id076
+    - *id077
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 1
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    answers:
+    - Không đặt; tổng 62000 đồng.
+    - Tổng 62000 đồng, vượt mức nên không đặt.
+    wrong_answer: Có thể đặt, tổng 62000 đồng.
+    manual_answer: Tiền món vượt trần đã cho, nên giữ nguyên các đơn.
+    answer_rules:
+      required: true
+      pass:
+      - không\ đặt;\ tổng\ 62000\ đồng
+      - tổng\ 62000\ đồng,\ vượt\ mức\ nên\ không\ đặt
+      fail:
+        wrong_fact_or_scope:
+        - có\ thể\ đặt,\ tổng\ 62000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only target meal price increases; 62000 exceeds unchanged cap, so no order is authorized. Menu ID/price
+      must follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FOOD_BASE
+    isolation: Only declared menu price/distractor price or explicit cap differs; basket and preservation obligations
+      remain fixed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_DISTRACTOR
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: other_menu
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Ở Bếp Mầm Hương, đặt 2 phần Cơm nấm và 1 Trà bí giao 18 Ngõ Đá, trả tiền mặt, chỉ nếu tổng tiền món
+      không quá 60.000 đồng. Quá mức thì không đặt, báo tổng tiền.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id078
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 58000
+    standard:
+    - *id076
+    - *id077
+    - *id078
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 2
+        address: 18 Ngõ Đá
+        payment: cash
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 3
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only the unrequested namesake menu changes; named restaurant order stays 58000. Menu ID/price must
+      follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FOOD_BASE
+    isolation: Only declared menu price/distractor price or explicit cap differs; basket and preservation obligations
+      remain fixed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_EXACT
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Ở Bếp Mầm Hương, đặt 2 Cơm nấm và 1 Trà bí, giao 18 Ngõ Đá, tiền mặt, nếu tổng tiền món không quá 58.000
+      đồng. Quá thì không đặt, báo tổng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id079
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 58000
+    standard:
+    - *id076
+    - *id077
+    - *id079
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 2
+        address: 18 Ngõ Đá
+        payment: cash
+    negative:
+    - - food_delivery.list_restaurants
+      - {}
+    - - food_delivery.get_menu
+      - restaurant_id: w21_r1
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: 'Inclusive budget boundary: 58000 equals cap and must execute. Menu ID/price must follow observed
+      parent restaurant; preserve the delivered order and full unrelated state.'
+    independent_adjudication: false
+    counterexample_review: Wrongly treating equality as over-budget omits the authorized order; no state change
+      does not imply success.
+  contrast:
+    with: TR21_FOOD_BELOW
+    isolation: Only declared menu price/distractor price or explicit cap differs; basket and preservation obligations
+      remain fixed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_BELOW
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Ở Bếp Mầm Hương, đặt 2 Cơm nấm và 1 Trà bí, giao 18 Ngõ Đá, tiền mặt, nếu tổng tiền món không quá 57.000
+      đồng. Quá thì không đặt, báo tổng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions: []
+    order_total: 58000
+    standard:
+    - *id076
+    - *id077
+    alternative:
+    - *id076
+    - *id077
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 1
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    answers:
+    - Không đặt; tổng 58000 đồng.
+    - Tổng 58000 đồng, vượt mức nên không đặt.
+    wrong_answer: Có thể đặt, tổng 58000 đồng.
+    manual_answer: Tiền món vượt trần đã cho, nên giữ nguyên các đơn.
+    answer_rules:
+      required: true
+      pass:
+      - không\ đặt;\ tổng\ 58000\ đồng
+      - tổng\ 58000\ đồng,\ vượt\ mức\ nên\ không\ đặt
+      fail:
+        wrong_fact_or_scope:
+        - có\ thể\ đặt,\ tổng\ 58000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: 58000 exceeds 57000; do not silently reduce quantity or remove the drink. Menu ID/price must follow
+      observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+  contrast:
+    with: TR21_FOOD_EXACT
+    isolation: Only declared menu price/distractor price or explicit cap differs; basket and preservation obligations
+      remain fixed.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_NODRINK
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đặt đúng 2 Cơm nấm ở Bếp Mầm Hương, không lấy trà, giao 18 Ngõ Đá, tiền mặt. Tổng tiền món tối đa 50.000
+      đồng, vượt thì không đặt.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+    actions:
+    - &id080
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 48000
+    standard:
+    - *id076
+    - *id077
+    - *id080
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 3
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Only the two meals are authorized; adding the former drink changes both basket and cap decision. Menu
+      ID/price must follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_ONE
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đặt 1 Cơm nấm với 1 Trà bí ở Bếp Mầm Hương, giao 18 Ngõ Đá, tiền mặt, nếu tiền món không quá 40.000
+      đồng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id081
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 1
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 34000
+    standard:
+    - *id076
+    - *id077
+    - *id081
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: One meal plus drink totals 34000, not the two-meal 58000 shortcut. Menu ID/price must follow observed
+      parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_BANK
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đặt 2 Cơm nấm và 1 Trà bí ở Bếp Mầm Hương, giao 18 Ngõ Đá, thanh toán ngân hàng, chỉ nếu tiền món không
+      quá 60.000 đồng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id082
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: bank
+    order_total: 58000
+    standard:
+    - *id076
+    - *id077
+    - *id082
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 2
+        address: 18 Ngõ Đá
+        payment: bank
+    negative:
+    - - food_delivery.list_restaurants
+      - {}
+    - - food_delivery.get_menu
+      - restaurant_id: w21_r1
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Payment is bank, not cash; no banking transfer or modification to historical orders is authorized.
+      Menu ID/price must follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+    counterexample_review: Only payment/address is wrong; all calls succeed. Intended effects and state frame reject
+      the authored mistake, not an SDK failure.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_PROFILE
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đặt 2 Cơm nấm và 1 Trà bí ở Bếp Mầm Hương về nhà trong hồ sơ, tiền mặt, chỉ nếu tiền món không quá
+      60.000 đồng.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+      user_profile:
+        home_address: 26 Hẻm Dâu
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions:
+    - &id083
+      - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 26 Hẻm Dâu
+        payment: cash
+    order_total: 58000
+    standard:
+    - *id076
+    - *id077
+    - *id083
+    alternative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_d1
+          quantity: 1
+        - item_id: w21_m1
+          quantity: 2
+        address: 26 Hẻm Dâu
+        payment: cash
+    negative:
+    - - food_delivery.list_restaurants
+      - {}
+    - - food_delivery.get_menu
+      - restaurant_id: w21_r1
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Address comes from the visible home profile; do not copy the old order’s 18 Ngõ Đá address. Menu ID/price
+      must follow observed parent restaurant; preserve the delivered order and full unrelated state.
+    independent_adjudication: false
+    counterexample_review: Only payment/address is wrong; all calls succeed. Intended effects and state frame reject
+      the authored mistake, not an SDK failure.
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_MISSING_ADDRESS
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Đặt 2 Cơm nấm và 1 Trà bí ở Bếp Mầm Hương, tối đa 60.000 đồng tiền món, tiền mặt. Tôi chưa chọn địa
+      chỉ giao; tra món rồi hỏi địa chỉ trước khi đặt.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: ask_missing
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions: []
+    ask: &id084
+      tool_name: food_delivery.place_order
+      params:
+      - address
+    standard:
+    - *id076
+    - *id077
+    - - sys.ask_missing_info
+      - *id084
+    alternative:
+    - *id076
+    - *id077
+    - - sys.ask_missing_info
+      - *id084
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: Menu lookup is justified; total fits cap, but requested delivery has no chosen address. Although address
+      is schema-optional, the explicit task needs it; old order address is private and not authorized.
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_QUOTE
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: Xem giá 2 Cơm nấm và 1 Trà bí ở Bếp Mầm Hương là bao nhiêu, chỉ tính tiền món, chưa đặt nhé.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: observe_no_write
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    actions: []
+    standard:
+    - *id076
+    - *id077
+    alternative:
+    - *id076
+    - *id077
+    negative:
+    - *id076
+    - *id077
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    answers:
+    - Tổng tiền món 58000 đồng.
+    - 58.000 đồng tiền món
+    wrong_answer: Tổng tiền món 34000 đồng.
+    manual_answer: Năm mươi tám nghìn, chưa đặt đơn.
+    answer_rules:
+      required: true
+      pass:
+      - tổng\ tiền\ món\ 58000\ đồng
+      - 58\.000\ đồng\ tiền\ món
+      fail:
+        wrong_fact_or_scope:
+        - tổng\ tiền\ món\ 34000\ đồng
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: 'Quote only: count the two meals and drink but create no order, irrespective of an affordable price.'
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.
+- scenario_id: TR21_FOOD_COMPARE
+  world_id: W_TR21_FOOD
+  lineage_id: TRAIN_FLIGHT_CHOICE_07
+  fixture_variant: base
+  status: spec_only
+  exportable: false
+  agent_visible:
+    request: So giá đúng giỏ 2 Cơm nấm và 1 Trà bí giữa Bếp Mầm Hương với Bếp Mầm Hương Phố. Đặt ở quán có tổng
+      tiền món thấp hơn, tối đa 60.000 đồng, tiền mặt, giao 18 Ngõ Đá.
+    context:
+      current_time: '2028-04-01T07:00:00+07:00'
+      timezone: Asia/Ho_Chi_Minh
+    history: []
+    allowed_tools: *id072
+  history_time: '2028-04-01T06:00:00+07:00'
+  historical_turns: []
+  oracle_draft:
+    outcome: execute
+    evidence:
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id073
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r1
+        - w21_m1
+        - 24000
+        - w21_d1
+        - 10000
+    - alternatives:
+      - witnesses:
+        - tool: food_delivery.list_restaurants
+          arguments:
+          - *id074
+          path:
+          - id
+          collection: restaurants
+          match:
+            name: Bếp Mầm Hương Phố
+        - tool: food_delivery.get_menu
+          arguments:
+          - &id085
+            restaurant_id: w21_r2
+          path:
+          - id
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id085
+          path:
+          - price
+          collection: menu
+          match:
+            name: Cơm nấm
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id085
+          path:
+          - id
+          collection: menu
+          match:
+            name: Trà bí
+        - tool: food_delivery.get_menu
+          arguments:
+          - *id085
+          path:
+          - price
+          collection: menu
+          match:
+            name: Trà bí
+        values:
+        - w21_r2
+        - w21_m2
+        - 20000
+        - w21_d2
+        - 12000
+    actions:
+    - &id086
+      - food_delivery.place_order
+      - restaurant_id: w21_r2
+        items:
+        - item_id: w21_m2
+          quantity: 2
+        - item_id: w21_d2
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+    order_total: 52000
+    standard:
+    - *id076
+    - *id077
+    - &id087
+      - food_delivery.get_menu
+      - *id085
+    - *id086
+    alternative:
+    - *id076
+    - *id087
+    - *id077
+    - *id086
+    negative:
+    - *id076
+    - *id077
+    - *id087
+    - - food_delivery.place_order
+      - restaurant_id: w21_r1
+        items:
+        - item_id: w21_m1
+          quantity: 2
+        - item_id: w21_d1
+          quantity: 1
+        address: 18 Ngõ Đá
+        payment: cash
+  implementor_review:
+    disposition: acceptable within implementor review scope
+    date: '2026-11-08'
+    judgment: 'Two parent-menu associations and complete basket totals: 58000 versus 52000. Both are affordable,
+      but the lower whole basket must select the second restaurant; one cheap item or first row is insufficient.'
+    independent_adjudication: false
+  authoring_notes:
+    preservation: Only explicitly requested effects may change. All other app records, fields and historical results
+      stay intact.
+    answer_scope: Finite recognized Vietnamese/numeric forms are authored checks, not a general semantic evaluator;
+      unfamiliar plausible phrasing requires human review.

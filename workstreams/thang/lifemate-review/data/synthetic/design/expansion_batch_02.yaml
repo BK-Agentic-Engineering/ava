@@ -1,0 +1,225 @@
+# Nội bộ tác giả; solver chỉ nhận agent_visible.
+version: expansion_batch_02
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+provenance:
+  plan: docs/plans/WORLD_DATASET_EXPANSION_PLAN.md
+  format_reference: data/synthetic/design/expansion_pilot_v1.yaml
+  independent_content: 'Entities/wording/state mới tự soạn, task structure derivative với ancestry dưới đây; không dùng organizer sample/label/audio/environment hay ASR benchmark.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  checked_sources: [apps/smart_home.py, apps/calendar.py, apps/ride_hailing.py, apps/base.py, executor.py]
+  capability_contracts:
+    smart_home.get_status: {required: [], optional_used: [room, type]}
+    smart_home.light_set: {required: [device_id], optional_used: [power]}
+    calendar.list_events: {required: [], optional_used: [date_from, date_to]}
+    ride_hailing.book: {required: [pickup, dropoff, vehicle], optional_used: [schedule_time]}
+    sys.ask_missing_info: {required: [tool_name, params], optional_used: []}
+  behavior: 'Get_status lộ devices[].state.power; light_set patch nested state, redundant calls vẫn log. List_events trả events gồm start. Book schedule_time <= current_time được bỏ khỏi stored ride; future giữ lại. No format enforcement cho schedule_time string nên oracle vẫn cần kiểm instant hợp lệ. Không có callback/clock progression.'
+authoring_conventions:
+  visibility: 'Fixture/oracle/ancestry là private; đồng bộ context.installed_apps và runtime _meta.tools/current_time khi materialize.'
+  alternatives: 'Cho phép supported read filters, record permutations và harmless repeated reads; không ép exact shortest trace. Không đánh giá natural-language final response.'
+  text_scope: 'Exact địa điểm user nêu đủ cho positive; swapped route là reviewed error; unfamiliar paraphrase cần human_review_required. Không thêm parser nguồn text: start là field structured.'
+  trace_scope: 'Giữ mọi failed/no-op attempt trong evidence. Chỉ authored goals/trace/frame quyết định fail, không universal failed-call rule hoặc recovery tự dựng.'
+worlds:
+  - world_id: W_EX2_LOGIC_GATE
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    split: dev
+    ancestry:
+      parent_world_ids: [W_B05_CONDITIONAL_LIGHT, W_EXP1_JOINT_LIGHTS]
+      parent_scenario_ids: [B05_L_B, B05_L_C, EXP1_L_BOTH, EXP1_L_FIRST_OFF, EXP1_L_SECOND_OFF]
+      parent_lineage_ids: [DEV_B05_CONDITIONAL_LIGHT_01]
+    design_base: EX2_L_OR_FIRST
+    relevant_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    operand_descriptions: [{name: đèn bàn lắp hộp, room: phòng giấy màu, type: light}, {name: đèn soi mép, room: phòng giấy màu, type: light}]
+    action_description: {name: đèn bảng mẫu, room: phòng giấy màu, type: light}
+    initial_state:
+      smart_home:
+        devices:
+          - {id: ex2_l_21, name: đèn bàn lắp hộp, room: phòng giấy màu, type: light, state: {power: 'on'}}
+          - {id: ex2_l_48, name: đèn soi mép, room: phòng giấy màu, type: light, state: {power: 'off'}}
+          - {id: ex2_l_79, name: đèn bảng mẫu, room: phòng giấy màu, type: light, state: {power: 'on'}}
+    variants:
+      second_only_on: {operation: replace_values, paths: ['smart_home.devices[0].state.power', 'smart_home.devices[1].state.power'], values: ['off', 'on'], invariant: 'Hai field đổi có chủ ý để đổi operand đúng; action record/visible input giữ nguyên, không gọi single-field contrast.'}
+      both_off: {operation: replace_value, path: 'smart_home.devices[0].state.power', value: 'off', invariant: 'Chỉ first operand on -> off từ base; second/action record không đổi.'}
+    shared_oracle:
+      condition: 'Gate chỉ áp dụng action tắt đèn bảng mẫu, không tắt operand. Đánh giá trước action: AND true cần cả hai on; AND false một operand off đủ. OR true một operand on đủ; OR false cần cả hai off. Chỉ record khớp từng name+room+type cấp evidence, không dùng action light on thay operand.'
+      grounding: 'Mỗi write cần action ID từ successful permitted get_status trước write. Không condition tool hoặc atomic transaction. Cả ba record cùng room/type nên real filter trả cả ba; không bịa partial response.'
+      frame: 'Chỉ action.state.power được đổi nếu execute; mọi operand, field khác, count=3/list order và app khác giữ nguyên. False case toàn state giữ nguyên; zero writes kể cả redundant, zero asks.'
+  - world_id: W_EX2_CALENDAR_RIDE_BOUNDARY
+    lineage_id: DEV_RIDE_DECISION_01
+    split: dev
+    ancestry:
+      parent_world_ids: [W_RIDES, W_B02_REMINDER_SOURCE]
+      parent_scenario_ids: [R1, B02_N_A, B02_N_B]
+      parent_lineage_ids: [DEV_RIDE_DECISION_01, DEV_B02_REMINDER_SOURCE_01]
+    design_base: EX2_R_NOW
+    relevant_tools: [calendar.list_events, ride_hailing.book, sys.ask_missing_info]
+    event_match: {title: Lắp khay mẫu}
+    initial_state:
+      calendar:
+        events:
+          - {id: ex2_evt_36, title: Lắp khay mẫu, start: '2026-12-05T09:00:00+07:00', end: '2026-12-05T09:30:00+07:00', status: confirmed}
+          - {id: ex2_evt_84, title: Sắp hồ sơ giấy, start: '2026-12-05T09:07:00+07:00', end: '2026-12-05T09:40:00+07:00', status: confirmed}
+      ride_hailing:
+        rides: [{id: ex2_ride_keep_14, pickup: Sảnh Sứ, dropoff: Quầy Hạt, vehicle: car4, status: cancelled}]
+    variants:
+      start_one_minute_later: {operation: replace_value, path: 'calendar.events[0].start', value: '2026-12-05T09:01:00+07:00', invariant: 'Chỉ target.start đổi một phút; end/metadata/distractor/ride/context giữ nguyên.'}
+    shared_oracle:
+      source: 'Source cases cần successful list_events nối unique title Lắp khay mẫu -> chính record.start trước book; timestamp của event khác không cấp evidence. ID event không phải argument book.'
+      interpretation: 'User yêu cầu pickup đúng lúc start, không suy arrival callback. Tại equality, quan sát source rồi truyền chính start hoặc omit schedule_time đều valid immediate. Future phải truyền cùng instant; không đổi thành immediate. Equivalent timezone representation valid nếu cùng instant.'
+      frame: 'Append đúng một ride mới; giữ nguyên existing ride, mọi calendar fields/list order và app khác. Book chỉ lưu data, không chứng minh xe thực sự đến; không giả clock tiến.'
+      alternatives: 'Unfiltered/date-range read thực sự trả target đều hợp lệ. Explicit-time control không cần lookup; harmless reads không fail. Không hardcode generated ride ID.'
+scenarios:
+  - scenario_id: EX2_L_AND
+    world_id: W_EX2_LOGIC_GATE
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Nhầm AND thành OR trên mixed assignment; chưa đo model.'
+    agent_visible:
+      request: Nếu đèn bàn lắp hộp và đèn soi mép trong phòng giấy màu đều đang bật thì tắt đèn bảng mẫu giúp tôi; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: observe_no_write
+      operator: AND
+      required_evidence: 'Quan sát named đèn soi mép off đủ falsify AND; action light on không cấp condition evidence.'
+      required_effects: {power_after: {ex2_l_21: 'on', ex2_l_48: 'off', ex2_l_79: 'on'}, total_write_count: 0, ask_count: 0, app_state_delta: none}
+      forbidden_changes: ['Áp shared frame; không write/ask, không empty log thay observation.']
+    contrast: {with: EX2_L_OR_FIRST, changes: request.operator_only, invariant: 'Fixture/context/history/tools/action giống nhau; chỉ predicate đều versus ít nhất một đổi, nên outcome đổi.'}
+    wrong_behavior: {example: Tắt action vì first operand on., caught_by: 'AND false, zero writes và action giữ on.'}
+  - scenario_id: EX2_L_OR_FIRST
+    world_id: W_EX2_LOGIC_GATE
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Nhầm OR thành AND hoặc áp action lên operand.'
+    agent_visible:
+      request: Nếu ít nhất một trong hai đèn bàn lắp hộp và đèn soi mép trong phòng giấy màu đang bật thì tắt đèn bảng mẫu giúp tôi; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      operator: OR
+      required_evidence: 'Observe first operand on đủ true; action ID phải được quan sát trước write.'
+      required_effects: {power_after: {ex2_l_21: 'on', ex2_l_48: 'off', ex2_l_79: 'off'}, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Chỉ action power đổi; giữ operands và shared frame, không extra writes/asks.']
+    contrast: {with: EX2_L_AND, changes: request.operator_only, invariant: 'Cùng mixed state, chỉ logic AND/OR đổi.'}
+    wrong_behavior: {example: Không write vì second operand off., caught_by: 'OR true cần một action write/off effect.'}
+  - scenario_id: EX2_L_OR_SECOND
+    world_id: W_EX2_LOGIC_GATE
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: second_only_on
+    failure_hypothesis: 'Chỉ kiểm first operand thay vì OR.'
+    agent_visible:
+      request: Nếu ít nhất một trong hai đèn bàn lắp hộp và đèn soi mép trong phòng giấy màu đang bật thì tắt đèn bảng mẫu giúp tôi; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      operator: OR
+      required_evidence: 'Observe second operand on đủ true; action ID grounded trước write, không lấy trạng thái action làm operand.'
+      required_effects: {power_after: {ex2_l_21: 'off', ex2_l_48: 'on', ex2_l_79: 'off'}, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; đúng một off write action, không operands/ask.']
+    contrast: {with: EX2_L_OR_FIRST, changes: fixture.which_operand_is_true, invariant: 'Hai power đổi được khai báo; visible input và action giữ nguyên, outcome vẫn execute.'}
+    wrong_behavior: {example: Stop sau khi thấy first off., caught_by: 'Thiếu required action effect dù OR true từ second.'}
+  - scenario_id: EX2_L_OR_FALSE
+    world_id: W_EX2_LOGIC_GATE
+    lineage_id: DEV_B05_CONDITIONAL_LIGHT_01
+    status: spec_only
+    exportable: false
+    fixture_variant: both_off
+    failure_hypothesis: 'Luôn action hoặc coi action light on là bằng chứng OR.'
+    agent_visible:
+      request: Nếu ít nhất một trong hai đèn bàn lắp hộp và đèn soi mép trong phòng giấy màu đang bật thì tắt đèn bảng mẫu giúp tôi; nếu không thì giữ nguyên.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [smart_home.get_status, smart_home.light_set, sys.ask_missing_info]
+    oracle_draft:
+      outcome: observe_no_write
+      operator: OR
+      required_evidence: 'Cần observe cả hai named operand off trước kết thúc để chứng minh OR false; một off riêng lẻ không đủ.'
+      required_effects: {power_after: {ex2_l_21: 'off', ex2_l_48: 'off', ex2_l_79: 'on'}, total_write_count: 0, ask_count: 0, app_state_delta: none}
+      forbidden_changes: ['Toàn state giữ nguyên; zero writes/asks, không empty log.']
+    contrast: {with: EX2_L_OR_FIRST, changes: fixture.first_power_only, invariant: 'First on -> off là field duy nhất đổi; second/action giữ nguyên.'}
+    wrong_behavior: {example: Action vì đèn bảng mẫu on., caught_by: 'Action không thuộc predicate, OR false và zero writes.'}
+  - scenario_id: EX2_R_NOW
+    world_id: W_EX2_CALENDAR_RIDE_BOUNDARY
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Không phân biệt event start bằng now với future hoặc đoán source.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Nhà Sợi đúng giờ bắt đầu sự kiện "Lắp khay mẫu" trong lịch, rồi đưa tôi đến Xưởng Nâu.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      time_source: event_start
+      intended_pickup_time: '2026-12-05T09:00:00+07:00'
+      required_evidence: 'Actual target event.start từ list trước book, equals supplied current_time. Pickup/dropoff/car4 từ request.'
+      required_effects: {new_ride_count: 1, pickup: cổng Nhà Sợi, dropoff: Xưởng Nâu, vehicle: car4, status: booked, schedule_key_present: false, total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Giữ shared frame; không future schedule key. Omit sau khi đã biết equality hoặc truyền observed equality đều valid; không ép call-level omission.']
+    contrast: {with: EX2_R_FUTURE, changes: fixture.target_start_only, invariant: 'Visible input bằng nhau; chỉ event.start equality versus one minute future.'}
+    wrong_behavior: {example: Copy 09:07 từ event khác., caught_by: 'Sai source/instant và stored scheduled ride không phải immediate.'}
+  - scenario_id: EX2_R_FUTURE
+    world_id: W_EX2_CALENDAR_RIDE_BOUNDARY
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: start_one_minute_later
+    failure_hypothesis: 'Bỏ schedule_time làm future request thành immediate hoặc copy wrong event start.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Nhà Sợi đúng giờ bắt đầu sự kiện "Lắp khay mẫu" trong lịch, rồi đưa tôi đến Xưởng Nâu.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      time_source: event_start
+      intended_pickup_time: '2026-12-05T09:01:00+07:00'
+      required_evidence: 'List trả đúng named event.start 09:01 trước book; cả route/vehicle đã đủ từ request.'
+      required_effects: {new_ride_count: 1, pickup: cổng Nhà Sợi, dropoff: Xưởng Nâu, vehicle: car4, status: booked, schedule_key_present: true, schedule_time: '2026-12-05T09:01:00+07:00', total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; không normalize future thành immediate, không duplicate/ask.']
+    contrast: {with: EX2_R_NOW, changes: fixture.target_start_only, invariant: 'Chỉ target.start tăng một phút; metadata/end/context không đổi.'}
+    wrong_behavior: {example: Book không schedule_time., caught_by: 'Future ride cần stored schedule cùng instant, không phải immediate.'}
+  - scenario_id: EX2_R_EXPLICIT
+    world_id: W_EX2_CALENDAR_RIDE_BOUNDARY
+    lineage_id: DEV_RIDE_DECISION_01
+    status: spec_only
+    exportable: false
+    fixture_variant: start_one_minute_later
+    failure_hypothesis: 'Hỏi/ép source read dù time đã supplied; control cho future scheduling.'
+    agent_visible:
+      request: Đặt xe bốn chỗ đón tôi ở cổng Nhà Sợi lúc 9 giờ 01 ngày 5 tháng 12 năm 2026, giờ Việt Nam, rồi đưa tôi đến Xưởng Nâu.
+      context: {current_time: '2026-12-05T09:00:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [calendar.list_events, ride_hailing.book, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      time_source: explicit_request
+      intended_pickup_time: '2026-12-05T09:01:00+07:00'
+      required_evidence: 'Time/route/vehicle từ request, không cần lookup. Không có hidden ID làm book argument.'
+      required_effects: {new_ride_count: 1, pickup: cổng Nhà Sợi, dropoff: Xưởng Nâu, vehicle: car4, status: booked, schedule_key_present: true, schedule_time: '2026-12-05T09:01:00+07:00', total_write_count: 1, ask_count: 0}
+      forbidden_changes: ['Áp shared frame; không false ask hoặc đổi time/route, đúng một new ride.']
+    contrast: {with: EX2_R_FUTURE, changes: request.time_source_expression_only, invariant: 'Cùng future fixture/context/history/tools và intended effects; chỉ time expression explicit versus event reference.'}
+    wrong_behavior: {example: Ask schedule_time thay vì book., caught_by: 'Time đã có và thiếu required ride effect.'}
+static_review:
+  inventory: {new_scenarios: 7, new_worlds: 2, new_independent_lineages: 0, reused_lineage_ids: 2}
+  status: 'Các oracle/minimum counterexamples là kỳ vọng authored trước replay; local evidence lưu riêng. Không tự promote spec_only hoặc exportable.'

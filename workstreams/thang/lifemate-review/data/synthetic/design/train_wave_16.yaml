@@ -1,0 +1,974 @@
+version: "train_wave_16"
+split: "train"
+status: "spec_only"
+exportable: false
+provenance: {"release": "v3.2.0", "schema": "2.7.0", "runtime_root": "train+public_test/train/zaic_tools/", "catalog_member": "train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR9_PARCEL_NEW", "TR15_PICKUP_AFTER_NOOP"], "parent_lineage_ids": ["TRAIN_LOGISTICS_DIRECTION_02"]}
+    design_base: "TR16_PARCEL_SUCCESS"
+    relevant_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    initial_state:
+      package_tracking: {"shipments": [{"id": "w16_man1601", "tracking_id": "MAN1601", "status": "in_transit", "carrier": "Bưu Mành", "name": "Kiện lưới"}, {"id": "w16_man1602", "tracking_id": "MAN1602", "status": "delivered", "carrier": "Bưu Mành", "name": "Kiện lưới"}], "pickups": []}
+      reminders: {"reminders": []}
+      tasks: {"tasks": []}
+    variants:
+      delivered: {"package_tracking": {"shipments": [{"id": "w16_man1601", "tracking_id": "MAN1601", "status": "delivered", "carrier": "Bưu Mành", "name": "Kiện lưới"}, {"id": "w16_man1602", "tracking_id": "MAN1602", "status": "delivered", "carrier": "Bưu Mành", "name": "Kiện lưới"}]}}
+      missing: {"package_tracking": {"shipments": [{"id": "w16_man1602", "tracking_id": "MAN1602", "status": "delivered", "carrier": "Bưu Mành", "name": "Kiện lưới"}]}}
+      out: {"package_tracking": {"shipments": [{"id": "w16_man1601", "tracking_id": "MAN1601", "status": "out_for_delivery", "carrier": "Bưu Mành", "name": "Kiện lưới"}, {"id": "w16_man1602", "tracking_id": "MAN1602", "status": "delivered", "carrier": "Bưu Mành", "name": "Kiện lưới"}]}}
+
+  - world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR12_LIB_READY", "TR3_L_READY"], "parent_lineage_ids": ["TRAIN_LIBRARY_QUEUE_03"]}
+    design_base: "TR16_LIB_READY"
+    relevant_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    initial_state:
+      library: {"books": [{"id": "w16_book_tram", "title": "Mùa Tràm", "author": "Lâm Thư", "available": true}, {"id": "w16_book_dat", "title": "Đất Bồi", "author": "Lê Nghi", "available": true}, {"id": "w16_book_other", "title": "Mùa Tràm", "author": "Hạ Thuận", "available": true}], "reservations": []}
+      reminders: {"reminders": []}
+      tasks: {"tasks": []}
+    variants:
+      held: {"library": {"books": [{"id": "w16_book_tram", "title": "Mùa Tràm", "author": "Lâm Thư", "available": false}, {"id": "w16_book_dat", "title": "Đất Bồi", "author": "Lê Nghi", "available": true}, {"id": "w16_book_other", "title": "Mùa Tràm", "author": "Hạ Thuận", "available": true}], "reservations": [{"id": "w16_res_old", "book_id": "w16_book_tram", "status": "ready"}]}}
+      wait: {"library": {"books": [{"id": "w16_book_tram", "title": "Mùa Tràm", "author": "Lâm Thư", "available": false}, {"id": "w16_book_dat", "title": "Đất Bồi", "author": "Lê Nghi", "available": true}, {"id": "w16_book_other", "title": "Mùa Tràm", "author": "Hạ Thuận", "available": true}]}}
+      both_held: {"library": {"books": [{"id": "w16_book_tram", "title": "Mùa Tràm", "author": "Lâm Thư", "available": false}, {"id": "w16_book_dat", "title": "Đất Bồi", "author": "Lê Nghi", "available": false}, {"id": "w16_book_other", "title": "Mùa Tràm", "author": "Hạ Thuận", "available": true}], "reservations": [{"id": "w16_res_old", "book_id": "w16_book_tram", "status": "ready"}, {"id": "w16_res_two", "book_id": "w16_book_dat", "status": "waiting"}]}}
+      alternative_wait: {"library": {"books": [{"id": "w16_book_tram", "title": "Mùa Tràm", "author": "Lâm Thư", "available": false}, {"id": "w16_book_dat", "title": "Đất Bồi", "author": "Lê Nghi", "available": false}, {"id": "w16_book_other", "title": "Mùa Tràm", "author": "Hạ Thuận", "available": true}], "reservations": [{"id": "w16_res_old", "book_id": "w16_book_tram", "status": "ready"}]}}
+
+  - world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR10_APPL_RESTART", "TR5_A_PARTIAL_BUSY", "TR13_APP_A"], "parent_lineage_ids": ["TRAIN_PARTIAL_APPLIANCES_05"]}
+    design_base: "TR16_APP_IDLE"
+    relevant_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    initial_state:
+      appliances: {"appliances": [{"id": "w16_washer", "name": "Máy giặt hiên", "type": "washer", "cycles": ["eco", "normal", "quick"], "state": {"status": "idle", "cycle": null, "delay_minutes": 0}}, {"id": "w16_dryer", "name": "Máy sấy kho", "type": "dryer", "cycles": ["normal", "quick"], "state": {"status": "running", "cycle": "normal", "delay_minutes": 0}}]}
+      reminders: {"reminders": []}
+    variants:
+      busy: {"appliances": {"appliances": [{"id": "w16_washer", "name": "Máy giặt hiên", "type": "washer", "cycles": ["eco", "normal", "quick"], "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}, {"id": "w16_dryer", "name": "Máy sấy kho", "type": "dryer", "cycles": ["normal", "quick"], "state": {"status": "running", "cycle": "normal", "delay_minutes": 0}}]}}
+      scheduled: {"appliances": {"appliances": [{"id": "w16_washer", "name": "Máy giặt hiên", "type": "washer", "cycles": ["eco", "normal", "quick"], "state": {"status": "scheduled", "cycle": "normal", "delay_minutes": 30}}, {"id": "w16_dryer", "name": "Máy sấy kho", "type": "dryer", "cycles": ["normal", "quick"], "state": {"status": "running", "cycle": "normal", "delay_minutes": 0}}]}}
+
+  - world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR6_M_SAVE", "TR14_PICK_HOME"], "parent_lineage_ids": ["TRAIN_MAPS_UPSERT_06", "TRAIN_LOGISTICS_DIRECTION_02"]}
+    design_base: "TR16_MAP_WORK"
+    relevant_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    initial_state:
+      maps: {"places": [{"id": "w16_key_work", "name": "Sửa khóa", "category": "Sửa khóa", "address": "52 Hẻm Mành"}, {"id": "w16_key_home", "name": "Sửa khóa", "category": "Sửa khóa", "address": "18 Ngõ Tràm"}, {"id": "w16_shoe", "name": "Sửa giày", "category": "Sửa giày", "address": "52 Hẻm Mành"}], "saved_places": []}
+      reminders: {"reminders": []}
+    variants:
+      home_only: {"maps": {"places": [{"id": "w16_key_home", "name": "Sửa khóa", "category": "Sửa khóa", "address": "18 Ngõ Tràm"}, {"id": "w16_shoe", "name": "Sửa giày", "category": "Sửa giày", "address": "52 Hẻm Mành"}]}}
+      work_only: {"maps": {"places": [{"id": "w16_key_work", "name": "Sửa khóa", "category": "Sửa khóa", "address": "52 Hẻm Mành"}, {"id": "w16_shoe", "name": "Sửa giày", "category": "Sửa giày", "address": "52 Hẻm Mành"}]}}
+      none: {"maps": {"places": [{"id": "w16_shoe", "name": "Sửa giày", "category": "Sửa giày", "address": "52 Hẻm Mành"}]}}
+      bookmarked: {"maps": {"saved_places": [{"id": "w16_saved", "place_id": "w16_key_work", "label": "Cũ"}]}}
+
+scenarios:
+  - scenario_id: "TR16_PARCEL_SUCCESS"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giờ giao MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu đã giao rồi thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+    traces:
+      standard: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]]}
+      preliminary: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]]}
+      double: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]], "reject": ["branch"]}
+      fallback_after_success: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "fallback_authorization"]}
+      substitute: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["tasks.add", {"title": "Kiểm tra kiện MAN1601 ở quầy"}]], "reject": ["unauthorized_action"]}
+    pilot: true
+
+  - scenario_id: "TR16_PARCEL_DELIVERED"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giờ giao MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu đã giao rồi thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"], ["noop", "fallback"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      observed_noop: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      broad_read: {"calls": [["package_tracking.track", {}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      late: {"calls": [["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}], ["package_tracking.track", {"tracking_id": "MAN1601"}]], "reject": ["fallback_authorization"]}
+      guess: {"calls": [["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["fallback_authorization"]}
+      repeated_noop: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch"]}
+      redundant_attempt: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      duplicate_fallback: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch"]}
+      validation_failure: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["call_failure", "fallback_authorization"]}
+    pilot: true
+
+  - scenario_id: "TR16_PARCEL_MISSING"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "missing"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giờ giao MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu đã giao rồi thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [[]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+      empty_query: ["package_tracking.track", {"tracking_id": "MAN1601"}]
+      require_absence: true
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}]]}
+      broad_absence: {"calls": [["package_tracking.track", {}]]}
+      other_delivered: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["package_tracking.track", {"tracking_id": "MAN1602"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "fallback_authorization"]}
+      other_absence: {"calls": [["package_tracking.track", {"tracking_id": "MAN1699"}]], "reject": ["absence_evidence"]}
+      missing_attempt: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["absence_evidence", "branch", "fallback_authorization", "unqualified_noop"]}
+    pilot: true
+
+  - scenario_id: "TR16_PARCEL_ATTEMPT"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thử dời MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Chỉ nếu lệnh dời báo kiện đã giao thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["noop", "fallback"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+      require_attempt: true
+    traces:
+      standard: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      read_only_trigger: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "fallback_authorization"]}
+      read_then_attempt: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+    pilot: true
+
+  - scenario_id: "TR16_PARCEL_TASK"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giao MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu kiện đã giao thì thêm việc Tra soát kiện MAN1601, hạn 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"], ["noop", "fallback"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["tasks.add", {"title": "Tra soát kiện MAN1601", "due": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["tasks.add", {"title": "Tra soát kiện MAN1601", "due": "2027-10-06T17:00:00+07:00"}]]}
+      wrong_tool: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_PARCEL_OUT"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "out"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời giờ giao MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu đã giao rồi thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]]}
+      out_is_not_delivered: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_PARCEL_NO_FALLBACK"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu MAN1601 chưa giao thì dời sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Đã giao thì thôi."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [[]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: null
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+      require_trigger: true
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}]]}
+      unasked_reminder: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["unauthorized_action"]}
+      skip: {"calls": [], "reject": ["trigger_evidence"]}
+
+  - scenario_id: "TR16_PARCEL_AFTER_WRITE"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dời MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Dời được thì nhắc tôi có mặt ở quầy lúc 15 giờ 55 cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary", "followup"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: null
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+      followup: ["reminders.create", {"content": "Có mặt ở quầy", "time": "2027-10-06T15:55:00+07:00"}]
+    traces:
+      standard: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}], ["reminders.create", {"content": "Có mặt ở quầy", "time": "2027-10-06T15:55:00+07:00"}]]}
+      too_early: {"calls": [["reminders.create", {"content": "Có mặt ở quầy", "time": "2027-10-06T15:55:00+07:00"}], ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_PARCEL_HIST"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "delivered"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giờ dời MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Nếu đã giao thì nhắc tôi kiểm tra kiện ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"], ["noop", "fallback"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+    traces:
+      standard: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]]}
+      repeat_history: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}], ["reminders.create", {"content": "Gọi tổng đài về MAN1601", "time": "2027-10-06T09:00:00+07:00"}]], "reject": ["unauthorized_action"]}
+    historical_turns: [{"current_time": "2027-10-04T08:00:00+07:00", "user": "Nhắc tôi gọi tổng đài về MAN1601 vào 09:00 ngày 6/10/2027, giờ Việt Nam.", "calls": [{"tag": "earlier", "name": "reminders.create", "arguments": {"content": "Gọi tổng đài về MAN1601", "time": "2027-10-06T09:00:00+07:00"}}]}]
+
+  - scenario_id: "TR16_PARCEL_ATTEMPT_OK"
+    world_id: "W_TR16_PARCEL"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thử dời MAN1601 sang 16 giờ ngày 6/10/2027, giờ Việt Nam. Chỉ nếu lệnh dời báo kiện đã giao thì nhắc tôi kiểm tra kiện MAN1601 ở quầy lúc 17 giờ cùng ngày."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]
+      fallback: ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "package_tracking.track"
+      trigger_read: {"tracking_id": "MAN1601", "status": "delivered"}
+      noop_message: "vận đơn MAN1601 đã giao, không hẹn lại được"
+      require_attempt: true
+    traces:
+      standard: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "MAN1601", "time": "2027-10-06T16:00:00+07:00"}]]}
+      preempt: {"calls": [["package_tracking.track", {"tracking_id": "MAN1601"}], ["reminders.create", {"content": "Kiểm tra kiện MAN1601 ở quầy", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_LIB_READY"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư, có thể vào danh sách chờ. Nếu thư viện báo tôi đã đặt cuốn ấy rồi thì đặt Đất Bồi của Lê Nghi thay."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["library.reserve", {"book_id": "w16_book_dat"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      ground_fallback: "w16_book_dat"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}]]}
+      wrong_author: {"calls": [["library.search", {"query": "Mùa Tràm"}], ["library.reserve", {"book_id": "w16_book_other"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_LIB_WAIT"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "wait"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư, có thể vào danh sách chờ. Nếu thư viện báo tôi đã đặt cuốn ấy rồi thì đặt Đất Bồi của Lê Nghi thay."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["library.reserve", {"book_id": "w16_book_dat"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      ground_fallback: "w16_book_dat"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}]]}
+      availability_guess: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_LIB_HELD"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "held"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư, có thể vào danh sách chờ. Nếu thư viện báo tôi đã đặt cuốn ấy rồi thì đặt Đất Bồi của Lê Nghi thay."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["noop", "fallback"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["library.reserve", {"book_id": "w16_book_dat"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      ground_fallback: "w16_book_dat"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]]}
+      one_read: {"calls": [["library.search", {}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.reserve", {"book_id": "w16_book_dat"}]]}
+      skip_attempt: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["branch", "fallback_authorization"]}
+      skip_fallback_lookup: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["fallback_grounding"]}
+      repeat_reserve: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_LIB_ALT_WAIT"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "alternative_wait"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư, có thể vào danh sách chờ. Nếu thư viện báo tôi đã đặt cuốn ấy rồi thì đặt Đất Bồi của Lê Nghi thay."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["noop", "fallback"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["library.reserve", {"book_id": "w16_book_dat"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      ground_fallback: "w16_book_dat"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]]}
+      stop_on_wait: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_LIB_REMIND"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "held"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thử đặt giữ Mùa Tràm của Lâm Thư. Nếu đã có lượt giữ thì nhắc tôi ghé thư viện lúc 17 giờ ngày 6/10/2027, giờ Việt Nam."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["noop", "fallback"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["reminders.create", {"content": "Ghé thư viện", "time": "2027-10-06T17:00:00+07:00"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["reminders.create", {"content": "Ghé thư viện", "time": "2027-10-06T17:00:00+07:00"}]]}
+      wrong_recovery: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_LIB_KEEP"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "held"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thử đặt giữ Mùa Tràm của Lâm Thư. Có lượt giữ rồi thì để đó."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [["noop"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: null
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}]]}
+      unauthorized_alt: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]], "reject": ["unauthorized_action"]}
+
+  - scenario_id: "TR16_LIB_TWO_HELD"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "both_held"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư, có thể vào danh sách chờ. Nếu thư viện báo tôi đã đặt cuốn ấy rồi thì đặt Đất Bồi của Lê Nghi thay."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [["noop", "fallback"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: ["library.reserve", {"book_id": "w16_book_dat"}]
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      ground_fallback: "w16_book_dat"
+      fallback_noop_message: "sách w16_book_dat đã được đặt giữ rồi"
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}]]}
+      third_book: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["library.search", {"query": "Đất Bồi"}], ["library.reserve", {"book_id": "w16_book_dat"}], ["library.reserve", {"book_id": "w16_book_other"}]], "reject": ["unauthorized_action"]}
+
+  - scenario_id: "TR16_LIB_AFTER_SUCCESS"
+    world_id: "W_TR16_LIB"
+    lineage_id: "TRAIN_LIBRARY_QUEUE_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt giữ Mùa Tràm của Lâm Thư. Nếu nhận được lượt giữ mới, thêm việc Theo dõi lượt giữ Mùa Tràm."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["library.search", "library.reserve", "reminders.create", "tasks.add"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary", "followup"]]
+      primary: ["library.reserve", {"book_id": "w16_book_tram"}]
+      fallback: null
+      reader: "library.search"
+      ground_primary: "w16_book_tram"
+      noop_message: "sách w16_book_tram đã được đặt giữ rồi"
+      followup: ["tasks.add", {"title": "Theo dõi lượt giữ Mùa Tràm"}]
+    traces:
+      standard: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["tasks.add", {"title": "Theo dõi lượt giữ Mùa Tràm"}]]}
+      duplicate_task: {"calls": [["library.search", {"query": "Lâm Thư"}], ["library.reserve", {"book_id": "w16_book_tram"}], ["tasks.add", {"title": "Theo dõi lượt giữ Mùa Tràm"}], ["tasks.add", {"title": "Theo dõi lượt giữ Mùa Tràm"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_APP_IDLE"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cho máy giặt hiên chạy quick. Nếu đang có lượt chạy thì dừng lượt đó trước rồi chạy quick."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]]}
+      stop_idle: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_APP_BUSY"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cho máy giặt hiên chạy quick. Nếu đang có lượt chạy thì dừng lượt đó trước rồi chạy quick."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback", "primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]]}
+      broad: {"calls": [["appliances.list", {}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]]}
+      wrong_device: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_dryer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "unauthorized_action"]}
+      retry_without_stop: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch"]}
+      without_lookup: {"calls": [["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["fallback_authorization", "primary_grounding"]}
+
+  - scenario_id: "TR16_APP_SCHEDULED"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "scheduled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cho máy giặt hiên chạy quick ngay. Nếu nó đang hẹn giờ, bỏ lượt đã hẹn trước."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback", "primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "scheduled", "cycle": "normal", "delay_minutes": 30}}
+      noop_message: "w16_washer đang chạy chu trình 'normal', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]]}
+      leave_stopped: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_APP_REM"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cho máy giặt hiên chạy quick nếu đang rảnh. Đang chạy thì để nó chạy, nhắc tôi xem lại máy lúc 18 giờ ngày 6/10/2027, giờ Việt Nam."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: ["reminders.create", {"content": "Xem lại máy giặt hiên", "time": "2027-10-06T18:00:00+07:00"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["reminders.create", {"content": "Xem lại máy giặt hiên", "time": "2027-10-06T18:00:00+07:00"}]]}
+      stop_instead: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_APP_KEEP"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Máy giặt hiên rảnh thì chạy quick giúp tôi. Đang chạy thì cứ để vậy."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [[]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: null
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+      require_trigger: true
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}]]}
+      no_read: {"calls": [], "reject": ["trigger_evidence"]}
+      needless_attempt: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_APP_DELAY"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi máy giặt hiên sang quick, bắt đầu sau 20 phút. Dừng lượt đang chạy trước."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback", "primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick", "delay_minutes": 20}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick", "delay_minutes": 20}]]}
+      immediate: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_APP_STOP_ONLY"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Nếu máy giặt hiên đang chạy thì dừng. Nếu đang rảnh cứ để yên."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"]]
+      primary: null
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}]]}
+      restart: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["unauthorized_action"]}
+
+  - scenario_id: "TR16_APP_ATTEMPT"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thử chạy quick trên máy giặt hiên dù có vẻ đang bận. Chỉ nếu lệnh báo đang chạy thì dừng lượt cũ, rồi chạy lại quick."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["noop", "fallback", "primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+      require_attempt: true
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]]}
+      read_bypass: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_APP_REPEAT"
+    world_id: "W_TR16_APP"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "busy"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng lượt đang chạy trên máy giặt hiên, rồi cho chạy normal."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["appliances.list", "appliances.start_cycle", "appliances.stop", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback", "primary"]]
+      primary: ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "normal"}]
+      fallback: ["appliances.stop", {"appliance_id": "w16_washer"}]
+      reader: "appliances.list"
+      ground_primary: "w16_washer"
+      trigger_read: {"id": "w16_washer", "state": {"status": "running", "cycle": "eco", "delay_minutes": 0}}
+      noop_message: "w16_washer đang chạy chu trình 'eco', cần dừng trước"
+    traces:
+      standard: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "normal"}]]}
+      quick: {"calls": [["appliances.list", {"type": "washer"}], ["appliances.stop", {"appliance_id": "w16_washer"}], ["appliances.start_cycle", {"appliance_id": "w16_washer", "cycle": "quick"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_MAP_WORK"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa ở đúng địa chỉ chỗ làm trong hồ sơ. Không có ở đó thì tìm tại địa chỉ nhà. Lưu chỗ tìm được tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      fallback: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      ground_primary: "w16_key_work"
+      ground_fallback: "w16_key_home"
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]]}
+      home_without_need: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]], "reject": ["branch", "fallback_authorization"]}
+      broad: {"calls": [["maps.search_place", {"query": "khóa"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]]}
+
+  - scenario_id: "TR16_MAP_HOME"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "home_only"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa ở đúng địa chỉ chỗ làm trong hồ sơ. Không có ở đó thì tìm tại địa chỉ nhà. Lưu chỗ tìm được tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      fallback: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      ground_primary: "w16_key_work"
+      ground_fallback: "w16_key_home"
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]]}
+      broad_absence: {"calls": [["maps.search_place", {"query": "khóa"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]]}
+      unsearched: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]], "reject": ["fallback_authorization"]}
+      wrong_scope: {"calls": [["maps.search_place", {"query": "khóa", "near": "83 Hẻm Gấc"}], ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]], "reject": ["fallback_authorization"]}
+      late: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}], ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]], "reject": ["fallback_authorization"]}
+
+  - scenario_id: "TR16_MAP_SWITCH"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lấy địa chỉ nhà trước để tìm chỗ sửa khóa, không có mới dùng chỗ làm. Lưu tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      fallback: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      ground_primary: "w16_key_home"
+      ground_fallback: "w16_key_work"
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]]}
+      old_priority: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]], "reject": ["branch", "fallback_authorization"]}
+
+  - scenario_id: "TR16_MAP_WORK_FALLBACK"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "work_only"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lấy địa chỉ nhà trước để tìm chỗ sửa khóa, không có mới dùng chỗ làm. Lưu tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["fallback"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      fallback: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      ground_primary: "w16_key_home"
+      ground_fallback: "w16_key_work"
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]]}
+      no_ground: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]], "reject": ["fallback_grounding"]}
+
+  - scenario_id: "TR16_MAP_EXPLICIT"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu chỗ sửa khóa tại 18 Ngõ Tràm tên Lấy chìa, dù chỗ làm cũng có."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      fallback: null
+      ground_primary: "w16_key_home"
+      ground_fallback: null
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]]}
+      profile_override: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]], "reject": ["branch", "unauthorized_action"]}
+
+  - scenario_id: "TR16_MAP_WORK_ONLY"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "home_only"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa đúng địa chỉ chỗ làm trong hồ sơ. Nếu không có thì thôi. Có thì lưu tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [[]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      fallback: null
+      ground_primary: "w16_key_work"
+      ground_fallback: null
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]
+      fallback_on_absence: true
+      require_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]]}
+      substitute: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]], "reject": ["unauthorized_action"]}
+
+  - scenario_id: "TR16_MAP_RELABEL"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "bookmarked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa đúng địa chỉ chỗ làm. Nếu nó đã được lưu, cứ đổi nhãn thành Lấy chìa, giữ bản cũ ở đúng chỗ đó."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      fallback: null
+      ground_primary: "w16_key_work"
+      ground_fallback: null
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]]}
+      repeat: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]], "reject": ["branch"]}
+
+  - scenario_id: "TR16_MAP_NONE"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "none"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa ở đúng địa chỉ chỗ làm trong hồ sơ. Không có ở đó thì tìm tại địa chỉ nhà. Lưu chỗ tìm được tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "52 Hẻm Mành", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      sequences: [[]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]
+      fallback: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      ground_primary: "w16_key_work"
+      ground_fallback: "w16_key_home"
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]
+      fallback_on_absence: true
+      require_absence: true
+      second_absence: ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]]}
+      stop_first: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}]], "reject": ["second_absence_evidence"]}
+      invent_reminder: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["reminders.create", {"content": "Tìm chỗ sửa khóa", "time": "2027-10-06T17:00:00+07:00"}]], "reject": ["unauthorized_action"]}
+
+  - scenario_id: "TR16_MAP_PROFILE"
+    world_id: "W_TR16_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm chỗ sửa khóa ở đúng địa chỉ chỗ làm trong hồ sơ. Không có ở đó thì tìm tại địa chỉ nhà. Lưu chỗ tìm được tên Lấy chìa."
+      context: {"current_time": "2027-10-05T08:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "18 Ngõ Tràm", "home_address": "18 Ngõ Tràm"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place", "reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      sequences: [["primary"]]
+      reader: "maps.search_place"
+      primary: ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]
+      fallback: null
+      ground_primary: "w16_key_home"
+      ground_fallback: null
+      empty_query: ["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}]
+      fallback_on_absence: true
+    traces:
+      standard: {"calls": [["maps.search_place", {"query": "khóa", "near": "18 Ngõ Tràm"}], ["maps.save_place", {"place_id": "w16_key_home", "label": "Lấy chìa"}]]}
+      old_work: {"calls": [["maps.search_place", {"query": "khóa", "near": "52 Hẻm Mành"}], ["maps.save_place", {"place_id": "w16_key_work", "label": "Lấy chìa"}]], "reject": ["branch", "unauthorized_action"]}

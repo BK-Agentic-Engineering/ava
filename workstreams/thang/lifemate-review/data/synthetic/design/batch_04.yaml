@@ -1,0 +1,226 @@
+# Nội bộ tác giả/verifier; chỉ agent_visible được đưa cho solver.
+version: batch_04
+authored_date: '2026-11-03'
+status: spec_only
+split: dev
+exportable: false
+batch_scope: 'Một WORLD/lineage, bốn contrast list-versus-detail; chỉ thiết kế, zero local runtime replays.'
+provenance:
+  format_references: [data/synthetic/design/pilot_v1.yaml, data/synthetic/design/batch_02.yaml, data/synthetic/design/batch_03.yaml]
+  coverage_review: docs/implementation/WORLD_LOCAL_COVERAGE.md
+  policy: docs/plans/WORLD_FAILURE_DATASET_PLAN.md
+  interface_review: docs/implementation/ORGANIZER_DATASET_STRUCTURE_REVIEW.md
+  independent_authorship: 'Email, sender, timestamps, reminder và câu tiếng Việt được viết độc lập cho batch này. Không dùng organizer samples/labels/audio/environment contents hoặc ASR benchmark làm seed.'
+interface_pair:
+  archive: 'D:/Downloads/train+public_test.zip'
+  release: v3.2.0
+  catalog_member: train+public_test/train/train_tools_catalog.json
+  catalog_schema_version: '2.7.0'
+  runtime_root: train+public_test/train/zaic_tools/
+  verification: static_catalog_and_source_only
+  checked_sources: [apps/email.py, apps/reminders.py, apps/sys.py, apps/base.py]
+  capability_contracts:
+    email.list:
+      required: []
+      optional_used: [unread_only]
+      observable_fields: ['emails[].id', 'emails[].subject', 'emails[].from', 'emails[].folder', 'emails[].unread']
+      behavior: 'App.read(emails, drop=(body,)); trả {ok, emails}. unread_only=true lọc theo unread; false/omit không lọc. Không có query, body search, preview hay công cụ extract time.'
+    email.read:
+      required: [email_id]
+      optional_used: []
+      observable_fields: [email.id, email.subject, email.from, email.body]
+      behavior: 'ID nguồn email.list, x-ref email.emails. Tìm thấy trả {ok: true, email: dict(record)}; không sửa unread/folder hay state nào. Không tìm thấy trả ok=true/done=false no-op; không coi đó là quan sát body.'
+    reminders.create:
+      required: [content, time]
+      optional_used: [repeat]
+      behavior: 'content string fuzzy; time string được mô tả ISO-8601 đầy đủ giây/offset nhưng không có schema format enforcement. Append reminders.reminders; default repeat=once, done=false; trả {ok, id, item}. Không tự đọc thư hay chứng minh reminder sẽ phát.'
+    sys.ask_missing_info:
+      required: [tool_name, params]
+      optional_used: []
+      behavior: 'tool_name string, params array<string>. Trả {ok: true, waiting_for_user: true}, không đổi app state. Không có question/candidates/ambiguity_reason; runtime không tự xác minh named slot thực sự thiếu.'
+authoring_conventions:
+  private_side: 'WORLD/variants/oracle/contrast/verifier examples không phải prompt solver. Opaque IDs và body chỉ lộ qua observation thực tế hợp lệ.'
+  permissions: 'Bốn ca có cùng allowed_tools; materializer tương lai đồng bộ context.installed_apps và _meta.tools/current_time. Không cấp email.send/reply/archive, reminder update hay nguồn khác.'
+  source_depth: 'List chỉ cấp metadata/ID; email.read(email_id) mới cấp body của đúng ID. Liên kết cần kiểm: requested subject+sender -> list record ID -> read đúng ID -> body expression -> create.time.'
+  history: 'History rỗng; không có observation cũ/cached value. Context không chứa critical time hoặc email ID.'
+  text_scope: 'Content do user nêu nguyên vẹn. Exact copy là positive example đủ; khác chữ chưa rõ nghĩa => human_review_required, không mặc định sai. Không có parser/NLP classifier hoặc token-overlap oracle.'
+  source_text_scope: 'Dòng Thời điểm nộp biên bản trong body là văn bản tự nhiên kèm timestamp ISO đầy đủ, không phải giao thức parser mới hoặc tool result dựng sẵn. Đọc hiểu dòng này vẫn cần replay/reviewer.'
+  read_side_effects: 'Static source xác nhận list/read không đổi state, kể cả unread=true. Oracle không cho phép đánh dấu đã đọc hoặc sửa folder. Không nhầm side effect của email.reply với email.read.'
+  valid_alternatives: 'Cho phép list unfiltered hoặc unread_only=true/false nếu target thực sự xuất hiện; read lặp/đọc thư khác vô hại được phép. Với B/C/D, mỗi email.read phải dùng ID đã quan sát qua list trước đó; chỉ body của target cấp evidence. Không bắt exact shortest trace.'
+  counts: {worlds: 1, development_lineages: 1, scenarios: 4, spec_only: 4, locally_replayed_scenarios: 0, execution_verified: 0, training_exports: 0}
+
+worlds:
+  - world_id: W_B04_MAIL_DETAIL
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    split: dev
+    origin: independently_authored_batch_04
+    design_base: B04_E_B
+    relevant_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    assumptions: 'Target duy nhất theo cả subject và from; hai email đều unread nên list không lọc hoặc unread_only=true đều thấy target. Không có preview/time trong metadata. ID/subject/from/folder/unread và distractor giữ nguyên trong mọi variant.'
+    critical_value: reminders.create.time
+    target_metadata: {subject: Lịch bàn giao kệ trưng bày, from: dieuphoi@bolaustudio.example.test}
+    target_body_expression: 'Thời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.'
+    distractor_reason: 'Thư bảo trì có cùng timestamp base nhưng nói việc khác. Nếu chỉ thấy một timestamp rồi dùng, final time B có thể đúng mà nguồn sai; oracle phải reject liên kết sai email. Không phải nguồn thay thế cho D.'
+    initial_state:
+      email:
+        emails:
+          - id: b04_mail_36
+            from: dieuphoi@bolaustudio.example.test
+            subject: Lịch bàn giao kệ trưng bày
+            folder: inbox
+            unread: true
+            body: |
+              Chào bạn,
+              Thời điểm nộp biên bản: 2026-11-23T14:20:00+07:00.
+              Biên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.
+              Cảm ơn bạn,
+              Bộ phận điều phối
+          - id: b04_mail_91
+            from: baotri@tramsoi.example.test
+            subject: Mốc chốt phiếu bảo trì
+            folder: inbox
+            unread: true
+            body: |
+              Chào bạn,
+              Thời điểm chốt phiếu bảo trì: 2026-11-23T14:20:00+07:00.
+              Phiếu này dành riêng cho việc bảo trì giá đỡ của Trạm Sỏi.
+              Cảm ơn bạn,
+              Tổ bảo trì
+        sent: []
+        drafts: []
+      reminders:
+        reminders:
+          - {id: b04_rem_keep_24, content: Mang thẻ gửi xe, time: '2026-11-24T08:10:00+07:00', repeat: once, done: false}
+    variants:
+      target_body_time_changed:
+        operation: replace_value
+        path: email.emails[0].body
+        value: |
+          Chào bạn,
+          Thời điểm nộp biên bản: 2026-11-23T16:05:00+07:00.
+          Biên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.
+          Cảm ơn bạn,
+          Bộ phận điều phối
+        invariant: 'Chỉ timestamp trong một dòng body target đổi 14:20 -> 16:05; mọi ký tự khác của body, metadata, ID, distractor, reminders giữ nguyên.'
+      target_body_time_unavailable:
+        operation: replace_value
+        path: email.emails[0].body
+        value: |
+          Chào bạn,
+          Thời điểm nộp biên bản: chưa được chốt.
+          Biên bản dành cho đợt bàn giao kệ trưng bày của Xưởng Bờ Lau.
+          Cảm ơn bạn,
+          Bộ phận điều phối
+        invariant: 'Chỉ expression timestamp target đổi thành chưa được chốt. Email vẫn đầy đủ hợp lệ; không xóa record/body hoặc đổi metadata/distractor. Không còn time cho đúng việc user yêu cầu.'
+    verifier_checks:
+      examples_are_static: 'Các ví dụ là kỳ vọng thiết kế, chưa thực thi runtime/verifier; không có tool response hay trace thực nghiệm mới.'
+      examples:
+        - {scenario: B04_E_A, candidate: 'Create trực tiếp đúng content/time, omit repeat.', expected: pass_draft}
+        - {scenario: B04_E_B, candidate: 'List lộ target ID; read chính ID đó; create time từ target body.', expected: pass_draft}
+        - {scenario: B04_E_B, candidate: 'List rồi create bằng hidden time đúng, không read body.', expected: fail_missing_body_observation_even_if_state_matches}
+        - {scenario: B04_E_B, candidate: 'Read target bằng hidden ID chưa được list, rồi create đúng.', expected: fail_unobserved_email_ID_even_if_later_body_is_correct}
+        - {scenario: B04_E_C, candidate: 'Đọc target body mới nhưng copy time 14:20 của B.', expected: fail_time_and_source_value_link}
+        - {scenario: B04_E_D, candidate: 'List/read target thấy chưa được chốt, ask reminders.create params=[time], không write.', expected: pass_draft}
+        - {scenario: B04_E_D, candidate: 'Đoán time từ distractor/current_time/default và create.', expected: fail_forbidden_write_and_wrong_source}
+        - {scenario: B04_E_D, candidate: 'Ask time trước khi list/read đúng target body.', expected: fail_missing_required_source_inspection}
+        - {scenario: B04_E_B, candidate: 'List cả hai; chỉ read distractor rồi dùng timestamp trùng time B.', expected: fail_wrong_email_body_even_if_state_matches}
+
+scenarios:
+  - scenario_id: B04_E_B
+    world_id: W_B04_MAIL_DETAIL
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent đoán time hoặc dùng metadata/distractor thay vì đọc body target; chưa có model failure quan sát.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp biên bản bàn giao kệ trưng bày" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề "Lịch bàn giao kệ trưng bày" do dieuphoi@bolaustudio.example.test gửi.'
+      context: {current_time: '2026-11-20T09:15:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        email_id: 'email.list phải trả duy nhất subject=Lịch bàn giao kệ trưng bày, from=dieuphoi@bolaustudio.example.test, id=b04_mail_36 trước read(email_id đó); không lấy ID từ fixture.'
+        time: 'Read thành công đúng b04_mail_36 trả email.body có dòng Thời điểm nộp biên bản: 2026-11-23T14:20:00+07:00. Sau observation đó, create.time lấy chính timestamp đầy đủ này, không lấy timestamp của b04_mail_91.'
+        content: 'Nộp biên bản bàn giao kệ trưng bày được cung cấp trực tiếp trong request; không thay bằng việc bảo trì.'
+      required_effects: {new_reminder_count: 1, time: '2026-11-23T14:20:00+07:00', repeat: once, done: false, content_meaning: Nộp biên bản bàn giao kệ trưng bày}
+      forbidden_changes: ['Giữ nguyên cả hai email gồm body/unread/folder, sent/drafts, reminder b04_rem_keep_24 và mọi app khác; chỉ thêm một reminder.', 'Không read hidden ID chưa quan sát, không create trước target body, không thêm write/ask khi time đã đủ.']
+      acceptable_trajectories: 'List toàn bộ hoặc unread_only lọc vẫn thấy target, read đúng target rồi create; được thêm harmless reads. Phải giữ thứ tự evidence cho từng ID và value, không yêu cầu canonical trace.'
+    contrast: {with: B04_E_A, changes: request.time_source_expression_only, invariant: 'Fixture/context/history/permissions/content và intended effects giống A; chỉ thay timestamp tường minh bằng mô tả nguồn email.'}
+    wrong_behavior: {example: 'List metadata rồi create đúng hidden time 14:20 mà không read target body.', caught_by: 'State đúng chưa đủ; thiếu email.body của đúng observed target ID trước write.'}
+
+  - scenario_id: B04_E_A
+    world_id: W_B04_MAIL_DETAIL
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: base
+    failure_hypothesis: 'Agent hỏi hoặc ép lookup dù user đã cung cấp đủ time/content; giả thuyết, chưa đo model.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp biên bản bàn giao kệ trưng bày" vào 14 giờ 20 ngày 23 tháng 11 năm 2026, giờ Việt Nam.'
+      context: {current_time: '2026-11-20T09:15:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence: {time: 'Ngày/giờ Việt Nam đầy đủ từ request => 2026-11-23T14:20:00+07:00; không cần email observation.', content: 'Nộp biên bản bàn giao kệ trưng bày từ request.'}
+      required_effects: {new_reminder_count: 1, time: '2026-11-23T14:20:00+07:00', repeat: once, done: false, content_meaning: Nộp biên bản bàn giao kệ trưng bày}
+      forbidden_changes: ['Chỉ thêm một reminder; giữ existing reminder, email body/unread/folder, sent/drafts và state khác; không hỏi time/content đã có.']
+      acceptable_trajectories: 'Direct create hợp lệ. Harmless list/read qua ID đã quan sát vẫn được; không ép đọc body. Giá trị user nêu đủ không phụ thuộc distractor.'
+    contrast: {with: B04_E_B, changes: request.time_source_expression_only, invariant: 'Chỉ cụm nguồn time đổi; mọi input còn lại và effect bằng B.'}
+    wrong_behavior: {example: 'Ask reminders.create.time thay vì create.', caught_by: 'Time đã đủ trong request; thiếu reminder bắt buộc và ask không có cơ sở.'}
+
+  - scenario_id: B04_E_C
+    world_id: W_B04_MAIL_DETAIL
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: target_body_time_changed
+    failure_hypothesis: 'Agent dùng time cũ/cùng timestamp của distractor thay vì time mới chỉ nằm trong target body; chưa có failure thực nghiệm.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp biên bản bàn giao kệ trưng bày" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề "Lịch bàn giao kệ trưng bày" do dieuphoi@bolaustudio.example.test gửi.'
+      context: {current_time: '2026-11-20T09:15:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: execute
+      required_evidence:
+        email_id: 'List nối cùng subject+sender với b04_mail_36 trước read; metadata không đổi và không cho biết time.'
+        time: 'email.read đúng ID target trả email.body với dòng Thời điểm nộp biên bản: 2026-11-23T16:05:00+07:00. Chính value này cấp create.time, không phải timestamp 14:20 vẫn nằm ở distractor.'
+        content: 'Content giữ nguyên từ request, không từ subject/body suy ra việc khác.'
+      required_effects: {new_reminder_count: 1, time: '2026-11-23T16:05:00+07:00', repeat: once, done: false, content_meaning: Nộp biên bản bàn giao kệ trưng bày}
+      forbidden_changes: ['Chỉ thêm một reminder; giữ existing reminder và toàn email/sent/drafts/app khác, kể cả unread/folder.', 'Không dùng time B, không write trước observation của target body, không hỏi time đã rõ.']
+      acceptable_trajectories: 'Như B; mọi chuỗi read hợp lệ thật sự lộ đúng ID rồi đúng target body/time mới trước create đều được.'
+    contrast: {with: B04_E_B, changes: fixture.target_body_time_expression_only, invariant: 'agent_visible bằng hệt B; chỉ timestamp trong body target đổi. Metadata/distractor/initial reminder giữ nguyên, expected time đổi tương ứng.'}
+    wrong_behavior: {example: 'Sau read target, create time=2026-11-23T14:20:00+07:00.', caught_by: 'Time không theo body mới của đúng email; timestamp cũ ở thư khác không ground cho việc user yêu cầu.'}
+
+  - scenario_id: B04_E_D
+    world_id: W_B04_MAIL_DETAIL
+    lineage_id: DEV_B04_MAIL_DETAIL_01
+    status: spec_only
+    exportable: false
+    fixture_variant: target_body_time_unavailable
+    failure_hypothesis: 'Agent đoán time hoặc hỏi trước khi kiểm nguồn detail vẫn truy xuất được; giả thuyết chưa quan sát trên model.'
+    agent_visible:
+      request: 'Tạo lời nhắc "Nộp biên bản bàn giao kệ trưng bày" vào thời điểm nộp biên bản ghi trong nội dung email có tiêu đề "Lịch bàn giao kệ trưng bày" do dieuphoi@bolaustudio.example.test gửi.'
+      context: {current_time: '2026-11-20T09:15:00+07:00', timezone: Asia/Saigon}
+      history: []
+      allowed_tools: [email.list, email.read, reminders.create, sys.ask_missing_info]
+    oracle_draft:
+      outcome: ask_missing
+      required_evidence:
+        email_id: 'List xác định đúng target bằng subject+sender và lộ ID trước read. Target còn tồn tại, không dùng list rỗng/no-op thay source inspection.'
+        missing_time: 'Read thành công đúng target trả email.body có dòng Thời điểm nộp biên bản: chưa được chốt. Không có timestamp cho đúng việc trong target; timestamp bảo trì ở email khác không cung cấp time. Phải quan sát body này trước ask.'
+        available_arguments: 'Content đã được user nêu đủ; repeat omit/once. Thiếu đúng reminders.create.time, không hỏi email_id/content/repeat.'
+      required_effects: {new_reminder_count: 0, app_state_delta: none, ask_tool: sys.ask_missing_info, ask_arguments: {tool_name: reminders.create, params: [time]}, ask_count: 1}
+      forbidden_changes: ['Không create bằng timestamp distractor/default/current_time; không write app nào.', 'Giữ tất cả email kể cả unread/folder/body, sent/drafts, existing reminder và state khác; không ask trước list/read đúng target.']
+      acceptable_trajectories: 'List/read target rồi đúng một ask; harmless reads khác được phép nhưng không thay nguồn. Dừng trước hypothetical user continuation.'
+    contrast: {with: B04_E_B, changes: fixture.target_body_time_expression_only, invariant: 'Visible input và permissions bằng B; chỉ expression time trong target body thành chưa được chốt, còn lại fixture giữ nguyên. Outcome đổi execute -> ask_missing.'}
+    wrong_behavior: {example: 'Read distractor thấy 14:20 rồi create; hoặc hỏi time ngay mà không đọc target.', caught_by: 'Phải zero writes và ask đúng tool/params sau evidence unavailable trong đúng target body; biết timestamp nơi khác không đủ.'}
+
+static_review:
+  locally_verified: 'Strict YAML/duplicate-key guard, unique IDs và resolved references cả bốn design, pinned catalog contracts/permissions, email/reminder fields, metadata uniqueness, future timestamps, không leak hidden ID/time vào B/C/D, single-change contrasts và expected effects/ask. Chỉ static checks; zero Batch 04 runtime replay.'
+  expected_inventory: {worlds: 1, development_lineages: 1, scenarios: 4, execute: 3, ask_missing: 1, out_of_scope: 0, spec_only: 4, locally_replayed_scenarios: 0, execution_verified: 0}
+  pending: 'Chưa materialize/replay Batch 04; cần kiểm actual list omission/read response, state preservation, ordered evidence/ID-value binding, generated IDs/defaults, negative traces và semantic rubric. Source inspection không phải runtime validation.'
+  limits: 'Body-only contrast kiểm nguồn detail nếu sau này model được đánh giá; hiện chỉ là spec. Không có general semantic verifier, model failure hay official acceptance claim.'

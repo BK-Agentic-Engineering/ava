@@ -1,0 +1,2545 @@
+# $alias.field names a permitted response field; @reader denotes the declared scan scope.
+version: train_wave_11
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR2_P_HISTORY","TR2_P_ASK","TR9_PARCEL_PICK"]
+      parent_lineage_ids: ["TRAIN_LOGISTICS_DIRECTION_02"]
+    design_base: "TR11_PICK_SECOND"
+    relevant_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    initial_state:
+      package_tracking:
+        shipments:
+          - {"id":"w11_incoming","tracking_id":"DAY111","name":"Mành Cói","carrier":"Khung Lam","status":"in_transit","eta":"2027-05-12T15:00:00+07:00"}
+        pickups:
+          - {"id":"w11_old_pick","address":"8 Hẻm Cũ","date":"2027-05-09","status":"scheduled"}
+    variants: {}
+    readers:
+      track: ["package_tracking.track","shipments",{}]
+    witnesses:
+      parcel: ["track",{"tracking_id":"DAY111"}]
+    tool_variants:
+      no_pickup: ["package_tracking.track","sys.ask_missing_info"]
+
+  - world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_BANK_FLOOR","TR9_BANK_DUALTERM"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05"]
+    design_base: "TR11_SAVE_FINAL"
+    relevant_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    initial_state:
+      banking:
+        accounts:
+          - {"id":"w11_acc_5","name":"Quỹ Đan Dây","balance":1200000}
+          - {"id":"w11_acc_7","name":"Quỹ Kẹp Vải","balance":900000}
+        savings:
+          - {"id":"w11_prev_sv","account_id":"w11_acc_7","amount":100000,"term_months":12,"status":"active"}
+        transactions: []
+    variants: {}
+    readers:
+      funds: ["banking.get_balance","accounts",{}]
+    witnesses:
+      first: ["funds",{"name":"Quỹ Đan Dây"}]
+      second: ["funds",{"name":"Quỹ Kẹp Vải"}]
+    tool_variants:
+      no_savings: ["banking.get_balance","sys.ask_missing_info"]
+
+  - world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_CAL_COPYPLACE","TR9_CAL_DEFAULT"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR11_CAL_FINAL"
+    relevant_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    initial_state:
+      calendar:
+        events:
+          - {"id":"w11_cal_guard","title":"Đo Khung Cũ","start":"2027-05-12T08:00:00+07:00","end":"2027-05-12T09:00:00+07:00","location":"Phòng Bậc Xanh","status":"confirmed"}
+    variants: {}
+    readers:
+      events: ["calendar.list_events","events",{}]
+    witnesses:
+      old: ["events",{"title":"Đo Khung Cũ"}]
+    tool_variants:
+      no_create: ["calendar.list_events","sys.ask_missing_info"]
+
+  - world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_TASK_SAME","TR8_TASK_HIGH"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01"]
+    design_base: "TR11_TASK_FINAL"
+    relevant_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    initial_state:
+      tasks:
+        tasks:
+          - {"id":"w11_task_old","title":"Xếp Kẹp Mây","due":"2027-05-12T09:00:00+07:00","priority":"low","done":false}
+    variants: {}
+    readers:
+      tasks: ["tasks.list","tasks",{}]
+    witnesses:
+      old: ["tasks",{"title":"Xếp Kẹp Mây"}]
+    tool_variants:
+      no_add: ["tasks.list","sys.ask_missing_info"]
+
+  - world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_CHORE_SWAP","TR8_CHORE_COPY"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR11_CHORE_FINAL"
+    relevant_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    initial_state:
+      household_chores:
+        chores:
+          - {"id":"w11_ch_4","title":"Lau Khung","room":"Phòng Tre","done":false,"assignee":"Bảo Liên"}
+          - {"id":"w11_ch_7","title":"Lau Khung","room":"Phòng Cói","done":false,"assignee":"Hà Khuê"}
+          - {"id":"w11_ch_9","title":"Xếp Nẹp","room":"Phòng Tre","done":false,"assignee":"Mộc An"}
+          - {"id":"w11_ch_2","title":"Lau Khung","room":"Phòng Tre","done":true,"assignee":"Mộc An"}
+        members: ["Bảo Liên","Hà Khuê","Mộc An"]
+    variants: {}
+    readers:
+      chores: ["household_chores.list_chores","chores",{}]
+    witnesses:
+      bamboo: ["chores",{"title":"Lau Khung","room":"Phòng Tre","done":false}]
+      sedge: ["chores",{"title":"Lau Khung","room":"Phòng Cói","done":false}]
+      slat: ["chores",{"title":"Xếp Nẹp","room":"Phòng Tre","done":false}]
+    tool_variants: {}
+
+  - world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_MUSIC_ADDPLAYOTHER","TR3_M_PLAY_LIST"]
+      parent_lineage_ids: ["TRAIN_MUSIC_MEMBERSHIP_03"]
+    design_base: "TR11_MUSIC_FINAL"
+    relevant_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    initial_state:
+      music:
+        tracks:
+          - {"id":"w11_song_4","title":"Đường Sậy","artist":"Hạ Khôi"}
+          - {"id":"w11_song_7","title":"Đường Sậy","artist":"Khánh Mây"}
+          - {"id":"w11_song_9","title":"Nẹp Gỗ","artist":"Hạ Khôi"}
+          - {"id":"w11_song_2","title":"Vệt Cói","artist":"Duyên Lý"}
+        playlists:
+          - {"id":"w11_pl_5","name":"Đan Mây","track_ids":["w11_song_2"]}
+          - {"id":"w11_pl_8","name":"Đường Sậy","track_ids":["w11_song_7"]}
+        now_playing:
+          track_id: "w11_song_9"
+          title: "Nẹp Gỗ"
+          status: "playing"
+        volume: 12
+    variants: {}
+    readers:
+      tracks: ["music.list_tracks","tracks",{}]
+      lists: ["music.list_tracks","playlists",{}]
+    witnesses:
+      ha: ["tracks",{"title":"Đường Sậy","artist":"Hạ Khôi"}]
+      khanh: ["tracks",{"title":"Đường Sậy","artist":"Khánh Mây"}]
+      wood: ["tracks",{"title":"Nẹp Gỗ","artist":"Hạ Khôi"}]
+      cloud: ["lists",{"name":"Đan Mây"}]
+      road: ["lists",{"name":"Đường Sậy"}]
+    tool_variants: {}
+
+  - world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR10_ALARM_REPLACE","TR2_A_SWAP"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR11_ALARM_FINAL"
+    relevant_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    initial_state:
+      alarm:
+        alarms:
+          - {"id":"w11_alm_5","label":"Gom Sợi","time":"05:45","repeat":"daily","enabled":false}
+          - {"id":"w11_alm_7","label":"Đếm Nẹp","time":"07:10","repeat":"weekends","enabled":true}
+    variants: {}
+    readers:
+      alarms: ["alarm.list","alarms",{}]
+    witnesses:
+      gather: ["alarms",{"label":"Gom Sợi","time":"05:45","repeat":"daily"}]
+      count: ["alarms",{"label":"Đếm Nẹp","time":"07:10","repeat":"weekends"}]
+    tool_variants:
+      no_create: ["alarm.list","alarm.update","alarm.delete","sys.ask_missing_info"]
+
+  - world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_AUTO_REPLACE","TR8_AUTO_COPY"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05"]
+    design_base: "TR11_AUTO_FINAL"
+    relevant_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    initial_state:
+      smart_home:
+        devices:
+          - {"id":"w11_dev_5","name":"Đèn Nẹp","room":"Phòng Mây","type":"light","state":{"power":"on","brightness":50}}
+          - {"id":"w11_dev_7","name":"Đèn Nẹp","room":"Phòng Vải","type":"light","state":{"power":"off","brightness":70}}
+      home_automation:
+        rules:
+          - {"id":"w11_rule_5","device_id":"w11_dev_5","action":"on","time":"18:00","title":"Khung Mây","enabled":true}
+          - {"id":"w11_rule_7","device_id":"w11_dev_7","action":"off","time":"22:00","title":"Khung Vải","enabled":true}
+    variants: {}
+    readers:
+      devices: ["smart_home.get_status","devices",{}]
+      rules: ["home_automation.list_rules","rules",{}]
+    witnesses:
+      cloud: ["devices",{"name":"Đèn Nẹp","room":"Phòng Mây"}]
+      cloth: ["devices",{"name":"Đèn Nẹp","room":"Phòng Vải"}]
+      cloudRule: ["rules",{"device_id":"$cloud.id","action":"on","time":"18:00"}]
+      clothRule: ["rules",{"device_id":"$cloth.id","action":"off","time":"22:00"}]
+    tool_variants:
+      no_create: ["smart_home.get_status","home_automation.list_rules","home_automation.delete_rule","sys.ask_missing_info"]
+scenarios:
+  - scenario_id: "TR11_PICK_SECOND"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một lượt lấy hàng tại địa chỉ thứ hai tôi vừa nêu vào ngày đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+
+  - scenario_id: "TR11_PICK_FIRST"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một lượt lấy hàng tại địa chỉ thứ nhất tôi vừa nêu vào ngày đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+
+  - scenario_id: "TR11_PICK_SWAPHISTORY"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một lượt lấy hàng tại địa chỉ thứ hai tôi vừa nêu vào ngày đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+      changes: "history_only"
+
+  - scenario_id: "TR11_PICK_CORRECT"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy hàng theo địa chỉ và ngày cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Ban đầu chọn 24 Ngõ Khung Sậy, ngày 12/5/2027."}
+        - {"role":"user","text":"Tôi sửa thành 51 Dốc Gỗ Mỏng, ngày 13/5/2027, bỏ phương án cũ."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-13"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+
+  - scenario_id: "TR11_PICK_MISSINGADDR"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy hàng theo địa chỉ và ngày cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt ngày 13/5/2027. Tôi chưa chọn địa chỉ lấy hàng."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["address"]}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-13"}]
+    contrast:
+      with: "TR11_PICK_CORRECT"
+      changes: "history_only"
+
+  - scenario_id: "TR11_PICK_MISSINGDATE"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy hàng theo địa chỉ và ngày cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt địa chỉ 51 Dốc Gỗ Mỏng. Chưa chọn ngày lấy."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["date"]}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_CORRECT"
+      changes: "history_only"
+
+  - scenario_id: "TR11_PICK_MISSINGBOTH"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy hàng theo địa chỉ và ngày cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chưa chọn địa chỉ hay ngày lấy."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["address","date"]}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+      alternatives:
+        params_order: [["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["date","address"]}]]
+    contrast:
+      with: "TR11_PICK_CORRECT"
+      changes: "history_only"
+
+  - scenario_id: "TR11_PICK_NOAUTH"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt một lượt lấy hàng tại địa chỉ thứ hai tôi vừa nêu vào ngày đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.track",{}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+      changes: "permissions_only"
+    permission_variant: "no_pickup"
+
+  - scenario_id: "TR11_PICK_LITERAL"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện tại 24 Ngõ Khung Sậy ngày 12/5/2027, không dùng địa chỉ đang bàn trước đó."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+
+  - scenario_id: "TR11_PICK_TWO"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt riêng hai lượt lấy ngày 12/5/2027 tại cả địa chỉ thứ nhất và thứ hai tôi đã nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-12"}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"24 Ngõ Khung Sậy","date":"2027-05-12"}]
+    contrast:
+      with: "TR11_PICK_SECOND"
+
+  - scenario_id: "TR11_PICK_RETRACT"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy hàng theo địa chỉ và ngày cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi định lấy ở 51 Dốc Gỗ Mỏng ngày 13/5/2027."}
+        - {"role":"user","text":"Tôi rút lại ngày đó, chưa chốt ngày mới. Địa chỉ giữ nguyên."}
+      allowed_tools: ["package_tracking.track","package_tracking.schedule_pickup","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"package_tracking.schedule_pickup","params":["date"]}]
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.schedule_pickup",{"address":"51 Dốc Gỗ Mỏng","date":"2027-05-13"}]
+    contrast:
+      with: "TR11_PICK_CORRECT"
+      changes: "history_only"
+
+  - scenario_id: "TR11_PICK_NOAUTHLIT"
+    world_id: "W_TR11_PICK"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt lấy một kiện tại 24 Ngõ Khung Sậy ngày 12/5/2027, không dùng địa chỉ đang bàn trước đó."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Địa chỉ thứ nhất là 24 Ngõ Khung Sậy."}
+        - {"role":"user","text":"Địa chỉ thứ hai là 51 Dốc Gỗ Mỏng."}
+        - {"role":"user","text":"Chốt ngày 12/5/2027."}
+      allowed_tools: ["package_tracking.track","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["package_tracking.track",{}]
+    contrast:
+      with: "TR11_PICK_LITERAL"
+      changes: "permissions_only"
+    permission_variant: "no_pickup"
+
+  - scenario_id: "TR11_SAVE_FINAL"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Tôi chốt 350.000 đồng kỳ hạn 6 tháng, bỏ phương án trước."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":200000,"term_months":3}]
+
+  - scenario_id: "TR11_SAVE_HISTORY"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt 200.000 đồng, kỳ hạn 3 tháng."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":200000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_SAVE_AMOUNT"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn kỳ hạn 6 tháng, chưa quyết định số tiền."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"banking.open_savings","params":["amount"]}]
+      decision_evidence: []
+      clarification_reads: [["banking.get_balance", {}]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+      negative_alternatives: {"wrong_parameter": {"actions": [["sys.ask_missing_info", {"tool_name": "banking.open_savings", "params": ["term_months"]}]], "reason": "authorized_actions"}}
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_SAVE_TERM"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt gửi 350.000 đồng. Chưa chọn kỳ hạn."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"banking.open_savings","params":["term_months"]}]
+      decision_evidence: []
+      clarification_reads: [["banking.get_balance", {}]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_SAVE_BOTH"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chưa chốt số tiền và kỳ hạn."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"banking.open_savings","params":["amount","term_months"]}]
+      decision_evidence: []
+      clarification_reads: [["banking.get_balance", {}]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+      negative_alternatives: {"partial_question": {"actions": [["sys.ask_missing_info", {"tool_name": "banking.open_savings", "params": ["amount"]}]], "reason": "authorized_actions"}}
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_SAVE_NOAUTH"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Tôi chốt 350.000 đồng kỳ hạn 6 tháng, bỏ phương án trước."}
+      allowed_tools: ["banking.get_balance","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["banking.get_balance",{}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "permissions_only"
+    permission_variant: "no_savings"
+
+  - scenario_id: "TR11_SAVE_SECOND"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khoản tiết kiệm từ quỹ thứ hai tôi đã nêu theo số tiền và kỳ hạn đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Quỹ thứ nhất là Quỹ Đan Dây, quỹ thứ hai là Quỹ Kẹp Vải."}
+        - {"role":"user","text":"Chốt 250.000 đồng kỳ hạn 3 tháng."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$second.id","amount":250000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":250000,"term_months":3}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+
+  - scenario_id: "TR11_SAVE_TWOTERM"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Từ Quỹ Đan Dây, mở riêng hai khoản theo hai phương án tôi vừa nêu, giữ số tiền và kỳ hạn từng phương án."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Phương án một là 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Phương án hai là 350.000 đồng kỳ hạn 6 tháng."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":200000,"term_months":3}]
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":550000,"term_months":6}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+
+  - scenario_id: "TR11_SAVE_LITERAL"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở tiết kiệm 200.000 đồng kỳ hạn 3 tháng từ Quỹ Đan Dây, bỏ phương án 350.000 đồng vừa bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Tôi chốt 350.000 đồng kỳ hạn 6 tháng, bỏ phương án trước."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":200000,"term_months":3}]
+      decision_evidence: []
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+
+  - scenario_id: "TR11_SAVE_RETRACT"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở một khoản tiết kiệm từ Quỹ Đan Dây theo số tiền và kỳ hạn tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi định gửi 350.000 đồng kỳ hạn 6 tháng."}
+        - {"role":"user","text":"Tôi rút lại số tiền 350.000 đồng, chưa chốt số mới. Vẫn lấy kỳ hạn 6 tháng."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"banking.open_savings","params":["amount"]}]
+      decision_evidence: []
+      clarification_reads: [["banking.get_balance", {}]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$first.id","amount":350000,"term_months":6}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_SAVE_NOAUTHLIT"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở tiết kiệm 200.000 đồng kỳ hạn 3 tháng từ Quỹ Đan Dây, bỏ phương án 350.000 đồng vừa bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Tôi chốt 350.000 đồng kỳ hạn 6 tháng, bỏ phương án trước."}
+      allowed_tools: ["banking.get_balance","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["banking.get_balance",{}]
+    contrast:
+      with: "TR11_SAVE_LITERAL"
+      changes: "permissions_only"
+    permission_variant: "no_savings"
+
+  - scenario_id: "TR11_SAVE_LOOK"
+    world_id: "W_TR11_SAVE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem số dư Quỹ Kẹp Vải, đừng mở tiết kiệm theo những phương án tôi vừa nói."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 200.000 đồng kỳ hạn 3 tháng."}
+        - {"role":"user","text":"Tôi chốt 350.000 đồng kỳ hạn 6 tháng, bỏ phương án trước."}
+      allowed_tools: ["banking.get_balance","banking.open_savings","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["second"]]
+      counterexample:
+        - ["banking.open_savings",{"from_account_id":"$second.id","amount":200000,"term_months":3}]
+    contrast:
+      with: "TR11_SAVE_FINAL"
+
+  - scenario_id: "TR11_CAL_FINAL"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch là Soát Sợi Quế."}
+        - {"role":"user","text":"Ban đầu dự định 08:00 ngày 12/5/2027, giờ Việt Nam."}
+        - {"role":"user","text":"Tôi chốt 10:00 cùng ngày tại Phòng Kẹp Nâu, bỏ 08:00."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T08:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+
+  - scenario_id: "TR11_CAL_TIME"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch Soát Sợi Quế, chốt 08:00 ngày 12/5/2027 giờ Việt Nam tại Phòng Kẹp Nâu."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T08:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_START"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch Soát Sợi Quế, phòng Phòng Kẹp Nâu. Chưa quyết định ngày hoặc giờ."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["start"]}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T08:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_TITLE"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt 10:00 ngày 12/5/2027 giờ Việt Nam, tại Phòng Kẹp Nâu. Chưa đặt tên lịch."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["title"]}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_BOTH"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Phòng là Phòng Kẹp Nâu. Tôi chưa chốt tên, ngày và giờ."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["title","start"]}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+      alternatives:
+        params_order: [["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["start","title"]}]]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_NOPLACE"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch Soát Sợi Quế. Chốt 10:00 ngày 12/5/2027 giờ Việt Nam, không đặt địa điểm."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["location"]}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_NOAUTH"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch là Soát Sợi Quế."}
+        - {"role":"user","text":"Ban đầu dự định 08:00 ngày 12/5/2027, giờ Việt Nam."}
+        - {"role":"user","text":"Tôi chốt 10:00 cùng ngày tại Phòng Kẹp Nâu, bỏ 08:00."}
+      allowed_tools: ["calendar.list_events","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["calendar.list_events",{}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "permissions_only"
+    permission_variant: "no_create"
+
+  - scenario_id: "TR11_CAL_RETRACT"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo một lịch theo tên, thời điểm và phòng cuối cùng tôi đã chốt. Thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch Soát Sợi Quế, phòng Phòng Kẹp Nâu. Tôi định 10:00 ngày 12/5/2027 giờ Việt Nam."}
+        - {"role":"user","text":"Tôi rút lại giờ 10:00. Chưa chọn giờ mới, vẫn giữ ngày và phòng."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"calendar.create_event","params":["start"]}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CAL_EXPLICIT"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch Soát Sợi Quế lúc 08:00 ngày 12/5/2027 giờ Việt Nam tại Phòng Bậc Xanh, bỏ đề xuất thời gian và phòng trước."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch là Soát Sợi Quế."}
+        - {"role":"user","text":"Ban đầu dự định 08:00 ngày 12/5/2027, giờ Việt Nam."}
+        - {"role":"user","text":"Tôi chốt 10:00 cùng ngày tại Phòng Kẹp Nâu, bỏ 08:00."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T08:00:00+07:00","location":"Phòng Bậc Xanh"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+
+  - scenario_id: "TR11_CAL_DURATION"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch Soát Sợi Quế theo giờ bắt đầu và thời lượng cuối cùng tôi chốt, không đặt địa điểm."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt bắt đầu 10:00 ngày 12/5/2027 giờ Việt Nam."}
+        - {"role":"user","text":"Lúc đầu dự tính một giờ, sau cùng tôi chốt chỉ nửa giờ."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","end":"2027-05-12T10:30:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+
+  - scenario_id: "TR11_CAL_SECONDPLACE"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch Soát Sợi Quế lúc 10:00 ngày 12/5/2027 giờ Việt Nam tại phòng thứ hai tôi vừa nêu, dùng thời lượng mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Phòng thứ nhất Phòng Kẹp Nâu, phòng thứ hai Phòng Bậc Xanh."}
+      allowed_tools: ["calendar.list_events","calendar.create_event","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Bậc Xanh"}]
+      decision_evidence: []
+      counterexample:
+        - ["calendar.create_event",{"title":"Soát Sợi Quế","start":"2027-05-12T10:00:00+07:00","location":"Phòng Kẹp Nâu"}]
+    contrast:
+      with: "TR11_CAL_FINAL"
+
+  - scenario_id: "TR11_CAL_NOAUTHEX"
+    world_id: "W_TR11_CAL"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo lịch Soát Sợi Quế lúc 08:00 ngày 12/5/2027 giờ Việt Nam tại Phòng Bậc Xanh, bỏ đề xuất thời gian và phòng trước."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tên lịch là Soát Sợi Quế."}
+        - {"role":"user","text":"Ban đầu dự định 08:00 ngày 12/5/2027, giờ Việt Nam."}
+        - {"role":"user","text":"Tôi chốt 10:00 cùng ngày tại Phòng Kẹp Nâu, bỏ 08:00."}
+      allowed_tools: ["calendar.list_events","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["calendar.list_events",{}]
+    contrast:
+      with: "TR11_CAL_EXPLICIT"
+      changes: "permissions_only"
+    permission_variant: "no_create"
+
+  - scenario_id: "TR11_TASK_FINAL"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu dự kiến Buộc Kẹp Cói, ưu tiên thấp."}
+        - {"role":"user","text":"Tôi chốt nội dung Xếp Kẹp Mây, ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high","due":"2027-05-12T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Buộc Kẹp Cói","priority":"low","due":"2027-05-12T16:00:00+07:00"}]
+
+  - scenario_id: "TR11_TASK_HISTORY"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt nội dung Buộc Kẹp Cói, ưu tiên thấp, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Buộc Kẹp Cói","priority":"low","due":"2027-05-12T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high","due":"2027-05-12T16:00:00+07:00"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_TASK_MISSING"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam. Tôi chưa chọn nội dung việc."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"tasks.add","params":["title"]}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high","due":"2027-05-12T16:00:00+07:00"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_TASK_RETRACT"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi định ghi Xếp Kẹp Mây."}
+        - {"role":"user","text":"Tôi bỏ nội dung đó, chưa chốt nội dung thay thế. Ưu tiên cao, không đặt hạn."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"tasks.add","params":["title"]}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_TASK_DEFAULT"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt nội dung Xếp Kẹp Mây; không đặt hạn và dùng ưu tiên mặc định."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây"}]
+      decision_evidence: []
+      counterexample:
+        - ["sys.ask_missing_info",{"tool_name":"tasks.add","params":["due"]}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_TASK_NODUE"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt nội dung Xếp Kẹp Mây, ưu tiên cao. Không đặt hạn."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high","due":"2027-05-12T16:00:00+07:00"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_TASK_NOAUTH"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc theo nội dung, mức ưu tiên và hạn cuối cùng tôi vừa chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu dự kiến Buộc Kẹp Cói, ưu tiên thấp."}
+        - {"role":"user","text":"Tôi chốt nội dung Xếp Kẹp Mây, ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["tasks.list",{}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+      changes: "permissions_only"
+    permission_variant: "no_add"
+
+  - scenario_id: "TR11_TASK_EXPLICIT"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Buộc Kẹp Cói ưu tiên thấp, không hạn, bỏ phương án vừa bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu dự kiến Buộc Kẹp Cói, ưu tiên thấp."}
+        - {"role":"user","text":"Tôi chốt nội dung Xếp Kẹp Mây, ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Buộc Kẹp Cói","priority":"low"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây","priority":"high"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+
+  - scenario_id: "TR11_TASK_SECOND"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một việc với đúng nội dung thứ hai tôi vừa nêu, để ưu tiên và hạn mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Nội dung thứ nhất Buộc Kẹp Cói. Nội dung thứ hai Xếp Kẹp Mây."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Buộc Kẹp Cói"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+
+  - scenario_id: "TR11_TASK_PAIR"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo hai việc riêng theo hai dòng tôi vừa nêu, giữ nguyên nội dung từng dòng và để các trường khác mặc định."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Dòng một Xếp Kẹp Mây. Dòng hai Buộc Kẹp Cói."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây"}]
+        - ["tasks.add",{"title":"Buộc Kẹp Cói"}]
+      decision_evidence: []
+      counterexample:
+        - ["tasks.add",{"title":"Xếp Kẹp Mây"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+
+  - scenario_id: "TR11_TASK_NOAUTHLIT"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm việc Buộc Kẹp Cói ưu tiên thấp, không hạn, bỏ phương án vừa bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu dự kiến Buộc Kẹp Cói, ưu tiên thấp."}
+        - {"role":"user","text":"Tôi chốt nội dung Xếp Kẹp Mây, ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["tasks.list",{}]
+    contrast:
+      with: "TR11_TASK_EXPLICIT"
+      changes: "permissions_only"
+    permission_variant: "no_add"
+
+  - scenario_id: "TR11_TASK_LOOK"
+    world_id: "W_TR11_TASK"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem việc Xếp Kẹp Mây đang có trong danh sách. Đừng tạo các việc vừa bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu dự kiến Buộc Kẹp Cói, ưu tiên thấp."}
+        - {"role":"user","text":"Tôi chốt nội dung Xếp Kẹp Mây, ưu tiên cao, hạn 16:00 ngày 12/5/2027 giờ Việt Nam."}
+      allowed_tools: ["tasks.list","tasks.add","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["old"]]
+      counterexample:
+        - ["tasks.add",{"title":"Buộc Kẹp Cói"}]
+    contrast:
+      with: "TR11_TASK_FINAL"
+
+  - scenario_id: "TR11_CHORE_FINAL"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi dự tính giao cho Hà Khuê."}
+        - {"role":"user","text":"Tôi chốt giao cho Mộc An, bỏ tên trước."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Hà Khuê"}]
+
+  - scenario_id: "TR11_CHORE_HISTORY"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt giao cho Hà Khuê."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Hà Khuê"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CHORE_MISSING"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chưa chọn người nhận việc."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"household_chores.assign","params":["assignee"]}]
+      decision_evidence: []
+      clarification_reads: [["household_chores.list_chores", {}]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+      negative_alternatives: {"wrong_parameter": {"actions": [["sys.ask_missing_info", {"tool_name": "household_chores.assign", "params": ["chore_id"]}]], "reason": "authorized_actions"}}
+    contrast:
+      with: "TR11_CHORE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CHORE_RETRACT"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người cuối cùng tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi định chọn Mộc An."}
+        - {"role":"user","text":"Tôi rút lại tên đó và chưa chọn người khác."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"household_chores.assign","params":["assignee"]}]
+      decision_evidence: []
+      clarification_reads: [["household_chores.list_chores", {}]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CHORE_FIRST"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người thứ nhất tôi vừa nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Người thứ nhất Hà Khuê, người thứ hai Mộc An."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Hà Khuê"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+
+  - scenario_id: "TR11_CHORE_SECOND"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở Phòng Tre cho người thứ hai tôi vừa nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Người thứ nhất Hà Khuê, người thứ hai Mộc An."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Hà Khuê"}]
+    contrast:
+      with: "TR11_CHORE_FIRST"
+
+  - scenario_id: "TR11_CHORE_ROOM"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở phòng cuối cùng tôi đã chọn cho Mộc An."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Lúc đầu tôi nói Phòng Tre."}
+        - {"role":"user","text":"Tôi sửa thành Phòng Cói, bỏ Phòng Tre."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$sedge.id","assignee":"Mộc An"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+
+  - scenario_id: "TR11_CHORE_ROOMHISTORY"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao việc Lau Khung đang mở ở phòng cuối cùng tôi đã chọn cho Mộc An."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt Phòng Tre."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$sedge.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_ROOM"
+      changes: "history_only"
+
+  - scenario_id: "TR11_CHORE_PAIR"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao Lau Khung đang mở Phòng Tre cho người thứ nhất và Xếp Nẹp Phòng Tre cho người thứ hai tôi đã nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Người thứ nhất Hà Khuê, người thứ hai Mộc An."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Hà Khuê"}]
+        - ["household_chores.assign",{"chore_id":"$slat.id","assignee":"Mộc An"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+        - ["household_chores.assign",{"chore_id":"$slat.id","assignee":"Hà Khuê"}]
+    contrast:
+      with: "TR11_CHORE_FIRST"
+
+  - scenario_id: "TR11_CHORE_COPY"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao Lau Khung đang mở Phòng Tre cho người hiện phụ trách Lau Khung đang mở Phòng Cói, giữ việc nguồn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi dự tính giao cho Hà Khuê."}
+        - {"role":"user","text":"Tôi chốt giao cho Mộc An, bỏ tên trước."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"$sedge.assignee"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"$slat.assignee"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+
+  - scenario_id: "TR11_CHORE_EXPLICIT"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giao Lau Khung đang mở Phòng Tre cho Bảo Liên, giữ nguyên lựa chọn này dù tôi vừa nêu tên khác."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi dự tính giao cho Hà Khuê."}
+        - {"role":"user","text":"Tôi chốt giao cho Mộc An, bỏ tên trước."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Bảo Liên"}]
+      decision_evidence: []
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$bamboo.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+
+  - scenario_id: "TR11_CHORE_LOOK"
+    world_id: "W_TR11_CHORE"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem ai phụ trách Lau Khung đang mở ở Phòng Cói. Đừng đổi theo các đề xuất trước."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi dự tính giao cho Hà Khuê."}
+        - {"role":"user","text":"Tôi chốt giao cho Mộc An, bỏ tên trước."}
+      allowed_tools: ["household_chores.list_chores","household_chores.assign","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["sedge"]]
+      counterexample:
+        - ["household_chores.assign",{"chore_id":"$sedge.id","assignee":"Mộc An"}]
+    contrast:
+      with: "TR11_CHORE_FINAL"
+
+  - scenario_id: "TR11_MUSIC_FINAL"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát đúng bản nhạc cuối cùng tôi vừa chọn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc bài Đường Sậy của Khánh Mây."}
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Hạ Khôi, bỏ bản Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$ha.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$khanh.id"}]
+
+  - scenario_id: "TR11_MUSIC_HISTORY"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát đúng bản nhạc cuối cùng tôi vừa chọn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$khanh.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_MUSIC_FIRST"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát bản thứ nhất tôi vừa nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Bản thứ nhất Đường Sậy của Khánh Mây, bản thứ hai Đường Sậy của Hạ Khôi."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$khanh.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_MUSIC_SECOND"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát bản thứ hai tôi vừa nêu."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Bản thứ nhất Đường Sậy của Khánh Mây, bản thứ hai Đường Sậy của Hạ Khôi."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$ha.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$khanh.id"}]
+    contrast:
+      with: "TR11_MUSIC_FIRST"
+
+  - scenario_id: "TR11_MUSIC_PLAYLIST"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát mục Đường Sậy theo loại tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Đường Sậy có cả bài nhạc và danh sách."}
+        - {"role":"user","text":"Tôi chốt mở danh sách, không chọn bài."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"playlist_id":"$road.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_MUSIC_TRACK"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát mục Đường Sậy theo loại tôi đã chốt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn bài Đường Sậy của Hạ Khôi, không phải danh sách."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$ha.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"playlist_id":"$road.id"}]
+    contrast:
+      with: "TR11_MUSIC_PLAYLIST"
+      changes: "history_only"
+
+  - scenario_id: "TR11_MUSIC_ADDFINAL"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bản tôi vừa chốt vào Đan Mây, giữ nguyên nội dung đang phát."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc bài Đường Sậy của Khánh Mây."}
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Hạ Khôi, bỏ bản Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$ha.id","playlist_id":"$cloud.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_MUSIC_DEST"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bài Nẹp Gỗ của Hạ Khôi vào danh sách cuối cùng tôi đã chốt, đừng phát."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Ban đầu tôi chọn Đan Mây."}
+        - {"role":"user","text":"Tôi đổi sang danh sách Đường Sậy."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$wood.id","playlist_id":"$road.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.add_to_playlist",{"track_id":"$wood.id","playlist_id":"$cloud.id"}]
+    contrast:
+      with: "TR11_MUSIC_ADDFINAL"
+
+  - scenario_id: "TR11_MUSIC_EXPLICIT"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát Đường Sậy của Khánh Mây ngay, bỏ bản tôi vừa chọn trước đó."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc bài Đường Sậy của Khánh Mây."}
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Hạ Khôi, bỏ bản Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$khanh.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_MUSIC_PAIR"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm bản thứ nhất tôi nêu vào Đan Mây, nhưng phát bản thứ hai."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Bản thứ nhất Đường Sậy của Khánh Mây, bản thứ hai Đường Sậy của Hạ Khôi."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.add_to_playlist",{"track_id":"$khanh.id","playlist_id":"$cloud.id"}]
+        - ["music.play",{"track_id":"$ha.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["music.add_to_playlist",{"track_id":"$ha.id","playlist_id":"$cloud.id"}]
+        - ["music.play",{"track_id":"$khanh.id"}]
+    contrast:
+      with: "TR11_MUSIC_FIRST"
+
+  - scenario_id: "TR11_MUSIC_VOLUME"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Phát bản cuối cùng tôi đã chốt và đặt âm lượng 22."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc bài Đường Sậy của Khánh Mây."}
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Hạ Khôi, bỏ bản Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["music.play",{"track_id":"$ha.id"}]
+        - ["music.control",{"action":"volume","volume":22}]
+      decision_evidence: []
+      counterexample:
+        - ["music.play",{"track_id":"$khanh.id"}]
+        - ["music.control",{"action":"volume","volume":22}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_MUSIC_LOOK"
+    world_id: "W_TR11_MUSIC"
+    lineage_id: "TRAIN_MUSIC_MEMBERSHIP_03"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tìm bản nhạc cuối cùng tôi đã chọn để xem nghệ sĩ, chưa phát hay thêm danh sách."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc bài Đường Sậy của Khánh Mây."}
+        - {"role":"user","text":"Tôi chốt bài Đường Sậy của Hạ Khôi, bỏ bản Khánh Mây."}
+      allowed_tools: ["music.list_tracks","music.play","music.add_to_playlist","music.control","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["ha"]]
+      counterexample:
+        - ["music.play",{"track_id":"$ha.id"}]
+    contrast:
+      with: "TR11_MUSIC_FINAL"
+
+  - scenario_id: "TR11_ALARM_FINAL"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 05:45 lặp hằng ngày."}
+        - {"role":"user","text":"Tôi chốt 06:20, chỉ lặp ngày trong tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"weekdays"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"05:45","label":"Gom Sợi","repeat":"daily"}]
+
+  - scenario_id: "TR11_ALARM_HISTORY"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt 05:45 lặp hằng ngày."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"05:45","label":"Gom Sợi","repeat":"daily"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"weekdays"}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_ALARM_MISSING"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn lặp ngày trong tuần nhưng chưa chọn giờ."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"alarm.create","params":["time"]}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"05:45","label":"Gom Sợi","repeat":"weekdays"}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_ALARM_RETRACT"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi định 06:20 lặp ngày trong tuần."}
+        - {"role":"user","text":"Tôi rút lại giờ này, chưa chọn giờ mới, vẫn lặp ngày trong tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"alarm.create","params":["time"]}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"weekdays"}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_ALARM_ONCE"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt 06:20, không lặp."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"daily"}]
+      alternatives:
+        once: [["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"once"}]]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_ALARM_NOAUTH"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới theo giờ và kiểu lặp cuối cùng tôi đã chốt, nhãn Gom Sợi."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 05:45 lặp hằng ngày."}
+        - {"role":"user","text":"Tôi chốt 06:20, chỉ lặp ngày trong tuần."}
+      allowed_tools: ["alarm.list","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["alarm.list",{}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+      changes: "permissions_only"
+    permission_variant: "no_create"
+
+  - scenario_id: "TR11_ALARM_ENABLE"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Với báo thức cũ tôi vừa chọn, hãy bật lại, giữ nguyên giờ và kiểu lặp."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn báo Gom Sợi lúc 05:45 lặp hằng ngày."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$gather.id","enabled":true}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$count.id","enabled":false}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+
+  - scenario_id: "TR11_ALARM_DISABLE"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Với báo thức cũ tôi vừa chọn, hãy tắt nó, không xóa."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn báo Đếm Nẹp lúc 07:10 lặp cuối tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$count.id","enabled":false}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.delete",{"alarm_id":"$count.id"}]
+    contrast:
+      with: "TR11_ALARM_ENABLE"
+
+  - scenario_id: "TR11_ALARM_DELETE"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Với báo thức cũ tôi vừa chọn, hãy xóa hẳn, không chỉ tắt."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn báo Đếm Nẹp lúc 07:10 lặp cuối tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.delete",{"alarm_id":"$count.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$count.id","enabled":false}]
+    contrast:
+      with: "TR11_ALARM_DISABLE"
+
+  - scenario_id: "TR11_ALARM_COPY"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm báo thức mới nhãn Kiểm Sợi vào đúng giờ của báo thức cũ tôi đã chọn. Chỉ một lần, giữ báo cũ."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn báo Đếm Nẹp lúc 07:10 lặp cuối tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"$count.time","label":"Kiểm Sợi"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"$gather.time","label":"Kiểm Sợi"}]
+    contrast:
+      with: "TR11_ALARM_ENABLE"
+
+  - scenario_id: "TR11_ALARM_EXPLICIT"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm báo Gom Sợi lúc 08:00 chỉ một lần, bỏ lịch giờ đã bàn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi cân nhắc 05:45 lặp hằng ngày."}
+        - {"role":"user","text":"Tôi chốt 06:20, chỉ lặp ngày trong tuần."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"08:00","label":"Gom Sợi"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"06:20","label":"Gom Sợi","repeat":"weekdays"}]
+    contrast:
+      with: "TR11_ALARM_FINAL"
+
+  - scenario_id: "TR11_ALARM_LOOK"
+    world_id: "W_TR11_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem giờ hiện tại của báo thức cũ tôi vừa chọn, không thêm hay sửa."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn báo Gom Sợi lúc 05:45 lặp hằng ngày."}
+      allowed_tools: ["alarm.list","alarm.create","alarm.update","alarm.delete","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["gather"]]
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$gather.id","enabled":true}]
+    contrast:
+      with: "TR11_ALARM_ENABLE"
+
+  - scenario_id: "TR11_AUTO_FINAL"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Ban đầu tôi tính Phòng Vải, bật lúc 18:00."}
+        - {"role":"user","text":"Tôi chốt Phòng Mây, tắt lúc 21:15."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloth.id","action":"on","time":"18:00"}]
+
+  - scenario_id: "TR11_AUTO_HISTORY"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt Phòng Vải, bật lúc 18:00."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$cloth.id","action":"on","time":"18:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_AUTO_MISSING"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt tắt đèn Phòng Mây nhưng chưa chọn giờ."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"home_automation.create_rule","params":["time"]}]
+      decision_evidence: []
+      clarification_reads: [["smart_home.get_status", {}]]
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+      negative_alternatives: {"wrong_parameter": {"actions": [["sys.ask_missing_info", {"tool_name": "home_automation.create_rule", "params": ["action"]}]], "reason": "authorized_actions"}}
+    contrast:
+      with: "TR11_AUTO_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_AUTO_ACTION"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Chốt Đèn Nẹp Phòng Mây lúc 21:15, còn bật hay tắt thì chưa chọn."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"home_automation.create_rule","params":["action"]}]
+      decision_evidence: []
+      clarification_reads: [["smart_home.get_status", {}]]
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_AUTO_BOTH"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chỉ chốt Đèn Nẹp Phòng Mây. Thao tác và giờ vẫn chưa chọn."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "ask_missing"
+      actions:
+        - ["sys.ask_missing_info",{"tool_name":"home_automation.create_rule","params":["action","time"]}]
+      decision_evidence: []
+      clarification_reads: [["smart_home.get_status", {}]]
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+      negative_alternatives: {"partial_question": {"actions": [["sys.ask_missing_info", {"tool_name": "home_automation.create_rule", "params": ["time"]}]], "reason": "authorized_actions"}}
+    contrast:
+      with: "TR11_AUTO_FINAL"
+      changes: "history_only"
+
+  - scenario_id: "TR11_AUTO_NOAUTH"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một lịch mới cho Đèn Nẹp ở phòng tôi chốt, dùng thao tác và giờ cuối cùng tôi chọn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Ban đầu tôi tính Phòng Vải, bật lúc 18:00."}
+        - {"role":"user","text":"Tôi chốt Phòng Mây, tắt lúc 21:15."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "out_of_scope"
+      actions: []
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.get_status",{}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+      changes: "permissions_only"
+    permission_variant: "no_create"
+
+  - scenario_id: "TR11_AUTO_SECOND"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch bật Đèn Nẹp ở phòng thứ hai tôi vừa nêu lúc 18:00, không đặt tên."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Phòng thứ nhất là Phòng Vải, phòng thứ hai là Phòng Mây."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"on","time":"18:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloth.id","action":"on","time":"18:00"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+
+  - scenario_id: "TR11_AUTO_COPY"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch tắt Đèn Nẹp Phòng Mây vào đúng giờ của lịch đã có ở phòng tôi vừa chọn, giữ lịch nguồn."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn lịch của Đèn Nẹp Phòng Vải."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"$clothRule.time"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"$cloudRule.time"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+
+  - scenario_id: "TR11_AUTO_REMOVE"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa hẳn lịch cũ của Đèn Nẹp ở phòng tôi vừa chốt, không thêm lịch."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt Phòng Mây."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$cloudRule.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.delete_rule",{"rule_id":"$clothRule.id"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+
+  - scenario_id: "TR11_AUTO_REPLACE"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thay lịch cũ của Đèn Nẹp Phòng Mây bằng lịch tắt vào giờ cuối cùng tôi chốt. Bỏ lịch cũ, không đặt tên lịch mới."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chốt 21:15."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.delete_rule",{"rule_id":"$cloudRule.id"}]
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+
+  - scenario_id: "TR11_AUTO_EXPLICIT"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm lịch bật Đèn Nẹp Phòng Vải lúc 19:00, bỏ phương án giờ và phòng đã bàn. Không đổi đèn ngay."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Ban đầu tôi tính Phòng Vải, bật lúc 18:00."}
+        - {"role":"user","text":"Tôi chốt Phòng Mây, tắt lúc 21:15."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_automation.create_rule",{"device_id":"$cloth.id","action":"on","time":"19:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_automation.create_rule",{"device_id":"$cloud.id","action":"off","time":"21:15"}]
+    contrast:
+      with: "TR11_AUTO_FINAL"
+
+  - scenario_id: "TR11_AUTO_LOOK"
+    world_id: "W_TR11_AUTO"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem giờ của lịch cũ ở phòng tôi vừa chọn, không xóa hay tạo lịch."
+      context:
+        current_time: "2027-05-10T09:00:00+07:00"
+      history:
+        - {"role":"user","text":"Tôi chọn Phòng Vải."}
+      allowed_tools: ["smart_home.get_status","home_automation.list_rules","home_automation.create_rule","home_automation.delete_rule","sys.ask_missing_info"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["clothRule"]]
+      counterexample:
+        - ["home_automation.delete_rule",{"rule_id":"$clothRule.id"}]
+    contrast:
+      with: "TR11_AUTO_REMOVE"

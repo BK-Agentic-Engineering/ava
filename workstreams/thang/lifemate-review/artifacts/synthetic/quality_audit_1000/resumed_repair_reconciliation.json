@@ -1,0 +1,131 @@
+{
+  "10": {
+    "fresh_process_match": true,
+    "runtime_rows_unchanged": 430,
+    "changed_nonvolatile_top_level_fields": [
+      "inventory"
+    ],
+    "old_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 423
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 45
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave10 handoff records structural controls, ancestry and the request overlap audit."
+    },
+    "current_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 942
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 90
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave10 handoff records structural controls, ancestry and the request overlap audit."
+    }
+  },
+  "12": {
+    "fresh_process_match": true,
+    "runtime_rows_unchanged": 399,
+    "changed_nonvolatile_top_level_fields": [
+      "inventory",
+      "agent_visible",
+      "fixtures"
+    ],
+    "old_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 613
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 61
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave12 handoff records structural controls, ancestry and the request overlap audit."
+    },
+    "current_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 942
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 90
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave12 handoff records structural controls, ancestry and the request overlap audit."
+    }
+  },
+  "14": {
+    "fresh_process_match": true,
+    "runtime_rows_unchanged": 218,
+    "changed_nonvolatile_top_level_fields": [
+      "inventory",
+      "agent_visible"
+    ],
+    "old_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 715
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 70
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave14 handoff records structural controls, ancestry and the request overlap audit."
+    },
+    "current_inventory": {
+      "scenarios_by_split": {
+        "dev": 58,
+        "train": 942
+      },
+      "worlds_by_split": {
+        "dev": 18,
+        "train": 90
+      },
+      "named_lineages": 31,
+      "integrity_contrast_visibility": "passed",
+      "near_duplicate_review": "Wave14 handoff records structural controls, ancestry and the request overlap audit."
+    }
+  },
+  "wave20": {
+    "fresh_process_match": true,
+    "canonical_match_excluding_only_declared_timing": true,
+    "canonical_rows": 84,
+    "new_runtime_rows": 0
+  },
+  "batch02": {
+    "canonical_match_excluding_only_declared_timing": true,
+    "canonical_rows": 46
+  },
+  "validation": {
+    "initial_inspected_acceptable": 133,
+    "initial_inspected_pending": 13,
+    "initial_uninspected": 854,
+    "final_inspected": 1000,
+    "final_acceptable_within_scope": 984,
+    "final_inspected_pending": 16,
+    "final_awaiting_inspection": 0,
+    "full_replay_tests_before_last_three_local_regressions": 196,
+    "post_repair_focused_neighbor_tests": 116,
+    "volatile_exclusions": [
+      "created_utc",
+      "replay_wall_seconds"
+    ],
+    "all_scenarios_spec_only": true,
+    "export_eligible": 0
+  }
+}

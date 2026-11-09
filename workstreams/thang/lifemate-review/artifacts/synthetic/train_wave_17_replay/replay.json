@@ -1,0 +1,4297 @@
+{
+  "created_utc": "2026-11-06T05:33:30.193933+00:00",
+  "replay_wall_seconds": 3.21491129999049,
+  "declared_volatile_fields": [
+    "created_utc",
+    "replay_wall_seconds"
+  ],
+  "kind": "hand_authored_runtime_replay",
+  "inventory": {
+    "scenarios_by_split": {
+      "dev": 58,
+      "train": 810
+    },
+    "worlds_by_split": {
+      "dev": 18,
+      "train": 79
+    },
+    "named_lineages": 31,
+    "integrity_contrast_visibility": "passed",
+    "near_duplicate_review": "Wave17 handoff records structural controls, ancestry and the request overlap audit."
+  },
+  "status": {
+    "scenarios": 6,
+    "outcomes": {
+      "execute": 6
+    },
+    "positive_runtime_paths": 18,
+    "rejected_runtime_paths": 26,
+    "exportable": false,
+    "execution_verified": 0
+  },
+  "provenance": {
+    "release": "v3.2.0",
+    "schema": "2.7.0",
+    "runtime_root": "train+public_test/train/zaic_tools/",
+    "catalog_member": "train+public_test/train/train_tools_catalog.json",
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/calendar.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ]
+  },
+  "agent_visible": {
+    "TR17_CAL_SHIFT": {
+      "request": "Dời buổi duyệt men ở xưởng Sen sáng mai muộn nửa tiếng giúp mình.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    },
+    "TR17_CAL_LONG": {
+      "request": "Dời buổi duyệt men ở xưởng Sen sáng mai muộn nửa tiếng giúp mình.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    },
+    "TR17_CAL_REPHRASE": {
+      "request": "Buổi duyệt men sáng mai bên xưởng Sen ấy, cho bắt đầu trễ hơn 30 phút, vẫn họp từng ấy lâu nhé.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    },
+    "TR17_CAL_EXTEND": {
+      "request": "Buổi duyệt men sáng mai ở xưởng Sen cho họp thêm nửa tiếng nhé.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    },
+    "TR17_CAL_EARLY": {
+      "request": "Cho buổi duyệt men ở xưởng Sen sáng mai sớm lên một phần tư tiếng nhé.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    },
+    "TR17_CAL_OTHER": {
+      "request": "Buổi duyệt men bên xưởng Sồi chiều mai dời muộn nửa tiếng giúp mình.",
+      "context": {
+        "current_time": "2027-11-07T16:00:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.update_event",
+        "calendar.create_event",
+        "calendar.cancel_event"
+      ]
+    }
+  },
+  "fixtures": {
+    "TR17_CAL_SHIFT": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T09:55:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    },
+    "TR17_CAL_LONG": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T10:30:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    },
+    "TR17_CAL_REPHRASE": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T09:55:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    },
+    "TR17_CAL_EXTEND": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T09:55:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    },
+    "TR17_CAL_EARLY": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T09:55:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    },
+    "TR17_CAL_OTHER": {
+      "calendar": {
+        "events": [
+          {
+            "id": "w17_b",
+            "title": "Duyệt men",
+            "start": "2027-11-08T14:00:00+07:00",
+            "end": "2027-11-08T15:10:00+07:00",
+            "location": "Xưởng Sồi",
+            "status": "confirmed"
+          },
+          {
+            "id": "w17_a",
+            "title": "Duyệt men",
+            "start": "2027-11-08T09:10:00+07:00",
+            "end": "2027-11-08T09:55:00+07:00",
+            "location": "Xưởng Sen",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "notes": {
+        "notes": [
+          {
+            "id": "w8_guard",
+            "title": "Riêng tư",
+            "content": "Giữ nguyên."
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "calendar.list_events",
+          "calendar.update_event",
+          "calendar.create_event",
+          "calendar.cancel_event"
+        ],
+        "current_time": "2027-11-07T16:00:00+07:00"
+      }
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00",
+            "location": "Xưởng Sen"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_SHIFT",
+      "trace_case": "copied_other_finish",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:30:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:30:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:30:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00",
+            "location": "Xưởng Sen"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T11:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T11:00:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:30:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_LONG",
+      "trace_case": "copied_other_finish",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T10:30:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00",
+            "location": "Xưởng Sen"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_REPHRASE",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T09:40:00+07:00",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "end": "2027-11-08T10:25:00+07:00",
+            "start": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:40:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "end": "2027-11-08T10:25:00+07:00",
+            "location": "Xưởng Sen"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EXTEND",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "end": "2027-11-08T10:25:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T10:25:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T08:55:00+07:00",
+            "end": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T08:55:00+07:00",
+            "end": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T08:55:00+07:00",
+            "end": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T08:55:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T08:55:00+07:00",
+            "end": "2027-11-08T09:40:00+07:00",
+            "location": "Xưởng Sen"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_EARLY",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T08:55:00+07:00",
+            "end": "2027-11-08T09:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T09:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T08:55:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "standard",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T14:30:00+07:00",
+            "end": "2027-11-08T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "alternative_read",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T14:30:00+07:00",
+            "end": "2027-11-08T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "unobserved",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "grounding",
+      "calls": [
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T14:30:00+07:00",
+            "end": "2027-11-08T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "grounding",
+          "source_interval"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "omitted",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "wrong",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "authorized_actions",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T14:30:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "preserve_location",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_b",
+            "start": "2027-11-08T14:30:00+07:00",
+            "end": "2027-11-08T15:40:00+07:00",
+            "location": "Xưởng Sồi"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T09:55:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T09:10:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "reasons": [],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    },
+    {
+      "scenario_id": "TR17_CAL_OTHER",
+      "trace_case": "wrong_room",
+      "evidence_kind": "actual_runtime_trace",
+      "expected_verdict": "reject",
+      "required_reason": "state",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2027-11-08",
+            "date_to": "2027-11-08"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "end": "2027-11-08T15:10:00+07:00",
+                "id": "w17_b",
+                "location": "Xưởng Sồi",
+                "start": "2027-11-08T14:00:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              },
+              {
+                "end": "2027-11-08T09:55:00+07:00",
+                "id": "w17_a",
+                "location": "Xưởng Sen",
+                "start": "2027-11-08T09:10:00+07:00",
+                "status": "confirmed",
+                "title": "Duyệt men"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "w17_a",
+            "start": "2027-11-08T14:30:00+07:00",
+            "end": "2027-11-08T15:40:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "end": "2027-11-08T15:10:00+07:00",
+              "id": "w17_b",
+              "location": "Xưởng Sồi",
+              "start": "2027-11-08T14:00:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            },
+            {
+              "end": "2027-11-08T15:40:00+07:00",
+              "id": "w17_a",
+              "location": "Xưởng Sen",
+              "start": "2027-11-08T14:30:00+07:00",
+              "status": "confirmed",
+              "title": "Duyệt men"
+            }
+          ]
+        },
+        "notes": {
+          "notes": [
+            {
+              "content": "Giữ nguyên.",
+              "id": "w8_guard",
+              "title": "Riêng tư"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ],
+        "trace_policy_notes": [],
+        "official_call_matching": "not_evaluated"
+      }
+    }
+  ]
+}

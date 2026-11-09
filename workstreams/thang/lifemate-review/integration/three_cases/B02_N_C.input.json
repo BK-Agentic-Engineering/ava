@@ -1,0 +1,80 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "B02_N_C",
+  "run_id": "prepared-b02_n_c-v01",
+  "agent_visible": {
+    "request": "Tạo lời nhắc \"Nộp phiếu giao hàng\" đúng giờ bắt đầu sự kiện \"Trao đổi mẫu gốm\" trong lịch của tôi.",
+    "context": {
+      "current_time": "2026-11-13T11:10:00+07:00",
+      "timezone": "Asia/Saigon",
+      "installed_apps": {
+        "calendar": {
+          "tools": [
+            "calendar.list_events"
+          ]
+        },
+        "reminders": {
+          "tools": [
+            "reminders.create"
+          ]
+        },
+        "sys": {
+          "tools": [
+            "sys.ask_missing_info"
+          ]
+        }
+      }
+    },
+    "history": [],
+    "tool_schema_refs": [
+      {
+        "path": "tool_schemas.json",
+        "selector": "/calendar.list_events"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/reminders.create"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/sys.ask_missing_info"
+      }
+    ]
+  },
+  "private_execution": {
+    "scenario_ref": {
+      "path": "private/B02_N_C.json",
+      "selector": "/scenario"
+    },
+    "oracle_ref": {
+      "path": "private/B02_N_C.json",
+      "selector": "/oracle"
+    },
+    "visible_source_ref": {
+      "path": "private/B02_N_C.json",
+      "selector": "/visible"
+    },
+    "initial_state_ref": {
+      "path": "private/B02_N_C.json",
+      "selector": "/initial_state"
+    },
+    "current_time": "2026-11-13T11:10:00+07:00",
+    "tools": [
+      "calendar.list_events",
+      "reminders.create",
+      "sys.ask_missing_info"
+    ],
+    "latest_turn_log": [],
+    "runtime": {
+      "release": "v3.2.0",
+      "schema": "2.7.0",
+      "split": "train"
+    },
+    "timezone": "Asia/Saigon",
+    "effective_tools": [
+      "calendar.list_events",
+      "reminders.create",
+      "sys.ask_missing_info"
+    ]
+  }
+}

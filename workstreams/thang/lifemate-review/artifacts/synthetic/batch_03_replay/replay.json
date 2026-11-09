@@ -1,0 +1,2494 @@
+{
+  "created_utc": "2026-11-03T07:45:54.087352+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "design": "data\\synthetic\\design\\batch_03.yaml",
+  "status": {
+    "spec_only": 4,
+    "exportable": false,
+    "execution_verified": 0,
+    "positive_replays": 11,
+    "negative_checks": 13,
+    "all_expectations_met": true
+  },
+  "provenance": {
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/calendar.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "reproduction_command": "python scripts/replay_batch03.py",
+  "limitations": [
+    "Executor does not consume history; agent_visible is separate authoring evidence.",
+    "Targets come from reviewed oracle, not a history interpreter or model.",
+    "H4 policy is draft; runtime acceptance is not official semantic acceptance.",
+    "No team conversation harness integration or training export validated."
+  ],
+  "fixtures": {
+    "H1_original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H2_original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H3_original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H4_original": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H1_reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H2_reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H3_reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    },
+    "H4_reversed": {
+      "calendar": {
+        "events": [
+          {
+            "id": "b03_evt_82",
+            "title": "Rà soát sơ đồ gian hàng",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Sỏi",
+            "status": "confirmed"
+          },
+          {
+            "id": "b03_evt_57",
+            "title": "Duyệt bản in thiệp",
+            "start": "2026-11-18T10:30:00+07:00",
+            "end": "2026-11-18T11:15:00+07:00",
+            "location": "Phòng Mộc",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "tools": [
+          "calendar.list_events",
+          "calendar.cancel_event",
+          "sys.ask_missing_info"
+        ]
+      }
+    }
+  },
+  "agent_visible": {
+    "H1_original": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Duyệt bản in thiệp\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H2_original": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Rà soát sơ đồ gian hàng\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H3_original": {
+      "request": "Hủy sự kiện \"Duyệt bản in thiệp\" giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Duyệt bản in thiệp\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H4_original": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói về cả sự kiện \"Duyệt bản in thiệp\" lẫn \"Rà soát sơ đồ gian hàng\", chưa chọn riêng sự kiện nào."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H1_reversed": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Duyệt bản in thiệp\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H2_reversed": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Rà soát sơ đồ gian hàng\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H3_reversed": {
+      "request": "Hủy sự kiện \"Duyệt bản in thiệp\" giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói riêng về sự kiện \"Duyệt bản in thiệp\" trong lịch."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    },
+    "H4_reversed": {
+      "request": "Hủy sự kiện vừa nói giúp tôi.",
+      "context": {
+        "current_time": "2026-11-17T08:40:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "calendar": {
+            "tools": [
+              "calendar.list_events",
+              "calendar.cancel_event"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Mình đang nói về cả sự kiện \"Duyệt bản in thiệp\" lẫn \"Rà soát sơ đồ gian hàng\", chưa chọn riêng sự kiện nào."
+        },
+        {
+          "role": "assistant",
+          "text": "Mình đã ghi nhận chủ đề bạn muốn trao đổi."
+        }
+      ],
+      "allowed_tools": [
+        "calendar.list_events",
+        "calendar.cancel_event",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "H1",
+      "trace_case": "cancel",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H2",
+      "trace_case": "cancel",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H2_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_82"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H3",
+      "trace_case": "cancel",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H3_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "direct_ask",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.cancel_event",
+            "params": [
+              "event_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "read_ask",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.cancel_event",
+            "params": [
+              "event_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "cancel",
+      "event_order": "reversed",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H1_reversed",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H2",
+      "trace_case": "cancel",
+      "event_order": "reversed",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H2_reversed",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_82"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H3",
+      "trace_case": "cancel",
+      "event_order": "reversed",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H3_reversed",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "direct_ask",
+      "event_order": "reversed",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H4_reversed",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.cancel_event",
+            "params": [
+              "event_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "read_ask",
+      "event_order": "reversed",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H4_reversed",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.cancel_event",
+            "params": [
+              "event_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "filtered_cancel",
+      "event_order": "original",
+      "construction": "hand_authored_positive_observed_IDs",
+      "expected_pass": true,
+      "required_rejection_reason": null,
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {
+            "date_from": "2026-11-18"
+          },
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": true,
+        "state_reasons": [],
+        "trace_reasons": []
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "wrong_target",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "wrong_target_attempt",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_82"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "both_targets",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "cancel_count",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_82"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "cancel_count",
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "twice",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "cancel_count",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "cancel_count"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "unobserved_cancel",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "ungrounded_cancel",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "ungrounded_cancel"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "guess_A",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "wrong_target_attempt",
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "ask_count",
+          "cancel_count",
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "guess_B",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "wrong_target_attempt",
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_82"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "ask_count",
+          "cancel_count",
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "no_ask",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "ask_count",
+      "initial_fixture_ref": "H4_original",
+      "calls": [],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_count"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "wrong_tool",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "ask_arguments",
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "reminders.create",
+            "params": [
+              "event_id"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H4",
+      "trace_case": "wrong_parameter",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "ask_arguments",
+      "initial_fixture_ref": "H4_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "calendar.cancel_event",
+            "params": [
+              "title"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_arguments"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "nonexistent",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "noop_call",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_nonexistent"
+          },
+          "result": {
+            "ok": true,
+            "done": false,
+            "message": "không tìm thấy event_id='b03_nonexistent'"
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "confirmed"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "noop_call",
+          "ungrounded_cancel",
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "extra_write",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "additional_write_attempt",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "calendar.update_event",
+          "arguments": {
+            "event_id": "b03_evt_57",
+            "location": "Unpermitted"
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'calendar.update_event' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "additional_write_attempt",
+          "failed_call",
+          "unpermitted_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "failed_call",
+      "event_order": "original",
+      "construction": "deliberate_negative_may_use_private_fixture_IDs",
+      "expected_pass": false,
+      "required_rejection_reason": "failed_call",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {},
+          "result": {
+            "ok": false,
+            "error": "thiếu tham số bắt buộc: event_id"
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [],
+        "trace_reasons": [
+          "cancel_count",
+          "failed_call",
+          "ungrounded_cancel",
+          "wrong_target_attempt"
+        ]
+      }
+    },
+    {
+      "scenario_id": "H1",
+      "trace_case": "snapshot_field",
+      "event_order": "original",
+      "construction": "verifier_only_snapshot_mutation",
+      "expected_pass": false,
+      "required_rejection_reason": "state_or_frame_mismatch",
+      "initial_fixture_ref": "H1_original",
+      "calls": [
+        {
+          "name": "calendar.list_events",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "events": [
+              {
+                "id": "b03_evt_57",
+                "title": "Duyệt bản in thiệp",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Mộc",
+                "status": "confirmed"
+              },
+              {
+                "id": "b03_evt_82",
+                "title": "Rà soát sơ đồ gian hàng",
+                "start": "2026-11-18T10:30:00+07:00",
+                "end": "2026-11-18T11:15:00+07:00",
+                "location": "Phòng Sỏi",
+                "status": "confirmed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "calendar.cancel_event",
+          "arguments": {
+            "event_id": "b03_evt_57"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Tampered",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "passed": false,
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": []
+      },
+      "actual_runtime_final_state": {
+        "calendar": {
+          "events": [
+            {
+              "id": "b03_evt_57",
+              "title": "Duyệt bản in thiệp",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Mộc",
+              "status": "cancelled"
+            },
+            {
+              "id": "b03_evt_82",
+              "title": "Rà soát sơ đồ gian hàng",
+              "start": "2026-11-18T10:30:00+07:00",
+              "end": "2026-11-18T11:15:00+07:00",
+              "location": "Phòng Sỏi",
+              "status": "confirmed"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    }
+  ]
+}

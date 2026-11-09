@@ -1,0 +1,139 @@
+version: "train_wave_18"
+split: "train"
+status: "spec_only"
+exportable: false
+provenance: {"release": "v3.2.0", "schema": "2.7.0", "runtime_root": "train+public_test/train/zaic_tools/", "catalog_member": "train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR6_M_SAVE", "TR14_PICK_HOME", "TR16_MAP_WORK"], "parent_lineage_ids": ["TRAIN_MAPS_UPSERT_06", "TRAIN_LOGISTICS_DIRECTION_02"]}
+    design_base: "TR18_WORK_A"
+    relevant_tools: ["maps.search_place", "maps.save_place"]
+    initial_state:
+      maps: {"places": [{"id": "w18_dao", "name": "Sửa Khóa Tùng Chỉ", "address": "27 Hẻm Đá Xanh", "detail": "Cạnh Tòa Bạch Đào", "category": "sửa khóa"}, {"id": "w18_lam", "name": "Sửa Khóa Tùng Chỉ", "address": "18 Ngõ Gốm Đỏ", "detail": "Cạnh Tòa Hạc Giấy", "category": "sửa khóa"}, {"id": "w18_old", "name": "Quán Cúc", "address": "9 Dốc Mành", "category": "cà phê"}], "saved_places": [{"id": "w18_saved_old", "place_id": "w18_old", "label": "Chỗ hẹn"}]}
+    variants: {"already_saved": {"maps": {"saved_places": [{"id": "w18_saved_old", "place_id": "w18_old", "label": "Chỗ hẹn"}, {"id": "w18_saved_target", "place_id": "w18_lam", "label": "Nhãn cũ"}]}}}
+    readers: {"search": ["maps.search_place", "places", {"query": "Sửa Khóa Tùng Chỉ", "near": "Tòa Hạc Giấy"}, {"query": "Sửa Khóa Tùng Chỉ", "near": "Tòa Bạch Đào"}, {"query": "Sửa Khóa Tùng Chỉ"}, {"query": "*"}]}
+    witnesses: {"a": ["search", {"name": "Sửa Khóa Tùng Chỉ", "address": "18 Ngõ Gốm Đỏ", "detail": "Cạnh Tòa Hạc Giấy"}], "b": ["search", {"name": "Sửa Khóa Tùng Chỉ", "address": "27 Hẻm Đá Xanh", "detail": "Cạnh Tòa Bạch Đào"}]}
+
+scenarios:
+  - scenario_id: "TR18_WORK_A"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Hạc Giấy", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "work_address"
+      target: "a"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+
+  - scenario_id: "TR18_WORK_B"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Bạch Đào", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "work_address"
+      target: "b"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]
+
+  - scenario_id: "TR18_ADDRESS"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu tiệm Sửa Khóa Tùng Chỉ ở 18 Ngõ Gốm Đỏ với nhãn Chỗ làm chìa."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Bạch Đào", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "explicit_address"
+      target: "a"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+
+  - scenario_id: "TR18_WORDING"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tiệm Sửa Khóa Tùng Chỉ cạnh tòa mình làm ấy, lưu giúp mình tên Chỗ làm chìa nhé."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Hạc Giấy", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "work_address"
+      target: "a"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+
+  - scenario_id: "TR18_RELABEL"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "already_saved"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tìm tiệm Sửa Khóa Tùng Chỉ gần chỗ làm của mình rồi lưu lại với nhãn Chỗ làm chìa."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Hạc Giấy", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "work_address"
+      target: "a"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+
+  - scenario_id: "TR18_HOME"
+    world_id: "W_TR18_PROFILE_MAP"
+    lineage_id: "TRAIN_MAPS_UPSERT_06"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu tiệm Sửa Khóa Tùng Chỉ gần nhà mình dưới nhãn Chỗ làm chìa."
+      context: {"current_time": "2027-12-02T10:00:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"work_address": "Tòa Hạc Giấy", "home_address": "Tòa Bạch Đào"}}
+      history: []
+      allowed_tools: ["maps.search_place", "maps.save_place"]
+    oracle_draft:
+      outcome: "execute"
+      source: "home_address"
+      target: "b"
+      label: "Chỗ làm chìa"
+      actions: [["maps.save_place", {"place_id": "$b.id", "label": "Chỗ làm chìa"}]]
+      decision_evidence: []
+      counterexample: [["maps.save_place", {"place_id": "$a.id", "label": "Chỗ làm chìa"}]]

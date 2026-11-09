@@ -1,0 +1,2231 @@
+{
+  "dataset": "vnslu",
+  "labels": {
+    "quan": "QUAN-Transcribe-1.0: FP32 weights, FP16 autocast; explicit FP32 audio attention/features/CTC head; greedy CTC",
+    "gipformer": "GIPFormer 1.5: FP16 weights with mixed computation; greedy decoding",
+    "valsea": "VALSEA/Glot glot-transcribe: submitted correction/tags/diarization false; scored response text only"
+  },
+  "models": {
+    "quan": {
+      "overall": {
+        "n": 2401,
+        "wer_whitespace": 0.25807548452907175,
+        "cer": 0.21587307797644664,
+        "failure_rate": 0.0,
+        "word_errors": 8349,
+        "words": 32351,
+        "char_errors": 22070,
+        "chars": 102236,
+        "duration_seconds": 11768.119625,
+        "successful": 2401,
+        "errors": 0,
+        "empty_successful": 2
+      },
+      "by_intent": {
+        "bật nhạc": {
+          "n": 176,
+          "wer_whitespace": 0.3163651661758519,
+          "cer": 0.2687967541524027,
+          "failure_rate": 0.0,
+          "word_errors": 752,
+          "words": 2377,
+          "char_errors": 2120,
+          "chars": 7887,
+          "duration_seconds": 903.2978125,
+          "successful": 176,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "bật thiết bị": {
+          "n": 91,
+          "wer_whitespace": 0.2898989898989899,
+          "cer": 0.23360522022838498,
+          "failure_rate": 0.0,
+          "word_errors": 287,
+          "words": 990,
+          "char_errors": 716,
+          "chars": 3065,
+          "duration_seconds": 340.86,
+          "successful": 91,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm mức độ của thiết bị": {
+          "n": 9,
+          "wer_whitespace": 0.3106796116504854,
+          "cer": 0.29245283018867924,
+          "failure_rate": 0.0,
+          "word_errors": 32,
+          "words": 103,
+          "char_errors": 93,
+          "chars": 318,
+          "duration_seconds": 39.84,
+          "successful": 9,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm nhiệt độ của thiết bị": {
+          "n": 10,
+          "wer_whitespace": 0.32592592592592595,
+          "cer": 0.36855670103092786,
+          "failure_rate": 0.0,
+          "word_errors": 44,
+          "words": 135,
+          "char_errors": 143,
+          "chars": 388,
+          "duration_seconds": 53.88,
+          "successful": 10,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm âm lượng của thiết bị": {
+          "n": 3,
+          "wer_whitespace": 0.4473684210526316,
+          "cer": 0.37777777777777777,
+          "failure_rate": 0.0,
+          "word_errors": 17,
+          "words": 38,
+          "char_errors": 51,
+          "chars": 135,
+          "duration_seconds": 19.080000000000002,
+          "successful": 3,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm độ sáng của thiết bị": {
+          "n": 56,
+          "wer_whitespace": 0.4746317512274959,
+          "cer": 0.43675787299948376,
+          "failure_rate": 0.0,
+          "word_errors": 290,
+          "words": 611,
+          "char_errors": 846,
+          "chars": 1937,
+          "duration_seconds": 229.86,
+          "successful": 56,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gọi taxi": {
+          "n": 145,
+          "wer_whitespace": 0.25241157556270094,
+          "cer": 0.20562302445516553,
+          "failure_rate": 0.0,
+          "word_errors": 471,
+          "words": 1866,
+          "char_errors": 1236,
+          "chars": 6011,
+          "duration_seconds": 736.1329375,
+          "successful": 145,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý phim": {
+          "n": 180,
+          "wer_whitespace": 0.2393597671880684,
+          "cer": 0.20749542961608775,
+          "failure_rate": 0.0,
+          "word_errors": 658,
+          "words": 2749,
+          "char_errors": 1816,
+          "chars": 8752,
+          "duration_seconds": 985.9626875,
+          "successful": 180,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý địa điểm": {
+          "n": 126,
+          "wer_whitespace": 0.22066153149071138,
+          "cer": 0.1666423676920834,
+          "failure_rate": 0.0,
+          "word_errors": 487,
+          "words": 2207,
+          "char_errors": 1143,
+          "chars": 6859,
+          "duration_seconds": 760.9668125,
+          "successful": 126,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hỏi thông tin": {
+          "n": 76,
+          "wer_whitespace": 0.17073170731707318,
+          "cer": 0.14765784114052954,
+          "failure_rate": 0.0,
+          "word_errors": 154,
+          "words": 902,
+          "char_errors": 435,
+          "chars": 2946,
+          "duration_seconds": 346.589625,
+          "successful": 76,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hủy hoạt cảnh": {
+          "n": 21,
+          "wer_whitespace": 0.18345323741007194,
+          "cer": 0.15162037037037038,
+          "failure_rate": 0.0,
+          "word_errors": 51,
+          "words": 278,
+          "char_errors": 131,
+          "chars": 864,
+          "duration_seconds": 85.8,
+          "successful": 21,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kiểm tra tình trạng thiết bị": {
+          "n": 88,
+          "wer_whitespace": 0.22714932126696832,
+          "cer": 0.16816991562409078,
+          "failure_rate": 0.0,
+          "word_errors": 251,
+          "words": 1105,
+          "char_errors": 578,
+          "chars": 3437,
+          "duration_seconds": 350.16,
+          "successful": 88,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kích hoạt cảnh": {
+          "n": 39,
+          "wer_whitespace": 0.14591439688715954,
+          "cer": 0.12077294685990338,
+          "failure_rate": 0.0,
+          "word_errors": 75,
+          "words": 514,
+          "char_errors": 200,
+          "chars": 1656,
+          "duration_seconds": 181.38,
+          "successful": 39,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "mở thiết bị": {
+          "n": 86,
+          "wer_whitespace": 0.22149122807017543,
+          "cer": 0.1799333580155498,
+          "failure_rate": 0.0,
+          "word_errors": 202,
+          "words": 912,
+          "char_errors": 486,
+          "chars": 2701,
+          "duration_seconds": 311.7,
+          "successful": 86,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra công thức nấu ăn": {
+          "n": 161,
+          "wer_whitespace": 0.2210144927536232,
+          "cer": 0.17606880849987352,
+          "failure_rate": 0.0,
+          "word_errors": 549,
+          "words": 2484,
+          "char_errors": 1392,
+          "chars": 7906,
+          "duration_seconds": 941.959125,
+          "successful": 161,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu lịch": {
+          "n": 113,
+          "wer_whitespace": 0.24457831325301205,
+          "cer": 0.2128490529193517,
+          "failure_rate": 0.0,
+          "word_errors": 406,
+          "words": 1660,
+          "char_errors": 1090,
+          "chars": 5121,
+          "duration_seconds": 585.9469375,
+          "successful": 113,
+          "errors": 0,
+          "empty_successful": 1
+        },
+        "tra cứu thời tiết": {
+          "n": 147,
+          "wer_whitespace": 0.22974261201143947,
+          "cer": 0.1831610044313146,
+          "failure_rate": 0.0,
+          "word_errors": 482,
+          "words": 2098,
+          "char_errors": 1240,
+          "chars": 6770,
+          "duration_seconds": 746.6693125,
+          "successful": 147,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu đường đi": {
+          "n": 124,
+          "wer_whitespace": 0.298443370907139,
+          "cer": 0.23710154452842588,
+          "failure_rate": 0.0,
+          "word_errors": 556,
+          "words": 1863,
+          "char_errors": 1443,
+          "chars": 6086,
+          "duration_seconds": 672.40425,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng mức độ của thiết bị": {
+          "n": 7,
+          "wer_whitespace": 0.3010752688172043,
+          "cer": 0.2305084745762712,
+          "failure_rate": 0.0,
+          "word_errors": 28,
+          "words": 93,
+          "char_errors": 68,
+          "chars": 295,
+          "duration_seconds": 33.12,
+          "successful": 7,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng nhiệt độ của thiết bị": {
+          "n": 14,
+          "wer_whitespace": 0.28205128205128205,
+          "cer": 0.25252525252525254,
+          "failure_rate": 0.0,
+          "word_errors": 55,
+          "words": 195,
+          "char_errors": 150,
+          "chars": 594,
+          "duration_seconds": 70.98,
+          "successful": 14,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng âm lượng của thiết bị": {
+          "n": 5,
+          "wer_whitespace": 0.35714285714285715,
+          "cer": 0.27624309392265195,
+          "failure_rate": 0.0,
+          "word_errors": 20,
+          "words": 56,
+          "char_errors": 50,
+          "chars": 181,
+          "duration_seconds": 21.0,
+          "successful": 5,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng độ sáng của thiết bị": {
+          "n": 62,
+          "wer_whitespace": 0.47293447293447294,
+          "cer": 0.4785779398359161,
+          "failure_rate": 0.0,
+          "word_errors": 332,
+          "words": 702,
+          "char_errors": 1050,
+          "chars": 2194,
+          "duration_seconds": 271.38,
+          "successful": 62,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tắt thiết bị": {
+          "n": 80,
+          "wer_whitespace": 0.2690863579474343,
+          "cer": 0.20435308343409916,
+          "failure_rate": 0.0,
+          "word_errors": 215,
+          "words": 799,
+          "char_errors": 507,
+          "chars": 2481,
+          "duration_seconds": 289.1306875,
+          "successful": 80,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "xóa lịch": {
+          "n": 109,
+          "wer_whitespace": 0.2895419187554019,
+          "cer": 0.2515486129814166,
+          "failure_rate": 0.0,
+          "word_errors": 335,
+          "words": 1157,
+          "char_errors": 934,
+          "chars": 3713,
+          "duration_seconds": 469.3016875,
+          "successful": 109,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đóng thiết bị": {
+          "n": 96,
+          "wer_whitespace": 0.2463768115942029,
+          "cer": 0.18497827436374922,
+          "failure_rate": 0.0,
+          "word_errors": 255,
+          "words": 1035,
+          "char_errors": 596,
+          "chars": 3222,
+          "duration_seconds": 347.16,
+          "successful": 96,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt lịch": {
+          "n": 124,
+          "wer_whitespace": 0.2683060109289617,
+          "cer": 0.23839774130933475,
+          "failure_rate": 0.0,
+          "word_errors": 491,
+          "words": 1830,
+          "char_errors": 1351,
+          "chars": 5667,
+          "duration_seconds": 659.093,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt vé": {
+          "n": 123,
+          "wer_whitespace": 0.22032967032967032,
+          "cer": 0.1927797833935018,
+          "failure_rate": 0.0,
+          "word_errors": 401,
+          "words": 1820,
+          "char_errors": 1068,
+          "chars": 5540,
+          "duration_seconds": 687.0164375,
+          "successful": 123,
+          "errors": 0,
+          "empty_successful": 1
+        },
+        "đặt đồ ăn": {
+          "n": 130,
+          "wer_whitespace": 0.25564334085778784,
+          "cer": 0.20635208711433756,
+          "failure_rate": 0.0,
+          "word_errors": 453,
+          "words": 1772,
+          "char_errors": 1137,
+          "chars": 5510,
+          "duration_seconds": 627.4483125,
+          "successful": 130,
+          "errors": 0,
+          "empty_successful": 0
+        }
+      },
+      "uncertainty": {
+        "available": false,
+        "protocol": "established speaker-cluster bootstrap",
+        "reason": "Official release supplies no speaker/region metadata; no invented clusters or utterance bootstrap."
+      }
+    },
+    "gipformer": {
+      "overall": {
+        "n": 2401,
+        "wer_whitespace": 0.20296126858520602,
+        "cer": 0.17774560820063381,
+        "failure_rate": 0.0,
+        "word_errors": 6566,
+        "words": 32351,
+        "char_errors": 18172,
+        "chars": 102236,
+        "duration_seconds": 11768.119625,
+        "successful": 2401,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "by_intent": {
+        "bật nhạc": {
+          "n": 176,
+          "wer_whitespace": 0.27303323517038286,
+          "cer": 0.2299987320907823,
+          "failure_rate": 0.0,
+          "word_errors": 649,
+          "words": 2377,
+          "char_errors": 1814,
+          "chars": 7887,
+          "duration_seconds": 903.2978125,
+          "successful": 176,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "bật thiết bị": {
+          "n": 91,
+          "wer_whitespace": 0.16666666666666666,
+          "cer": 0.1468189233278956,
+          "failure_rate": 0.0,
+          "word_errors": 165,
+          "words": 990,
+          "char_errors": 450,
+          "chars": 3065,
+          "duration_seconds": 340.86,
+          "successful": 91,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm mức độ của thiết bị": {
+          "n": 9,
+          "wer_whitespace": 0.27184466019417475,
+          "cer": 0.22955974842767296,
+          "failure_rate": 0.0,
+          "word_errors": 28,
+          "words": 103,
+          "char_errors": 73,
+          "chars": 318,
+          "duration_seconds": 39.84,
+          "successful": 9,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm nhiệt độ của thiết bị": {
+          "n": 10,
+          "wer_whitespace": 0.2962962962962963,
+          "cer": 0.3247422680412371,
+          "failure_rate": 0.0,
+          "word_errors": 40,
+          "words": 135,
+          "char_errors": 126,
+          "chars": 388,
+          "duration_seconds": 53.88,
+          "successful": 10,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm âm lượng của thiết bị": {
+          "n": 3,
+          "wer_whitespace": 0.4473684210526316,
+          "cer": 0.35555555555555557,
+          "failure_rate": 0.0,
+          "word_errors": 17,
+          "words": 38,
+          "char_errors": 48,
+          "chars": 135,
+          "duration_seconds": 19.080000000000002,
+          "successful": 3,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm độ sáng của thiết bị": {
+          "n": 56,
+          "wer_whitespace": 0.3960720130932897,
+          "cer": 0.38926174496644295,
+          "failure_rate": 0.0,
+          "word_errors": 242,
+          "words": 611,
+          "char_errors": 754,
+          "chars": 1937,
+          "duration_seconds": 229.86,
+          "successful": 56,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gọi taxi": {
+          "n": 145,
+          "wer_whitespace": 0.18863879957127547,
+          "cer": 0.15637997005489934,
+          "failure_rate": 0.0,
+          "word_errors": 352,
+          "words": 1866,
+          "char_errors": 940,
+          "chars": 6011,
+          "duration_seconds": 736.1329375,
+          "successful": 145,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý phim": {
+          "n": 180,
+          "wer_whitespace": 0.20516551473263006,
+          "cer": 0.18121572212065815,
+          "failure_rate": 0.0,
+          "word_errors": 564,
+          "words": 2749,
+          "char_errors": 1586,
+          "chars": 8752,
+          "duration_seconds": 985.9626875,
+          "successful": 180,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý địa điểm": {
+          "n": 126,
+          "wer_whitespace": 0.1893973719981876,
+          "cer": 0.14929289983962676,
+          "failure_rate": 0.0,
+          "word_errors": 418,
+          "words": 2207,
+          "char_errors": 1024,
+          "chars": 6859,
+          "duration_seconds": 760.9668125,
+          "successful": 126,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hỏi thông tin": {
+          "n": 76,
+          "wer_whitespace": 0.12527716186252771,
+          "cer": 0.11575016972165648,
+          "failure_rate": 0.0,
+          "word_errors": 113,
+          "words": 902,
+          "char_errors": 341,
+          "chars": 2946,
+          "duration_seconds": 346.589625,
+          "successful": 76,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hủy hoạt cảnh": {
+          "n": 21,
+          "wer_whitespace": 0.14028776978417265,
+          "cer": 0.1261574074074074,
+          "failure_rate": 0.0,
+          "word_errors": 39,
+          "words": 278,
+          "char_errors": 109,
+          "chars": 864,
+          "duration_seconds": 85.8,
+          "successful": 21,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kiểm tra tình trạng thiết bị": {
+          "n": 88,
+          "wer_whitespace": 0.13936651583710408,
+          "cer": 0.11027058481233634,
+          "failure_rate": 0.0,
+          "word_errors": 154,
+          "words": 1105,
+          "char_errors": 379,
+          "chars": 3437,
+          "duration_seconds": 350.16,
+          "successful": 88,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kích hoạt cảnh": {
+          "n": 39,
+          "wer_whitespace": 0.1245136186770428,
+          "cer": 0.10265700483091787,
+          "failure_rate": 0.0,
+          "word_errors": 64,
+          "words": 514,
+          "char_errors": 170,
+          "chars": 1656,
+          "duration_seconds": 181.38,
+          "successful": 39,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "mở thiết bị": {
+          "n": 86,
+          "wer_whitespace": 0.16228070175438597,
+          "cer": 0.13032210292484264,
+          "failure_rate": 0.0,
+          "word_errors": 148,
+          "words": 912,
+          "char_errors": 352,
+          "chars": 2701,
+          "duration_seconds": 311.7,
+          "successful": 86,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra công thức nấu ăn": {
+          "n": 161,
+          "wer_whitespace": 0.16988727858293076,
+          "cer": 0.14343536554515557,
+          "failure_rate": 0.0,
+          "word_errors": 422,
+          "words": 2484,
+          "char_errors": 1134,
+          "chars": 7906,
+          "duration_seconds": 941.959125,
+          "successful": 161,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu lịch": {
+          "n": 113,
+          "wer_whitespace": 0.18734939759036146,
+          "cer": 0.1771138449521578,
+          "failure_rate": 0.0,
+          "word_errors": 311,
+          "words": 1660,
+          "char_errors": 907,
+          "chars": 5121,
+          "duration_seconds": 585.9469375,
+          "successful": 113,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu thời tiết": {
+          "n": 147,
+          "wer_whitespace": 0.16968541468064824,
+          "cer": 0.1500738552437223,
+          "failure_rate": 0.0,
+          "word_errors": 356,
+          "words": 2098,
+          "char_errors": 1016,
+          "chars": 6770,
+          "duration_seconds": 746.6693125,
+          "successful": 147,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu đường đi": {
+          "n": 124,
+          "wer_whitespace": 0.2721417069243156,
+          "cer": 0.21541242195202104,
+          "failure_rate": 0.0,
+          "word_errors": 507,
+          "words": 1863,
+          "char_errors": 1311,
+          "chars": 6086,
+          "duration_seconds": 672.40425,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng mức độ của thiết bị": {
+          "n": 7,
+          "wer_whitespace": 0.20430107526881722,
+          "cer": 0.15932203389830507,
+          "failure_rate": 0.0,
+          "word_errors": 19,
+          "words": 93,
+          "char_errors": 47,
+          "chars": 295,
+          "duration_seconds": 33.12,
+          "successful": 7,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng nhiệt độ của thiết bị": {
+          "n": 14,
+          "wer_whitespace": 0.23076923076923078,
+          "cer": 0.234006734006734,
+          "failure_rate": 0.0,
+          "word_errors": 45,
+          "words": 195,
+          "char_errors": 139,
+          "chars": 594,
+          "duration_seconds": 70.98,
+          "successful": 14,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng âm lượng của thiết bị": {
+          "n": 5,
+          "wer_whitespace": 0.25,
+          "cer": 0.19337016574585636,
+          "failure_rate": 0.0,
+          "word_errors": 14,
+          "words": 56,
+          "char_errors": 35,
+          "chars": 181,
+          "duration_seconds": 21.0,
+          "successful": 5,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng độ sáng của thiết bị": {
+          "n": 62,
+          "wer_whitespace": 0.4230769230769231,
+          "cer": 0.43208751139471285,
+          "failure_rate": 0.0,
+          "word_errors": 297,
+          "words": 702,
+          "char_errors": 948,
+          "chars": 2194,
+          "duration_seconds": 271.38,
+          "successful": 62,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tắt thiết bị": {
+          "n": 80,
+          "wer_whitespace": 0.15018773466833543,
+          "cer": 0.1180975413139863,
+          "failure_rate": 0.0,
+          "word_errors": 120,
+          "words": 799,
+          "char_errors": 293,
+          "chars": 2481,
+          "duration_seconds": 289.1306875,
+          "successful": 80,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "xóa lịch": {
+          "n": 109,
+          "wer_whitespace": 0.23681936041486604,
+          "cer": 0.21976838136277943,
+          "failure_rate": 0.0,
+          "word_errors": 274,
+          "words": 1157,
+          "char_errors": 816,
+          "chars": 3713,
+          "duration_seconds": 469.3016875,
+          "successful": 109,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đóng thiết bị": {
+          "n": 96,
+          "wer_whitespace": 0.14106280193236714,
+          "cer": 0.11328367473618871,
+          "failure_rate": 0.0,
+          "word_errors": 146,
+          "words": 1035,
+          "char_errors": 365,
+          "chars": 3222,
+          "duration_seconds": 347.16,
+          "successful": 96,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt lịch": {
+          "n": 124,
+          "wer_whitespace": 0.22459016393442624,
+          "cer": 0.21369331215810836,
+          "failure_rate": 0.0,
+          "word_errors": 411,
+          "words": 1830,
+          "char_errors": 1211,
+          "chars": 5667,
+          "duration_seconds": 659.093,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt vé": {
+          "n": 123,
+          "wer_whitespace": 0.17857142857142858,
+          "cer": 0.1644404332129964,
+          "failure_rate": 0.0,
+          "word_errors": 325,
+          "words": 1820,
+          "char_errors": 911,
+          "chars": 5540,
+          "duration_seconds": 687.0164375,
+          "successful": 123,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt đồ ăn": {
+          "n": 130,
+          "wer_whitespace": 0.18397291196388263,
+          "cer": 0.15843920145190563,
+          "failure_rate": 0.0,
+          "word_errors": 326,
+          "words": 1772,
+          "char_errors": 873,
+          "chars": 5510,
+          "duration_seconds": 627.4483125,
+          "successful": 130,
+          "errors": 0,
+          "empty_successful": 0
+        }
+      },
+      "uncertainty": {
+        "available": false,
+        "protocol": "established speaker-cluster bootstrap",
+        "reason": "Official release supplies no speaker/region metadata; no invented clusters or utterance bootstrap."
+      }
+    },
+    "valsea": {
+      "overall": {
+        "n": 2401,
+        "wer_whitespace": 0.17498686284813453,
+        "cer": 0.1250831409679565,
+        "failure_rate": 0.0,
+        "word_errors": 5661,
+        "words": 32351,
+        "char_errors": 12788,
+        "chars": 102236,
+        "duration_seconds": 11768.119625,
+        "successful": 2401,
+        "errors": 0,
+        "empty_successful": 0
+      },
+      "by_intent": {
+        "bật nhạc": {
+          "n": 176,
+          "wer_whitespace": 0.20109381573411864,
+          "cer": 0.13744135919868136,
+          "failure_rate": 0.0,
+          "word_errors": 478,
+          "words": 2377,
+          "char_errors": 1084,
+          "chars": 7887,
+          "duration_seconds": 903.2978125,
+          "successful": 176,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "bật thiết bị": {
+          "n": 91,
+          "wer_whitespace": 0.1505050505050505,
+          "cer": 0.10114192495921696,
+          "failure_rate": 0.0,
+          "word_errors": 149,
+          "words": 990,
+          "char_errors": 310,
+          "chars": 3065,
+          "duration_seconds": 340.86,
+          "successful": 91,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm mức độ của thiết bị": {
+          "n": 9,
+          "wer_whitespace": 0.17475728155339806,
+          "cer": 0.13522012578616352,
+          "failure_rate": 0.0,
+          "word_errors": 18,
+          "words": 103,
+          "char_errors": 43,
+          "chars": 318,
+          "duration_seconds": 39.84,
+          "successful": 9,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm nhiệt độ của thiết bị": {
+          "n": 10,
+          "wer_whitespace": 0.15555555555555556,
+          "cer": 0.07474226804123711,
+          "failure_rate": 0.0,
+          "word_errors": 21,
+          "words": 135,
+          "char_errors": 29,
+          "chars": 388,
+          "duration_seconds": 53.88,
+          "successful": 10,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm âm lượng của thiết bị": {
+          "n": 3,
+          "wer_whitespace": 0.15789473684210525,
+          "cer": 0.11851851851851852,
+          "failure_rate": 0.0,
+          "word_errors": 6,
+          "words": 38,
+          "char_errors": 16,
+          "chars": 135,
+          "duration_seconds": 19.080000000000002,
+          "successful": 3,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "giảm độ sáng của thiết bị": {
+          "n": 56,
+          "wer_whitespace": 0.18003273322422259,
+          "cer": 0.11874032008260196,
+          "failure_rate": 0.0,
+          "word_errors": 110,
+          "words": 611,
+          "char_errors": 230,
+          "chars": 1937,
+          "duration_seconds": 229.86,
+          "successful": 56,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gọi taxi": {
+          "n": 145,
+          "wer_whitespace": 0.16881028938906753,
+          "cer": 0.11612044584927633,
+          "failure_rate": 0.0,
+          "word_errors": 315,
+          "words": 1866,
+          "char_errors": 698,
+          "chars": 6011,
+          "duration_seconds": 736.1329375,
+          "successful": 145,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý phim": {
+          "n": 180,
+          "wer_whitespace": 0.1549654419789014,
+          "cer": 0.12042961608775136,
+          "failure_rate": 0.0,
+          "word_errors": 426,
+          "words": 2749,
+          "char_errors": 1054,
+          "chars": 8752,
+          "duration_seconds": 985.9626875,
+          "successful": 180,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "gợi ý địa điểm": {
+          "n": 126,
+          "wer_whitespace": 0.16855459900317174,
+          "cer": 0.11401078874471497,
+          "failure_rate": 0.0,
+          "word_errors": 372,
+          "words": 2207,
+          "char_errors": 782,
+          "chars": 6859,
+          "duration_seconds": 760.9668125,
+          "successful": 126,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hỏi thông tin": {
+          "n": 76,
+          "wer_whitespace": 0.1674057649667406,
+          "cer": 0.1296673455532926,
+          "failure_rate": 0.0,
+          "word_errors": 151,
+          "words": 902,
+          "char_errors": 382,
+          "chars": 2946,
+          "duration_seconds": 346.589625,
+          "successful": 76,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "hủy hoạt cảnh": {
+          "n": 21,
+          "wer_whitespace": 0.16546762589928057,
+          "cer": 0.1087962962962963,
+          "failure_rate": 0.0,
+          "word_errors": 46,
+          "words": 278,
+          "char_errors": 94,
+          "chars": 864,
+          "duration_seconds": 85.8,
+          "successful": 21,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kiểm tra tình trạng thiết bị": {
+          "n": 88,
+          "wer_whitespace": 0.18009049773755656,
+          "cer": 0.1239453011347105,
+          "failure_rate": 0.0,
+          "word_errors": 199,
+          "words": 1105,
+          "char_errors": 426,
+          "chars": 3437,
+          "duration_seconds": 350.16,
+          "successful": 88,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "kích hoạt cảnh": {
+          "n": 39,
+          "wer_whitespace": 0.05058365758754864,
+          "cer": 0.030193236714975844,
+          "failure_rate": 0.0,
+          "word_errors": 26,
+          "words": 514,
+          "char_errors": 50,
+          "chars": 1656,
+          "duration_seconds": 181.38,
+          "successful": 39,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "mở thiết bị": {
+          "n": 86,
+          "wer_whitespace": 0.15350877192982457,
+          "cer": 0.09663087745279526,
+          "failure_rate": 0.0,
+          "word_errors": 140,
+          "words": 912,
+          "char_errors": 261,
+          "chars": 2701,
+          "duration_seconds": 311.7,
+          "successful": 86,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra công thức nấu ăn": {
+          "n": 161,
+          "wer_whitespace": 0.1461352657004831,
+          "cer": 0.10713382241335695,
+          "failure_rate": 0.0,
+          "word_errors": 363,
+          "words": 2484,
+          "char_errors": 847,
+          "chars": 7906,
+          "duration_seconds": 941.959125,
+          "successful": 161,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu lịch": {
+          "n": 113,
+          "wer_whitespace": 0.19518072289156627,
+          "cer": 0.15309509861355203,
+          "failure_rate": 0.0,
+          "word_errors": 324,
+          "words": 1660,
+          "char_errors": 784,
+          "chars": 5121,
+          "duration_seconds": 585.9469375,
+          "successful": 113,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu thời tiết": {
+          "n": 147,
+          "wer_whitespace": 0.16968541468064824,
+          "cer": 0.12909896602658788,
+          "failure_rate": 0.0,
+          "word_errors": 356,
+          "words": 2098,
+          "char_errors": 874,
+          "chars": 6770,
+          "duration_seconds": 746.6693125,
+          "successful": 147,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tra cứu đường đi": {
+          "n": 124,
+          "wer_whitespace": 0.2436929683306495,
+          "cer": 0.14837331580676963,
+          "failure_rate": 0.0,
+          "word_errors": 454,
+          "words": 1863,
+          "char_errors": 903,
+          "chars": 6086,
+          "duration_seconds": 672.40425,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng mức độ của thiết bị": {
+          "n": 7,
+          "wer_whitespace": 0.12903225806451613,
+          "cer": 0.08135593220338982,
+          "failure_rate": 0.0,
+          "word_errors": 12,
+          "words": 93,
+          "char_errors": 24,
+          "chars": 295,
+          "duration_seconds": 33.12,
+          "successful": 7,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng nhiệt độ của thiết bị": {
+          "n": 14,
+          "wer_whitespace": 0.12307692307692308,
+          "cer": 0.0707070707070707,
+          "failure_rate": 0.0,
+          "word_errors": 24,
+          "words": 195,
+          "char_errors": 42,
+          "chars": 594,
+          "duration_seconds": 70.98,
+          "successful": 14,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng âm lượng của thiết bị": {
+          "n": 5,
+          "wer_whitespace": 0.375,
+          "cer": 0.20441988950276244,
+          "failure_rate": 0.0,
+          "word_errors": 21,
+          "words": 56,
+          "char_errors": 37,
+          "chars": 181,
+          "duration_seconds": 21.0,
+          "successful": 5,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tăng độ sáng của thiết bị": {
+          "n": 62,
+          "wer_whitespace": 0.13817663817663817,
+          "cer": 0.0861440291704649,
+          "failure_rate": 0.0,
+          "word_errors": 97,
+          "words": 702,
+          "char_errors": 189,
+          "chars": 2194,
+          "duration_seconds": 271.38,
+          "successful": 62,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "tắt thiết bị": {
+          "n": 80,
+          "wer_whitespace": 0.16270337922403003,
+          "cer": 0.11729141475211609,
+          "failure_rate": 0.0,
+          "word_errors": 130,
+          "words": 799,
+          "char_errors": 291,
+          "chars": 2481,
+          "duration_seconds": 289.1306875,
+          "successful": 80,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "xóa lịch": {
+          "n": 109,
+          "wer_whitespace": 0.27398444252376836,
+          "cer": 0.2213843253433881,
+          "failure_rate": 0.0,
+          "word_errors": 317,
+          "words": 1157,
+          "char_errors": 822,
+          "chars": 3713,
+          "duration_seconds": 469.3016875,
+          "successful": 109,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đóng thiết bị": {
+          "n": 96,
+          "wer_whitespace": 0.18164251207729468,
+          "cer": 0.11607697082557418,
+          "failure_rate": 0.0,
+          "word_errors": 188,
+          "words": 1035,
+          "char_errors": 374,
+          "chars": 3222,
+          "duration_seconds": 347.16,
+          "successful": 96,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt lịch": {
+          "n": 124,
+          "wer_whitespace": 0.15245901639344261,
+          "cer": 0.10446444326804305,
+          "failure_rate": 0.0,
+          "word_errors": 279,
+          "words": 1830,
+          "char_errors": 592,
+          "chars": 5667,
+          "duration_seconds": 659.093,
+          "successful": 124,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt vé": {
+          "n": 123,
+          "wer_whitespace": 0.1554945054945055,
+          "cer": 0.1187725631768953,
+          "failure_rate": 0.0,
+          "word_errors": 283,
+          "words": 1820,
+          "char_errors": 658,
+          "chars": 5540,
+          "duration_seconds": 687.0164375,
+          "successful": 123,
+          "errors": 0,
+          "empty_successful": 0
+        },
+        "đặt đồ ăn": {
+          "n": 130,
+          "wer_whitespace": 0.20090293453724606,
+          "cer": 0.1618874773139746,
+          "failure_rate": 0.0,
+          "word_errors": 356,
+          "words": 1772,
+          "char_errors": 892,
+          "chars": 5510,
+          "duration_seconds": 627.4483125,
+          "successful": 130,
+          "errors": 0,
+          "empty_successful": 0
+        }
+      },
+      "uncertainty": {
+        "available": false,
+        "protocol": "established speaker-cluster bootstrap",
+        "reason": "Official release supplies no speaker/region metadata; no invented clusters or utterance bootstrap."
+      }
+    }
+  },
+  "paired": {
+    "quan_minus_gipformer": {
+      "overall": {
+        "delta_wer_percentage_points": 5.511421594386573,
+        "delta_cer_percentage_points": 3.812746977581283,
+        "uncertainty": {
+          "available": false,
+          "reason": "No supplied speaker/region metadata; no substitute bootstrap."
+        },
+        "quan_edit_counts_relative_to_baseline": {
+          "word": {
+            "lower": 211,
+            "equal": 1039,
+            "higher": 1151
+          },
+          "character": {
+            "lower": 299,
+            "equal": 859,
+            "higher": 1243
+          }
+        }
+      },
+      "descriptive_by_intent": {
+        "bật nhạc": {
+          "n": 176,
+          "words": 2377,
+          "chars": 7887,
+          "delta_wer_percentage_points": 4.3331931005469055,
+          "delta_cer_percentage_points": 3.8798022061620365
+        },
+        "bật thiết bị": {
+          "n": 91,
+          "words": 990,
+          "chars": 3065,
+          "delta_wer_percentage_points": 12.323232323232322,
+          "delta_cer_percentage_points": 8.67862969004894
+        },
+        "giảm mức độ của thiết bị": {
+          "n": 9,
+          "words": 103,
+          "chars": 318,
+          "delta_wer_percentage_points": 3.8834951456310662,
+          "delta_cer_percentage_points": 6.2893081761006275
+        },
+        "giảm nhiệt độ của thiết bị": {
+          "n": 10,
+          "words": 135,
+          "chars": 388,
+          "delta_wer_percentage_points": 2.9629629629629672,
+          "delta_cer_percentage_points": 4.3814432989690735
+        },
+        "giảm âm lượng của thiết bị": {
+          "n": 3,
+          "words": 38,
+          "chars": 135,
+          "delta_wer_percentage_points": 0.0,
+          "delta_cer_percentage_points": 2.2222222222222197
+        },
+        "giảm độ sáng của thiết bị": {
+          "n": 56,
+          "words": 611,
+          "chars": 1937,
+          "delta_wer_percentage_points": 7.855973813420619,
+          "delta_cer_percentage_points": 4.749612803304082
+        },
+        "gọi taxi": {
+          "n": 145,
+          "words": 1866,
+          "chars": 6011,
+          "delta_wer_percentage_points": 6.377277599142547,
+          "delta_cer_percentage_points": 4.924305440026619
+        },
+        "gợi ý phim": {
+          "n": 180,
+          "words": 2749,
+          "chars": 8752,
+          "delta_wer_percentage_points": 3.4194252455438336,
+          "delta_cer_percentage_points": 2.62797074954296
+        },
+        "gợi ý địa điểm": {
+          "n": 126,
+          "words": 2207,
+          "chars": 6859,
+          "delta_wer_percentage_points": 3.1264159492523786,
+          "delta_cer_percentage_points": 1.734946785245664
+        },
+        "hỏi thông tin": {
+          "n": 76,
+          "words": 902,
+          "chars": 2946,
+          "delta_wer_percentage_points": 4.545454545454547,
+          "delta_cer_percentage_points": 3.190767141887306
+        },
+        "hủy hoạt cảnh": {
+          "n": 21,
+          "words": 278,
+          "chars": 864,
+          "delta_wer_percentage_points": 4.316546762589929,
+          "delta_cer_percentage_points": 2.5462962962962967
+        },
+        "kiểm tra tình trạng thiết bị": {
+          "n": 88,
+          "words": 1105,
+          "chars": 3437,
+          "delta_wer_percentage_points": 8.778280542986424,
+          "delta_cer_percentage_points": 5.789933081175444
+        },
+        "kích hoạt cảnh": {
+          "n": 39,
+          "words": 514,
+          "chars": 1656,
+          "delta_wer_percentage_points": 2.140077821011674,
+          "delta_cer_percentage_points": 1.8115942028985503
+        },
+        "mở thiết bị": {
+          "n": 86,
+          "words": 912,
+          "chars": 2701,
+          "delta_wer_percentage_points": 5.921052631578946,
+          "delta_cer_percentage_points": 4.961125509070715
+        },
+        "tra công thức nấu ăn": {
+          "n": 161,
+          "words": 2484,
+          "chars": 7906,
+          "delta_wer_percentage_points": 5.112721417069244,
+          "delta_cer_percentage_points": 3.2633442954717955
+        },
+        "tra cứu lịch": {
+          "n": 113,
+          "words": 1660,
+          "chars": 5121,
+          "delta_wer_percentage_points": 5.7228915662650595,
+          "delta_cer_percentage_points": 3.57352079671939
+        },
+        "tra cứu thời tiết": {
+          "n": 147,
+          "words": 2098,
+          "chars": 6770,
+          "delta_wer_percentage_points": 6.005719733079124,
+          "delta_cer_percentage_points": 3.3087149187592315
+        },
+        "tra cứu đường đi": {
+          "n": 124,
+          "words": 1863,
+          "chars": 6086,
+          "delta_wer_percentage_points": 2.630166398282341,
+          "delta_cer_percentage_points": 2.1689122576404847
+        },
+        "tăng mức độ của thiết bị": {
+          "n": 7,
+          "words": 93,
+          "chars": 295,
+          "delta_wer_percentage_points": 9.67741935483871,
+          "delta_cer_percentage_points": 7.118644067796612
+        },
+        "tăng nhiệt độ của thiết bị": {
+          "n": 14,
+          "words": 195,
+          "chars": 594,
+          "delta_wer_percentage_points": 5.128205128205127,
+          "delta_cer_percentage_points": 1.8518518518518545
+        },
+        "tăng âm lượng của thiết bị": {
+          "n": 5,
+          "words": 56,
+          "chars": 181,
+          "delta_wer_percentage_points": 10.714285714285715,
+          "delta_cer_percentage_points": 8.287292817679559
+        },
+        "tăng độ sáng của thiết bị": {
+          "n": 62,
+          "words": 702,
+          "chars": 2194,
+          "delta_wer_percentage_points": 4.985754985754987,
+          "delta_cer_percentage_points": 4.649042844120327
+        },
+        "tắt thiết bị": {
+          "n": 80,
+          "words": 799,
+          "chars": 2481,
+          "delta_wer_percentage_points": 11.889862327909887,
+          "delta_cer_percentage_points": 8.625554212011286
+        },
+        "xóa lịch": {
+          "n": 109,
+          "words": 1157,
+          "chars": 3713,
+          "delta_wer_percentage_points": 5.272255834053588,
+          "delta_cer_percentage_points": 3.178023161863719
+        },
+        "đóng thiết bị": {
+          "n": 96,
+          "words": 1035,
+          "chars": 3222,
+          "delta_wer_percentage_points": 10.531400966183577,
+          "delta_cer_percentage_points": 7.169459962756052
+        },
+        "đặt lịch": {
+          "n": 124,
+          "words": 1830,
+          "chars": 5667,
+          "delta_wer_percentage_points": 4.371584699453549,
+          "delta_cer_percentage_points": 2.4704429151226392
+        },
+        "đặt vé": {
+          "n": 123,
+          "words": 1820,
+          "chars": 5540,
+          "delta_wer_percentage_points": 4.175824175824175,
+          "delta_cer_percentage_points": 2.83393501805054
+        },
+        "đặt đồ ăn": {
+          "n": 130,
+          "words": 1772,
+          "chars": 5510,
+          "delta_wer_percentage_points": 7.167042889390521,
+          "delta_cer_percentage_points": 4.791288566243193
+        }
+      }
+    },
+    "quan_minus_valsea": {
+      "overall": {
+        "delta_wer_percentage_points": 8.308862168093722,
+        "delta_cer_percentage_points": 9.078993700849015,
+        "uncertainty": {
+          "available": false,
+          "reason": "No supplied speaker/region metadata; no substitute bootstrap."
+        },
+        "quan_edit_counts_relative_to_baseline": {
+          "word": {
+            "lower": 417,
+            "equal": 547,
+            "higher": 1437
+          },
+          "character": {
+            "lower": 438,
+            "equal": 368,
+            "higher": 1595
+          }
+        }
+      },
+      "descriptive_by_intent": {
+        "bật nhạc": {
+          "n": 176,
+          "words": 2377,
+          "chars": 7887,
+          "delta_wer_percentage_points": 11.527135044173328,
+          "delta_cer_percentage_points": 13.13553949537213
+        },
+        "bật thiết bị": {
+          "n": 91,
+          "words": 990,
+          "chars": 3065,
+          "delta_wer_percentage_points": 13.939393939393938,
+          "delta_cer_percentage_points": 13.2463295269168
+        },
+        "giảm mức độ của thiết bị": {
+          "n": 9,
+          "words": 103,
+          "chars": 318,
+          "delta_wer_percentage_points": 13.592233009708735,
+          "delta_cer_percentage_points": 15.723270440251572
+        },
+        "giảm nhiệt độ của thiết bị": {
+          "n": 10,
+          "words": 135,
+          "chars": 388,
+          "delta_wer_percentage_points": 17.037037037037038,
+          "delta_cer_percentage_points": 29.381443298969074
+        },
+        "giảm âm lượng của thiết bị": {
+          "n": 3,
+          "words": 38,
+          "chars": 135,
+          "delta_wer_percentage_points": 28.947368421052634,
+          "delta_cer_percentage_points": 25.925925925925924
+        },
+        "giảm độ sáng của thiết bị": {
+          "n": 56,
+          "words": 611,
+          "chars": 1937,
+          "delta_wer_percentage_points": 29.45990180032733,
+          "delta_cer_percentage_points": 31.80175529168818
+        },
+        "gọi taxi": {
+          "n": 145,
+          "words": 1866,
+          "chars": 6011,
+          "delta_wer_percentage_points": 8.36012861736334,
+          "delta_cer_percentage_points": 8.95025786058892
+        },
+        "gợi ý phim": {
+          "n": 180,
+          "words": 2749,
+          "chars": 8752,
+          "delta_wer_percentage_points": 8.439432520916698,
+          "delta_cer_percentage_points": 8.706581352833638
+        },
+        "gợi ý địa điểm": {
+          "n": 126,
+          "words": 2207,
+          "chars": 6859,
+          "delta_wer_percentage_points": 5.210693248753964,
+          "delta_cer_percentage_points": 5.263157894736843
+        },
+        "hỏi thông tin": {
+          "n": 76,
+          "words": 902,
+          "chars": 2946,
+          "delta_wer_percentage_points": 0.33259423503325947,
+          "delta_cer_percentage_points": 1.799049558723695
+        },
+        "hủy hoạt cảnh": {
+          "n": 21,
+          "words": 278,
+          "chars": 864,
+          "delta_wer_percentage_points": 1.7985611510791366,
+          "delta_cer_percentage_points": 4.282407407407408
+        },
+        "kiểm tra tình trạng thiết bị": {
+          "n": 88,
+          "words": 1105,
+          "chars": 3437,
+          "delta_wer_percentage_points": 4.705882352941177,
+          "delta_cer_percentage_points": 4.422461448938028
+        },
+        "kích hoạt cảnh": {
+          "n": 39,
+          "words": 514,
+          "chars": 1656,
+          "delta_wer_percentage_points": 9.533073929961091,
+          "delta_cer_percentage_points": 9.057971014492754
+        },
+        "mở thiết bị": {
+          "n": 86,
+          "words": 912,
+          "chars": 2701,
+          "delta_wer_percentage_points": 6.798245614035086,
+          "delta_cer_percentage_points": 8.330248056275453
+        },
+        "tra công thức nấu ăn": {
+          "n": 161,
+          "words": 2484,
+          "chars": 7906,
+          "delta_wer_percentage_points": 7.487922705314009,
+          "delta_cer_percentage_points": 6.893498608651657
+        },
+        "tra cứu lịch": {
+          "n": 113,
+          "words": 1660,
+          "chars": 5121,
+          "delta_wer_percentage_points": 4.9397590361445785,
+          "delta_cer_percentage_points": 5.975395430579966
+        },
+        "tra cứu thời tiết": {
+          "n": 147,
+          "words": 2098,
+          "chars": 6770,
+          "delta_wer_percentage_points": 6.005719733079124,
+          "delta_cer_percentage_points": 5.406203840472673
+        },
+        "tra cứu đường đi": {
+          "n": 124,
+          "words": 1863,
+          "chars": 6086,
+          "delta_wer_percentage_points": 5.475040257648953,
+          "delta_cer_percentage_points": 8.872822872165626
+        },
+        "tăng mức độ của thiết bị": {
+          "n": 7,
+          "words": 93,
+          "chars": 295,
+          "delta_wer_percentage_points": 17.20430107526882,
+          "delta_cer_percentage_points": 14.915254237288137
+        },
+        "tăng nhiệt độ của thiết bị": {
+          "n": 14,
+          "words": 195,
+          "chars": 594,
+          "delta_wer_percentage_points": 15.897435897435896,
+          "delta_cer_percentage_points": 18.181818181818183
+        },
+        "tăng âm lượng của thiết bị": {
+          "n": 5,
+          "words": 56,
+          "chars": 181,
+          "delta_wer_percentage_points": -1.785714285714285,
+          "delta_cer_percentage_points": 7.182320441988951
+        },
+        "tăng độ sáng của thiết bị": {
+          "n": 62,
+          "words": 702,
+          "chars": 2194,
+          "delta_wer_percentage_points": 33.47578347578348,
+          "delta_cer_percentage_points": 39.24339106654512
+        },
+        "tắt thiết bị": {
+          "n": 80,
+          "words": 799,
+          "chars": 2481,
+          "delta_wer_percentage_points": 10.638297872340427,
+          "delta_cer_percentage_points": 8.706166868198308
+        },
+        "xóa lịch": {
+          "n": 109,
+          "words": 1157,
+          "chars": 3713,
+          "delta_wer_percentage_points": 1.555747623163356,
+          "delta_cer_percentage_points": 3.0164287638028533
+        },
+        "đóng thiết bị": {
+          "n": 96,
+          "words": 1035,
+          "chars": 3222,
+          "delta_wer_percentage_points": 6.473429951690823,
+          "delta_cer_percentage_points": 6.890130353817504
+        },
+        "đặt lịch": {
+          "n": 124,
+          "words": 1830,
+          "chars": 5667,
+          "delta_wer_percentage_points": 11.584699453551911,
+          "delta_cer_percentage_points": 13.39332980412917
+        },
+        "đặt vé": {
+          "n": 123,
+          "words": 1820,
+          "chars": 5540,
+          "delta_wer_percentage_points": 6.483516483516483,
+          "delta_cer_percentage_points": 7.400722021660649
+        },
+        "đặt đồ ăn": {
+          "n": 130,
+          "words": 1772,
+          "chars": 5510,
+          "delta_wer_percentage_points": 5.474040632054178,
+          "delta_cer_percentage_points": 4.446460980036296
+        }
+      }
+    }
+  },
+  "normalizer": "nfc-lower-punctuation-space-v1",
+  "scoring": {
+    "wer": "corpus whitespace-token Levenshtein edits / summed reference tokens",
+    "cer": "corpus Unicode code-point edits / summed reference characters, normalized spaces removed",
+    "normalization": "NFC; lowercase; Unicode P* punctuation to spaces; split/join whitespace collapse",
+    "number_normalization": false,
+    "diacritics_fillers_repetitions": "preserved",
+    "failure_policy": "error hypotheses scored as empty; full reference denominators retained",
+    "empty_successful_policy": "included unchanged; full reference denominators retained",
+    "python": "3.14.2",
+    "unicode": "16.0.0"
+  },
+  "bootstrap": null,
+  "validation": {
+    "quan": {
+      "run_id": "quan_vnslu_fp16amp_20261107_01",
+      "coverage": {
+        "expected": 2401,
+        "recorded": 2401,
+        "remaining": 0,
+        "coverage_complete": true,
+        "successful": 2401,
+        "errors": 0,
+        "empty_successful_count": 2,
+        "empty_successful_transcripts": [
+          "VN-SLU/test/659ea4ef3e9a97673ad897c8",
+          "VN-SLU/test/659ebc663e9a97673ad89866"
+        ],
+        "all_successful_inference": true
+      },
+      "configuration": {
+        "model": "qnguyen3/QUAN-Transcribe-1.0",
+        "base": "google/embeddinggemma-2",
+        "revisions": {
+          "model": "a08726d9fffeb5f16fc1ab05eecc8ad0b86af5a0",
+          "code": "88ddcd2130a3c355d081bc002439f29e5e849060",
+          "encoder": "f9972ac22e696a105c482202646979e33e4b5a1e",
+          "tokenizer": "f9972ac22e696a105c482202646979e33e4b5a1e",
+          "feature_extractor": "f9972ac22e696a105c482202646979e33e4b5a1e"
+        },
+        "mode": "vnslu",
+        "python": "3.12.12",
+        "uv": "0.9.21",
+        "precision": "FP32 weights; FP16 CUDA autocast; explicit FP32 log-mel, Gemma audio attention and CTC head",
+        "audio_attention": "FP32 island preserves original mask and invalid-logit sentinel; no fallback",
+        "base_loading": "BF16 CPU deserialization then FP32, as upstream; not BF16 inference",
+        "decoder": "greedy CTC argmax, collapse repeats, drop blank; use_lm=False",
+        "device": "cuda:0",
+        "batch_size": 1,
+        "streaming": false,
+        "seed": 20261031,
+        "deterministic_algorithms": true,
+        "chunk_samples": 480000,
+        "chunk_policy": "contiguous <=30s, keep every sample including short tail; no VAD/quiet splitting",
+        "preprocessing": "shared CPU float32 mono mean + scipy resample_poly to 16k; no trimming",
+        "measured_passes": 1,
+        "warmup": "first unfinished clip of each pass, separately excluded from measured predictions",
+        "latency_scope": "synchronized waveform-to-text including chunking/features/transfer/CTC; excludes preparation/load/warmup"
+      },
+      "sessions": [
+        {
+          "stage": "completed",
+          "run_id": "quan_vnslu_fp16amp_20261107_01",
+          "python": "3.12.12 (main, Dec 17 2025, 21:10:06) [Clang 21.1.4 ]",
+          "executable": "/kaggle/working/quan_benchmark/quan_runtime/vnslu/quan_vnslu_fp16amp_20261107_01/venv/bin/python",
+          "started_utc": "2026-11-07T16:06:22Z",
+          "checkpoint_unexpected_keys": [],
+          "audio_attention_fp32_modules": 12,
+          "attention_invalid_logits_values": [
+            -1000000000.0
+          ],
+          "device": "Tesla T4",
+          "visible_gpus": 1,
+          "compute_capability": [
+            7,
+            5
+          ],
+          "torch_cuda": "12.8",
+          "parameter_dtypes": [
+            "torch.float32"
+          ],
+          "autocast": "torch.float16",
+          "preprocessing": "torch.float32",
+          "revisions": {
+            "model": "a08726d9fffeb5f16fc1ab05eecc8ad0b86af5a0",
+            "code": "88ddcd2130a3c355d081bc002439f29e5e849060",
+            "encoder": "f9972ac22e696a105c482202646979e33e4b5a1e",
+            "tokenizer": "f9972ac22e696a105c482202646979e33e4b5a1e",
+            "feature_extractor": "f9972ac22e696a105c482202646979e33e4b5a1e"
+          },
+          "model_load_seconds": 17.714792567999666,
+          "autocast_observed": "torch.float16",
+          "audio_attention_fp32_calls": 28824,
+          "audio_attention_output_dtype": "torch.float32",
+          "logits_dtype": "torch.float32",
+          "child_exit_code": 0,
+          "ended_utc": "2026-11-07T16:12:12Z"
+        }
+      ],
+      "checkpoint_missing_encoder_keys": 707,
+      "checkpoint_unexpected_keys": []
+    },
+    "baselines_reproduced": true,
+    "baseline_attempt_audits": {
+      "smoke": {
+        "run_id": "valsea_vnslu_dev_smoke_20261102_01",
+        "coverage": {
+          "expected": 6,
+          "attempted_samples": 6,
+          "request_attempts": 6,
+          "successful": 6,
+          "failed_attempts": 0,
+          "unresolved_attempts": 0,
+          "historical_unknown_remote_outcomes": 0,
+          "source_error_events": 0,
+          "blocked_sample_ids": [],
+          "remaining": 0,
+          "empty_successful_transcripts": [],
+          "coverage_complete": true,
+          "review_status": "pending_human_review",
+          "exactly_once_remote_processing": "not guaranteed"
+        },
+        "events": {
+          "started": 6,
+          "ok": 6
+        },
+        "sessions": [
+          {
+            "started_utc": "2026-11-02T09:04:53.391067+00:00",
+            "mode": "smoke",
+            "resume": false,
+            "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "numpy": "2.4.3",
+              "scipy": "1.17.1",
+              "soundfile": "0.13.1",
+              "pyarrow": "23.0.1",
+              "fsspec": "2026.2.0",
+              "aiohttp": "3.13.3"
+            },
+            "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+            "account_model_confirmed": "glot-transcribe",
+            "status": "completed",
+            "ended_utc": "2026-11-02T09:05:47.701005+00:00"
+          },
+          {
+            "started_utc": "2026-11-02T09:06:17.369986+00:00",
+            "mode": "smoke",
+            "resume": true,
+            "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "numpy": "2.4.3",
+              "scipy": "1.17.1",
+              "soundfile": "0.13.1",
+              "pyarrow": "23.0.1",
+              "fsspec": "2026.2.0",
+              "aiohttp": "3.13.3"
+            },
+            "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+            "account_model_confirmed": "glot-transcribe",
+            "status": "completed",
+            "ended_utc": "2026-11-02T09:06:17.376230+00:00"
+          }
+        ],
+        "historical_outcomes": []
+      },
+      "full": {
+        "run_id": "valsea_vnslu_test_20261102_01",
+        "coverage": {
+          "expected": 2401,
+          "attempted_samples": 2401,
+          "request_attempts": 2402,
+          "successful": 2401,
+          "failed_attempts": 0,
+          "unresolved_attempts": 0,
+          "historical_unknown_remote_outcomes": 1,
+          "source_error_events": 0,
+          "blocked_sample_ids": [],
+          "remaining": 0,
+          "empty_successful_transcripts": [],
+          "coverage_complete": true,
+          "review_status": "pending_human_review",
+          "exactly_once_remote_processing": "not guaranteed"
+        },
+        "events": {
+          "started": 2402,
+          "ok": 2401,
+          "unresolved": 1,
+          "retry_authorized": 1
+        },
+        "sessions": [
+          {
+            "started_utc": "2026-11-02T09:07:10.999343+00:00",
+            "mode": "full",
+            "resume": false,
+            "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "numpy": "2.4.3",
+              "scipy": "1.17.1",
+              "soundfile": "0.13.1",
+              "pyarrow": "23.0.1",
+              "fsspec": "2026.2.0",
+              "aiohttp": "3.13.3"
+            },
+            "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+            "account_model_confirmed": "glot-transcribe",
+            "status": "stopped",
+            "error_type": "RuntimeError",
+            "message": "Stopped; inspect attempt log and completion summary. No automatic retry.",
+            "ended_utc": "2026-11-02T11:47:18.505932+00:00"
+          },
+          {
+            "started_utc": "2026-11-02T13:39:13.637210+00:00",
+            "mode": "full",
+            "resume": true,
+            "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "numpy": "2.4.3",
+              "scipy": "1.17.1",
+              "soundfile": "0.13.1",
+              "pyarrow": "23.0.1",
+              "fsspec": "2026.2.0",
+              "aiohttp": "3.13.3"
+            },
+            "account_endpoint_confirmed": "https://api.glotlabs.ai/v1/audio/transcriptions",
+            "account_model_confirmed": "glot-transcribe",
+            "status": "completed",
+            "ended_utc": "2026-11-02T13:43:36.426609+00:00"
+          }
+        ],
+        "historical_outcomes": [
+          {
+            "event": "unresolved",
+            "sample_id": "VN-SLU/test/659d1013ff471bbe244b9ccd",
+            "attempt": 2340,
+            "timestamp": "2026-11-02T11:47:18.467572+00:00",
+            "http_status": 502,
+            "error_type": "server_outcome_unknown",
+            "note": null
+          },
+          {
+            "event": "retry_authorized",
+            "sample_id": "VN-SLU/test/659d1013ff471bbe244b9ccd",
+            "attempt": 2340,
+            "timestamp": "2026-11-02T13:39:13.648909+00:00",
+            "http_status": null,
+            "error_type": null,
+            "note": "Operator authorizes retry after HTTP 502; previous remote outcome remains unknown and possible duplicate billing is accepted."
+          }
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "quan_review": "docs\\implementation\\QUAN_VNSLU_RESULT_REVIEW.md",
+    "quan_run": "artifacts\\kaggle_quan_vnslu_test\\quan_vnslu_fp16amp_20261107_01",
+    "quan_revisions": {
+      "model": "a08726d9fffeb5f16fc1ab05eecc8ad0b86af5a0",
+      "code": "88ddcd2130a3c355d081bc002439f29e5e849060",
+      "encoder": "f9972ac22e696a105c482202646979e33e4b5a1e",
+      "tokenizer": "f9972ac22e696a105c482202646979e33e4b5a1e",
+      "feature_extractor": "f9972ac22e696a105c482202646979e33e4b5a1e"
+    },
+    "canonical_manifest": "manifests\\vnslu_test.json",
+    "baseline_comparison": "artifacts\\scoring\\valsea_vs_gipformer_vnslu_20261102",
+    "baseline_provenance": {
+      "dataset": {
+        "dataset": "VN-SLU",
+        "author_repository": "https://github.com/tuyen-tran1/VN-SLU",
+        "repository_revision": "aad93e560f8ec4ab979e76d5dfe36528160b797f",
+        "download_folder": "https://drive.google.com/drive/folders/1BDKK8vg-tByTY2EUWi6aYDjqG1NIFG8H",
+        "retrieved_utc": "2026-11-02T04:18:29.627357+00:00",
+        "annotation_sources": {
+          "train.jsonl": {
+            "drive_id": "1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP",
+            "url": "https://drive.usercontent.google.com/download?id=1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP&export=download",
+            "bytes": 5168518
+          },
+          "dev.jsonl": {
+            "drive_id": "1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7",
+            "url": "https://drive.usercontent.google.com/download?id=1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7&export=download",
+            "bytes": 604017
+          },
+          "test.jsonl": {
+            "drive_id": "1SU0j995v8Ue_0BRYSac3wMdryctlSrU-",
+            "url": "https://drive.usercontent.google.com/download?id=1SU0j995v8Ue_0BRYSac3wMdryctlSrU-&export=download",
+            "bytes": 1084071
+          }
+        },
+        "archive": {
+          "name": "data.zip",
+          "drive_id": "1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB",
+          "url": "https://drive.usercontent.google.com/download?id=1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB&export=download",
+          "bytes": 1805174687,
+          "central_directory_offset": 1803286411,
+          "central_directory_sha256": "de4f8321203695c883dba4351c2ce5b98378f2e60e9cdab669006ef303f69adb",
+          "revision": null,
+          "identity_note": "Mutable author-linked Drive download; directory fingerprint and supplied ZIP CRCs, not a full archive checksum.",
+          "acquisition": "HTTP ranges for test member intervals; no train/dev WAV export"
+        },
+        "license": "not found",
+        "split_assignment": "Author-linked test.jsonl; no reconstruction from IDs or paper sampling algorithm"
+      },
+      "gipformer_run_id": "gip15_vnslu_test_fp16_20261102_06",
+      "valsea_run_id": "valsea_vnslu_test_20261102_01",
+      "smoke_run_id": "valsea_vnslu_dev_smoke_20261102_01",
+      "gipformer_revisions": {
+        "gipformer": "0cac5b183d2e1a9e3429ff69080e09cc62ebdf9b",
+        "icefall": "9c966762e058bd7ba79d9da71e42fc06b64b703e",
+        "model": "dd9227dcd8705c13f33bdbe59728d546ab94480f"
+      },
+      "gipformer_sessions": [
+        {
+          "started_utc": "2026-11-02T07:13:06Z",
+          "ended_utc": "2026-11-02T07:25:16Z",
+          "resume": false,
+          "restored_from": null,
+          "stage": "child_completed",
+          "child_exit_code": 0,
+          "elapsed_seconds": 730.0
+        }
+      ],
+      "valsea_configuration": {
+        "mode": "full",
+        "endpoint": "https://api.glotlabs.ai/v1/audio/transcriptions",
+        "fields": {
+          "model": "glot-transcribe",
+          "language": "vietnamese",
+          "enable_correction": "false",
+          "enable_tags": "false",
+          "diarize": "false",
+          "response_format": "verbose_json"
+        },
+        "upload": "FLOAT32 WAV mono 16000 Hz",
+        "connect_timeout_seconds": 15,
+        "read_timeout_seconds": 120,
+        "requests_per_minute": 60.0,
+        "automatic_retries": false,
+        "idempotency": "not documented; not used",
+        "docs_checked": "2026-11-02",
+        "provider_revision": "alias only; immutable remote revision not exposed in documentation",
+        "packages": {
+          "numpy": "2.4.3",
+          "scipy": "1.17.1",
+          "soundfile": "0.13.1",
+          "pyarrow": "23.0.1",
+          "fsspec": "2026.2.0",
+          "aiohttp": "3.13.3"
+        },
+        "dataset_revision": null,
+        "dataset_provenance": {
+          "dataset": "VN-SLU",
+          "author_repository": "https://github.com/tuyen-tran1/VN-SLU",
+          "repository_revision": "aad93e560f8ec4ab979e76d5dfe36528160b797f",
+          "download_folder": "https://drive.google.com/drive/folders/1BDKK8vg-tByTY2EUWi6aYDjqG1NIFG8H",
+          "retrieved_utc": "2026-11-02T04:18:29.627357+00:00",
+          "annotation_sources": {
+            "train.jsonl": {
+              "drive_id": "1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP",
+              "url": "https://drive.usercontent.google.com/download?id=1XHQPddYzcNa8iSsoRI4AdWnCYe5jPbjP&export=download",
+              "bytes": 5168518
+            },
+            "dev.jsonl": {
+              "drive_id": "1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7",
+              "url": "https://drive.usercontent.google.com/download?id=1nsr7S050mMZvIk5ZL1K41IQh0fdzHyC7&export=download",
+              "bytes": 604017
+            },
+            "test.jsonl": {
+              "drive_id": "1SU0j995v8Ue_0BRYSac3wMdryctlSrU-",
+              "url": "https://drive.usercontent.google.com/download?id=1SU0j995v8Ue_0BRYSac3wMdryctlSrU-&export=download",
+              "bytes": 1084071
+            }
+          },
+          "archive": {
+            "name": "data.zip",
+            "drive_id": "1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB",
+            "url": "https://drive.usercontent.google.com/download?id=1Kx2AGykuyqsWgKMaJF_fXPFxfx-PncoB&export=download",
+            "bytes": 1805174687,
+            "central_directory_offset": 1803286411,
+            "central_directory_sha256": "de4f8321203695c883dba4351c2ce5b98378f2e60e9cdab669006ef303f69adb",
+            "revision": null,
+            "identity_note": "Mutable author-linked Drive download; directory fingerprint and supplied ZIP CRCs, not a full archive checksum.",
+            "acquisition": "HTTP ranges for test member intervals; no train/dev WAV export"
+          },
+          "license": "not found",
+          "split_assignment": "Author-linked test.jsonl; no reconstruction from IDs or paper sampling algorithm"
+        },
+        "dataset": "VN-SLU",
+        "split": "test",
+        "request_order": "frozen manifest order",
+        "scoring_field": "text"
+      }
+    },
+    "api_provenance": {
+      "smoke": {
+        "engine": [
+          {
+            "value": "valsea-4",
+            "count": 5,
+            "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+            "last_observed_utc": "2026-11-02T09:05:45.221231+00:00"
+          },
+          {
+            "value": "valsea-6",
+            "count": 1,
+            "first_observed_utc": "2026-11-02T09:05:47.687736+00:00",
+            "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+          }
+        ],
+        "model_version": [
+          {
+            "value": null,
+            "count": 6,
+            "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+            "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+          }
+        ],
+        "exposed_provider_version": [
+          {
+            "value": null,
+            "count": 6,
+            "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+            "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+          }
+        ],
+        "returned_model": [
+          {
+            "value": null,
+            "count": 6,
+            "first_observed_utc": "2026-11-02T09:05:14.916375+00:00",
+            "last_observed_utc": "2026-11-02T09:05:47.687736+00:00"
+          }
+        ],
+        "request_ids_present": 6,
+        "distinct_request_ids": 6,
+        "sessions": [
+          {
+            "started_utc": "2026-11-02T09:04:53.391067+00:00",
+            "ended_utc": "2026-11-02T09:05:47.701005+00:00",
+            "status": "completed",
+            "successful_outcomes": 6,
+            "engine_counts": {
+              "valsea-4": 5,
+              "valsea-6": 1
+            },
+            "provider_version_counts": {
+              "None": 6
+            }
+          },
+          {
+            "started_utc": "2026-11-02T09:06:17.369986+00:00",
+            "ended_utc": "2026-11-02T09:06:17.376230+00:00",
+            "status": "completed",
+            "successful_outcomes": 0,
+            "engine_counts": {},
+            "provider_version_counts": {}
+          }
+        ],
+        "immutable_provider_revision": "not exposed; no revision invented"
+      },
+      "full": {
+        "engine": [
+          {
+            "value": "valsea-4",
+            "count": 802,
+            "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+            "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+          },
+          {
+            "value": "valsea-6",
+            "count": 1599,
+            "first_observed_utc": "2026-11-02T09:07:50.721533+00:00",
+            "last_observed_utc": "2026-11-02T13:43:19.449757+00:00"
+          }
+        ],
+        "model_version": [
+          {
+            "value": null,
+            "count": 2401,
+            "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+            "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+          }
+        ],
+        "exposed_provider_version": [
+          {
+            "value": null,
+            "count": 2401,
+            "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+            "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+          }
+        ],
+        "returned_model": [
+          {
+            "value": null,
+            "count": 2401,
+            "first_observed_utc": "2026-11-02T09:07:18.294719+00:00",
+            "last_observed_utc": "2026-11-02T13:43:36.405965+00:00"
+          }
+        ],
+        "request_ids_present": 2401,
+        "distinct_request_ids": 2401,
+        "sessions": [
+          {
+            "started_utc": "2026-11-02T09:07:10.999343+00:00",
+            "ended_utc": "2026-11-02T11:47:18.505932+00:00",
+            "status": "stopped",
+            "successful_outcomes": 2339,
+            "engine_counts": {
+              "valsea-4": 780,
+              "valsea-6": 1559
+            },
+            "provider_version_counts": {
+              "None": 2339
+            }
+          },
+          {
+            "started_utc": "2026-11-02T13:39:13.637210+00:00",
+            "ended_utc": "2026-11-02T13:43:36.426609+00:00",
+            "status": "completed",
+            "successful_outcomes": 62,
+            "engine_counts": {
+              "valsea-4": 22,
+              "valsea-6": 40
+            },
+            "provider_version_counts": {
+              "None": 62
+            }
+          }
+        ],
+        "immutable_provider_revision": "not exposed; no revision invented"
+      }
+    }
+  },
+  "reference_agreement": "scored; recognition-quality/task acceptance not implied"
+}

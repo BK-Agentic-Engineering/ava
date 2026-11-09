@@ -1,0 +1,2478 @@
+# $alias.field names a permitted response field; @reader denotes the declared scan scope.
+version: train_wave_10
+split: train
+status: spec_only
+exportable: false
+provenance:
+  release: v3.2.0
+  schema: 2.7.0
+  runtime_root: train+public_test/train/zaic_tools/
+  catalog_member: train+public_test/train/train_tools_catalog.json
+worlds:
+  - world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_TASK_ALLTITLE","TR8_TASK_FOLLOW"]
+      parent_lineage_ids: ["TRAIN_SHOP_LIFECYCLE_01"]
+    design_base: "TR10_REM_COMPLETE"
+    relevant_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    initial_state:
+      reminders:
+        reminders:
+          - {"id":"w10_rem_5","content":"Hong Sợi Đay","time":"2027-04-11T08:00:00+07:00","repeat":"daily","done":false}
+          - {"id":"w10_rem_7","content":"Hong Sợi Đay","time":"2027-04-12T08:00:00+07:00","repeat":"once","done":false}
+          - {"id":"w10_rem_9","content":"Cất Kẹp Tre","time":"2027-04-11T08:30:00+07:00","repeat":"weekly","done":true}
+          - {"id":"w10_rem_2","content":"Cuộn Dây Cói","time":"2027-04-11T09:00:00+07:00","repeat":"once","done":false}
+    variants:
+      done:
+        reminders:
+          reminders: {"w10_rem_5":{"done":true}}
+    readers:
+      day: ["reminders.list","reminders",{"date":"2027-04-11"},{}]
+      other: ["reminders.list","reminders",{"date":"2027-04-12"},{}]
+    witnesses:
+      main: ["day",{"content":"Hong Sợi Đay","time":"2027-04-11T08:00:00+07:00"}]
+      other: ["other",{"content":"Hong Sợi Đay","time":"2027-04-12T08:00:00+07:00"}]
+      clip: ["day",{"content":"Cất Kẹp Tre","time":"2027-04-11T08:30:00+07:00"}]
+      roll: ["day",{"content":"Cuộn Dây Cói","time":"2027-04-11T09:00:00+07:00"}]
+      done: ["day",{"content":"Hong Sợi Đay","time":"2027-04-11T08:00:00+07:00","done":true}]
+      open: ["day",{"content":"Hong Sợi Đay","time":"2027-04-11T08:00:00+07:00","done":false}]
+
+  - world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR5_A_PARTIAL_BUSY","TR5_A_ALL_READY"]
+      parent_lineage_ids: ["TRAIN_PARTIAL_APPLIANCES_05"]
+    design_base: "TR10_APPL_STOP"
+    relevant_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    initial_state:
+      appliances:
+        appliances:
+          - {"id":"w10_ap_3","name":"Máy Giặt Khe Sợi","type":"washer","cycles":["eco","quick","normal"],"state":{"status":"running","cycle":"eco","delay_minutes":0}}
+          - {"id":"w10_ap_7","name":"Máy Sấy Mành","type":"dryer","cycles":["eco","normal"],"state":{"status":"scheduled","cycle":"eco","delay_minutes":40}}
+          - {"id":"w10_ap_4","name":"Máy Rửa Bậc Gỗ","type":"dishwasher","cycles":["normal","eco"],"state":{"status":"idle","cycle":null,"delay_minutes":0}}
+    variants:
+      washerScheduled:
+        appliances:
+          appliances: {"w10_ap_3":{"state":{"status":"scheduled","cycle":"eco","delay_minutes":20}}}
+      washerQuick:
+        appliances:
+          appliances: {"w10_ap_3":{"state":{"status":"running","cycle":"quick","delay_minutes":0}}}
+    readers:
+      wash: ["appliances.list","appliances",{"type":"washer"},{}]
+      dry: ["appliances.list","appliances",{"type":"dryer"},{}]
+      dish: ["appliances.list","appliances",{"type":"dishwasher"},{}]
+    witnesses:
+      wash: ["wash",{"name":"Máy Giặt Khe Sợi"}]
+      dry: ["dry",{"name":"Máy Sấy Mành"}]
+      dish: ["dish",{"name":"Máy Rửa Bậc Gỗ"}]
+      running: ["wash",{"name":"Máy Giặt Khe Sợi","state":{"status":"running","cycle":"eco"}}]
+      scheduled: ["wash",{"name":"Máy Giặt Khe Sợi","state":{"status":"scheduled","cycle":"eco"}}]
+      quick: ["wash",{"name":"Máy Giặt Khe Sợi","state":{"status":"running","cycle":"quick"}}]
+
+  - world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR4_G_LOCK_CODE","TR8_SECURITY_GATEYES"]
+      parent_lineage_ids: ["TRAIN_GUEST_ACCESS_04","TRAIN_ALERT_TRIAGE_08"]
+    design_base: "TR10_ACCESS_LOCK"
+    relevant_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    initial_state:
+      door_lock:
+        locks:
+          - {"id":"w10_lock_2","name":"Cửa Khung","location":"Nhà Trong","locked":false}
+          - {"id":"w10_lock_7","name":"Cửa Khung","location":"Nhà Ngoài","locked":true}
+          - {"id":"w10_lock_9","name":"Cửa Kho Mành","location":"Nhà Trong","locked":true}
+        guest_codes:
+          - {"id":"w10_old_code","lock_id":"w10_lock_9","code":"123456","valid_until":"2027-04-10T12:00:00+07:00","label":"Giữ lịch sử"}
+      home_security:
+        mode: "home"
+        alerts: []
+        cameras: []
+    variants:
+      locked:
+        door_lock:
+          locks: {"w10_lock_2":{"locked":true}}
+      outsideOpen:
+        door_lock:
+          locks: {"w10_lock_2":{"locked":true},"w10_lock_7":{"locked":false}}
+    readers:
+      locks: ["door_lock.list_locks","locks",{}]
+    witnesses:
+      inside: ["locks",{"name":"Cửa Khung","location":"Nhà Trong"}]
+      outside: ["locks",{"name":"Cửa Khung","location":"Nhà Ngoài"}]
+      store: ["locks",{"name":"Cửa Kho Mành"}]
+      insideLocked: ["locks",{"name":"Cửa Khung","location":"Nhà Trong","locked":true}]
+      insideOpen: ["locks",{"name":"Cửa Khung","location":"Nhà Trong","locked":false}]
+      outsideLocked: ["locks",{"name":"Cửa Khung","location":"Nhà Ngoài","locked":true}]
+      outsideOpen: ["locks",{"name":"Cửa Khung","location":"Nhà Ngoài","locked":false}]
+
+  - world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR8_AUTO_BOTH","TR5_A_PARTIAL_READY"]
+      parent_lineage_ids: ["TRAIN_BILL_AUTOPAY_05","TRAIN_PARTIAL_APPLIANCES_05"]
+    design_base: "TR10_CLIMATE_MODE"
+    relevant_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    initial_state:
+      smart_home:
+        devices:
+          - {"id":"w10_cl_2","name":"Máy Lạnh Cửa Sợi","room":"Phòng Nâu","floor":1,"type":"climate","state":{"mode":"cool","temperature":26,"power":"on"}}
+          - {"id":"w10_cl_8","name":"Máy Lạnh Cửa Sợi","room":"Phòng Xám","floor":2,"type":"climate","state":{"mode":"heat","temperature":27,"power":"on"}}
+          - {"id":"w10_fan_5","name":"Quạt Bậc","room":"Phòng Nâu","floor":1,"type":"fan","state":{"power":"on","speed":2}}
+          - {"id":"w10_light_4","name":"Đèn Ván","room":"Phòng Nâu","floor":1,"type":"light","state":{"power":"on","brightness":70,"color":"white"}}
+        scenes:
+          - {"id":"w10_scene_7","name":"Nghỉ Khung","actions":[{"device_id":"w10_cl_2","state":{"mode":"off"}},{"device_id":"w10_fan_5","state":{"power":"off"}},{"device_id":"w10_light_4","state":{"brightness":15}}]}
+          - {"id":"w10_scene_3","name":"Hong Khung","actions":[{"device_id":"w10_cl_2","state":{"mode":"dry"}},{"device_id":"w10_light_4","state":{"power":"on","brightness":90}}]}
+        active_scene: "w10_scene_3"
+    variants:
+      dry:
+        smart_home:
+          devices: {"w10_cl_2":{"state":{"mode":"dry","temperature":26,"power":"on"}}}
+    readers:
+      brown: ["smart_home.get_status","devices",{"room":"Phòng Nâu"},{}]
+      gray: ["smart_home.get_status","devices",{"room":"Phòng Xám"},{}]
+      scenes: ["smart_home.get_status","scenes",{}]
+    witnesses:
+      brown: ["brown",{"name":"Máy Lạnh Cửa Sợi","room":"Phòng Nâu","type":"climate"}]
+      gray: ["gray",{"name":"Máy Lạnh Cửa Sợi","room":"Phòng Xám","type":"climate"}]
+      fan: ["brown",{"name":"Quạt Bậc","type":"fan"}]
+      light: ["brown",{"name":"Đèn Ván","type":"light"}]
+      cool: ["brown",{"name":"Máy Lạnh Cửa Sợi","state":{"mode":"cool"}}]
+      dry: ["brown",{"name":"Máy Lạnh Cửa Sợi","state":{"mode":"dry"}}]
+      rest: ["scenes",{"name":"Nghỉ Khung"}]
+      air: ["scenes",{"name":"Hong Khung"}]
+
+  - world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR9_WEATHER_BELOW","TR3_R_RESERVE100"]
+      parent_lineage_ids: ["TRAIN_WEATHER_FIELDWORK_09","TRAIN_LOYALTY_BUDGET_03"]
+    design_base: "TR10_FUEL_STRICT"
+    relevant_tools: ["fuel_price.get_price","reminders.create"]
+    initial_state:
+      fuel_price:
+        prices:
+          - {"id":"w10_fuel_5","type":"ron95","price":22999,"unit":"VND/lít"}
+          - {"id":"w10_fuel_7","type":"e5","price":21999,"unit":"VND/lít"}
+          - {"id":"w10_fuel_9","type":"diesel","price":21000,"unit":"VND/lít"}
+      reminders:
+        reminders:
+          - {"id":"w10_old_fuel_rem","content":"Kiểm bình cũ","time":"2027-04-09T07:00:00+07:00","repeat":"once","done":true}
+    variants:
+      exact:
+        fuel_price:
+          prices: {"w10_fuel_5":{"price":23000}}
+      over:
+        fuel_price:
+          prices: {"w10_fuel_5":{"price":23001}}
+      e5High:
+        fuel_price:
+          prices: {"w10_fuel_7":{"price":22000}}
+      bothHigh:
+        fuel_price:
+          prices: {"w10_fuel_5":{"price":23000},"w10_fuel_7":{"price":22000}}
+      cheapE5:
+        fuel_price:
+          prices: {"w10_fuel_7":{"price":20000}}
+    readers:
+      r95: ["fuel_price.get_price","prices",{"type":"ron95"},{}]
+      e5: ["fuel_price.get_price","prices",{"type":"e5"},{}]
+      all: ["fuel_price.get_price","prices",{}]
+    witnesses:
+      r95: ["r95",{"type":"ron95"}]
+      under: ["r95",{"type":"ron95","price":22999}]
+      equal: ["r95",{"type":"ron95","price":23000}]
+      over: ["r95",{"type":"ron95","price":23001}]
+      e5low: ["e5",{"type":"e5","price":21999}]
+      e5high: ["e5",{"type":"e5","price":22000}]
+      minDiesel: ["all",{"type":"diesel","price":21000}]
+      cheapest: ["all",{},["price","min"]]
+      e5cheap: ["e5",{"type":"e5","price":20000}]
+
+  - world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR7_C_FORWARD","TR8_SECURITY_AFTER"]
+      parent_lineage_ids: ["TRAIN_NOTE_LIFECYCLE_01","TRAIN_ALERT_TRIAGE_08"]
+    design_base: "TR10_PHONE_LATEST"
+    relevant_tools: ["phone.recent_calls","phone.call"]
+    initial_state:
+      phone:
+        calls:
+          - {"id":"w10_hist_8","contact_id":null,"phone_number":"0900001008","status":"completed","direction":"outgoing","time":"2027-04-10T08:50:00+07:00"}
+          - {"id":"w10_hist_2","contact_id":null,"phone_number":"0900001002","status":"missed","direction":"incoming","time":"2027-04-10T08:10:00+07:00"}
+          - {"id":"w10_hist_9","contact_id":null,"phone_number":"0900001009","status":"missed","direction":"incoming","time":"2027-04-10T08:40:00+07:00"}
+          - {"id":"w10_hist_4","contact_id":null,"phone_number":"0900001004","status":"completed","direction":"incoming","time":"2027-04-10T08:30:00+07:00"}
+          - {"id":"w10_hist_6","contact_id":null,"phone_number":"0900001006","status":"missed","direction":"incoming","time":"2027-04-09T23:50:00+07:00"}
+    variants:
+      latestChanged:
+        phone:
+          calls: {"w10_hist_2":{"time":"2027-04-10T08:45:00+07:00"}}
+      resolved:
+        phone:
+          calls: {"w10_hist_9":{"status":"completed"}}
+    readers:
+      calls: ["phone.recent_calls","calls",{},{"missed_only":true}]
+    witnesses:
+      missed: ["calls",{"direction":"incoming","status":"missed"},["time","max"]]
+      earliest: ["calls",{"direction":"incoming","status":"missed"},["time","min"]]
+      out: ["calls",{"direction":"outgoing"},["time","max"]]
+      incoming: ["calls",{"direction":"incoming"},["time","max"]]
+      any: ["calls",{},["time","max"]]
+      at10: ["calls",{"direction":"incoming","time":"2027-04-10T08:10:00+07:00"}]
+      at40: ["calls",{"direction":"incoming","time":"2027-04-10T08:40:00+07:00"}]
+      at40missed: ["calls",{"direction":"incoming","time":"2027-04-10T08:40:00+07:00","status":"missed"}]
+      at40done: ["calls",{"direction":"incoming","time":"2027-04-10T08:40:00+07:00","status":"completed"}]
+      answered: ["calls",{"direction":"incoming","status":"completed","time":"2027-04-10T08:30:00+07:00"}]
+      yesterday: ["calls",{"time":"2027-04-09T23:50:00+07:00"}]
+
+  - world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR2_A_TIME_DISABLED","TR9_CAL_SHORT"]
+      parent_lineage_ids: ["TRAIN_ALARM_EDIT_02"]
+    design_base: "TR10_ALARM_DISABLE"
+    relevant_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    initial_state:
+      alarm:
+        alarms:
+          - {"id":"w10_alarm_5","time":"06:15","label":"Phơi Khung","repeat":"weekdays","enabled":true}
+          - {"id":"w10_alarm_7","time":"06:15","label":"Phơi Khung","repeat":"weekends","enabled":false}
+          - {"id":"w10_alarm_3","time":"07:45","label":"Nhặt Kẹp","repeat":"once","enabled":true}
+    variants:
+      enabled:
+        alarm:
+          alarms: {"w10_alarm_7":{"enabled":true}}
+    readers:
+      alarms: ["alarm.list","alarms",{}]
+    witnesses:
+      week: ["alarms",{"label":"Phơi Khung","time":"06:15","repeat":"weekdays"}]
+      end: ["alarms",{"label":"Phơi Khung","time":"06:15","repeat":"weekends"}]
+      clip: ["alarms",{"label":"Nhặt Kẹp","time":"07:45"}]
+      disabled: ["alarms",{"label":"Phơi Khung","time":"06:15","repeat":"weekends","enabled":false}]
+      enabled: ["alarms",{"label":"Phơi Khung","time":"06:15","repeat":"weekends","enabled":true}]
+
+  - world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry:
+      parent_world_ids: []
+      parent_scenario_ids: ["TR2_V_STOP","TR2_V_INHERIT"]
+      parent_lineage_ids: ["TRAIN_ROBOT_JOB_02"]
+    design_base: "TR10_ROBOT_STOP"
+    relevant_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    initial_state:
+      robot_vacuum:
+        battery: 45
+        status: "cleaning"
+        mode: "mop"
+        rooms: ["Phòng Cói","Lối Gạch","Kho Ván"]
+        current_job:
+          rooms: ["Phòng Cói"]
+          whole_house: false
+          mode: "vacuum"
+    variants:
+      docked:
+        robot_vacuum:
+          status: "docked"
+          current_job: null
+      exact:
+        robot_vacuum:
+          battery: 15
+          status: "docked"
+          current_job: null
+      low:
+        robot_vacuum:
+          battery: 14
+          status: "docked"
+          current_job: null
+    readers:
+      battery: ["robot_vacuum.get_status","battery",{}]
+      status: ["robot_vacuum.get_status","status",{}]
+      mode: ["robot_vacuum.get_status","mode",{}]
+    witnesses:
+      cleaning: ["status",{"value":"cleaning"}]
+      docked: ["status",{"value":"docked"}]
+      exact: ["battery",{"value":15}]
+      low: ["battery",{"value":14}]
+      mode: ["mode",{"value":"mop"}]
+scenarios:
+  - scenario_id: "TR10_REM_COMPLETE"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu nhắc Hong Sợi Đay lúc 08:00 ngày 11/4/2027 đã xong. Giữ mục đó và giữ lịch lặp."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.complete",{"reminder_id":"$main.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+
+  - scenario_id: "TR10_REM_DELETE"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa hẳn nhắc Hong Sợi Đay lúc 08:00 ngày 11/4/2027, giữ nguyên mục trùng nội dung ngày 12."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.complete",{"reminder_id":"$main.id"}]
+    contrast:
+      with: "TR10_REM_COMPLETE"
+
+  - scenario_id: "TR10_REM_OTHER"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa hẳn nhắc Hong Sợi Đay lúc 08:00 ngày 12/4/2027. Giữ nhắc hằng ngày bắt đầu ngày 11."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$other.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+    contrast:
+      with: "TR10_REM_DELETE"
+
+  - scenario_id: "TR10_REM_SPLIT"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu xong Hong Sợi Đay lúc 08:00 ngày 11/4/2027 và xóa nhắc trùng nội dung lúc 08:00 ngày 12/4/2027."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.complete",{"reminder_id":"$main.id"}]
+        - ["reminders.delete",{"reminder_id":"$other.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+        - ["reminders.complete",{"reminder_id":"$other.id"}]
+    contrast:
+      with: "TR10_REM_COMPLETE"
+
+  - scenario_id: "TR10_REM_CLEAN"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa tất cả nhắc đã xong có thời gian ngày 11/4/2027, giữ mọi nhắc chưa xong."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$clip.id"}]
+      decision_evidence: [["@day","clip"]]
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$roll.id"}]
+    contrast:
+      with: "TR10_REM_DELETE"
+
+  - scenario_id: "TR10_REM_CLEAN2"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "done"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa tất cả nhắc đã xong có thời gian ngày 11/4/2027, giữ mọi nhắc chưa xong."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$clip.id"}]
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+      decision_evidence: [["@day","done","clip"]]
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$clip.id"}]
+        - ["reminders.delete",{"reminder_id":"$roll.id"}]
+    contrast:
+      with: "TR10_REM_CLEAN"
+
+  - scenario_id: "TR10_REM_IFDONE"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "done"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xóa nhắc Hong Sợi Đay lúc 08:00 ngày 11/4/2027 nếu mục đó đã được đánh dấu xong. Nếu chưa thì giữ lại."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+      decision_evidence: [["done"]]
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$other.id"}]
+    contrast:
+      with: "TR10_REM_CLEAN2"
+
+  - scenario_id: "TR10_REM_IFOPEN"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xóa nhắc Hong Sợi Đay lúc 08:00 ngày 11/4/2027 nếu mục đó đã được đánh dấu xong. Nếu chưa thì giữ lại."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["open"]]
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+    contrast:
+      with: "TR10_REM_IFDONE"
+
+  - scenario_id: "TR10_REM_MOVE"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thay nhắc Hong Sợi Đay lúc 08:00 ngày 11/4/2027 bằng nhắc mới lúc 07:30 ngày 13/4/2027 giờ Việt Nam. Giữ nội dung và kiểu lặp của nhắc được thay."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+        - ["reminders.create",{"content":"$main.content","time":"2027-04-13T07:30:00+07:00","repeat":"$main.repeat"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$main.id"}]
+        - ["reminders.create",{"content":"$main.content","time":"2027-04-13T07:30:00+07:00","repeat":"once"}]
+    contrast:
+      with: "TR10_REM_DELETE"
+
+  - scenario_id: "TR10_REM_COPYONCE"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một nhắc một lần lúc 07:30 ngày 13/4/2027 giờ Việt Nam với nội dung của Hong Sợi Đay lúc 08:00 ngày 11/4/2027. Giữ nhắc cũ."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"$main.content","time":"2027-04-13T07:30:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.create",{"content":"$main.content","time":"2027-04-13T07:30:00+07:00","repeat":"daily"}]
+      alternatives:
+        explicit_once: [["reminders.create",{"content":"$main.content","time":"2027-04-13T07:30:00+07:00","repeat":"once"}]]
+    contrast:
+      with: "TR10_REM_MOVE"
+
+  - scenario_id: "TR10_REM_FINISHADD"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đánh dấu nhắc Cuộn Dây Cói lúc 09:00 ngày 11/4/2027 đã xong. Sau khi đánh dấu, thêm nhắc Kiểm Cuộn lúc 16:00 cùng ngày giờ Việt Nam, chỉ một lần."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.complete",{"reminder_id":"$roll.id"}]
+        - ["reminders.create",{"content":"Kiểm Cuộn","time":"2027-04-11T16:00:00+07:00"}]
+      decision_evidence: []
+      counterexample:
+        - ["reminders.create",{"content":"Kiểm Cuộn","time":"2027-04-11T16:00:00+07:00"}]
+        - ["reminders.complete",{"reminder_id":"$roll.id"}]
+      ordered: true
+    contrast:
+      with: "TR10_REM_COMPLETE"
+
+  - scenario_id: "TR10_REM_LOOK"
+    world_id: "W_TR10_REM"
+    lineage_id: "TRAIN_SHOP_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem kiểu lặp của nhắc Cất Kẹp Tre lúc 08:30 ngày 11/4/2027, giữ nguyên danh sách."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["reminders.list","reminders.complete","reminders.delete","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["clip"]]
+      counterexample:
+        - ["reminders.delete",{"reminder_id":"$clip.id"}]
+    contrast:
+      with: "TR10_REM_CLEAN"
+
+  - scenario_id: "TR10_APPL_STOP"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng ngay Máy Giặt Khe Sợi, không chạy chu trình mới."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+
+  - scenario_id: "TR10_APPL_CANCELDELAY"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy chu trình đang hẹn của Máy Sấy Mành bằng cách dừng máy. Giữ nguyên Máy Giặt Khe Sợi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+    contrast:
+      with: "TR10_APPL_STOP"
+
+  - scenario_id: "TR10_APPL_RESTART"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng Máy Giặt Khe Sợi rồi chạy chu trình quick ngay trên chính máy đó."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$wash.id","cycle":"quick"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$wash.id","cycle":"normal"}]
+      ordered: true
+      alternatives:
+        case_zero: [["appliances.stop",{"appliance_id":"$wash.id"}],["appliances.start_cycle",{"appliance_id":"$wash.id","cycle":"QUICK","delay_minutes":0}]]
+    contrast:
+      with: "TR10_APPL_STOP"
+
+  - scenario_id: "TR10_APPL_DELAY"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hủy lượt hẹn cũ của Máy Sấy Mành rồi hẹn chu trình normal trên cùng máy sau 15 phút."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dry.id","cycle":"normal","delay_minutes":15}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dry.id","cycle":"normal"}]
+      ordered: true
+    contrast:
+      with: "TR10_APPL_CANCELDELAY"
+
+  - scenario_id: "TR10_APPL_IFRUN"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dừng Máy Giặt Khe Sợi nếu máy đang chạy chu trình eco. Đang hẹn giờ hoặc đang chạy chu trình khác thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+      decision_evidence: [["running"]]
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+    contrast:
+      with: "TR10_APPL_STOP"
+
+  - scenario_id: "TR10_APPL_IFSCHED"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "washerScheduled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dừng Máy Giặt Khe Sợi nếu máy đang chạy chu trình eco. Đang hẹn giờ hoặc đang chạy chu trình khác thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["scheduled"]]
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+    contrast:
+      with: "TR10_APPL_IFRUN"
+
+  - scenario_id: "TR10_APPL_IFOTHER"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "washerQuick"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dừng Máy Giặt Khe Sợi nếu máy đang chạy chu trình eco. Đang hẹn giờ hoặc đang chạy chu trình khác thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["quick"]]
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+    contrast:
+      with: "TR10_APPL_IFRUN"
+
+  - scenario_id: "TR10_APPL_INDEPENDENT"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng Máy Giặt Khe Sợi và chạy normal ngay trên Máy Rửa Bậc Gỗ. Hai việc độc lập."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+    contrast:
+      with: "TR10_APPL_STOP"
+
+  - scenario_id: "TR10_APPL_AFTER"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ sau khi dừng thành công Máy Giặt Khe Sợi mới chạy normal trên Máy Rửa Bậc Gỗ."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+      ordered: true
+    contrast:
+      with: "TR10_APPL_INDEPENDENT"
+
+  - scenario_id: "TR10_APPL_STOP2"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng cả Máy Giặt Khe Sợi và lịch đang chờ của Máy Sấy Mành. Không chạy máy nào khác."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.stop",{"appliance_id":"$dry.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+    contrast:
+      with: "TR10_APPL_CANCELDELAY"
+
+  - scenario_id: "TR10_APPL_DELAYNEW"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn Máy Rửa Bậc Gỗ chạy normal sau 15 phút, giữ nguyên hai máy còn lại."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal","delay_minutes":15}]
+      decision_evidence: []
+      counterexample:
+        - ["appliances.start_cycle",{"appliance_id":"$dish.id","cycle":"normal"}]
+    contrast:
+      with: "TR10_APPL_DELAY"
+
+  - scenario_id: "TR10_APPL_LOOK"
+    world_id: "W_TR10_APPL"
+    lineage_id: "TRAIN_PARTIAL_APPLIANCES_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem Máy Giặt Khe Sợi đang chạy hay đang hẹn và chu trình gì. Không dừng hay đổi chu trình."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["appliances.list","appliances.stop","appliances.start_cycle"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["wash"]]
+      counterexample:
+        - ["appliances.stop",{"appliance_id":"$wash.id"}]
+    contrast:
+      with: "TR10_APPL_STOP"
+
+  - scenario_id: "TR10_ACCESS_LOCK"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Khóa Cửa Khung ở Nhà Trong, giữ cửa trùng tên ở Nhà Ngoài và chế độ giám sát."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+      decision_evidence: []
+      counterexample:
+        - ["door_lock.set_lock",{"lock_id":"$outside.id","locked":false}]
+
+  - scenario_id: "TR10_ACCESS_UNLOCK"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mở khóa Cửa Khung ở Nhà Ngoài. Đừng cấp mã hay đổi giám sát."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.set_lock",{"lock_id":"$outside.id","locked":false}]
+      decision_evidence: []
+      counterexample:
+        - ["door_lock.set_lock",{"lock_id":"$store.id","locked":false}]
+    contrast:
+      with: "TR10_ACCESS_LOCK"
+
+  - scenario_id: "TR10_ACCESS_CODE"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cấp mã tên Thợ Khung cho Cửa Khung ở Nhà Trong, hết hạn 18:00 ngày 11/4/2027 giờ Việt Nam. Giữ nguyên trạng thái khóa."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.grant_guest_code",{"lock_id":"$inside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+      decision_evidence: []
+      counterexample:
+        - ["door_lock.grant_guest_code",{"lock_id":"$outside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+    contrast:
+      with: "TR10_ACCESS_LOCK"
+
+  - scenario_id: "TR10_ACCESS_LOCKCODE"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Khóa Cửa Khung ở Nhà Trong rồi mới cấp mã tên Thợ Khung cho cửa đó, hết hạn 18:00 ngày 11/4/2027 giờ Việt Nam."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+        - ["door_lock.grant_guest_code",{"lock_id":"$inside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+      decision_evidence: []
+      counterexample:
+        - ["door_lock.grant_guest_code",{"lock_id":"$inside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+      ordered: true
+    contrast:
+      with: "TR10_ACCESS_CODE"
+
+  - scenario_id: "TR10_ACCESS_SPLIT"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Khóa Cửa Khung ở Nhà Trong và mở Cửa Khung ở Nhà Ngoài. Hai việc độc lập."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+        - ["door_lock.set_lock",{"lock_id":"$outside.id","locked":false}]
+      decision_evidence: []
+      counterexample:
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+        - ["door_lock.set_lock",{"lock_id":"$store.id","locked":false}]
+    contrast:
+      with: "TR10_ACCESS_LOCK"
+
+  - scenario_id: "TR10_ACCESS_LOCKARM"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Khóa Cửa Khung ở Nhà Trong. Chỉ sau khi khóa thành công mới bật giám sát vắng nhà."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: []
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+        - ["door_lock.set_lock",{"lock_id":"$inside.id","locked":true}]
+      ordered: true
+    contrast:
+      with: "TR10_ACCESS_LOCK"
+
+  - scenario_id: "TR10_ACCESS_ALLREADY"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "locked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật giám sát vắng nhà nếu Cửa Khung ở Nhà Trong và Cửa Khung ở Nhà Ngoài đều đã khóa. Một cửa chưa khóa thì giữ chế độ giám sát."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["home_security.arm",{"mode":"away"}]
+      decision_evidence: [["insideLocked","outsideLocked"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"off"}]
+    contrast:
+      with: "TR10_ACCESS_LOCKARM"
+
+  - scenario_id: "TR10_ACCESS_ONEOPEN"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật giám sát vắng nhà nếu Cửa Khung ở Nhà Trong và Cửa Khung ở Nhà Ngoài đều đã khóa. Một cửa chưa khóa thì giữ chế độ giám sát."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["insideOpen"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR10_ACCESS_ALLREADY"
+
+  - scenario_id: "TR10_ACCESS_OTHEROPEN"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "outsideOpen"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật giám sát vắng nhà nếu Cửa Khung ở Nhà Trong và Cửa Khung ở Nhà Ngoài đều đã khóa. Một cửa chưa khóa thì giữ chế độ giám sát."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["outsideOpen"]]
+      counterexample:
+        - ["home_security.arm",{"mode":"away"}]
+    contrast:
+      with: "TR10_ACCESS_ALLREADY"
+
+  - scenario_id: "TR10_ACCESS_CODEYES"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "locked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ cấp mã Thợ Khung cho Cửa Khung ở Nhà Trong, hết hạn 18:00 ngày 11/4/2027 giờ Việt Nam, nếu chính cửa đó đã khóa. Chưa khóa thì không cấp."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["door_lock.grant_guest_code",{"lock_id":"$inside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+      decision_evidence: [["insideLocked"]]
+      counterexample:
+        - ["door_lock.grant_guest_code",{"lock_id":"$outside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+    contrast:
+      with: "TR10_ACCESS_CODE"
+
+  - scenario_id: "TR10_ACCESS_CODENO"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ cấp mã Thợ Khung cho Cửa Khung ở Nhà Trong, hết hạn 18:00 ngày 11/4/2027 giờ Việt Nam, nếu chính cửa đó đã khóa. Chưa khóa thì không cấp."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["insideOpen"]]
+      counterexample:
+        - ["door_lock.grant_guest_code",{"lock_id":"$inside.id","valid_until":"2027-04-11T18:00:00+07:00","label":"Thợ Khung"}]
+    contrast:
+      with: "TR10_ACCESS_CODEYES"
+
+  - scenario_id: "TR10_ACCESS_LOOK"
+    world_id: "W_TR10_ACCESS"
+    lineage_id: "TRAIN_GUEST_ACCESS_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ kiểm tra Cửa Kho Mành đang khóa chưa, giữ nguyên mã và mọi cửa."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["door_lock.list_locks","door_lock.set_lock","door_lock.grant_guest_code","home_security.arm"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["store"]]
+      counterexample:
+        - ["door_lock.set_lock",{"lock_id":"$store.id","locked":false}]
+    contrast:
+      with: "TR10_ACCESS_LOCK"
+
+  - scenario_id: "TR10_CLIMATE_MODE"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển Máy Lạnh Cửa Sợi ở Phòng Nâu sang dry, giữ nguyên nhiệt độ lưu."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"dry"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$gray.id","mode":"dry"}]
+
+  - scenario_id: "TR10_CLIMATE_TEMP"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt Máy Lạnh Cửa Sợi ở Phòng Nâu ở chế độ cool 24 độ, giữ các thiết bị khác."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":24}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":26}]
+    contrast:
+      with: "TR10_CLIMATE_MODE"
+
+  - scenario_id: "TR10_CLIMATE_OTHER"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt Máy Lạnh Cửa Sợi Phòng Xám ở cool 24 độ, giữ máy trùng tên Phòng Nâu."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$gray.id","mode":"cool","temperature":24}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":24}]
+    contrast:
+      with: "TR10_CLIMATE_TEMP"
+
+  - scenario_id: "TR10_CLIMATE_OFF"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt chế độ Máy Lạnh Cửa Sợi Phòng Nâu thành off. Đừng chạy cảnh Nghỉ Khung."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"off"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.scene_run",{"scene_id":"$rest.id"}]
+    contrast:
+      with: "TR10_CLIMATE_MODE"
+
+  - scenario_id: "TR10_CLIMATE_SCENE"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kích hoạt cảnh Nghỉ Khung đã lưu. Giữ nguyên nội dung định nghĩa cảnh."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.scene_run",{"scene_id":"$rest.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"off"}]
+    contrast:
+      with: "TR10_CLIMATE_OFF"
+
+  - scenario_id: "TR10_CLIMATE_OVERRIDE"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kích hoạt Nghỉ Khung rồi đặt độ sáng Đèn Ván Phòng Nâu thành 30, để các tác động còn lại của cảnh giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.scene_run",{"scene_id":"$rest.id"}]
+        - ["smart_home.light_set",{"device_id":"$light.id","brightness":30}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.light_set",{"device_id":"$light.id","brightness":30}]
+        - ["smart_home.scene_run",{"scene_id":"$rest.id"}]
+      ordered: true
+    contrast:
+      with: "TR10_CLIMATE_SCENE"
+
+  - scenario_id: "TR10_CLIMATE_FAN"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chỉnh Quạt Bậc Phòng Nâu lên tốc độ 3, giữ nguồn quạt và máy lạnh."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.fan_set",{"device_id":"$fan.id","speed":3}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"fan"}]
+    contrast:
+      with: "TR10_CLIMATE_MODE"
+
+  - scenario_id: "TR10_CLIMATE_PAIR"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đặt Máy Lạnh Cửa Sợi Phòng Nâu ở cool 24 độ và Quạt Bậc Phòng Nâu lên tốc độ 3. Hai việc độc lập."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":24}]
+        - ["smart_home.fan_set",{"device_id":"$fan.id","speed":3}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$gray.id","mode":"cool","temperature":24}]
+        - ["smart_home.fan_set",{"device_id":"$fan.id","speed":3}]
+    contrast:
+      with: "TR10_CLIMATE_TEMP"
+
+  - scenario_id: "TR10_CLIMATE_LOOK"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem Máy Lạnh Cửa Sợi Phòng Nâu đang ở chế độ nào và bao nhiêu độ, không sửa hay chạy cảnh."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["brown"]]
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"off"}]
+    contrast:
+      with: "TR10_CLIMATE_MODE"
+
+  - scenario_id: "TR10_CLIMATE_IFCOOL"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển Máy Lạnh Cửa Sợi ở Phòng Nâu sang dry nếu hiện đang cool. Chế độ khác thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"dry"}]
+      decision_evidence: [["cool"]]
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"heat"}]
+    contrast:
+      with: "TR10_CLIMATE_MODE"
+
+  - scenario_id: "TR10_CLIMATE_IFDRY"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "dry"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ chuyển Máy Lạnh Cửa Sợi ở Phòng Nâu sang dry nếu hiện đang cool. Chế độ khác thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["dry"]]
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"off"}]
+    contrast:
+      with: "TR10_CLIMATE_IFCOOL"
+
+  - scenario_id: "TR10_CLIMATE_SCENEVALUE"
+    world_id: "W_TR10_CLIMATE"
+    lineage_id: "TRAIN_BILL_AUTOPAY_05"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kích hoạt Hong Khung rồi đặt Máy Lạnh Cửa Sợi Phòng Nâu ở cool 24 độ. Giữ các tác động khác của cảnh."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["smart_home.get_status","smart_home.climate_set","smart_home.fan_set","smart_home.light_set","smart_home.scene_run"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["smart_home.scene_run",{"scene_id":"$air.id"}]
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":24}]
+      decision_evidence: []
+      counterexample:
+        - ["smart_home.climate_set",{"device_id":"$brown.id","mode":"cool","temperature":24}]
+        - ["smart_home.scene_run",{"scene_id":"$air.id"}]
+      ordered: true
+    contrast:
+      with: "TR10_CLIMATE_PAIR"
+
+  - scenario_id: "TR10_FUEL_STRICT"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu giá RON95 hiện tại dưới 23.000 đồng/lít."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["under"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+
+  - scenario_id: "TR10_FUEL_EXACT"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "exact"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu giá RON95 hiện tại dưới 23.000 đồng/lít."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_STRICT"
+
+  - scenario_id: "TR10_FUEL_INCLUSIVE"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "exact"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu giá RON95 hiện tại không quá 23.000 đồng/lít."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["equal"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_EXACT"
+
+  - scenario_id: "TR10_FUEL_OVER"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "over"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ tạo nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu giá RON95 hiện tại không quá 23.000 đồng/lít."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["over"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_INCLUSIVE"
+
+  - scenario_id: "TR10_FUEL_BOTH"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu RON95 dưới 23.000 đồng/lít và E5 dưới 22.000 đồng/lít. Một điều không đạt thì thôi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["under","e5low"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_STRICT"
+
+  - scenario_id: "TR10_FUEL_E5HIGH"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "e5High"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ nhắc Chuẩn bị RON95 lúc 07:00 ngày 11/4/2027 giờ Việt Nam nếu RON95 dưới 23.000 đồng/lít và E5 dưới 22.000 đồng/lít. Một điều không đạt thì thôi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["e5high"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_BOTH"
+
+  - scenario_id: "TR10_FUEL_FALLPREF"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc chuẩn bị nhiên liệu lúc 07:00 ngày 11/4/2027 giờ Việt Nam: ưu tiên RON95 nếu dưới 23.000 đồng/lít; nếu không thì E5 nếu dưới 22.000 đồng/lít. Nội dung phải nêu đúng loại được chọn, không đạt cả hai thì thôi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["under"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_BOTH"
+
+  - scenario_id: "TR10_FUEL_FALLALT"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "exact"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc chuẩn bị nhiên liệu lúc 07:00 ngày 11/4/2027 giờ Việt Nam: ưu tiên RON95 nếu dưới 23.000 đồng/lít; nếu không thì E5 nếu dưới 22.000 đồng/lít. Nội dung phải nêu đúng loại được chọn, không đạt cả hai thì thôi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["equal","e5low"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_FALLPREF"
+
+  - scenario_id: "TR10_FUEL_NONE"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "bothHigh"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc chuẩn bị nhiên liệu lúc 07:00 ngày 11/4/2027 giờ Việt Nam: ưu tiên RON95 nếu dưới 23.000 đồng/lít; nếu không thì E5 nếu dưới 22.000 đồng/lít. Nội dung phải nêu đúng loại được chọn, không đạt cả hai thì thôi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["equal","e5high"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_FALLALT"
+
+  - scenario_id: "TR10_FUEL_CHEAPEST"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc chuẩn bị loại rẻ nhất trong RON95, E5 và diesel lúc 07:00 ngày 11/4/2027 giờ Việt Nam, nêu đúng loại trong nội dung."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị dầu diesel","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["@all","cheapest","minDiesel"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_FALLPREF"
+
+  - scenario_id: "TR10_FUEL_CHEAPCHANGE"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "cheapE5"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo nhắc chuẩn bị loại rẻ nhất trong RON95, E5 và diesel lúc 07:00 ngày 11/4/2027 giờ Việt Nam, nêu đúng loại trong nội dung."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["reminders.create",{"content":"Chuẩn bị E5","time":"2027-04-11T07:00:00+07:00"}]
+      decision_evidence: [["@all","cheapest","e5cheap"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị dầu diesel","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_CHEAPEST"
+
+  - scenario_id: "TR10_FUEL_LOOK"
+    world_id: "W_TR10_FUEL"
+    lineage_id: "TRAIN_WEATHER_FIELDWORK_09"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem giá RON95 hiện tại, không thêm nhắc."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["fuel_price.get_price","reminders.create"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["r95"]]
+      counterexample:
+        - ["reminders.create",{"content":"Chuẩn bị RON95","time":"2027-04-11T07:00:00+07:00"}]
+    contrast:
+      with: "TR10_FUEL_STRICT"
+
+  - scenario_id: "TR10_PHONE_LATEST"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại số của cuộc gọi đến bị nhỡ mới nhất trong lịch sử. Không gọi số khác."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$missed.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+
+  - scenario_id: "TR10_PHONE_FLIP"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "latestChanged"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại số của cuộc gọi đến bị nhỡ mới nhất trong lịch sử. Không gọi số khác."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$missed.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_OLDEST"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại số của cuộc gọi đến bị nhỡ sớm nhất trong lịch sử, tính cả ngày trước."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$earliest.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$missed.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_OUT"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi số của lần gọi đi mới nhất trong lịch sử, không chọn một cuộc gọi đến."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$missed.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_ANY"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi số của cuộc gọi gần nhất trong toàn bộ lịch sử, bất kể gọi đi hay gọi đến."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$any.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$missed.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_INCOMING"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "resolved"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại số của cuộc gọi đến mới nhất trong lịch sử, kể cả đã nhận."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$incoming.phone_number"}]
+      decision_evidence: [["@calls"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_EXACT"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại số đã gọi đến bị nhỡ lúc 08:10 ngày 10/4/2027, bỏ qua cuộc nhỡ mới hơn."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$at10.phone_number"}]
+      decision_evidence: []
+      counterexample:
+        - ["phone.call",{"phone_number":"$at40.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_TWONUM"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi lại lần lượt hai số đã gọi đến bị nhỡ lúc 08:10 rồi 08:40 ngày 10/4/2027, mỗi số một lần."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$at10.phone_number"}]
+        - ["phone.call",{"phone_number":"$at40.phone_number"}]
+      decision_evidence: []
+      counterexample:
+        - ["phone.call",{"phone_number":"$at40.phone_number"}]
+        - ["phone.call",{"phone_number":"$at10.phone_number"}]
+      ordered: true
+    contrast:
+      with: "TR10_PHONE_EXACT"
+
+  - scenario_id: "TR10_PHONE_IFMISS"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ gọi lại cuộc gọi đến bị nhỡ đúng 08:40 ngày 10/4/2027 nếu còn ghi trạng thái nhỡ. Nếu đã hoàn tất thì không gọi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"$at40.phone_number"}]
+      decision_evidence: [["at40missed"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_EXACT"
+
+  - scenario_id: "TR10_PHONE_IFDONE"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "resolved"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ gọi lại cuộc gọi đến bị nhỡ đúng 08:40 ngày 10/4/2027 nếu còn ghi trạng thái nhỡ. Nếu đã hoàn tất thì không gọi."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["at40done"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$at40.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_IFMISS"
+
+  - scenario_id: "TR10_PHONE_LITERAL"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Gọi số 0900001011 ngay, không chọn số từ lịch sử."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["phone.call",{"phone_number":"0900001011"}]
+      decision_evidence: []
+      counterexample:
+        - ["phone.call",{"phone_number":"$out.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_LATEST"
+
+  - scenario_id: "TR10_PHONE_LOOK"
+    world_id: "W_TR10_PHONE"
+    lineage_id: "TRAIN_NOTE_LIFECYCLE_01"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem số của cuộc gọi đến đã nhận lúc 08:30 ngày 10/4/2027, không gọi lại."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["phone.recent_calls","phone.call"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["answered"]]
+      counterexample:
+        - ["phone.call",{"phone_number":"$answered.phone_number"}]
+    contrast:
+      with: "TR10_PHONE_INCOMING"
+
+  - scenario_id: "TR10_ALARM_DISABLE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tắt báo thức Phơi Khung lúc 06:15 lặp ngày trong tuần, giữ nguyên báo cuối tuần."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$week.id","enabled":false}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":false}]
+
+  - scenario_id: "TR10_ALARM_DELETE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xóa hẳn báo thức Phơi Khung 06:15 lặp ngày trong tuần. Giữ bản cuối tuần."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.delete",{"alarm_id":"$week.id"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$week.id","enabled":false}]
+    contrast:
+      with: "TR10_ALARM_DISABLE"
+
+  - scenario_id: "TR10_ALARM_ENABLE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Bật báo thức Phơi Khung 06:15 lặp cuối tuần, giữ thời gian và nhãn."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":true}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$week.id","enabled":false}]
+    contrast:
+      with: "TR10_ALARM_DISABLE"
+
+  - scenario_id: "TR10_ALARM_MOVE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển báo thức Phơi Khung lặp cuối tuần từ 06:15 sang 06:45, giữ trạng thái đang tắt và nhãn."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$end.id","time":"06:45"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$end.id","time":"06:45","enabled":true}]
+      alternatives:
+        null_enabled: [["alarm.update",{"alarm_id":"$end.id","time":"06:45","enabled":null}]]
+      negative_alternatives:
+        enabled_true:
+          actions: [["alarm.update",{"alarm_id":"$end.id","time":"06:45","enabled":true}]]
+          reason: authorized_actions
+    contrast:
+      with: "TR10_ALARM_ENABLE"
+
+  - scenario_id: "TR10_ALARM_MOVENABLE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển báo thức Phơi Khung lặp cuối tuần từ 06:15 sang 06:45 và bật nó."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$end.id","time":"06:45","enabled":true}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$end.id","time":"06:45"}]
+    contrast:
+      with: "TR10_ALARM_MOVE"
+
+  - scenario_id: "TR10_ALARM_REPLACE"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thay báo thức Phơi Khung 06:15 ngày trong tuần bằng báo mới cùng giờ và nhãn nhưng lặp hằng ngày. Giữ báo cuối tuần."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.delete",{"alarm_id":"$week.id"}]
+        - ["alarm.create",{"time":"$week.time","label":"$week.label","repeat":"daily"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"$week.time","label":"$week.label","repeat":"daily"}]
+    contrast:
+      with: "TR10_ALARM_DELETE"
+
+  - scenario_id: "TR10_ALARM_COPYSILENT"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Thêm một báo thức mới chỉ một lần lúc 06:15, dùng nhãn của báo Phơi Khung ngày trong tuần, giữ tất cả báo cũ."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.create",{"time":"06:15","label":"$week.label"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.create",{"time":"06:15","label":"$week.label","repeat":"daily"}]
+      alternatives:
+        explicit_once: [["alarm.create",{"time":"06:15","label":"$week.label","repeat":"once"}]]
+    contrast:
+      with: "TR10_ALARM_REPLACE"
+
+  - scenario_id: "TR10_ALARM_RENAME"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Đổi nhãn báo Nhặt Kẹp lúc 07:45 thành Gom Kẹp Mới, giữ giờ, trạng thái và kiểu lặp."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$clip.id","label":"Gom Kẹp Mới"}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$clip.id","label":"Gom Kẹp Mới","time":"08:00"}]
+    contrast:
+      with: "TR10_ALARM_MOVE"
+
+  - scenario_id: "TR10_ALARM_TWO"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tắt báo Phơi Khung ngày trong tuần và bật báo Phơi Khung cuối tuần, cả hai đang ở 06:15."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$week.id","enabled":false}]
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":true}]
+      decision_evidence: []
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$week.id","enabled":true}]
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":false}]
+    contrast:
+      with: "TR10_ALARM_DISABLE"
+
+  - scenario_id: "TR10_ALARM_IFOFF"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật lại báo thức Phơi Khung lúc 06:15 lặp cuối tuần nếu đang tắt. Đang bật thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":true}]
+      decision_evidence: [["disabled"]]
+      counterexample:
+        - ["alarm.delete",{"alarm_id":"$end.id"}]
+    contrast:
+      with: "TR10_ALARM_ENABLE"
+
+  - scenario_id: "TR10_ALARM_IFON"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "enabled"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ bật lại báo thức Phơi Khung lúc 06:15 lặp cuối tuần nếu đang tắt. Đang bật thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["enabled"]]
+      counterexample:
+        - ["alarm.delete",{"alarm_id":"$end.id"}]
+    contrast:
+      with: "TR10_ALARM_IFOFF"
+
+  - scenario_id: "TR10_ALARM_LOOK"
+    world_id: "W_TR10_ALARM"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem báo Phơi Khung lúc 06:15 lặp cuối tuần đang bật hay tắt. Không sửa báo."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["alarm.list","alarm.update","alarm.create","alarm.delete"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["end"]]
+      counterexample:
+        - ["alarm.update",{"alarm_id":"$end.id","enabled":true}]
+    contrast:
+      with: "TR10_ALARM_ENABLE"
+
+  - scenario_id: "TR10_ROBOT_STOP"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng công việc robot hiện tại, không khởi động lượt mới."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+      decision_evidence: []
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+
+  - scenario_id: "TR10_ROBOT_REPLACE"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng công việc robot hiện tại rồi cho robot hút bụi Lối Gạch, giữ nguyên các phòng khác."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+      decision_evidence: []
+      counterexample:
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+        - ["robot_vacuum.stop",{}]
+      ordered: true
+    contrast:
+      with: "TR10_ROBOT_STOP"
+
+  - scenario_id: "TR10_ROBOT_MOP"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng công việc robot hiện tại rồi cho robot chỉ lau Lối Gạch."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"mop"}]
+      decision_evidence: []
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+      ordered: true
+    contrast:
+      with: "TR10_ROBOT_REPLACE"
+
+  - scenario_id: "TR10_ROBOT_INHERIT"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng việc hiện tại rồi dọn Lối Gạch bằng chế độ mặc định đang lưu trên robot."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"]}]
+      decision_evidence: [["mode"]]
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+      ordered: true
+    contrast:
+      with: "TR10_ROBOT_MOP"
+
+  - scenario_id: "TR10_ROBOT_TWO"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng việc robot hiện tại rồi hút và lau cả Phòng Cói lẫn Lối Gạch, không dọn Kho Ván."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Phòng Cói","Lối Gạch"],"mode":"both"}]
+      decision_evidence: []
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Phòng Cói"],"mode":"both"}]
+      alternatives:
+        room_order: [["robot_vacuum.stop",{}],["robot_vacuum.start",{"rooms":["Lối Gạch","Phòng Cói"],"mode":"both"}]]
+      ordered: true
+      negative_alternatives:
+        null_subset:
+          actions: [["robot_vacuum.stop",{}],["robot_vacuum.start",{"rooms":null,"mode":"both"}]]
+          reason: authorized_actions
+    contrast:
+      with: "TR10_ROBOT_REPLACE"
+
+  - scenario_id: "TR10_ROBOT_WHOLE"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng việc robot hiện tại rồi hút bụi toàn bộ nhà theo danh sách phòng đang có."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"mode":"vacuum"}]
+      decision_evidence: []
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+      ordered: true
+      alternatives:
+        null_rooms: [["robot_vacuum.stop",{}],["robot_vacuum.start",{"rooms":null,"mode":"vacuum"}]]
+        empty_rooms: [["robot_vacuum.stop",{}],["robot_vacuum.start",{"rooms":[],"mode":"vacuum"}]]
+    contrast:
+      with: "TR10_ROBOT_TWO"
+
+  - scenario_id: "TR10_ROBOT_IFRUN"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dừng robot nếu nó đang cleaning. Nếu đang ở dock thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+      decision_evidence: [["cleaning"]]
+      counterexample:
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+    contrast:
+      with: "TR10_ROBOT_STOP"
+
+  - scenario_id: "TR10_ROBOT_IFDOCK"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "docked"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ dừng robot nếu nó đang cleaning. Nếu đang ở dock thì giữ nguyên."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["docked"]]
+      counterexample:
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+    contrast:
+      with: "TR10_ROBOT_IFRUN"
+
+  - scenario_id: "TR10_ROBOT_BATTERY"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "exact"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ cho robot hút bụi Lối Gạch nếu pin hiện tại ít nhất 15%. Thiếu pin thì không chạy."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.start",{"rooms":["Lối Gạch"],"mode":"vacuum"}]
+      decision_evidence: [["exact"]]
+      counterexample:
+        - ["robot_vacuum.start",{"rooms":["Phòng Cói"],"mode":"vacuum"}]
+    contrast:
+      with: "TR10_ROBOT_REPLACE"
+
+  - scenario_id: "TR10_ROBOT_LOW"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "low"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ cho robot hút bụi Lối Gạch nếu pin hiện tại ít nhất 15%. Thiếu pin thì không chạy."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["low"]]
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+    contrast:
+      with: "TR10_ROBOT_BATTERY"
+
+  - scenario_id: "TR10_ROBOT_LOOK"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chỉ xem chế độ mặc định đang lưu trên robot. Không dừng hay chạy."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "observe_no_write"
+      actions: []
+      decision_evidence: [["mode"]]
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+    contrast:
+      with: "TR10_ROBOT_INHERIT"
+
+  - scenario_id: "TR10_ROBOT_RESTARTALL"
+    world_id: "W_TR10_ROBOT"
+    lineage_id: "TRAIN_ROBOT_JOB_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Dừng robot đang chạy rồi dọn toàn bộ nhà theo chế độ mặc định đang lưu, không chọn riêng phòng nào."
+      context:
+        current_time: "2027-04-10T09:00:00+07:00"
+      history: []
+      allowed_tools: ["robot_vacuum.get_status","robot_vacuum.start","robot_vacuum.stop"]
+    oracle_draft:
+      outcome: "execute"
+      actions:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{}]
+      decision_evidence: [["mode"]]
+      counterexample:
+        - ["robot_vacuum.stop",{}]
+        - ["robot_vacuum.start",{"mode":"vacuum"}]
+      ordered: true
+    contrast:
+      with: "TR10_ROBOT_WHOLE"

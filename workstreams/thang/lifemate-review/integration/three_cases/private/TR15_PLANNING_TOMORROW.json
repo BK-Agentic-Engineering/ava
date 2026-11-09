@@ -1,0 +1,368 @@
+{
+  "scenario": {
+    "scenario_id": "TR15_PLANNING_TOMORROW",
+    "world_id": "W_TR15_PLANNING",
+    "lineage_id": "TRAIN_ALARM_EDIT_02",
+    "fixture_variant": "base",
+    "status": "spec_only",
+    "exportable": false,
+    "agent_visible": {
+      "request": "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé.",
+      "context": {
+        "current_time": "2027-09-17T00:10:00+07:00",
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      "history": [],
+      "allowed_tools": [
+        "reminders.create",
+        "reminders.list",
+        "calendar.create_event",
+        "calendar.list_events",
+        "tasks.add"
+      ]
+    },
+    "historical_turns": [
+      {
+        "user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.",
+        "current_time": "2027-09-16T19:00:00+07:00",
+        "calls": [
+          {
+            "tag": "anchor",
+            "name": "reminders.create",
+            "arguments": {
+              "content": "Rà dây neo",
+              "time": "2027-09-18T08:20:00+07:00"
+            }
+          }
+        ]
+      }
+    ],
+    "oracle_draft": {
+      "outcome": "execute",
+      "actions": [
+        [
+          "calendar.create_event",
+          {
+            "title": "Rà dây neo",
+            "start": "2027-09-18T08:20:00+07:00"
+          }
+        ]
+      ],
+      "history_required": [
+        "anchor"
+      ],
+      "source_checks": [
+        {
+          "action": 0,
+          "field": "start",
+          "days": 1,
+          "clock": "$anchor.item.time"
+        }
+      ],
+      "variants": {
+        "wrong_tool": {
+          "calls": [
+            [
+              "reminders.create",
+              {
+                "content": "Rà dây neo",
+                "time": "2027-09-18T08:20:00+07:00"
+              }
+            ]
+          ],
+          "reasons": [
+            "authorized_actions",
+            "state"
+          ]
+        },
+        "default_end_explicit": {
+          "calls": [
+            [
+              "calendar.create_event",
+              {
+                "title": "Rà dây neo",
+                "start": "2027-09-18T08:20:00+07:00",
+                "end": "2027-09-18T09:20:00+07:00"
+              }
+            ]
+          ],
+          "reasons": []
+        },
+        "repeat_history": {
+          "calls": [
+            [
+              "reminders.create",
+              {
+                "content": "Rà dây neo",
+                "time": "$anchor.item.time"
+              }
+            ],
+            [
+              "calendar.create_event",
+              {
+                "title": "Rà dây neo",
+                "start": "2027-09-18T08:20:00+07:00"
+              }
+            ]
+          ],
+          "reasons": [
+            "authorized_actions",
+            "state"
+          ]
+        }
+      }
+    }
+  },
+  "initial_state": {
+    "reminders": {
+      "reminders": [
+        {
+          "content": "Chốt kệ",
+          "done": false,
+          "id": "w15_rem_existing",
+          "repeat": "once",
+          "time": "2027-09-21T14:00:00+07:00"
+        },
+        {
+          "content": "Rà dây neo",
+          "done": false,
+          "id": "rem_02",
+          "repeat": "once",
+          "time": "2027-09-18T08:20:00+07:00"
+        }
+      ]
+    },
+    "calendar": {
+      "events": [
+        {
+          "end": "2027-09-18T11:00:00+07:00",
+          "id": "w15_calendar_existing",
+          "start": "2027-09-18T10:00:00+07:00",
+          "status": "confirmed",
+          "title": "Kiểm mối hàn"
+        }
+      ]
+    },
+    "tasks": {
+      "tasks": []
+    },
+    "sys": {}
+  },
+  "final_state": {
+    "reminders": {
+      "reminders": [
+        {
+          "content": "Chốt kệ",
+          "done": false,
+          "id": "w15_rem_existing",
+          "repeat": "once",
+          "time": "2027-09-21T14:00:00+07:00"
+        },
+        {
+          "content": "Rà dây neo",
+          "done": false,
+          "id": "rem_02",
+          "repeat": "once",
+          "time": "2027-09-18T08:20:00+07:00"
+        }
+      ]
+    },
+    "calendar": {
+      "events": [
+        {
+          "end": "2027-09-18T11:00:00+07:00",
+          "id": "w15_calendar_existing",
+          "start": "2027-09-18T10:00:00+07:00",
+          "status": "confirmed",
+          "title": "Kiểm mối hàn"
+        },
+        {
+          "id": "evt_02",
+          "status": "confirmed",
+          "title": "Rà dây neo",
+          "start": "2027-09-18T08:20:00+07:00",
+          "end": "2027-09-18T09:20:00+07:00"
+        }
+      ]
+    },
+    "tasks": {
+      "tasks": []
+    },
+    "sys": {}
+  },
+  "visible": {
+    "request": "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé.",
+    "context": {
+      "current_time": "2027-09-17T00:10:00+07:00",
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "history": [
+      {
+        "role": "user",
+        "audio_text": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam."
+      },
+      {
+        "role": "assistant",
+        "text": "",
+        "tool_calls": [
+          {
+            "name": "reminders.create",
+            "arguments": {
+              "content": "Rà dây neo",
+              "time": "2027-09-18T08:20:00+07:00"
+            }
+          }
+        ],
+        "tool_results": [
+          {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Rà dây neo",
+              "time": "2027-09-18T08:20:00+07:00"
+            }
+          }
+        ]
+      }
+    ],
+    "allowed_tools": [
+      "reminders.create",
+      "reminders.list",
+      "calendar.create_event",
+      "calendar.list_events",
+      "tasks.add"
+    ]
+  },
+  "reference_calls": [
+    {
+      "name": "calendar.create_event",
+      "arguments": {
+        "title": "Rà dây neo",
+        "start": "2027-09-18T08:20:00+07:00"
+      },
+      "result": {
+        "ok": true,
+        "id": "evt_02",
+        "item": {
+          "id": "evt_02",
+          "status": "confirmed",
+          "title": "Rà dây neo",
+          "start": "2027-09-18T08:20:00+07:00",
+          "end": "2027-09-18T09:20:00+07:00"
+        }
+      }
+    }
+  ],
+  "events": {
+    "anchor": {
+      "name": "reminders.create",
+      "arguments": {
+        "content": "Rà dây neo",
+        "time": "2027-09-18T08:20:00+07:00"
+      },
+      "result": {
+        "ok": true,
+        "id": "rem_02",
+        "item": {
+          "id": "rem_02",
+          "repeat": "once",
+          "done": false,
+          "content": "Rà dây neo",
+          "time": "2027-09-18T08:20:00+07:00"
+        }
+      }
+    }
+  },
+  "gold_actions": [
+    [
+      "calendar.create_event",
+      {
+        "title": "Rà dây neo",
+        "start": "2027-09-18T08:20:00+07:00"
+      }
+    ]
+  ],
+  "oracle": {
+    "outcome": "execute",
+    "actions": [
+      [
+        "calendar.create_event",
+        {
+          "title": "Rà dây neo",
+          "start": "2027-09-18T08:20:00+07:00"
+        }
+      ]
+    ],
+    "history_required": [
+      "anchor"
+    ],
+    "source_checks": [
+      {
+        "action": 0,
+        "field": "start",
+        "days": 1,
+        "clock": "$anchor.item.time"
+      }
+    ],
+    "variants": {
+      "wrong_tool": {
+        "calls": [
+          [
+            "reminders.create",
+            {
+              "content": "Rà dây neo",
+              "time": "2027-09-18T08:20:00+07:00"
+            }
+          ]
+        ],
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ]
+      },
+      "default_end_explicit": {
+        "calls": [
+          [
+            "calendar.create_event",
+            {
+              "title": "Rà dây neo",
+              "start": "2027-09-18T08:20:00+07:00",
+              "end": "2027-09-18T09:20:00+07:00"
+            }
+          ]
+        ],
+        "reasons": []
+      },
+      "repeat_history": {
+        "calls": [
+          [
+            "reminders.create",
+            {
+              "content": "Rà dây neo",
+              "time": "$anchor.item.time"
+            }
+          ],
+          [
+            "calendar.create_event",
+            {
+              "title": "Rà dây neo",
+              "start": "2027-09-18T08:20:00+07:00"
+            }
+          ]
+        ],
+        "reasons": [
+          "authorized_actions",
+          "state"
+        ]
+      }
+    }
+  },
+  "canonical_local_verdict": {
+    "verdict": "pass",
+    "reasons": [],
+    "official_call_matching": "not_evaluated"
+  }
+}

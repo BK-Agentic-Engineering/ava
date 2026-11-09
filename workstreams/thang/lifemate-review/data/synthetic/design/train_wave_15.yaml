@@ -1,0 +1,1250 @@
+version: "train_wave_15"
+split: "train"
+status: "spec_only"
+exportable: false
+history_materialization: "Historical plans are replayed per turn; only actual paired calls/results enter visible history."
+provenance: {"release": "v3.2.0", "schema": "2.7.0", "runtime_root": "train+public_test/train/zaic_tools/", "catalog_member": "train+public_test/train/train_tools_catalog.json"}
+worlds:
+  - world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR14_PLAN_CAL", "TR13_REM_AB", "TR14_DATE_BEFORE"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02", "TRAIN_SHOP_LIFECYCLE_01"]}
+    design_base: "TR15_PLANNING_TOMORROW"
+    family: "planning"
+    relevant_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    initial_state:
+      reminders: {"reminders": [{"id": "w15_rem_existing", "content": "Chốt kệ", "time": "2027-09-21T14:00:00+07:00", "repeat": "once", "done": false}]}
+      calendar: {"events": [{"id": "w15_calendar_existing", "title": "Kiểm mối hàn", "start": "2027-09-18T10:00:00+07:00", "end": "2027-09-18T11:00:00+07:00", "status": "confirmed"}]}
+      tasks: {"tasks": []}
+    variants: {}
+
+  - world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR14_PICK_HOME", "TR13_REM_AB"], "parent_lineage_ids": ["TRAIN_LOGISTICS_DIRECTION_02", "TRAIN_SHOP_LIFECYCLE_01"]}
+    design_base: "TR15_PICKUP_HOME"
+    family: "pickup"
+    relevant_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    initial_state:
+      package_tracking: {"pickups": [{"id": "w15_pick_existing", "address": "3 Ngách Gạch Vân", "date": "2027-09-14", "status": "scheduled"}], "shipments": [{"id": "w15_incoming", "tracking_id": "VAN1503", "status": "in_transit", "name": "Thùng mẫu giấy", "carrier": "Chuyển Sợi", "eta": "2027-09-18T12:00:00+07:00"}, {"id": "w15_delivered", "tracking_id": "VAN1507", "status": "delivered", "name": "Cuộn lưới", "carrier": "Chuyển Sợi", "eta": "2027-09-16T11:00:00+07:00"}]}
+      reminders: {"reminders": []}
+    variants: {}
+
+  - world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR14_FIT_NOW", "TR13_REM_AB"], "parent_lineage_ids": ["TRAIN_FITNESS_DATES_04", "TRAIN_SHOP_LIFECYCLE_01"]}
+    design_base: "TR15_FITNESS_NOW"
+    family: "fitness"
+    relevant_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    initial_state:
+      fitness: {"activity": {}, "goal_steps": 6500, "workouts": [{"id": "w15_work_existing", "type": "yoga", "minutes": 16, "time": "2027-09-14T07:00:00+07:00"}]}
+      reminders: {"reminders": []}
+    variants: {}
+
+  - world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    split: "train"
+    origin: "train_derivative"
+    ancestry: {"parent_world_ids": [], "parent_scenario_ids": ["TR13_CONTACT_CURRENT_CHECK", "TR14_PLAN_TASK"], "parent_lineage_ids": ["TRAIN_ALARM_EDIT_02"]}
+    design_base: "TR15_CONTACT_TASK"
+    family: "contact"
+    relevant_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    initial_state:
+      contacts: {"contacts": [{"id": "w15_contact_a", "name": "Phạm Tố Lam", "email": "lam-cu@example.test", "phone": "0900001511"}, {"id": "w15_contact_b", "name": "Vũ Minh Trác", "email": "trac@example.test", "phone": "0900001512"}]}
+      tasks: {"tasks": [{"id": "w15_task_keep", "title": "Đếm cúc vải", "due": "2027-09-20", "priority": "normal", "done": false}]}
+      notes: {"notes": []}
+    variants: {}
+
+scenarios:
+  - scenario_id: "TR15_PLANNING_TOMORROW"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        default_end_explicit: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00", "end": "2027-09-18T09:20:00+07:00"}]], "reasons": []}
+        repeat_history: {"calls": [["reminders.create", {"content": "Rà dây neo", "time": "$anchor.item.time"}], ["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_MIDNIGHT"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé."
+      context: {"current_time": "2027-09-16T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-17T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        historical_date: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PLANNING_TOMORROW", "changes": "context"}
+
+  - scenario_id: "TR15_PLANNING_EXPLICIT"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch lúc 08:20 sáng."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "2027-09-18T08:20:00+07:00"}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_HOME"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn bên vận chuyển đến lấy kiện mới ở nhà tôi vào ngày mai."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "12 Ngõ Hạt Kê", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "address", "profile": "home_address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        old_address: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_PROFILE"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn bên vận chuyển đến lấy kiện mới ở nhà tôi vào ngày mai."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "27 Hẻm Đèn Vải"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "27 Hẻm Đèn Vải", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "address", "profile": "home_address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        other_address: {"calls": [["package_tracking.schedule_pickup", {"address": "12 Ngõ Hạt Kê", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PICKUP_HOME", "changes": "context"}
+
+  - scenario_id: "TR15_PICKUP_REUSE"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiện mới thì hẹn lấy ngày mai, quay lại đúng địa chỉ lần vừa hẹn."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Hẹn lấy kiện mới", "time": "2027-09-18T09:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PICKUP_HOME", "changes": "request"}
+
+  - scenario_id: "TR15_FITNESS_NOW"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi vừa tập xong một buổi nữa, giống buổi vừa ghi cả môn lẫn số phút. Ghi buổi mới giúp tôi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        stale_timestamp: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-16T19:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        runtime_default: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32}]], "reasons": []}
+
+  - scenario_id: "TR15_FITNESS_NOWSHIFT"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi vừa tập xong một buổi nữa, giống buổi vừa ghi cả môn lẫn số phút. Ghi buổi mới giúp tôi."
+      context: {"current_time": "2027-09-16T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-16T23:50:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        stale_timestamp: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-16T19:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_FITNESS_NOW", "changes": "context"}
+
+  - scenario_id: "TR15_FITNESS_EXPLICIT"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi vừa bơi 32 phút. Ghi thêm buổi vừa xong."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Bơi 32 phút", "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_CONTACT_TASK"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra lại email hiện đang lưu của người vừa tra. Thêm việc Gửi sơ đồ, ghi địa chỉ vào ngay sau chữ 'cho' trong tên việc và đặt hạn 17 giờ ngày mai."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Gửi sơ đồ cho {}"}, {"action": 0, "field": "due", "days": 1, "clock": "2027-09-18T17:00:00+07:00"}]
+      variants:
+        wrong_tool: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["notes.create", {"title": "Gửi sơ đồ", "content": "lam-moi@example.test"}]], "reasons": ["authorized_actions", "state"]}
+        broad_read: {"calls": [["contacts.search", {}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": []}
+        get: {"calls": [["contacts.get", {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": []}
+        unobserved: {"calls": [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["fresh_observation"]}
+        late: {"calls": [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}], ["contacts.search", {"query": "Phạm Tố Lam"}]], "reasons": ["fresh_observation"]}
+        unrelated: {"calls": [["contacts.search", {"query": "Vũ Minh Trác"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["fresh_observation"]}
+        empty: {"calls": [["contacts.search", {"query": "Không Có Người Này"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["fresh_observation"]}
+        stale: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-cu@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+
+  - scenario_id: "TR15_CONTACT_DEADLINE"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra lại email hiện đang lưu của người vừa tra. Thêm việc Gửi sơ đồ, ghi địa chỉ vào ngay sau chữ 'cho' trong tên việc và đặt hạn 17 giờ ngày mai."
+      context: {"current_time": "2027-09-16T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-17T17:00:00+07:00"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Gửi sơ đồ cho {}"}, {"action": 0, "field": "due", "days": 1, "clock": "2027-09-18T17:00:00+07:00"}]
+      variants:
+        wrong_date: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+    contrast: {"with": "TR15_CONTACT_TASK", "changes": "context"}
+
+  - scenario_id: "TR15_CONTACT_NOTE"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra lại email hiện đang lưu của người vừa tra, rồi lưu riêng địa chỉ đó vào ghi chú tên Nơi nhận sơ đồ."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["notes.create", {"title": "Nơi nhận sơ đồ", "content": "lam-moi@example.test"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "content", "current_contact": true}]
+      variants:
+        wrong_tool: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+    contrast: {"with": "TR15_CONTACT_TASK", "changes": "request"}
+
+  - scenario_id: "TR15_PLANNING_OTHERHISTORY"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo lúc 10:40 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T10:40:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T10:40:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        ignore_history: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PLANNING_TOMORROW", "changes": "history"}
+
+  - scenario_id: "TR15_PLANNING_ABSOLUTE"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chặn lịch Rà dây neo đúng thời điểm của lời nhắc vừa tạo, kể cả ngày của nó."
+      context: {"current_time": "2027-09-16T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "history": "$anchor.item.time"}]
+      variants:
+        wrong_tool: {"calls": [["tasks.add", {"title": "Rà dây neo", "due": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        relative_instead: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-17T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        utc_equivalent: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T01:20:00+00:00"}]], "reasons": []}
+
+  - scenario_id: "TR15_PLANNING_TASK"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Biến mốc lời nhắc vừa đặt thành hạn cho một việc cần làm tên Rà dây neo. Lời nhắc cũ cứ để đó."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Rà dây neo", "due": "2027-09-18T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "due", "history": "$anchor.item.time"}]
+      variants:
+        wrong_tool: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_SECOND_REM"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Cùng giờ với lời nhắc vừa tạo, đặt thêm một lời nhắc khác tên Mang găng vào đúng ngày ấy."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create", {"content": "Mang găng", "time": "2027-09-18T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "time", "history": "$anchor.item.time"}]
+      variants:
+        wrong_tool: {"calls": [["calendar.create_event", {"title": "Mang găng", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_LOCATION"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xếp Rà dây neo vào lịch sáng mai, theo giờ trên lời nhắc trước đó. Địa điểm là Sân Mành."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00", "location": "Sân Mành"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        missing_location: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_DURATION"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai chặn nửa tiếng trên lịch cho Rà dây neo, bắt đầu cùng giờ trên lời nhắc vừa đặt."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00", "end": "2027-09-18T08:50:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        default_duration: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_SECOND_TIME"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch, nhưng bắt đầu 09:10 chứ đừng lấy giờ của lời nhắc nữa."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T09:10:00+07:00"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "2027-09-18T09:10:00+07:00"}]
+      variants:
+        ignore_override: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_ZONE"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai thêm Rà dây neo vào lịch theo múi giờ hiện tại, giữ nguyên số giờ và phút ghi trên lời nhắc vừa đặt nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "UTC"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-17T08:20:00+00:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        wrong_timezone: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PLANNING_TOMORROW", "changes": "context"}
+
+  - scenario_id: "TR15_PICKUP_EXPLICIT"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ngày mai hẹn đến lấy kiện mới ở 36 Ngõ Sợi Bạc, tôi gửi nhờ bên đó."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "36 Ngõ Sợi Bạc", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "date", "days": 1}]
+      variants:
+        ignore_explicit: {"calls": [["package_tracking.schedule_pickup", {"address": "12 Ngõ Hạt Kê", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_SAMEDAY"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Hẹn lấy thêm một kiện tại địa chỉ vừa dùng, cũng đúng ngày trong lần hẹn đó."
+      context: {"current_time": "2027-09-16T20:30:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "history": "$pickup.pickup.date"}]
+      variants:
+        relative_instead: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_LATER"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ngày kia mới gửi kiện tiếp theo. Hẹn người đến lấy tại đúng chỗ hẹn trước."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-19"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "days": 2}]
+      variants:
+        wrong_day: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_CORRECTION"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giờ hẹn lấy kiện tiếp theo vào ngày mai ở địa chỉ tôi đã sửa nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+      - {"user": "Tôi đổi địa chỉ nhận lấy kiện tiếp theo sang 76 Ngách Đá Phấn. Chưa cần đặt.", "current_time": "2027-09-16T21:00:00+07:00", "calls": []}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "76 Ngách Đá Phấn", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "date", "days": 1}]
+      variants:
+        ignore_correction: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+      user_history_required: [1]
+
+  - scenario_id: "TR15_PICKUP_CORRECTIONALT"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Giờ hẹn lấy kiện tiếp theo vào ngày mai ở địa chỉ tôi đã sửa nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+      - {"user": "Tôi đổi địa chỉ nhận lấy kiện tiếp theo sang 39 Hẻm Sáp Ong. Chưa cần đặt.", "current_time": "2027-09-16T21:00:00+07:00", "calls": []}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "39 Hẻm Sáp Ong", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "date", "days": 1}]
+      variants:
+        wrong_correction: {"calls": [["package_tracking.schedule_pickup", {"address": "76 Ngách Đá Phấn", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+      user_history_required: [1]
+    contrast: {"with": "TR15_PICKUP_CORRECTION", "changes": "history"}
+
+  - scenario_id: "TR15_PICKUP_OUTBOUND"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Địa chỉ lấy kiện mới dùng lại chỗ vừa hẹn. Đặt lấy ngày mai; vận đơn VAN1503 là kiện gửi đến, cứ giữ nguyên."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        wrong_tool: {"calls": [["package_tracking.reschedule_delivery", {"tracking_id": "VAN1503", "time": "2027-09-18T09:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_REMINDER"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai lúc 09:00 nhắc tôi mang kiện mới ra chỗ vừa hẹn lấy. Nội dung ghi kèm đúng địa chỉ đó."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create", {"content": "Mang kiện mới ra 48 Hẻm Bến Chàm", "time": "2027-09-18T09:00:00+07:00"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "content", "history": "$pickup.pickup.address", "template": "Mang kiện mới ra {}"}, {"action": 0, "field": "time", "days": 1, "clock": "2027-09-18T09:00:00+07:00"}]
+      variants:
+        wrong_tool: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_BEFOREMIDNIGHT"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiện mới thì hẹn lấy ngày mai, quay lại đúng địa chỉ lần vừa hẹn."
+      context: {"current_time": "2027-09-16T23:50:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-17"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        wrong_day: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_PICKUP_REUSE", "changes": "context"}
+
+  - scenario_id: "TR15_FITNESS_MINUTES"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm một buổi vừa xong, vẫn môn vừa ghi nhưng buổi này chỉ 21 phút."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 21, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        old_duration: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_SPORT"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Buổi vừa xong là đạp xe, dài bằng buổi trước. Ghi thêm vào nhật ký tập."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "cycling", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        old_sport: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_FUTURE"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai 06:15 nhắc tôi bơi đúng số phút của buổi vừa ghi. Trong lời nhắc ghi rõ số phút."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["reminders.create", {"content": "Bơi 32 phút", "time": "2027-09-18T06:15:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "content", "history": "$workout.workout.minutes", "template": "Bơi {} phút"}, {"action": 0, "field": "time", "days": 1, "clock": "2027-09-18T06:15:00+07:00"}]
+      variants:
+        wrong_tool: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-18T06:15:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_YESTERDAY"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi còn một buổi như buổi vừa ghi, nhưng buổi này tập lúc 07:00 sáng hôm qua. Ghi thêm buổi đó."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-16T07:00:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "days": -1, "clock": "2027-09-16T07:00:00+07:00"}]
+      variants:
+        default_now: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_ABSOLUTE"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lúc buổi bơi trước kết thúc, tôi cũng vừa tập giãn cơ 12 phút. Ghi giãn cơ thành bài tập loại khác, lấy đúng mốc giờ đã ghi cho buổi bơi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "other", "minutes": 12, "time": "2027-09-16T19:00:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "time", "history": "$workout.workout.time"}]
+      variants:
+        overwrite_anchor: {"calls": [["fitness.log_workout", {"type": "other", "minutes": 12, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_WORKALTHISTORY"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi vừa tập xong một buổi nữa, giống buổi vừa ghi cả môn lẫn số phút. Ghi buổi mới giúp tôi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi buổi cầu lông 43 phút vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "badminton", "minutes": 43}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "badminton", "minutes": 43, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        ignore_history: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+    contrast: {"with": "TR15_FITNESS_NOW", "changes": "history"}
+
+  - scenario_id: "TR15_FITNESS_FROMTWO"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm buổi tôi vừa hoàn thành. Môn giống buổi đầu tôi nhờ ghi, số phút lấy theo buổi thứ hai tôi nhờ ghi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+      - {"user": "Ghi buổi đi bộ 19 phút tôi vừa hoàn thành.", "current_time": "2027-09-16T21:00:00+07:00", "calls": [{"tag": "second", "name": "fitness.log_workout", "arguments": {"type": "walking", "minutes": 19}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 19, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout", "second"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$second.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        one_source: {"calls": [["fitness.log_workout", {"type": "walking", "minutes": 19, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_CORRECTED"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Buổi mới ấy là bơi chứ không phải đi bộ. Tôi vừa xong, số phút bằng buổi bơi vừa ghi. Ghi lại buổi mới giúp tôi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+      - {"user": "Lát nữa nếu ghi buổi mới thì ghi đi bộ nhé.", "current_time": "2027-09-16T21:00:00+07:00", "calls": []}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        ignore_latest: {"calls": [["fitness.log_workout", {"type": "walking", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_CONTACT_OLD"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Lưu email cũ mà lần tra trước trả về vào ghi chú tên Địa chỉ đã bỏ."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["notes.create", {"title": "Địa chỉ đã bỏ", "content": "lam-cu@example.test"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "content", "history": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "email"}}]
+      variants:
+        current_instead: {"calls": [["notes.create", {"title": "Địa chỉ đã bỏ", "content": "lam-moi@example.test"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_CONTACT_NAMED"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tra lại email đang lưu của Phạm Tố Lam rồi ghi địa chỉ vào ghi chú tên Danh bạ đã kiểm."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["notes.create", {"title": "Danh bạ đã kiểm", "content": "lam-moi@example.test"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "content", "current_contact": true}]
+      variants:
+        wrong_tool: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Danh bạ đã kiểm lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+
+  - scenario_id: "TR15_CONTACT_EXPLICIT"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo ghi chú tên Địa chỉ bản in với nội dung đúng một dòng lam-moi@example.test."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["notes.create", {"title": "Địa chỉ bản in", "content": "lam-moi@example.test"}]]
+      history_required: []
+      source_checks: []
+      variants:
+        ignore_explicit: {"calls": [["notes.create", {"title": "Địa chỉ bản in", "content": "lam-cu@example.test"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_CONTACT_NO_DEADLINE"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tra lại email hiện tại của người vừa tra. Tạo việc tên Kiểm bản vẽ, nối email ngay sau tên việc bằng một dấu cách. Tôi chưa đặt hạn."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Kiểm bản vẽ lam-moi@example.test"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Kiểm bản vẽ {}"}]
+      variants:
+        invent_deadline: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Kiểm bản vẽ lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+
+  - scenario_id: "TR15_CONTACT_CORRECT_TARGET"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ban đầu tính ghi địa chỉ của người vừa tra, nhưng đổi sang Vũ Minh Trác nhé. Tra email đang lưu rồi ghi vào mục Nhận bản mẫu."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["notes.create", {"title": "Nhận bản mẫu", "content": "trac@example.test"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "content", "current_contact": true}]
+      variants:
+        ignore_latest: {"calls": [["contacts.search", {"query": "Vũ Minh Trác"}], ["notes.create", {"title": "Nhận bản mẫu", "content": "lam-moi@example.test"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Vũ Minh Trác"}]]
+      fresh_contact: "w15_contact_b"
+
+  - scenario_id: "TR15_CONTACT_TODAY"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Xem lại email hiện tại của người vừa tra. Thêm việc tên Kiểm khuôn rồi đến email, cách nhau một dấu cách. Hạn 16:30 hôm nay."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Kiểm khuôn lam-moi@example.test", "due": "2027-09-17T16:30:00+07:00"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Kiểm khuôn {}"}, {"action": 0, "field": "due", "days": 0, "clock": "2027-09-17T16:30:00+07:00"}]
+      variants:
+        wrong_day: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Kiểm khuôn lam-moi@example.test", "due": "2027-09-18T16:30:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+
+  - scenario_id: "TR15_CONTACT_OVERRIDE"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tạo việc Gửi sơ đồ cho lam-moi@example.test, hạn 10 giờ ngày mai. Dùng đúng địa chỉ tôi đọc ở đây."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T10:00:00+07:00"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "due", "days": 1, "clock": "2027-09-18T10:00:00+07:00"}]
+      variants:
+        wrong_deadline: {"calls": [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_BOTH"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Mai đưa Rà dây neo vào lịch theo giờ trên lời nhắc vừa tạo. Thêm riêng việc Chuẩn bị găng, hạn 07:50 sáng mai."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}], ["tasks.add", {"title": "Chuẩn bị găng", "due": "2027-09-18T07:50:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}, {"action": 1, "field": "due", "days": 1, "clock": "2027-09-18T07:50:00+07:00"}]
+      variants:
+        wrong_tool: {"calls": [["reminders.create", {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        only_event: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        only_task: {"calls": [["tasks.add", {"title": "Chuẩn bị găng", "due": "2027-09-18T07:50:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        reverse: {"calls": [["tasks.add", {"title": "Chuẩn bị găng", "due": "2027-09-18T07:50:00+07:00"}], ["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": []}
+
+  - scenario_id: "TR15_PLANNING_RENAME"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chặn lịch ngày mai theo giờ trên lời nhắc Rà dây neo. Lần này trên lịch đặt tên là Soát khóa neo."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["calendar.create_event", {"title": "Soát khóa neo", "start": "2027-09-18T08:20:00+07:00"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "start", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        copy_old_title: {"calls": [["calendar.create_event", {"title": "Rà dây neo", "start": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PLANNING_TASK_PRIORITY"
+    world_id: "W_TR15_PLANNING"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Chuyển giờ trên lời nhắc Rà dây neo thành hạn ngày mai cho việc Rà dây neo, đánh dấu việc này ưu tiên cao."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["reminders.create", "reminders.list", "calendar.create_event", "calendar.list_events", "tasks.add"]
+    historical_turns:
+      - {"user": "Đặt lời nhắc Rà dây neo vào 08:20 ngày 18 tháng 9 năm 2027, giờ Việt Nam.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "anchor", "name": "reminders.create", "arguments": {"content": "Rà dây neo", "time": "2027-09-18T08:20:00+07:00"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Rà dây neo", "due": "2027-09-18T08:20:00+07:00", "priority": "high"}]]
+      history_required: ["anchor"]
+      source_checks: [{"action": 0, "field": "due", "days": 1, "clock": "$anchor.item.time"}]
+      variants:
+        default_priority: {"calls": [["tasks.add", {"title": "Rà dây neo", "due": "2027-09-18T08:20:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_AFTER_NOOP"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Vậy hẹn lấy kiện khác vào ngày mai ở địa chỉ lần lấy hàng đã đặt được trước khi thử dời giờ giao."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+      - {"user": "Dời giờ giao vận đơn VAN1507 sang 10:30 ngày 19 tháng 9 năm 2027.", "current_time": "2027-09-16T22:00:00+07:00", "calls": [{"tag": "delivery_attempt", "name": "package_tracking.reschedule_delivery", "arguments": {"tracking_id": "VAN1507", "time": "2027-09-19T10:30:00+07:00"}, "expect": "noop"}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]]
+      history_required: ["pickup"]
+      source_checks: [{"action": 0, "field": "address", "history": "$pickup.pickup.address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        substitute_profile: {"calls": [["package_tracking.schedule_pickup", {"address": "12 Ngõ Hạt Kê", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+        read_inbound_first: {"calls": [["package_tracking.track", {"tracking_id": "VAN1507"}], ["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-18"}]], "reasons": []}
+        copy_failed_time: {"calls": [["package_tracking.schedule_pickup", {"address": "48 Hẻm Bến Chàm", "date": "2027-09-19"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_PICKUP_PROFILE_CORRECTION"
+    world_id: "W_TR15_PICKUP"
+    lineage_id: "TRAIN_LOGISTICS_DIRECTION_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tôi đổi ý, kiện này lấy ở nhà đang lưu trong hồ sơ, ngày mai nhé."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh", "user_profile": {"home_address": "12 Ngõ Hạt Kê"}}
+      history: []
+      allowed_tools: ["package_tracking.schedule_pickup", "package_tracking.track", "package_tracking.reschedule_delivery", "reminders.create"]
+    historical_turns:
+      - {"user": "Hẹn đến lấy hàng tại 48 Hẻm Bến Chàm ngày 16 tháng 9 năm 2027.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "pickup", "name": "package_tracking.schedule_pickup", "arguments": {"address": "48 Hẻm Bến Chàm", "date": "2027-09-16"}}]}
+      - {"user": "Tôi đổi địa chỉ nhận lấy kiện tiếp theo sang 76 Ngách Đá Phấn. Chưa cần đặt.", "current_time": "2027-09-16T21:00:00+07:00", "calls": []}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["package_tracking.schedule_pickup", {"address": "12 Ngõ Hạt Kê", "date": "2027-09-18"}]]
+      history_required: []
+      source_checks: [{"action": 0, "field": "address", "profile": "home_address"}, {"action": 0, "field": "date", "days": 1}]
+      variants:
+        ignore_latest: {"calls": [["package_tracking.schedule_pickup", {"address": "76 Ngách Đá Phấn", "date": "2027-09-18"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_BOTH"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi thêm buổi tôi vừa hoàn thành, giống buổi đã ghi cả môn lẫn số phút. Mai 06:15 nhắc tôi mang kính bơi."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}], ["reminders.create", {"content": "Mang kính bơi", "time": "2027-09-18T06:15:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes"}, {"action": 1, "field": "time", "days": 1, "clock": "2027-09-18T06:15:00+07:00"}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        future_logged: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-18T06:15:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        reverse: {"calls": [["reminders.create", {"content": "Mang kính bơi", "time": "2027-09-18T06:15:00+07:00"}], ["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": []}
+        only_log: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_FITNESS_LOCAL_DATE"
+    world_id: "W_TR15_FITNESS"
+    lineage_id: "TRAIN_FITNESS_DATES_04"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Ghi buổi vừa xong vào lúc này, môn như lần đầu nhưng lâu hơn buổi đó 10 phút."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["fitness.log_workout", "fitness.get_activity", "reminders.create"]
+    historical_turns:
+      - {"user": "Ghi lại buổi bơi 32 phút tôi vừa tập xong.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "workout", "name": "fitness.log_workout", "arguments": {"type": "swimming", "minutes": 32}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["fitness.log_workout", {"type": "swimming", "minutes": 42, "time": "2027-09-17T00:10:00+07:00"}]]
+      history_required: ["workout"]
+      source_checks: [{"action": 0, "field": "type", "history": "$workout.workout.type"}, {"action": 0, "field": "minutes", "history": "$workout.workout.minutes", "add": 10}, {"action": 0, "field": "time", "runtime_now": true}]
+      variants:
+        copy_minutes: {"calls": [["fitness.log_workout", {"type": "swimming", "minutes": 32, "time": "2027-09-17T00:10:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+
+  - scenario_id: "TR15_CONTACT_OTHERHISTORY"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra lại email hiện đang lưu của người vừa tra. Thêm việc Gửi sơ đồ, ghi địa chỉ vào ngay sau chữ 'cho' trong tên việc và đặt hạn 17 giờ ngày mai."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+      - {"user": "Giờ tra địa chỉ email của Vũ Minh Trác giúp tôi.", "current_time": "2027-09-16T21:00:00+07:00", "calls": [{"tag": "latest_contact", "name": "contacts.search", "arguments": {"query": "Vũ Minh Trác"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho trac@example.test", "due": "2027-09-18T17:00:00+07:00"}]]
+      history_required: ["latest_contact"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Gửi sơ đồ cho {}"}, {"action": 0, "field": "due", "days": 1, "clock": "2027-09-18T17:00:00+07:00"}]
+      variants:
+        wrong_contact: {"calls": [["contacts.search", {"query": "Vũ Minh Trác"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Vũ Minh Trác"}]]
+      fresh_contact: {"observed": "latest_contact", "collection": "contacts", "match": {"name": "Vũ Minh Trác"}, "field": "id"}
+    contrast: {"with": "TR15_CONTACT_TASK", "changes": "history"}
+
+  - scenario_id: "TR15_CONTACT_FIXED_DEADLINE"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Tra lại email đang lưu của người vừa tra. Thêm việc Gửi sơ đồ cho địa chỉ đó, ghi email vào tên việc. Hạn 17 giờ ngày 19 tháng 9 năm 2027, giờ Việt Nam."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-19T17:00:00+07:00"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Gửi sơ đồ cho {}"}]
+      variants:
+        relative_instead: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}
+
+  - scenario_id: "TR15_CONTACT_BOTH"
+    world_id: "W_TR15_CONTACT"
+    lineage_id: "TRAIN_ALARM_EDIT_02"
+    fixture_variant: "base"
+    status: "spec_only"
+    exportable: false
+    agent_visible:
+      request: "Kiểm tra email hiện tại của người vừa tra. Lưu địa chỉ vào ghi chú tên Đầu mối bản vẽ và thêm việc Gửi sơ đồ cho địa chỉ đó vào 17 giờ ngày mai. Ghi cả email vào tên việc."
+      context: {"current_time": "2027-09-17T00:10:00+07:00", "timezone": "Asia/Ho_Chi_Minh"}
+      history: []
+      allowed_tools: ["contacts.search", "contacts.get", "contacts.update", "tasks.add", "notes.create", "notes.list"]
+    historical_turns:
+      - {"user": "Tra trong danh bạ xem email của Phạm Tố Lam là gì.", "current_time": "2027-09-16T19:00:00+07:00", "calls": [{"tag": "found", "name": "contacts.search", "arguments": {"query": "Phạm Tố Lam"}}]}
+      - {"user": "Đổi email của Phạm Tố Lam trong danh bạ thành lam-moi@example.test.", "current_time": "2027-09-16T20:00:00+07:00", "calls": [{"tag": "changed", "name": "contacts.update", "arguments": {"contact_id": {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}, "email": "lam-moi@example.test"}}]}
+    oracle_draft:
+      outcome: "execute"
+      actions: [["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}], ["notes.create", {"title": "Đầu mối bản vẽ", "content": "lam-moi@example.test"}]]
+      history_required: ["found"]
+      source_checks: [{"action": 0, "field": "title", "current_contact": true, "template": "Gửi sơ đồ cho {}"}, {"action": 0, "field": "due", "days": 1, "clock": "2027-09-18T17:00:00+07:00"}, {"action": 1, "field": "content", "current_contact": true}]
+      variants:
+        stale_and_missing_note: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-cu@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["authorized_actions", "state"]}
+        reverse: {"calls": [["contacts.search", {"query": "Phạm Tố Lam"}], ["notes.create", {"title": "Đầu mối bản vẽ", "content": "lam-moi@example.test"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": []}
+        read_after_note: {"calls": [["notes.create", {"title": "Đầu mối bản vẽ", "content": "lam-moi@example.test"}], ["contacts.search", {"query": "Phạm Tố Lam"}], ["tasks.add", {"title": "Gửi sơ đồ cho lam-moi@example.test", "due": "2027-09-18T17:00:00+07:00"}]], "reasons": ["fresh_observation"]}
+      reads: [["contacts.search", {"query": "Phạm Tố Lam"}]]
+      fresh_contact: {"observed": "found", "collection": "contacts", "match": {"name": "Phạm Tố Lam"}, "field": "id"}

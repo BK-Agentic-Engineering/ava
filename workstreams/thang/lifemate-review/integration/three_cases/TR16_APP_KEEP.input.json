@@ -1,0 +1,74 @@
+{
+  "contract_version": "lifemate-harness-proposal-0.1",
+  "sample_id": "TR16_APP_KEEP",
+  "run_id": "prepared-tr16_app_keep-v01",
+  "agent_visible": {
+    "request": "Máy giặt hiên rảnh thì chạy quick giúp tôi. Đang chạy thì cứ để vậy.",
+    "context": {
+      "current_time": "2027-10-05T08:00:00+07:00",
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "history": [],
+    "tool_schema_refs": [
+      {
+        "path": "tool_schemas.json",
+        "selector": "/appliances.list"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/appliances.start_cycle"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/appliances.stop"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/reminders.create"
+      },
+      {
+        "path": "tool_schemas.json",
+        "selector": "/sys.ask_missing_info"
+      }
+    ]
+  },
+  "private_execution": {
+    "scenario_ref": {
+      "path": "private/TR16_APP_KEEP.json",
+      "selector": "/scenario"
+    },
+    "oracle_ref": {
+      "path": "private/TR16_APP_KEEP.json",
+      "selector": "/oracle"
+    },
+    "visible_source_ref": {
+      "path": "private/TR16_APP_KEEP.json",
+      "selector": "/visible"
+    },
+    "initial_state_ref": {
+      "path": "private/TR16_APP_KEEP.json",
+      "selector": "/initial_state"
+    },
+    "current_time": "2027-10-05T08:00:00+07:00",
+    "tools": [
+      "appliances.list",
+      "appliances.start_cycle",
+      "appliances.stop",
+      "reminders.create"
+    ],
+    "latest_turn_log": [],
+    "runtime": {
+      "release": "v3.2.0",
+      "schema": "2.7.0",
+      "split": "train"
+    },
+    "timezone": "Asia/Ho_Chi_Minh",
+    "effective_tools": [
+      "appliances.list",
+      "appliances.start_cycle",
+      "appliances.stop",
+      "reminders.create",
+      "sys.ask_missing_info"
+    ]
+  }
+}

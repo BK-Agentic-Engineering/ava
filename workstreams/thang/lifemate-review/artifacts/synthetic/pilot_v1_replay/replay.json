@@ -1,0 +1,7125 @@
+{
+  "created_utc": "2026-11-03T08:24:25.951567+00:00",
+  "kind": "hand_authored_runtime_replay_not_model_evaluation",
+  "status": {
+    "unique_scenarios_replayed": 16,
+    "positive_paths": 26,
+    "negative_checks": 40,
+    "human_review_probes": 1,
+    "all_expectations_met": true,
+    "spec_only": 16,
+    "execution_verified": 0,
+    "exportable": false
+  },
+  "family_scenario_counts": {
+    "L": 2,
+    "R": 3,
+    "M": 2,
+    "S": 2,
+    "T": 2,
+    "N": 3,
+    "C": 2
+  },
+  "provenance": {
+    "archive": "D:\\Downloads\\train+public_test.zip",
+    "release_as_recorded_in_design": "v3.2.0",
+    "catalog_schema_version": "2.7.0",
+    "allowlisted_members": [
+      "train+public_test/train/zaic_tools/__init__.py",
+      "train+public_test/train/zaic_tools/executor.py",
+      "train+public_test/train/zaic_tools/validate.py",
+      "train+public_test/train/zaic_tools/utils.py",
+      "train+public_test/train/zaic_tools/apps/__init__.py",
+      "train+public_test/train/zaic_tools/apps/base.py",
+      "train+public_test/train/zaic_tools/apps/sys.py",
+      "train+public_test/train/zaic_tools/apps/smart_home.py",
+      "train+public_test/train/zaic_tools/apps/ride_hailing.py",
+      "train+public_test/train/zaic_tools/apps/food_delivery.py",
+      "train+public_test/train/zaic_tools/apps/contacts.py",
+      "train+public_test/train/zaic_tools/apps/sms.py",
+      "train+public_test/train/zaic_tools/apps/banking.py",
+      "train+public_test/train/zaic_tools/apps/reminders.py",
+      "train+public_test/train/train_tools_catalog.json"
+    ],
+    "runtime_modified": false,
+    "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+    "design": "data\\synthetic\\design\\pilot_v1.yaml"
+  },
+  "reproduction_command": "python scripts/replay_pilot_v1.py",
+  "limitations": [
+    "No model evaluation, finalized team harness or official semantic acceptance.",
+    "History is not consumed by Executor; initial history effects already materialized.",
+    "C1/C2 check repeated-write avoidance/current-ID grounding, not independent history comprehension.",
+    "Text checks cover exact authored text and explicit diagnostic errors; unfamiliar paraphrases require human review.",
+    "R1 stored-key absence is checked; runtime removes a None schedule argument, so null-state rejection uses a labeled snapshot."
+  ],
+  "fixtures": {
+    "L1": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "d7",
+            "name": "đèn hắt tường",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "d2",
+            "name": "đèn đọc sách",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "d8",
+            "name": "đèn trần",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "off"
+            }
+          },
+          {
+            "id": "d5",
+            "name": "đèn hành lang",
+            "type": "light",
+            "floor": 1,
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "L2": {
+      "smart_home": {
+        "devices": [
+          {
+            "id": "d7",
+            "name": "đèn hắt tường",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "d2",
+            "name": "đèn đọc sách",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "on"
+            }
+          },
+          {
+            "id": "d8",
+            "name": "đèn trần",
+            "type": "light",
+            "floor": 2,
+            "state": {
+              "power": "off"
+            }
+          },
+          {
+            "id": "d5",
+            "name": "đèn hành lang",
+            "type": "light",
+            "floor": 1,
+            "state": {
+              "power": "on"
+            }
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "smart_home.get_status",
+          "smart_home.light_set",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "R1": {
+      "ride_hailing": {
+        "rides": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "ride_hailing.book",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "R2": {
+      "ride_hailing": {
+        "rides": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "ride_hailing.book",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "R3": {
+      "ride_hailing": {
+        "rides": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "M1": {
+      "food_delivery": {
+        "restaurants": [
+          {
+            "id": "r4",
+            "name": "Nếp Mộc",
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          },
+          {
+            "id": "r9",
+            "name": "Tán Lá",
+            "menu": [
+              {
+                "id": "m8",
+                "name": "bánh bí",
+                "price": 31000
+              }
+            ]
+          }
+        ],
+        "orders": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "food_delivery.list_restaurants",
+          "food_delivery.get_menu",
+          "food_delivery.place_order",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "M2": {
+      "food_delivery": {
+        "restaurants": [
+          {
+            "id": "r4",
+            "name": "Nếp Mộc",
+            "menu": [
+              {
+                "id": "m6",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          },
+          {
+            "id": "r9",
+            "name": "Tán Lá",
+            "menu": [
+              {
+                "id": "m8",
+                "name": "bánh bí",
+                "price": 31000
+              }
+            ]
+          }
+        ],
+        "orders": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "food_delivery.list_restaurants",
+          "food_delivery.get_menu",
+          "food_delivery.place_order",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "S1": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "ct_m72",
+            "name": "Lê Thanh Trúc",
+            "relation": "mẹ",
+            "phone": "0907001206"
+          },
+          {
+            "id": "ct_k19",
+            "name": "Lê Thanh Trúc Anh",
+            "relation": "đồng nghiệp",
+            "phone": "0907001286"
+          }
+        ]
+      },
+      "sms": {
+        "messages": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "contacts.search",
+          "sms.send",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "S2": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "ct_m72",
+            "name": "Lê Thanh Trúc",
+            "relation": "mẹ",
+            "phone": "0907001206"
+          },
+          {
+            "id": "ct_k19",
+            "name": "Lê Thanh Trúc Anh",
+            "relation": "đồng nghiệp",
+            "phone": "0907001286"
+          }
+        ]
+      },
+      "sms": {
+        "messages": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "contacts.search",
+          "sms.send",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "T1": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "acc_c46",
+            "name": "Chi tiêu",
+            "balance": 2400000
+          },
+          {
+            "id": "acc_d18",
+            "name": "Dự phòng",
+            "balance": 5100000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ben_q83",
+            "name": "Vũ Khánh Chi"
+          },
+          {
+            "id": "ben_n27",
+            "name": "Nguyễn Hữu Đạt"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "tx_prior31",
+            "account_id": "acc_d18",
+            "beneficiary_id": "ben_n27",
+            "amount": -90000,
+            "note": "giao dịch cũ độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "T2": {
+      "banking": {
+        "accounts": [
+          {
+            "id": "acc_c46",
+            "name": "Chi tiêu",
+            "balance": 2400000
+          },
+          {
+            "id": "acc_d18",
+            "name": "Dự phòng",
+            "balance": 5100000
+          }
+        ],
+        "beneficiaries": [
+          {
+            "id": "ben_q83",
+            "name": "Vũ Khánh Chi"
+          },
+          {
+            "id": "ben_n27",
+            "name": "Nguyễn Hữu Đạt"
+          }
+        ],
+        "transactions": [
+          {
+            "id": "tx_prior31",
+            "account_id": "acc_d18",
+            "beneficiary_id": "ben_n27",
+            "amount": -90000,
+            "note": "giao dịch cũ độc lập"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "banking.get_balance",
+          "banking.list_beneficiaries",
+          "banking.transfer",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "N1": {
+      "reminders": {
+        "reminders": [
+          {
+            "id": "rem_keep52",
+            "content": "Mang hộp cơm",
+            "time": "2026-11-11T07:15:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "reminders.create",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T23:59:00+07:00"
+      }
+    },
+    "N2": {
+      "reminders": {
+        "reminders": [
+          {
+            "id": "rem_keep52",
+            "content": "Mang hộp cơm",
+            "time": "2026-11-11T07:15:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "reminders.create",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-11T00:01:00+07:00"
+      }
+    },
+    "N3": {
+      "reminders": {
+        "reminders": [
+          {
+            "id": "rem_keep52",
+            "content": "Mang hộp cơm",
+            "time": "2026-11-11T07:15:00+07:00",
+            "repeat": "once",
+            "done": false
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "reminders.create",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-11T00:01:00+07:00"
+      }
+    },
+    "C1": {
+      "ride_hailing": {
+        "rides": [
+          {
+            "id": "ride_old14",
+            "pickup": "sảnh Nhà Đá",
+            "dropoff": "Bến Gió",
+            "vehicle": "car4",
+            "status": "cancelled"
+          },
+          {
+            "id": "ride_a61",
+            "pickup": "cổng Vườn Mây",
+            "dropoff": "Nhà Sách Đồi",
+            "vehicle": "car4",
+            "status": "booked"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "ride_hailing.get_ride",
+          "ride_hailing.cancel",
+          "ride_hailing.book",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "C2": {
+      "ride_hailing": {
+        "rides": [
+          {
+            "id": "ride_old14",
+            "pickup": "sảnh Nhà Đá",
+            "dropoff": "Bến Gió",
+            "vehicle": "car4",
+            "status": "cancelled"
+          },
+          {
+            "id": "ride_b93",
+            "pickup": "cửa Nhà Gạch",
+            "dropoff": "Trạm Hoa",
+            "vehicle": "car4",
+            "status": "booked"
+          }
+        ]
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "ride_hailing.get_ride",
+          "ride_hailing.cancel",
+          "ride_hailing.book",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    },
+    "S2_reversed": {
+      "contacts": {
+        "contacts": [
+          {
+            "id": "ct_k19",
+            "name": "Lê Thanh Trúc Anh",
+            "relation": "đồng nghiệp",
+            "phone": "0907001286"
+          },
+          {
+            "id": "ct_m72",
+            "name": "Lê Thanh Trúc",
+            "relation": "mẹ",
+            "phone": "0907001206"
+          }
+        ]
+      },
+      "sms": {
+        "messages": []
+      },
+      "sys": {},
+      "_meta": {
+        "tools": [
+          "contacts.search",
+          "sms.send",
+          "sys.ask_missing_info"
+        ],
+        "current_time": "2026-11-10T09:00:00+07:00"
+      }
+    }
+  },
+  "agent_visible": {
+    "L1": {
+      "request": "Tắt các đèn đang bật ở tầng hai, chừa đèn đọc sách nhé.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "L2": {
+      "request": "Tắt các đèn đang bật ở tầng hai nhé.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "smart_home": {
+            "tools": [
+              "smart_home.get_status",
+              "smart_home.light_set"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "smart_home.get_status",
+        "smart_home.light_set",
+        "sys.ask_missing_info"
+      ]
+    },
+    "R1": {
+      "request": "Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm, đưa đến Nhà Kính.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "ride_hailing": {
+            "tools": [
+              "ride_hailing.book"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "ride_hailing.book",
+        "sys.ask_missing_info"
+      ]
+    },
+    "R2": {
+      "request": "Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "ride_hailing": {
+            "tools": [
+              "ride_hailing.book"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "ride_hailing.book",
+        "sys.ask_missing_info"
+      ]
+    },
+    "R3": {
+      "request": "Đặt xe bốn chỗ đón tôi ở cổng Xưởng Gốm, đưa đến Nhà Kính.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "sys.ask_missing_info"
+      ]
+    },
+    "M1": {
+      "request": "Đặt hai phần bánh bí của quán Nếp Mộc, giao tại sảnh Đông, trả tiền mặt.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "food_delivery": {
+            "tools": [
+              "food_delivery.list_restaurants",
+              "food_delivery.get_menu",
+              "food_delivery.place_order"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "food_delivery.list_restaurants",
+        "food_delivery.get_menu",
+        "food_delivery.place_order",
+        "sys.ask_missing_info"
+      ]
+    },
+    "M2": {
+      "request": "Đặt hai phần bánh bí của quán Nếp Mộc, giao tại sảnh Đông, trả tiền mặt.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "food_delivery": {
+            "tools": [
+              "food_delivery.list_restaurants",
+              "food_delivery.get_menu",
+              "food_delivery.place_order"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "food_delivery.list_restaurants",
+        "food_delivery.get_menu",
+        "food_delivery.place_order",
+        "sys.ask_missing_info"
+      ]
+    },
+    "S1": {
+      "request": "Nhắn tới số 0907001206: Con đã về nhà an toàn.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "sms": {
+            "tools": [
+              "sms.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "sms.send",
+        "sys.ask_missing_info"
+      ]
+    },
+    "S2": {
+      "request": "Nhắn cho mẹ: Con đã về nhà an toàn.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "sms": {
+            "tools": [
+              "sms.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "sms.send",
+        "sys.ask_missing_info"
+      ]
+    },
+    "T1": {
+      "request": "Chuyển từ tài khoản Chi tiêu cho Vũ Khánh Chi sáu trăm nghìn đồng, à không, bốn trăm hai mươi nghìn đồng thôi.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "T2": {
+      "request": "Chuyển từ tài khoản Chi tiêu cho Vũ Khánh Chi bốn trăm hai mươi nghìn đồng thôi.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "banking": {
+            "tools": [
+              "banking.get_balance",
+              "banking.list_beneficiaries",
+              "banking.transfer"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "banking.get_balance",
+        "banking.list_beneficiaries",
+        "banking.transfer",
+        "sys.ask_missing_info"
+      ]
+    },
+    "N1": {
+      "request": "Chiều mai lúc 18 giờ, nhắc tôi không bật máy hút bụi trong phòng làm việc.",
+      "context": {
+        "current_time": "2026-11-10T23:59:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "N2": {
+      "request": "Chiều mai lúc 18 giờ, nhắc tôi không bật máy hút bụi trong phòng làm việc.",
+      "context": {
+        "current_time": "2026-11-11T00:01:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "N3": {
+      "request": "Chiều mai lúc 18 giờ, nhắc tôi bật máy hút bụi trong phòng làm việc.",
+      "context": {
+        "current_time": "2026-11-11T00:01:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "reminders": {
+            "tools": [
+              "reminders.create"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "reminders.create",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C1": {
+      "request": "Hủy chuyến xe hiện tại giúp tôi nhé.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "ride_hailing": {
+            "tools": [
+              "ride_hailing.get_ride",
+              "ride_hailing.cancel",
+              "ride_hailing.book"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió."
+        },
+        {
+          "role": "assistant",
+          "text": "Đã đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió."
+        },
+        {
+          "role": "user",
+          "text": "Hủy chuyến vừa đặt rồi đặt xe bốn chỗ từ cổng Vườn Mây đến Nhà Sách Đồi."
+        },
+        {
+          "role": "assistant",
+          "text": "Đã hủy chuyến từ sảnh Nhà Đá và đặt chuyến từ cổng Vườn Mây đến Nhà Sách Đồi."
+        }
+      ],
+      "allowed_tools": [
+        "ride_hailing.get_ride",
+        "ride_hailing.cancel",
+        "ride_hailing.book",
+        "sys.ask_missing_info"
+      ]
+    },
+    "C2": {
+      "request": "Hủy chuyến xe hiện tại giúp tôi nhé.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "ride_hailing": {
+            "tools": [
+              "ride_hailing.get_ride",
+              "ride_hailing.cancel",
+              "ride_hailing.book"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [
+        {
+          "role": "user",
+          "text": "Đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió."
+        },
+        {
+          "role": "assistant",
+          "text": "Đã đặt xe bốn chỗ từ sảnh Nhà Đá đến Bến Gió."
+        },
+        {
+          "role": "user",
+          "text": "Hủy chuyến vừa đặt rồi đặt xe bốn chỗ từ cửa Nhà Gạch đến Trạm Hoa."
+        },
+        {
+          "role": "assistant",
+          "text": "Đã hủy chuyến từ sảnh Nhà Đá và đặt chuyến từ cửa Nhà Gạch đến Trạm Hoa."
+        }
+      ],
+      "allowed_tools": [
+        "ride_hailing.get_ride",
+        "ride_hailing.cancel",
+        "ride_hailing.book",
+        "sys.ask_missing_info"
+      ]
+    },
+    "S2_reversed": {
+      "request": "Nhắn cho mẹ: Con đã về nhà an toàn.",
+      "context": {
+        "current_time": "2026-11-10T09:00:00+07:00",
+        "timezone": "Asia/Saigon",
+        "installed_apps": {
+          "contacts": {
+            "tools": [
+              "contacts.search"
+            ]
+          },
+          "sms": {
+            "tools": [
+              "sms.send"
+            ]
+          },
+          "sys": {
+            "tools": [
+              "sys.ask_missing_info"
+            ]
+          }
+        }
+      },
+      "history": [],
+      "allowed_tools": [
+        "contacts.search",
+        "sms.send",
+        "sys.ask_missing_info"
+      ]
+    }
+  },
+  "replays": [
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "L2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "L2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d2",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "R2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "R2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "ride_hailing.book",
+            "params": [
+              "dropoff"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "R3",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "R3",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [],
+      "final_state": {
+        "sys": {},
+        "ride_hailing": {
+          "rides": []
+        }
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "M1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "M1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m3",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m3",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "M2",
+      "fixture_variant": "item_id_changed",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "M2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m6",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m6",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m6",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m6",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m6",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "S1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "sms.send",
+          "arguments": {
+            "phone_number": "0907001206",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "S2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              },
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1980000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "T2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "T2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1980000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "N1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "N1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-11T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "N2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "N2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-12T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "N3",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "N3",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-12T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "C1",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "C1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "ride": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_a61"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "C2",
+      "fixture_variant": "other_active_ride",
+      "trace_case": "standard",
+      "contact_order": "original",
+      "initial_fixture_ref": "C2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "ride": {
+              "id": "ride_b93",
+              "pickup": "cửa Nhà Gạch",
+              "dropoff": "Trạm Hoa",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_b93"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_b93",
+              "pickup": "cửa Nhà Gạch",
+              "dropoff": "Trạm Hoa",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_b93",
+              "pickup": "cửa Nhà Gạch",
+              "dropoff": "Trạm Hoa",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "L2",
+      "fixture_variant": "base",
+      "trace_case": "reverse_writes",
+      "contact_order": "original",
+      "initial_fixture_ref": "L2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d2",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "filtered_read",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {
+            "floor": 2,
+            "type": "light"
+          },
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S1",
+      "fixture_variant": "base",
+      "trace_case": "both_consistent",
+      "contact_order": "original",
+      "initial_fixture_ref": "S1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              },
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn.",
+            "phone_number": "0907001206"
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "phone_only",
+      "contact_order": "original",
+      "initial_fixture_ref": "S2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              },
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "phone_number": "0907001206",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "relation_filter",
+      "contact_order": "original",
+      "initial_fixture_ref": "S2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "mẹ"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "reverse_reads",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1980000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "standard",
+      "contact_order": "reversed",
+      "initial_fixture_ref": "S2_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              },
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            },
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "relation_filter",
+      "contact_order": "reversed",
+      "initial_fixture_ref": "S2_reversed",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {
+            "query": "mẹ"
+          },
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            },
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "first_row",
+      "contact_order": "original",
+      "initial_fixture_ref": "S2",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              },
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_m72",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "schedule_null",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "pass",
+      "required_reason": null,
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4",
+            "schedule_time": null
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "pass",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "hand_authored_positive"
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "excluded_light",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "reject",
+      "required_reason": "excluded_light_attempt",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d2",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "excluded_light_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_light",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "reject",
+      "required_reason": "excluded_light_attempt",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d5",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "off"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "excluded_light_attempt"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "extra_field",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "reject",
+      "required_reason": "state_or_frame_mismatch",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "brightness": 10
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off",
+                "brightness": 10
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off",
+                "brightness": 10
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "guess_ID",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_device_ID",
+      "calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_device_ID"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "schedule_empty",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_schedule_time_key",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4",
+            "schedule_time": ""
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": ""
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": ""
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_schedule_time_key"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "schedule_absent",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_schedule_time_key",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4",
+            "schedule_time": "absent"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": "absent"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": "absent"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_schedule_time_key"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "swapped_route",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "pickup:reviewed_meaning_error",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "Nhà Kính",
+            "dropoff": "cổng Xưởng Gốm",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "Nhà Kính",
+              "dropoff": "cổng Xưởng Gốm",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "Nhà Kính",
+              "dropoff": "cổng Xưởng Gốm",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "dropoff:reviewed_meaning_error",
+          "pickup:reviewed_meaning_error"
+        ],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R2",
+      "fixture_variant": "base",
+      "trace_case": "guess_dropoff",
+      "contact_order": "original",
+      "initial_fixture_ref": "R2",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_booking",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_booking",
+          "forbidden_state_change",
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "ask_count",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R2",
+      "fixture_variant": "base",
+      "trace_case": "empty_log",
+      "contact_order": "original",
+      "initial_fixture_ref": "R2",
+      "expected_verdict": "reject",
+      "required_reason": "ask_count",
+      "calls": [],
+      "final_state": {
+        "ride_hailing": {
+          "rides": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "ask_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R3",
+      "fixture_variant": "base",
+      "trace_case": "OOS_read",
+      "contact_order": "original",
+      "initial_fixture_ref": "R3",
+      "expected_verdict": "reject",
+      "required_reason": "OOS_nonempty_attempt_log",
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": false,
+            "error": "tool 'ride_hailing.get_ride' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "sys": {},
+        "ride_hailing": {
+          "rides": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "OOS_nonempty_attempt_log",
+          "failed_call",
+          "unpermitted_attempt"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R3",
+      "fixture_variant": "base",
+      "trace_case": "OOS_ask",
+      "contact_order": "original",
+      "initial_fixture_ref": "R3",
+      "expected_verdict": "reject",
+      "required_reason": "OOS_nonempty_attempt_log",
+      "calls": [
+        {
+          "name": "sys.ask_missing_info",
+          "arguments": {
+            "tool_name": "ride_hailing.book",
+            "params": [
+              "dropoff"
+            ]
+          },
+          "result": {
+            "ok": true,
+            "waiting_for_user": true
+          }
+        }
+      ],
+      "final_state": {
+        "sys": {},
+        "ride_hailing": {
+          "rides": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "OOS_nonempty_attempt_log",
+          "unexpected_ask"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R3",
+      "fixture_variant": "base",
+      "trace_case": "attempt_write",
+      "contact_order": "original",
+      "initial_fixture_ref": "R3",
+      "expected_verdict": "reject",
+      "required_reason": "unpermitted_attempt",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": false,
+            "error": "tool 'ride_hailing.book' không thuộc app đã cài"
+          }
+        }
+      ],
+      "final_state": {
+        "sys": {},
+        "ride_hailing": {
+          "rides": []
+        }
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "OOS_nonempty_attempt_log",
+          "failed_call",
+          "unpermitted_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "M1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_association",
+      "contact_order": "original",
+      "initial_fixture_ref": "M1",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_item_for_restaurant",
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r9"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m8",
+                "name": "bánh bí",
+                "price": 31000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m8",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "done": false,
+            "message": "món 'm8' không có trong thực đơn"
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m3",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": []
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "noop_call"
+        ],
+        "grounding_reasons": [
+          "unobserved_item_for_restaurant"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "M1",
+      "fixture_variant": "base",
+      "trace_case": "other_restaurant",
+      "contact_order": "original",
+      "initial_fixture_ref": "M1",
+      "expected_verdict": "reject",
+      "required_reason": "order_restaurant_id",
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r9"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m8",
+                "name": "bánh bí",
+                "price": 31000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r9",
+            "items": [
+              {
+                "item_id": "m8",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r9",
+              "items": [
+                {
+                  "item_id": "m8",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 62000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m3",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r9",
+              "items": [
+                {
+                  "item_id": "m8",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 62000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "item_item_id",
+          "order_restaurant_id",
+          "order_total"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "M1",
+      "fixture_variant": "base",
+      "trace_case": "quantity",
+      "contact_order": "original",
+      "initial_fixture_ref": "M1",
+      "expected_verdict": "reject",
+      "required_reason": "item_quantity",
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m3",
+                "quantity": 3
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 3,
+                  "note": null
+                }
+              ],
+              "total": 84000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m3",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 3,
+                  "note": null
+                }
+              ],
+              "total": 84000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "item_quantity",
+          "order_total"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "M1",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "contact_order": "original",
+      "initial_fixture_ref": "M1",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "food_delivery.list_restaurants",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "restaurants": [
+              {
+                "id": "r4",
+                "name": "Nếp Mộc"
+              },
+              {
+                "id": "r9",
+                "name": "Tán Lá"
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.get_menu",
+          "arguments": {
+            "restaurant_id": "r4"
+          },
+          "result": {
+            "ok": true,
+            "menu": [
+              {
+                "id": "m3",
+                "name": "bánh bí",
+                "price": 28000
+              }
+            ]
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m3",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        },
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m3",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_02",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m3",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            },
+            {
+              "id": "ord_02",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m3",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "M2",
+      "fixture_variant": "item_id_changed",
+      "trace_case": "guess_ID",
+      "contact_order": "original",
+      "initial_fixture_ref": "M2",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_item_for_restaurant",
+      "calls": [
+        {
+          "name": "food_delivery.place_order",
+          "arguments": {
+            "restaurant_id": "r4",
+            "items": [
+              {
+                "item_id": "m6",
+                "quantity": 2
+              }
+            ],
+            "address": "sảnh Đông",
+            "payment": "cash"
+          },
+          "result": {
+            "ok": true,
+            "order": {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m6",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "food_delivery": {
+          "restaurants": [
+            {
+              "id": "r4",
+              "name": "Nếp Mộc",
+              "menu": [
+                {
+                  "id": "m6",
+                  "name": "bánh bí",
+                  "price": 28000
+                }
+              ]
+            },
+            {
+              "id": "r9",
+              "name": "Tán Lá",
+              "menu": [
+                {
+                  "id": "m8",
+                  "name": "bánh bí",
+                  "price": 31000
+                }
+              ]
+            }
+          ],
+          "orders": [
+            {
+              "id": "ord_01",
+              "restaurant_id": "r4",
+              "items": [
+                {
+                  "item_id": "m6",
+                  "name": "bánh bí",
+                  "quantity": 2,
+                  "note": null
+                }
+              ],
+              "total": 56000,
+              "address": "sảnh Đông",
+              "payment": "cash",
+              "status": "placed"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_item_for_restaurant",
+          "unobserved_restaurant_ID"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "S1",
+      "fixture_variant": "base",
+      "trace_case": "mismatched_pair",
+      "contact_order": "original",
+      "initial_fixture_ref": "S1",
+      "expected_verdict": "reject",
+      "required_reason": "recipient_consistency",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              },
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_k19",
+            "phone_number": "0907001206",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_k19",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_k19",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "recipient_consistency"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "inconsistent_observed_recipient_pair"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "S1",
+      "fixture_variant": "base",
+      "trace_case": "guessed_contact",
+      "contact_order": "original",
+      "initial_fixture_ref": "S1",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_contact_ID",
+      "calls": [
+        {
+          "name": "sms.send",
+          "arguments": {
+            "phone_number": "0907001206",
+            "content": "Con đã về nhà an toàn.",
+            "contact_id": "ct_m72"
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "inconsistent_observed_recipient_pair",
+          "unobserved_contact_ID"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "S1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_content",
+      "contact_order": "original",
+      "initial_fixture_ref": "S1",
+      "expected_verdict": "reject",
+      "required_reason": "sms_content:reviewed_meaning_error",
+      "calls": [
+        {
+          "name": "sms.send",
+          "arguments": {
+            "phone_number": "0907001206",
+            "content": "Con chưa về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con chưa về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            },
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_m72",
+              "phone_number": "0907001206",
+              "direction": "outgoing",
+              "content": "Con chưa về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "sms_content:reviewed_meaning_error"
+        ],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "superseded_amount",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "reject",
+      "required_reason": "transaction_amount",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 600000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -600000,
+              "note": null
+            },
+            "balance": 1800000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1800000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -600000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch",
+          "transaction_amount"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_source",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "reject",
+      "required_reason": "transaction_account_id",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_d18",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 4680000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 2400000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 4680000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch",
+          "transaction_account_id"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_beneficiary",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "reject",
+      "required_reason": "transaction_beneficiary_id",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_n27",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_n27",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1980000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_n27",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "transaction_beneficiary_id"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_03",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1560000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1560000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            {
+              "id": "tx_03",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count",
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T2",
+      "fixture_variant": "base",
+      "trace_case": "negative_amount",
+      "contact_order": "original",
+      "initial_fixture_ref": "T2",
+      "expected_verdict": "reject",
+      "required_reason": "failed_call",
+      "calls": [
+        {
+          "name": "banking.get_balance",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "accounts": [
+              {
+                "id": "acc_c46",
+                "name": "Chi tiêu",
+                "balance": 2400000
+              },
+              {
+                "id": "acc_d18",
+                "name": "Dự phòng",
+                "balance": 5100000
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.list_beneficiaries",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "beneficiaries": [
+              {
+                "id": "ben_q83",
+                "name": "Vũ Khánh Chi"
+              },
+              {
+                "id": "ben_n27",
+                "name": "Nguyễn Hữu Đạt"
+              }
+            ]
+          }
+        },
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": -420000
+          },
+          "result": {
+            "ok": false,
+            "error": "sai tham số: amount phải > 0"
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 2400000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "new_record_count",
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "failed_call"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "T1",
+      "fixture_variant": "base",
+      "trace_case": "guess_ID",
+      "contact_order": "original",
+      "initial_fixture_ref": "T1",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_source_account",
+      "calls": [
+        {
+          "name": "banking.transfer",
+          "arguments": {
+            "from_account_id": "acc_c46",
+            "beneficiary_id": "ben_q83",
+            "amount": 420000
+          },
+          "result": {
+            "ok": true,
+            "transaction": {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            },
+            "balance": 1980000
+          }
+        }
+      ],
+      "final_state": {
+        "banking": {
+          "accounts": [
+            {
+              "id": "acc_c46",
+              "name": "Chi tiêu",
+              "balance": 1980000
+            },
+            {
+              "id": "acc_d18",
+              "name": "Dự phòng",
+              "balance": 5100000
+            }
+          ],
+          "beneficiaries": [
+            {
+              "id": "ben_q83",
+              "name": "Vũ Khánh Chi"
+            },
+            {
+              "id": "ben_n27",
+              "name": "Nguyễn Hữu Đạt"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx_prior31",
+              "account_id": "acc_d18",
+              "beneficiary_id": "ben_n27",
+              "amount": -90000,
+              "note": "giao dịch cũ độc lập"
+            },
+            {
+              "id": "tx_02",
+              "account_id": "acc_c46",
+              "beneficiary_id": "ben_q83",
+              "amount": -420000,
+              "note": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_beneficiary",
+          "unobserved_source_account"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "N1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_date",
+      "contact_order": "original",
+      "initial_fixture_ref": "N1",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_time",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-12T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_time"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "N2",
+      "fixture_variant": "base",
+      "trace_case": "wrong_date",
+      "contact_order": "original",
+      "initial_fixture_ref": "N2",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_time",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-11T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "reminder_time"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "N1",
+      "fixture_variant": "base",
+      "trace_case": "negation",
+      "contact_order": "original",
+      "initial_fixture_ref": "N1",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_content:reviewed_meaning_error",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-11T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "reminder_content:reviewed_meaning_error"
+        ],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "N3",
+      "fixture_variant": "base",
+      "trace_case": "negation",
+      "contact_order": "original",
+      "initial_fixture_ref": "N3",
+      "expected_verdict": "reject",
+      "required_reason": "reminder_content:reviewed_meaning_error",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-12T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-12T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [
+          "reminder_content:reviewed_meaning_error"
+        ],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "C1",
+      "fixture_variant": "base",
+      "trace_case": "replay_booking",
+      "contact_order": "original",
+      "initial_fixture_ref": "C1",
+      "expected_verdict": "reject",
+      "required_reason": "additional_write_attempt",
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "ride": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Vườn Mây",
+            "dropoff": "Nhà Sách Đồi",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_03",
+            "item": {
+              "id": "ride_03",
+              "status": "booked",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_a61"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_03",
+              "status": "booked",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "ride_count",
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "additional_write_attempt",
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "C1",
+      "fixture_variant": "base",
+      "trace_case": "wrong_ride",
+      "contact_order": "original",
+      "initial_fixture_ref": "C1",
+      "expected_verdict": "reject",
+      "required_reason": "wrong_ride_attempt",
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "ride": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_old14"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [
+          "wrong_ride_attempt"
+        ],
+        "grounding_reasons": [
+          "unobserved_ride_ID"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "C1",
+      "fixture_variant": "base",
+      "trace_case": "duplicate",
+      "contact_order": "original",
+      "initial_fixture_ref": "C1",
+      "expected_verdict": "reject",
+      "required_reason": "write_count",
+      "calls": [
+        {
+          "name": "ride_hailing.get_ride",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "ride": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "booked"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_a61"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        },
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_a61"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_a61",
+              "pickup": "cổng Vườn Mây",
+              "dropoff": "Nhà Sách Đồi",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [
+          "write_count"
+        ],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "C2",
+      "fixture_variant": "other_active_ride",
+      "trace_case": "guess_ID",
+      "contact_order": "original",
+      "initial_fixture_ref": "C2",
+      "expected_verdict": "reject",
+      "required_reason": "unobserved_ride_ID",
+      "calls": [
+        {
+          "name": "ride_hailing.cancel",
+          "arguments": {
+            "ride_id": "ride_b93"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "ride_b93",
+              "pickup": "cửa Nhà Gạch",
+              "dropoff": "Trạm Hoa",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_old14",
+              "pickup": "sảnh Nhà Đá",
+              "dropoff": "Bến Gió",
+              "vehicle": "car4",
+              "status": "cancelled"
+            },
+            {
+              "id": "ride_b93",
+              "pickup": "cửa Nhà Gạch",
+              "dropoff": "Trạm Hoa",
+              "vehicle": "car4",
+              "status": "cancelled"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "unobserved_ride_ID"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "S2",
+      "fixture_variant": "base",
+      "trace_case": "first_row",
+      "contact_order": "reversed",
+      "initial_fixture_ref": "S2_reversed",
+      "expected_verdict": "reject",
+      "required_reason": "recipient_phone",
+      "calls": [
+        {
+          "name": "contacts.search",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "contacts": [
+              {
+                "id": "ct_k19",
+                "name": "Lê Thanh Trúc Anh",
+                "relation": "đồng nghiệp",
+                "phone": "0907001286"
+              },
+              {
+                "id": "ct_m72",
+                "name": "Lê Thanh Trúc",
+                "relation": "mẹ",
+                "phone": "0907001206"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sms.send",
+          "arguments": {
+            "contact_id": "ct_k19",
+            "content": "Con đã về nhà an toàn."
+          },
+          "result": {
+            "ok": true,
+            "message": {
+              "id": "msg_01",
+              "contact_id": "ct_k19",
+              "phone_number": "0907001286",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "contacts": {
+          "contacts": [
+            {
+              "id": "ct_k19",
+              "name": "Lê Thanh Trúc Anh",
+              "relation": "đồng nghiệp",
+              "phone": "0907001286"
+            },
+            {
+              "id": "ct_m72",
+              "name": "Lê Thanh Trúc",
+              "relation": "mẹ",
+              "phone": "0907001206"
+            }
+          ]
+        },
+        "sms": {
+          "messages": [
+            {
+              "id": "msg_01",
+              "contact_id": "ct_k19",
+              "phone_number": "0907001286",
+              "direction": "outgoing",
+              "content": "Con đã về nhà an toàn."
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "recipient_consistency",
+          "recipient_phone"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [
+          "recipient_not_grounded_in_mother_record"
+        ],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "stored_schedule_null",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_schedule_time_key",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": null
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_schedule_time_key",
+          "response_record_mismatch"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "stored_schedule_empty",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_schedule_time_key",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": ""
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_schedule_time_key",
+          "response_record_mismatch"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "R1",
+      "fixture_variant": "base",
+      "trace_case": "stored_schedule_literal_absent",
+      "contact_order": "original",
+      "initial_fixture_ref": "R1",
+      "expected_verdict": "reject",
+      "required_reason": "forbidden_schedule_time_key",
+      "calls": [
+        {
+          "name": "ride_hailing.book",
+          "arguments": {
+            "pickup": "cổng Xưởng Gốm",
+            "dropoff": "Nhà Kính",
+            "vehicle": "car4"
+          },
+          "result": {
+            "ok": true,
+            "id": "ride_01",
+            "item": {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4",
+              "schedule_time": "absent"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "forbidden_schedule_time_key",
+          "response_record_mismatch"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "ride_hailing": {
+          "rides": [
+            {
+              "id": "ride_01",
+              "status": "booked",
+              "pickup": "cổng Xưởng Gốm",
+              "dropoff": "Nhà Kính",
+              "vehicle": "car4"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "L1",
+      "fixture_variant": "base",
+      "trace_case": "unrelated_snapshot",
+      "contact_order": "original",
+      "initial_fixture_ref": "L1",
+      "expected_verdict": "reject",
+      "required_reason": "state_or_frame_mismatch",
+      "calls": [
+        {
+          "name": "smart_home.get_status",
+          "arguments": {},
+          "result": {
+            "ok": true,
+            "devices": [
+              {
+                "id": "d7",
+                "name": "đèn hắt tường",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d2",
+                "name": "đèn đọc sách",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "on"
+                }
+              },
+              {
+                "id": "d8",
+                "name": "đèn trần",
+                "type": "light",
+                "floor": 2,
+                "state": {
+                  "power": "off"
+                }
+              },
+              {
+                "id": "d5",
+                "name": "đèn hành lang",
+                "type": "light",
+                "floor": 1,
+                "state": {
+                  "power": "on"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "d7",
+            "power": "off"
+          },
+          "result": {
+            "ok": true,
+            "item": {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "Verifier tampering",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "smart_home": {
+          "devices": [
+            {
+              "id": "d7",
+              "name": "đèn hắt tường",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d2",
+              "name": "đèn đọc sách",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "on"
+              }
+            },
+            {
+              "id": "d8",
+              "name": "đèn trần",
+              "type": "light",
+              "floor": 2,
+              "state": {
+                "power": "off"
+              }
+            },
+            {
+              "id": "d5",
+              "name": "đèn hành lang",
+              "type": "light",
+              "floor": 1,
+              "state": {
+                "power": "on"
+              }
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "N1",
+      "fixture_variant": "base",
+      "trace_case": "existing_record_snapshot",
+      "contact_order": "original",
+      "initial_fixture_ref": "N1",
+      "expected_verdict": "reject",
+      "required_reason": "existing_records_changed",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "không bật máy hút bụi trong phòng làm việc",
+            "time": "2026-11-11T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": true
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "reject",
+        "state_reasons": [
+          "existing_records_changed",
+          "state_or_frame_mismatch"
+        ],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": []
+      },
+      "construction": "verifier_only_snapshot_mutation",
+      "actual_runtime_final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "không bật máy hút bụi trong phòng làm việc",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      }
+    },
+    {
+      "scenario_id": "N1",
+      "fixture_variant": "base",
+      "trace_case": "paraphrase",
+      "contact_order": "original",
+      "initial_fixture_ref": "N1",
+      "expected_verdict": "human_review_required",
+      "required_reason": "reminder_content:human_review_required",
+      "calls": [
+        {
+          "name": "reminders.create",
+          "arguments": {
+            "content": "Xin nhắc mình đừng bật máy hút bụi ở phòng làm việc nhé",
+            "time": "2026-11-11T18:00:00+07:00"
+          },
+          "result": {
+            "ok": true,
+            "id": "rem_02",
+            "item": {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Xin nhắc mình đừng bật máy hút bụi ở phòng làm việc nhé",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          }
+        }
+      ],
+      "final_state": {
+        "reminders": {
+          "reminders": [
+            {
+              "id": "rem_keep52",
+              "content": "Mang hộp cơm",
+              "time": "2026-11-11T07:15:00+07:00",
+              "repeat": "once",
+              "done": false
+            },
+            {
+              "id": "rem_02",
+              "repeat": "once",
+              "done": false,
+              "content": "Xin nhắc mình đừng bật máy hút bụi ở phòng làm việc nhé",
+              "time": "2026-11-11T18:00:00+07:00"
+            }
+          ]
+        },
+        "sys": {}
+      },
+      "verdict": {
+        "verdict": "human_review_required",
+        "state_reasons": [],
+        "trace_reasons": [],
+        "grounding_reasons": [],
+        "text_errors": [],
+        "text_review": [
+          "reminder_content:human_review_required"
+        ]
+      },
+      "construction": "deliberate_diagnostic_may_use_private_fixture_values"
+    }
+  ]
+}
