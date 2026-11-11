@@ -52,8 +52,8 @@ class SelfHealer:
             return ("unknown_parameters" if validation["ok"] else "schema_error"), hint
         if spec.get("kind") == "read" and call_key(call) in self.seen_reads:
             return ("repeated_read",
-                    "Lệnh tra cứu này đã chạy và state chưa đổi. Dùng dữ liệu đã có hoặc trả lời kết thúc nếu đã đủ thông tin, "
-                    "không tự đoán tham số để gọi lệnh ghi.")
+                    "Lệnh tra cứu này đã chạy và state chưa đổi. Dùng dữ liệu đã có để chọn bước tiếp theo, "
+                    "không lặp lại lệnh đọc.")
         if spec.get("kind") == "write" and call_key(call) in self.failed_writes:
             return ("repeated_failed_write",
                     "Lệnh ghi này đã thất bại và state chưa đổi. Sửa tham số hoặc tra cứu trước khi thử lại.")
@@ -99,8 +99,7 @@ class SelfHealer:
         empty = bool(optional and list_names) and all(result.get(name) == [] for name in list_names)
         if empty:
             hints.append(f"Kết quả rỗng với tham số tùy chọn {', '.join(optional)}. "
-                         "Cân nhắc bỏ bớt bộ lọc nếu vẫn giữ đúng yêu cầu, hoặc dừng lại nếu không tìm thấy đối tượng phù hợp, "
-                         "không tự đoán tham số để gọi lệnh ghi.")
+                         "Cân nhắc bỏ bớt bộ lọc nếu vẫn giữ đúng yêu cầu, không tự đoán tham số.")
         if hints:
             return "empty_read", " ".join(hints)
         return None, None

@@ -5,20 +5,24 @@ import json
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
+import urllib.error
+import urllib.request
 
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
 
 CONTEXT_TOKENS = 16384
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "train+public_test"
-MODELS = Path(sys.executable).resolve().parents[2] / "models"
+MODELS = Path("C:/HCMUT/Projects/ZaloAiChallenge/models")
 LLM_DIR = MODELS / "LFM3-1.7B" / "ac2586a34f1a1c03329dbdcdefabd8b6478ddaa7"
 ASR_DIR = MODELS / "gipformer1.5-68M-rnnt"
 ASR_RUNTIME = MODELS.parent / "asr-cuda"
+GGUF_MODEL = MODELS / "LFM3-1.7B-GGUF" / "cd0c74c575b5c416f3011b5b4c298077f26ca8c2" / "LFM3-1.7B-F16.gguf"
+LLAMA_SERVER = MODELS / "llama.cpp" / "llama-server.exe"
 sys.path.insert(0, str(DATA / "train"))
 from zaic_tools import ToolEnv, state_hash
 
@@ -29,14 +33,42 @@ def dumps(value):
 
 class Models:
     def __init__(self, source, transcripts=None, *, llm_dir=LLM_DIR, context_tokens=CONTEXT_TOKENS,
-                 prefill_chunk_size=None):
+                 prefill_chunk_size=512, enable_thinking=False, gguf_model=None,
+                 server_binary=None, output_dir=None, shard=0, port=8080,
+                 enable_prefix_caching=True, backend=None):
         self.source = source
         self.transcripts = transcripts
         self.llm_dir = llm_dir
         self.context_tokens = context_tokens
         self.prefill_chunk_size = prefill_chunk_size
+        self.enable_thinking = enable_thinking
+        self.gguf_model = Path(gguf_model) if gguf_model else None
+        self.server_binary = Path(server_binary) if server_binary else None
+        self.output_dir = Path(output_dir or ROOT / "sandbox_runs")
+        self.shard = shard
+        self.port = port
+        self.enable_prefix_caching = enable_prefix_caching
+        self.backend = backend or ("llama.cpp" if self.gguf_model or self.server_binary else "transformers")
+        self.base_url = f"http://127.0.0.1:{port}"
         self.model = None
         self.tokenizer = None
+        self.server_log = None
+        self.turn_timings = []
+        self.backend_timings = []
+        self.load_seconds = 0.0
+        self.generation_config = {
+            "backend": self.backend, "temperature": 0.0, "top_k": 0,
+            "top_p": 1.0, "min_p": 0.0, "repeat_penalty": 1.1,
+            "repeat_last_n": context_tokens, "cache_prompt": enable_prefix_caching,
+            "dtype": "float16", "enable_thinking": enable_thinking,
+        }
+
+    def request(self, endpoint, payload=None, timeout=1800):
+        data = json.dumps(payload).encode("utf-8") if payload is not None else None
+        request = urllib.request.Request(self.base_url + endpoint, data=data,
+                                         headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.load(response)
 
     def transcribe(self, item):
         if self.source == "reference":
@@ -48,8 +80,86 @@ class Models:
         return text, count_in, len(ids), truncated
 
     def generate_tokens(self, messages, tools, max_tokens):
+        if self.backend == "llama.cpp":
+            return self._generate_llama_cpp(messages, tools, max_tokens)
+        return self._generate_transformers(messages, tools, max_tokens)
+
+    def _load_tokenizer(self):
+        if self.tokenizer is None:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                self.llm_dir, trust_remote_code=True, local_files_only=True)
+
+    def _generate_llama_cpp(self, messages, tools, max_tokens):
         if self.model is None:
-            self.tokenizer = AutoTokenizer.from_pretrained(self.llm_dir, trust_remote_code=True, local_files_only=True)
+            if not self.gguf_model or not self.gguf_model.is_file():
+                raise FileNotFoundError(f"Không tìm thấy GGUF LFM3: {self.gguf_model or GGUF_MODEL}; dùng --gguf-model")
+            if not self.server_binary or not self.server_binary.is_file():
+                raise FileNotFoundError(f"Không tìm thấy llama-server: {self.server_binary or LLAMA_SERVER}; dùng --llama-server")
+            self._load_tokenizer()
+            self.output_dir.mkdir(parents=True, exist_ok=True)
+            log_path = self.output_dir / f"llama_server_gpu{self.shard}.log"
+            self.server_log = log_path.open("w", encoding="utf-8")
+            command = [str(self.server_binary), "--model", str(self.gguf_model),
+                       "--host", "127.0.0.1", "--port", str(self.port),
+                       "--ctx-size", str(self.context_tokens), "--parallel", "1",
+                       "--n-gpu-layers", "999", "--threads", "2",
+                       "--batch-size", str(self.prefill_chunk_size),
+                       "--ubatch-size", str(self.prefill_chunk_size)]
+            started = time.perf_counter()
+            self.model = subprocess.Popen(command, stdout=self.server_log, stderr=subprocess.STDOUT)
+            deadline = time.monotonic() + 300
+            while True:
+                if self.model.poll() is not None:
+                    detail = log_path.read_text(encoding="utf-8", errors="replace")[-4000:]
+                    raise RuntimeError(f"llama-server exit {self.model.returncode}: {detail}")
+                try:
+                    self.request("/health", timeout=2)
+                    break
+                except urllib.error.URLError:
+                    if time.monotonic() >= deadline:
+                        raise TimeoutError(f"llama-server chưa sẵn sàng. Xem {log_path}")
+                    time.sleep(0.25)
+            self.load_seconds = time.perf_counter() - started
+            print(f"llama.cpp nạp model và khởi tạo server: {self.load_seconds:.2f}s", flush=True)
+
+        inputs = self.tokenizer.apply_chat_template(
+            messages, tools=tools, tokenize=True, add_generation_prompt=True,
+            enable_thinking=self.enable_thinking, return_dict=True,
+        )
+        prompt_ids = inputs["input_ids"]
+        if hasattr(prompt_ids, "tolist"):
+            prompt_ids = prompt_ids.tolist()
+        if prompt_ids and isinstance(prompt_ids[0], list):
+            prompt_ids = prompt_ids[0]
+        count_in = len(prompt_ids)
+        remaining = self.context_tokens - count_in
+        if remaining <= 0:
+            self.turn_timings.append(0.0)
+            self.backend_timings.append({})
+            return "", count_in, [], True
+        budget = min(remaining, max_tokens) if max_tokens is not None else remaining
+        payload = {"prompt": prompt_ids, "n_predict": budget, "temperature": 0.0,
+                   "top_k": 0, "top_p": 1.0, "min_p": 0.0, "typical_p": 1.0,
+                   "repeat_penalty": 1.1, "repeat_last_n": self.context_tokens,
+                   "cache_prompt": self.enable_prefix_caching, "return_tokens": True, "stream": False}
+        started = time.perf_counter()
+        try:
+            result = self.request("/completion", payload)
+        except urllib.error.HTTPError as error:
+            raise RuntimeError(error.read().decode("utf-8", errors="replace")) from error
+        self.turn_timings.append(time.perf_counter() - started)
+        self.backend_timings.append(result.get("timings", {}))
+        generated = result["tokens"]
+        text = self.tokenizer.decode(generated, skip_special_tokens=True)
+        truncated = result["stop_type"] == "limit" or result.get("truncated", False)
+        return text, count_in, generated, truncated
+
+    def _generate_transformers(self, messages, tools, max_tokens):
+        import torch
+        from transformers import AutoModelForCausalLM
+
+        if self.model is None:
+            self._load_tokenizer()
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.llm_dir, trust_remote_code=True, local_files_only=True,
                 dtype=torch.float16, device_map={"": "cuda:0"},
@@ -57,18 +167,15 @@ class Models:
             self.model.eval()
         inputs = self.tokenizer.apply_chat_template(
             messages, tools=tools, tokenize=True, add_generation_prompt=True,
-            enable_thinking=False, return_dict=True, return_tensors="pt",
+            enable_thinking=self.enable_thinking, return_dict=True, return_tensors="pt",
         ).to("cuda")
         count_in = inputs["input_ids"].shape[1]
         remaining = self.context_tokens - count_in
         if remaining <= 0:
             return "", count_in, [], True
         budget = min(remaining, max_tokens) if max_tokens is not None else remaining
-        options = {}
-        if self.prefill_chunk_size is not None:
-            options = {"prefill_chunk_size": self.prefill_chunk_size, "logits_to_keep": 1}
         with torch.inference_mode():
-            output = self.model.generate(**inputs, do_sample=False, max_new_tokens=budget, **options)
+            output = self.model.generate(**inputs, do_sample=False, max_new_tokens=budget)
         generated = output[0, count_in:].tolist()
         text = self.tokenizer.decode(generated, skip_special_tokens=True)
         eos = self.model.generation_config.eos_token_id
@@ -78,11 +185,24 @@ class Models:
         return text, count_in, generated, truncated
 
     def close(self):
+        if self.backend == "llama.cpp":
+            if self.model is not None and self.model.poll() is None:
+                self.model.terminate()
+                try:
+                    self.model.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    self.model.kill()
+                    self.model.wait()
+            if self.server_log is not None:
+                self.server_log.close()
+        else:
+            import torch
+            self.model = None
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print(f"PyTorch còn cấp phát: {torch.cuda.memory_allocated() / 1024**3:.2f} GiB")
         self.model = self.tokenizer = None
-        gc.collect()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-            print(f"PyTorch còn cấp phát: {torch.cuda.memory_allocated() / 1024**3:.2f} GiB")
 
 
 def asr_worker(request_path, output_path):
@@ -96,10 +216,9 @@ def asr_worker(request_path, output_path):
     if not Path(sherpa_onnx.__file__).resolve().is_relative_to(ASR_RUNTIME.resolve()):
         raise RuntimeError(f"Không nạp được sherpa-onnx CUDA từ {ASR_RUNTIME}")
 
-    model_dir = ASR_DIR / "fp16"
     recognizer = sherpa_onnx.OfflineRecognizer.from_transducer(
-        encoder=str(model_dir / "encoder.onnx"), decoder=str(model_dir / "decoder.onnx"),
-        joiner=str(model_dir / "joiner.onnx"), tokens=str(ASR_DIR / "tokens.txt"),
+        encoder=str(ASR_DIR / "encoder.onnx"), decoder=str(ASR_DIR / "decoder.onnx"),
+        joiner=str(ASR_DIR / "joiner.onnx"), tokens=str(ASR_DIR / "tokens.txt"),
         num_threads=4, sample_rate=16000, feature_dim=80,
         decoding_method="greedy_search", provider="cuda",
     )
@@ -125,7 +244,7 @@ def prepare_transcripts(samples, run_dir):
     request_path = run_dir / "asr_audio.json"
     output_path = run_dir / "asr_transcripts.json"
     request_path.write_text(dumps(paths), encoding="utf-8")
-    print(f"Giai đoạn ASR FP16 trên GPU: {len(paths)} file audio", flush=True)
+    print(f"Giai đoạn ASR FP32 ONNX trên GPU: {len(paths)} file audio", flush=True)
     subprocess.run([sys.executable, str(Path(__file__).resolve()), "--asr-worker", str(request_path), str(output_path)], check=True)
     print("ASR đã hoàn thành và giải phóng tiến trình GPU. Bắt đầu LLM.", flush=True)
     return json.loads(output_path.read_text(encoding="utf-8"))
@@ -294,7 +413,7 @@ def run_sample(sample, catalog, models, max_turns, max_tokens, stop_on_repeated_
         "expected_tool_calls": sample["label"]["tool_calls"],
     }
     return {"sample_id": sample["id"], "input_source": models.source,
-            "precision": {"asr": "fp16 (float32 I/O)" if models.source == "asr" else None, "llm": "float16"},
+            "precision": {"asr": "fp32 ONNX" if models.source == "asr" else None, "llm": "float16"},
             "request_text": request_text,
             "reference_text": sample["audio_text"], "history": history, "stop_reason": stop_reason,
             "self_heal": self_heal, "initial_state": initial_state,

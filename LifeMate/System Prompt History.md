@@ -71,9 +71,10 @@ Kết hợp cách chia khối của SysBench với các quy tắc xử lý lỗi
 
 | Khối chức năng (SysBench) | Lỗi quan sát từ Trace (GEPA Diagnosis) | Quy tắc trong Enhanced System Prompt |
 | --- | --- | --- |
-| Role & Background | Tự suy diễn dữ liệu ngoài ngữ cảnh, bỏ qua `current_time`/`location` trong `context`, hoặc nhầm giữa yêu cầu cũ trong `history` và yêu cầu hiện tại trong `request`. | Chỉ sử dụng thông tin từ `request`, `context`, `history` và kết quả công cụ. Chỉ thực hiện yêu cầu hiện tại trong `request`, dùng `context` để lấy thời gian/vị trí/hồ sơ và dùng `history` để hiểu thông tin tham chiếu mà không làm lại yêu cầu cũ. |
+| Role & Background | Tự suy diễn dữ liệu ngoài ngữ cảnh hoặc bịa đặt tham số khi thiếu dữ kiện. | Chỉ sử dụng thông tin từ `request`, `context`, `history` và kết quả công cụ. Không tự đoán hoặc bịa đặt mã định danh (ID), số điện thoại, số tiền hay giá trị tham số. |
 | Action — Phân rã & Điều kiện | Bỏ sót vế trong câu ghép nhiều yêu cầu (`train_0003`), bỏ qua mệnh đề điều kiện "nếu... thì..." (`train_0008`). | Thực hiện đầy đủ mọi yêu cầu trong câu lệnh. Nếu có điều kiện (thời tiết, thời gian, trạng thái), gọi công cụ tra cứu để kiểm tra điều kiện trước khi hành động. |
 | Action — Thứ tự Tra cứu trước Ghi | Gọi thẳng công cụ `write` khi chưa biết ID hoặc số liệu thực tế (`train_0003`, `train_0004`, `train_0048`). | Khi cần ID hoặc dữ liệu chưa biết để thực hiện lệnh ghi, ưu tiên gọi công cụ tra cứu liên quan trước. |
+| Action — Lọc tiểu từ ASR | Nhiễu tiểu từ khẩu ngữ ASR (`"nha"`, `"nhé"`, `"giùm"`, `"với"`) dính vào chuỗi tìm kiếm khiến lệnh `read` trả về rỗng. | Khi trích xuất tham số tìm kiếm từ lời nói, giữ tên hoặc thực thể cần tìm và bỏ các tiểu từ khẩu ngữ cuối câu nếu không thuộc tên riêng. |
 | Action — Thích ứng & Chống lặp | Lặp lại cùng một lệnh đọc đã có kết quả (`train_0008`) hoặc dừng lại khi bộ lọc hẹp trả về danh sách rỗng (`train_0004`). | Không gọi lại công cụ tra cứu với cùng tham số khi đã có kết quả từ lượt trước. Nếu tra cứu trả về rỗng hoặc công cụ báo lỗi, kiểm tra lại điều kiện, cân nhắc bỏ bộ lọc tùy chọn hoặc sửa tham số theo phản hồi, không gọi lặp lại y nguyên lệnh vừa chạy. |
 | Content & Boundary | Tự đặt số điện thoại, số tiền, mã định danh khi thiếu dữ kiện, hoặc gọi công cụ với yêu cầu ngoài phạm vi (`train_0019`, `train_0048`). | Không tự đoán ID, số điện thoại, số tiền hay giá trị tham số. Chỉ gọi `sys.ask_missing_info` khi thiếu tham số bắt buộc mà không có công cụ tra cứu hoặc đã tra cứu nhưng vẫn không xác định được. Trả lời trực tiếp và không gọi công cụ nếu yêu cầu ngoài phạm vi. |
 
@@ -82,15 +83,15 @@ Kết hợp cách chia khối của SysBench với các quy tắc xử lý lỗi
 ```text
 Bạn là trợ lý thực hiện yêu cầu người dùng thông qua các công cụ được cung cấp. Tuân thủ các quy tắc sau:
 
-1. NGUỒN DỮ LIỆU VÀ RANH GIỚI NGỮ CẢNH:
+1. NGUỒN DỮ LIỆU:
 - Chỉ sử dụng thông tin có trong request, context, history và kết quả trả về của công cụ.
-- Chỉ thực hiện yêu cầu hiện tại trong request. Dùng context để lấy thời gian hiện tại (current_time), vị trí (location) và hồ sơ người dùng (user_profile). Dùng history để hiểu thông tin tham chiếu từ các lượt trước, không thực hiện lại các yêu cầu cũ trong history.
 - Không tự đoán hoặc bịa đặt mã định danh (ID), số điện thoại, số tiền hay giá trị tham số.
 
 2. QUY TRÌNH THỰC HIỆN:
 - Thực hiện đầy đủ mọi yêu cầu trong câu lệnh, không bỏ sót vế khi người dùng nêu nhiều việc cùng lúc.
 - Nếu yêu cầu có điều kiện (như thời tiết, thời gian, trạng thái), gọi công cụ tra cứu để kiểm tra điều kiện trước khi thực hiện hành động.
 - Khi cần ID hoặc dữ liệu chưa biết để thực hiện lệnh ghi, ưu tiên gọi công cụ tra cứu liên quan trước.
+- Khi trích xuất tham số tìm kiếm từ lời nói, giữ tên hoặc thực thể cần tìm và bỏ các tiểu từ khẩu ngữ cuối câu như "nha", "nhé", "giùm", "với" nếu chúng không thuộc tên riêng.
 - Không gọi lại công cụ tra cứu với cùng tham số khi đã có kết quả từ lượt trước.
 - Nếu tra cứu trả về danh sách rỗng hoặc công cụ báo lỗi, kiểm tra lại điều kiện, cân nhắc bỏ bộ lọc tùy chọn hoặc sửa tham số theo phản hồi, không gọi lặp lại y nguyên lệnh vừa chạy.
 
@@ -103,8 +104,8 @@ Bạn là trợ lý thực hiện yêu cầu người dùng thông qua các côn
 
 | Tiêu chí | Baseline | Enhanced System Prompt |
 | --- | --- | --- |
-| Cấu trúc trình bày | Đoạn văn xuôi 2 câu gộp chung việc phân tích ý định và gọi công cụ. | Chia 3 khối tách biệt (Nguồn dữ liệu và ranh giới ngữ cảnh, Quy trình thực hiện, Xử lý thiếu thông tin và ngoài phạm vi) theo SysBench. |
-| Phân định ranh giới ngữ cảnh | Không giải thích vai trò của `request`, `context`, `history`. | Tách rõ `request` (yêu cầu hiện tại cần làm), `context` (`current_time`, `location`, `user_profile`) và `history` (chỉ dùng để tham chiếu, không làm lại). |
+| Cấu trúc trình bày | Đoạn văn xuôi 2 câu gộp chung việc phân tích ý định và gọi công cụ. | Chia 3 khối tách biệt (Nguồn dữ liệu, Quy trình thực hiện, Xử lý thiếu thông tin và ngoài phạm vi) theo SysBench. |
+| Phân định ranh giới ngữ cảnh | Không giải thích vai trò của `request`, `context`, `history`. | Tinh gọn ranh giới dữ liệu, không diễn giải rườm rà các trường `current_time`, `location`, `user_profile` (+151 tokens) để tránh kích thích ảo giác gọi tool trên mẫu ngoài phạm vi. |
 | Xử lý câu ghép và điều kiện | Không có chỉ dẫn cụ thể. | Quy định thực hiện đủ các vế và kiểm tra điều kiện bằng công cụ tra cứu trước khi hành động. |
 | Phối hợp với Tool Description và Sandbox | Độc lập, không gắn với cơ chế tra cứu hoặc phản hồi lỗi. | Khớp trực tiếp với luồng tra cứu lấy ID, cấm gọi lại lệnh tra cứu đã có kết quả, bỏ bộ lọc tùy chọn khi rỗng và không lặp lại lệnh lỗi. |
 | Ranh giới gọi `sys.ask_missing_info` | Chỉ nhắc tránh nhầm lẫn bởi yêu cầu mơ hồ, không nêu điều kiện gọi `sys.ask_missing_info`. | Cấm tự đoán ID/số điện thoại/số tiền, ưu tiên tra cứu trước và chỉ gọi `sys.ask_missing_info` khi không thể tra cứu hoặc kết quả vẫn thiếu dữ kiện. |

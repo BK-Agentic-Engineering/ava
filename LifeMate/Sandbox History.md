@@ -160,7 +160,7 @@ Thiết kế Enhanced Sandbox mở rộng nhánh `--self-heal` hiện tại thà
 | --- | --- | --- |
 | 1. Phục hồi lỗi cú pháp thẻ gọi công cụ | Beyond Accuracy | Khi `parse_tool_calls` gặp `ValueError` (sai cấu trúc thẻ `<tool_call>`, trùng tham số hoặc lỗi `json.loads`) mà lượt sinh chưa chạm trần ngữ cảnh 16.384 token và vẫn còn lượt trong `max_turns`, không `break` ngay mà trả thông báo lỗi cú pháp để mô hình sinh lại ở lượt kế tiếp (tối đa 1 lần thử lại liên tiếp cho lỗi cú pháp). |
 | 2. Tiền kiểm Schema & `enum` trước thực thi (Pre-Execution Verifier) | SWE-agent | Trước khi gọi `env.call()`, đối chiếu lệnh gọi với `specs` của catalog: kiểm tra tên hàm có trong tập được phép, kiểm tra đủ trường `required`, đúng quy tắc `x-one-of`, không chứa khóa lạ ngoài `properties`, đúng `type` và thuộc danh sách `enum` (nếu có). Nếu vi phạm, đặt `blocked = True`, không gọi `env.call()` và trả thông báo chỉ rõ trường vi phạm. |
-| 3. Chống lặp trên toàn bộ quỹ đạo mẫu | Beyond Accuracy, SWE-agent | Lưu tập các lệnh đọc đã chạy thành công (`seen_reads`) và các lệnh ghi đã thất bại (`failed_writes`) trong suốt mẫu. Nếu trạng thái môi trường chưa thay đổi, chặn các lệnh ghi nằm trong `failed_writes` (kể cả khi gọi xen kẽ qua lượt khác) và nhắc dùng dữ liệu cũ đối với lệnh đọc nằm trong `seen_reads`. |
+| 3. Chống lặp trên toàn bộ quỹ đạo mẫu | Beyond Accuracy, SWE-agent | Lưu tập các lệnh đọc đã chạy thành công (`seen_reads`) và các lệnh ghi đã thất bại (`failed_writes`) trong suốt mẫu. Nếu trạng thái môi trường chưa thay đổi, chặn các lệnh ghi nằm trong `failed_writes` và chặn các lệnh đọc trùng lặp nằm trong `seen_reads` ngay tại tiền kiểm (`precheck`, `blocked = True`) để không gửi lệnh rác vào `ToolEnv`. |
 | 4. Gợi ý sửa lỗi chỉ đích danh theo Metadata | ReIn | Khi lệnh bị từ chối hoặc trả về rỗng, tạo `hint` cụ thể từ schema: nêu tên tham số thiếu/lỗi, liệt kê danh sách `enum` hợp lệ, chỉ ra công cụ `[TRA CỨU]` nguồn từ trường `x-ref` khi chưa biết ID, hoặc liệt kê tên các tham số lọc tùy chọn cần cân nhắc bỏ bớt khi kết quả đọc trả về `[]`. |
 
 ### 2. Bảng quy tắc tín hiệu và phản hồi
@@ -168,14 +168,15 @@ Thiết kế Enhanced Sandbox mở rộng nhánh `--self-heal` hiện tại thà
 | Tình huống | Tín hiệu tại Sandbox | Xử lý của Harness | Nội dung `hint` phản hồi cho lượt kế tiếp |
 | --- | --- | --- | --- |
 | Lỗi cú pháp thẻ LFM3 | `parse_tool_calls` tung `ValueError` | Không gọi `ToolEnv`, cho phép sinh lại nếu còn lượt | `Lỗi định dạng thẻ gọi công cụ (<error>). Sinh lại đúng cấu trúc <tool_call><function=tên_hàm><parameter=tên_tham_số>giá_trị</parameter></function></tool_call>.` |
+| Quên mở thẻ gọi công cụ ở Turn 1 | `turn == 1` và `content` chứa tên tool thuộc `specs` nhưng `calls` rỗng | Không gọi `ToolEnv`, nhắc format ở Turn 1 (tối đa 1 lần) | `Bạn vừa nhắc đến công cụ nhưng chưa gọi. Nếu cần dùng công cụ, hãy sinh lời gọi theo cấu trúc <tool_call><function=tên_hàm><parameter=tên_tham_số>giá_trị</parameter></function></tool_call>.` |
 | Sai tên công cụ | `call["name"] not in specs` | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Công cụ <name> không có trong danh sách được cấp. Chỉ chọn công cụ thuộc danh sách hiện có.` |
-| Sai khóa tham số | Thiếu trường `required`, sai `x-one-of`, hoặc dư khóa lạ | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Sai cấu trúc tham số của <name>: thiếu [<missing>], khóa không hợp lệ [<unknown>]. Nếu chưa biết giá trị tham chiếu, gọi công cụ tra cứu liên quan trước hoặc dùng sys.ask_missing_info.` |
+| Sai khóa tham số | Thiếu trường `required`, sai `x-one-of`, hoặc dư khóa lạ | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Lệnh <name> không hợp lệ: <errors>. Nếu thiếu ID, cân nhắc tra cứu qua <source_read_tools>.` |
 | Sai kiểu hoặc lệch `enum` | Giá trị không khớp `type` hoặc ngoài tập `enum` | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Tham số <param> của <name> không hợp lệ. Yêu cầu kiểu <type> với giá trị thuộc: [<enum_list>].` |
-| Lệnh bị `ToolEnv` từ chối (`ok = false`) | `result.get("ok") is False` | Lưu vào `failed_writes` (nếu là tool ghi), tìm công cụ đọc nguồn từ `x-ref` | `Lệnh bị từ chối: <error>. Không tự đoán ID. Gọi công cụ tra cứu (<source_read_tools>) để lấy định danh hoặc sửa tham số theo schema.` |
-| Lệnh chưa hoàn tất (`done = false`) | `result.get("done") is False` | Lưu vào `failed_writes` | `Thao tác chưa hoàn tất. Kiểm tra nguyên nhân trong kết quả trả về, tra cứu trạng thái hoặc chỉnh tham số trước khi thử lại.` |
-| Truy vấn đọc trả về rỗng (`empty_read`) | Tool `read` có `ok = true`, danh sách trong `returns` bằng `[]` và có truyền bộ lọc tùy chọn | Giữ kết quả `[]`, liệt kê các tham số tùy chọn đã truyền (`optional_filters`) | `Kết quả rỗng với tham số tùy chọn <optional_filters>. Cân nhắc bỏ bớt bộ lọc nếu vẫn giữ đúng yêu cầu, hoặc gọi sys.ask_missing_info nếu thiếu dữ kiện bắt buộc và không tra cứu thêm được, không tự đoán tham số để gọi lệnh ghi.` |
-| Lặp lệnh đọc (`repeated_read`) | Lệnh `read` (tên + tham số) đã có trong `seen_reads` và state chưa đổi | Giữ kết quả, đính kèm nhắc nhở chống lặp và mở đường thoát an toàn | `Lệnh tra cứu này đã chạy và state chưa đổi. Nếu đã đủ thông tin thì trả lời kết thúc, nếu thiếu dữ kiện bắt buộc và không tra cứu thêm được thì gọi sys.ask_missing_info, không tự đoán tham số để gọi lệnh ghi.` |
-| Lặp lệnh ghi đã thất bại (`repeated_failed_write`) | Lệnh `write` (tên + tham số) nằm trong `failed_writes` và state chưa đổi | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Lệnh ghi trùng với lệnh đã thất bại trước đó. Sửa tham số hoặc tra cứu thông tin còn thiếu trước khi thử lại.` |
+| Lệnh bị `ToolEnv` từ chối (`ok = false`) | `result.get("ok") is False` | Lưu vào `failed_writes` (nếu là tool ghi), tìm công cụ đọc nguồn từ `x-ref` | `Lệnh bị từ chối: <error>. Sửa theo schema. Nếu thiếu ID, cân nhắc tra cứu qua <source_read_tools>.` |
+| Lệnh chưa hoàn tất (`done = false`) | `result.get("done") is False` | Lưu vào `failed_writes` | `Thao tác chưa hoàn tất. Kiểm tra kết quả, tra cứu hoặc sửa tham số trước khi thử lại.` |
+| Truy vấn đọc trả về rỗng (`empty_read`) | Tool `read` có `ok = true`, danh sách trong `returns` bằng `[]` và có truyền bộ lọc tùy chọn | Giữ kết quả `[]`, nhắc bỏ bớt tham số lọc tùy chọn | `Kết quả rỗng với tham số tùy chọn <optional_filters>. Cân nhắc bỏ bớt bộ lọc nếu vẫn giữ đúng yêu cầu, không tự đoán tham số.` |
+| Lặp lệnh đọc (`repeated_read`) | Lệnh `read` (tên + tham số) đã có trong `seen_reads` và state chưa đổi | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Lệnh tra cứu này đã chạy và state chưa đổi. Dùng dữ liệu đã có để chọn bước tiếp theo, không lặp lại lệnh đọc.` |
+| Lặp lệnh ghi đã thất bại (`repeated_failed_write`) | Lệnh `write` (tên + tham số) nằm trong `failed_writes` và state chưa đổi | Chặn trước khi gọi `ToolEnv` (`blocked = True`) | `Lệnh ghi này đã thất bại và state chưa đổi. Sửa tham số hoặc tra cứu trước khi thử lại.` |
 
 ### 3. Sơ đồ luồng thực thi Enhanced Sandbox
 
@@ -225,3 +226,29 @@ sequenceDiagram
 | Phạm vi phát hiện lặp | Chỉ dừng khi lặp $N$ lần liên tiếp (`stop_on_repeated_calls`). | Chỉ so sánh với 1 lệnh liền kề ngay trước đó (`previous_execution`). | Theo dõi `seen_reads` và `failed_writes` trên toàn bộ các lượt của mẫu, bắt được cả lặp xen kẽ `A -> B -> A`. |
 | Nội dung gợi ý (`heal_hint`) | Không có gợi ý. | Câu nhắc tĩnh chung cho mọi lỗi `ok = false`. | Chỉ rõ tên tham số thiếu/sai, liệt kê `enum` hợp lệ và nêu tên công cụ tra cứu nguồn từ `x-ref`. |
 | Khả năng áp dụng cho tập công cụ mới (Public Test) | Phụ thuộc vào đầu ra thô của mô hình. | Đọc tự động `kind`, `returns`, `required`, `x-one-of`. | Đọc tự động `kind`, `returns`, `required`, `x-one-of`, `x-ref`, `type`, `enum` từ schema mà không hardcode tên công cụ. |
+
+---
+
+## Lịch sử tiến hóa: Từ Sandbox 3.0 đến Sandbox 3.3
+
+### 1. Sandbox 3.0 — Enhanced Sandbox ban đầu
+- Triển khai tiền kiểm cú pháp thẻ LFM3, schema và enum trước khi gọi `ToolEnv`.
+- Lưu trữ `seen_reads` và `failed_writes` để chống lặp.
+- Tự động trích xuất `x-ref` từ catalog để gợi ý nguồn tra cứu ID khi lệnh bị từ chối.
+- Kết quả: Contest Score tăng từ 6,83 lên 7,64, SHR đạt 27,44% (309/1.126).
+
+### 2. Sandbox 3.1 — Chặn tiền kiểm và bài học phản ứng dây chuyền
+- **Chuyển chặn `repeated_read` lên tiền kiểm (`precheck`, `blocked = True`):** Giảm 86,56% số lượt gọi lặp thực thi vào `ToolEnv` (182 xuống 41 mẫu) và giảm chạm trần 20 lượt (85 xuống 62 mẫu).
+- **Bổ sung chốt `tool_name_without_call`:** Nhắc định dạng khi mô hình chỉ nhắc tên tool mà quên bọc thẻ `<tool_call>`.
+- **Bài học từ chốt `read_without_action`:** Việc can thiệp nhắc hành động sau khi đã đọc đệm tạo phản ứng dây chuyền trên 277 mẫu, ép mô hình 1.7B gọi bừa lệnh `write` khi chưa đủ dữ kiện, đẩy `USMR` từ 16,31% lên 20,71% và làm hỏng 58 mẫu `state_match`.
+
+### 3. Sandbox 3.2 — Gỡ bỏ can thiệp cưỡng bức và bẫy dừng sớm
+- **Gỡ bỏ hoàn toàn `read_without_action`:** Đưa `USMR` về mức thấp kỷ lục 15,47% (tốt nhất trong toàn bộ các phiên bản) và giảm chạm trần 20 lượt xuống 3,62% (56 mẫu).
+- **Giới hạn `tool_name_without_call`:** Chỉ kích hoạt ở `turn == 1` để không bắt nhầm câu trả lời tổng kết ở các lượt sau.
+- **Bài học về bẫy dừng sớm (Premature Surrender):** Việc thêm vế *"hoặc dừng lại nếu không tìm thấy đối tượng phù hợp"* (ở `empty_read`) và *"hoặc trả lời kết thúc nếu đã đủ thông tin"* (ở `repeated_read`) vô tình tạo lối thoát sớm cho mô hình 1.7B. Tỷ lệ bỏ cuộc sau `empty_read` tăng từ 9,0% lên 22,9%, kéo `SHR` giảm từ 27,44% xuống 17,81%.
+
+### 4. Sandbox 3.3 — Cấu hình tối ưu tinh gọn (Golden Lean Sandbox)
+- **Triệt tiêu các câu hint gây hại:** Khôi phục nội dung `hint` của `repeated_read` và `empty_read` về nguyên bản ngắn gọn, trung lập (vẫn giữ cơ chế chặn `repeated_read` ở `precheck`), đóng hoàn toàn lối thoát dừng sớm.
+- **Bãi bỏ cơ chế dò tiếp nối cưỡng bức (Prefix Continuation Probe):** Giữ môi trường thực thi khách quan, triệt tiêu nguy cơ ép sinh lệnh `write` sai trái. Các hạn chế gốc về phát sinh thẻ công cụ được quy định giải quyết bằng huấn luyện (SFT) thay vì can thiệp hình thức tại runtime.
+- **Chuyển dịch hạ tầng:** Đồng bộ chuyển sang backend `llama.cpp` (b12110, GGUF F16), bật thinking (Thinking: on) và sử dụng bộ phiên âm ASR FP32.
+- **Kết quả thực nghiệm:** Đạt `SSR` kỷ lục 30,37% (tăng từ 26,03%), số mẫu `Final State Match` cao nhất từ trước đến nay với 399 mẫu (25,83%), và 91/149 mẫu thay đổi state khớp hoàn toàn (`DDR` 38,93%).

@@ -2,7 +2,6 @@
 
 import argparse
 import copy
-import gc
 import importlib.util
 import json
 import re
@@ -12,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 from modify_tool_description import normalize_catalog
+from sandbox_baseline import Models
 from self_healing import SelfHealer
 from system_prompt import BASELINE, ENHANCED
 
@@ -21,71 +21,6 @@ MODEL_ROOT = Path("C:/HCMUT/Projects/ZaloAiChallenge/models")
 CONTEXT_TOKENS = 16384
 sys.path.insert(0, str(DATA / "train"))
 from zaic_tools import ToolEnv, state_hash
-
-
-class Models:
-    def __init__(self, source, transcripts=None, *,
-                 llm_dir=MODEL_ROOT / "LFM3-1.7B" / "ac2586a34f1a1c03329dbdcdefabd8b6478ddaa7",
-                 context_tokens=CONTEXT_TOKENS, prefill_chunk_size=None):
-        self.source = source
-        self.transcripts = transcripts
-        self.llm_dir = llm_dir
-        self.context_tokens = context_tokens
-        self.prefill_chunk_size = prefill_chunk_size
-        self.model = None
-        self.tokenizer = None
-
-    def transcribe(self, item):
-        if self.source == "reference":
-            return item["audio_text"]
-        return self.transcripts[item["audio"]]
-
-    def generate(self, messages, tools, max_tokens):
-        text, count_in, ids, truncated = self.generate_tokens(messages, tools, max_tokens)
-        return text, count_in, len(ids), truncated
-
-    def generate_tokens(self, messages, tools, max_tokens):
-        import torch
-
-        if self.model is None:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
-
-            self.tokenizer = AutoTokenizer.from_pretrained(self.llm_dir, trust_remote_code=True, local_files_only=True)
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.llm_dir, trust_remote_code=True, local_files_only=True,
-                dtype=torch.float16, device_map={"": "cuda:0"},
-            )
-            self.model.eval()
-        inputs = self.tokenizer.apply_chat_template(
-            messages, tools=tools, tokenize=True, add_generation_prompt=True,
-            enable_thinking=False, return_dict=True, return_tensors="pt",
-        ).to("cuda")
-        count_in = inputs["input_ids"].shape[1]
-        remaining = self.context_tokens - count_in
-        if remaining <= 0:
-            return "", count_in, [], True
-        budget = min(remaining, max_tokens) if max_tokens is not None else remaining
-        options = {}
-        if self.prefill_chunk_size is not None:
-            options = {"prefill_chunk_size": self.prefill_chunk_size, "logits_to_keep": 1}
-        with torch.inference_mode():
-            output = self.model.generate(**inputs, do_sample=False, max_new_tokens=budget, **options)
-        generated = output[0, count_in:].tolist()
-        text = self.tokenizer.decode(generated, skip_special_tokens=True)
-        eos = self.model.generation_config.eos_token_id
-        if not isinstance(eos, (list, tuple)):
-            eos = [self.tokenizer.eos_token_id if eos is None else eos]
-        truncated = len(generated) >= budget and generated[-1] not in eos
-        return text, count_in, generated, truncated
-
-    def close(self):
-        import torch
-
-        self.model = self.tokenizer = None
-        gc.collect()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-            print(f"PyTorch còn cấp phát: {torch.cuda.memory_allocated() / 1024**3:.2f} GiB")
 
 
 def tool_api(split, data_root):
@@ -266,7 +201,7 @@ def run_sample(sample, catalog, models, max_turns=20, max_tokens=None, *,
                       "tool_calls_exact_ordered": submission["tool_calls"] == sample["label"]["tool_calls"],
                       "expected_tool_calls": sample["label"]["tool_calls"]}
     return {"sample_id": sample["id"], "input_source": models.source,
-            "precision": {"asr": "fp16 (float32 I/O)" if models.source == "asr" else None, "llm": "float16"},
+            "precision": {"asr": "fp32 ONNX" if models.source == "asr" else None, "llm": "float16"},
             "request_text": request_text, "reference_text": sample.get("audio_text"),
             "history": history, "stop_reason": stop_reason, "self_heal": self_heal,
             "initial_state": initial_state, "trace": trace, "submission": submission, "comparison": comparison}
@@ -280,7 +215,7 @@ def prepare_transcripts(samples, run_dir, data_root, split, model_root, asr_runt
     request_path = run_dir / "asr_audio.json"
     output_path = run_dir / "asr_transcripts.json"
     request_path.write_text(dumps(paths), encoding="utf-8")
-    print(f"ASR FP16: xử lý {len(paths)} file trong tiến trình riêng.", flush=True)
+    print(f"ASR FP32 ONNX: xử lý {len(paths)} file trong tiến trình riêng.", flush=True)
     subprocess.run([sys.executable, str(Path(__file__).resolve()), "--asr-worker", str(request_path),
                     str(output_path), str(data_root), split, str(model_root), str(asr_runtime)], check=True)
     return json.loads(output_path.read_text(encoding="utf-8"))
@@ -297,8 +232,8 @@ def asr_worker(request_path, output_path, data_root, split, model_root, asr_runt
         raise RuntimeError(f"Không nạp được sherpa-onnx CUDA từ {asr_runtime}")
     model = model_root / "gipformer1.5-68M-rnnt"
     recognizer = sherpa_onnx.OfflineRecognizer.from_transducer(
-        encoder=str(model / "fp16" / "encoder.onnx"), decoder=str(model / "fp16" / "decoder.onnx"),
-        joiner=str(model / "fp16" / "joiner.onnx"), tokens=str(model / "tokens.txt"),
+        encoder=str(model / "encoder.onnx"), decoder=str(model / "decoder.onnx"),
+        joiner=str(model / "joiner.onnx"), tokens=str(model / "tokens.txt"),
         num_threads=4, sample_rate=16000, feature_dim=80, decoding_method="greedy_search", provider="cuda",
     )
     transcripts = {}
@@ -328,12 +263,20 @@ def main():
     parser.add_argument("--split", choices=("train", "public_test"), default="train")
     parser.add_argument("--model-root", type=Path, default=MODEL_ROOT)
     parser.add_argument("--llm-dir", type=Path, help="Thư mục model LFM3 đã tải")
+    parser.add_argument("--backend", choices=("llama.cpp", "transformers"), default="llama.cpp")
+    parser.add_argument("--gguf-model", type=Path, help="File LFM3-1.7B-F16.gguf")
+    parser.add_argument("--llama-server", type=Path, help="Binary llama-server")
+    parser.add_argument("--prefill-chunk-size", type=int, default=512)
+    parser.add_argument("--port", type=int, default=8080)
+    parser.add_argument("--no-prefix-caching", action="store_true")
+    parser.add_argument("--enable-thinking", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--asr-runtime", type=Path, help="Thư mục runtime sherpa-onnx CUDA")
     parser.add_argument("--prompt", choices=("baseline", "enhanced"), default="enhanced")
     parser.add_argument("--prompt-file", type=Path, help="Thay thế prompt bằng nội dung file UTF-8")
     parser.add_argument("--tool-description", choices=("baseline", "enhanced"), default="enhanced")
     parser.add_argument("--no-self-heal", action="store_true")
-    parser.add_argument("--ddr", action="store_true", help="Chạy thêm target trace cho DDR")
+    parser.add_argument("--ddr", action=argparse.BooleanOptionalAction, default=True,
+                        help="Chạy thêm target trace để đo DDR")
     parser.add_argument("--max-turns", type=int, default=20)
     parser.add_argument("--max-tokens", type=int, help="Trần output mỗi lượt; mặc định không đặt trần riêng")
     parser.add_argument("--out-dir", type=Path)
@@ -346,7 +289,7 @@ def main():
         parser.error("DDR và reference chỉ dùng với tập train có nhãn")
     llm_dir = args.llm_dir or args.model_root / "LFM3-1.7B" / "ac2586a34f1a1c03329dbdcdefabd8b6478ddaa7"
     if not llm_dir.is_dir():
-        parser.error(f"Không tìm thấy model LFM3 tại {llm_dir}; dùng --llm-dir để chọn thư mục model")
+        parser.error(f"Không tìm thấy tokenizer LFM3 tại {llm_dir}; dùng --llm-dir để chọn thư mục")
     split_dir = args.data_root / args.split
     with (split_dir / f"{args.split}.jsonl").open(encoding="utf-8") as file:
         samples = [json.loads(line) for line in file if line.strip()]
@@ -369,12 +312,28 @@ def main():
                        prepare_transcripts(samples, run_dir, args.data_root, args.split, args.model_root,
                                            args.asr_runtime or args.model_root.parent / "asr-cuda"))
     from metrics_eval import MetricModels, requires_state_change, score_runs, write_json
-    runtime = Models(args.input, transcripts, llm_dir=llm_dir, context_tokens=CONTEXT_TOKENS)
+    gguf_model = args.gguf_model or args.model_root / "LFM3-1.7B-GGUF" / "cd0c74c575b5c416f3011b5b4c298077f26ca8c2" / "LFM3-1.7B-F16.gguf"
+    llama_server = args.llama_server or args.model_root / "llama.cpp" / "llama-server.exe"
+    runtime = Models(args.input, transcripts, llm_dir=llm_dir, context_tokens=CONTEXT_TOKENS,
+                     prefill_chunk_size=args.prefill_chunk_size, enable_thinking=args.enable_thinking,
+                     gguf_model=gguf_model if args.backend == "llama.cpp" else None,
+                     server_binary=llama_server if args.backend == "llama.cpp" else None,
+                     output_dir=run_dir, port=args.port,
+                     enable_prefix_caching=not args.no_prefix_caching, backend=args.backend)
     models = MetricModels(runtime)
     config = {"sample_ids": [sample["id"] for sample in samples], "split": args.split, "input_source": args.input,
               "prompt": prompt, "tool_description": args.tool_description, "self_heal": not args.no_self_heal,
               "context_tokens": CONTEXT_TOKENS, "max_turns": args.max_turns, "max_tokens": args.max_tokens,
-              "ddr": args.ddr}
+              "ddr": args.ddr, "backend": args.backend,
+              "enable_thinking": args.enable_thinking,
+              "asr_precision": "fp32" if args.input == "asr" else None,
+              "gguf_model": str(gguf_model) if args.backend == "llama.cpp" else None,
+              "llama_server": str(llama_server) if args.backend == "llama.cpp" else None,
+              "prefill_chunk_size": args.prefill_chunk_size,
+              "temperature": 0.0, "repeat_penalty": 1.1,
+              "repeat_last_n": CONTEXT_TOKENS,
+              "enable_prefix_caching": not args.no_prefix_caching,
+              "generation_config": runtime.generation_config}
     (run_dir / "config.json").write_text(dumps(config), encoding="utf-8")
     full, target = {}, {}
     target_dir = run_dir / "target"
