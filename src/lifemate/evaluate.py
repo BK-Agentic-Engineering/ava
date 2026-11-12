@@ -86,7 +86,7 @@ def score_calls(pred, gold, hash_match, tools, valid=None):
             "precision": precision, "recall": recall, "state_match": hash_match}
 
 
-def evaluate_run(root, split, run_dir):
+def evaluate_run(root, split, run_dir, *, sample_ids=None, summaries=None):
     if split != "train":
         raise ValueError("Chấm local chỉ dùng train có gold; không tạo nhãn test.")
     predictions = {}
@@ -96,10 +96,13 @@ def evaluate_run(root, split, run_dir):
         predictions[row["id"]] = row
     if not predictions:
         raise ValueError("Submission rỗng.")
-    metadata = json.loads((run_dir / "metadata.json").read_text(encoding="utf-8"))
-    if set(predictions) != set(metadata["sample_ids"]):
+    if sample_ids is None:
+        metadata = json.loads((run_dir / "metadata.json").read_text(encoding="utf-8"))
+        sample_ids = metadata["sample_ids"]
+    if set(predictions) != set(sample_ids):
         raise ValueError("Submission chưa đủ hoặc sai ID trong phạm vi run; không thu nhỏ N khi chấm.")
-    summaries = {r["id"]: r for r in read_jsonl(run_dir / "samples.jsonl")}
+    if summaries is None:
+        summaries = {r["id"]: r for r in read_jsonl(run_dir / "samples.jsonl")}
     catalog = json.loads((root / split / f"{split}_tools_catalog.json").read_text(encoding="utf-8"))
     tools = {t["name"]: t for app in catalog["apps"] for t in app["tools"]}
     details = []

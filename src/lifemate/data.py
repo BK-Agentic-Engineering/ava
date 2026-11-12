@@ -38,7 +38,7 @@ def samples(data_root, split, *, limit=None, ids=None, text=False):
         raise ValueError(f"Không tìm thấy ID: {sorted(wanted - found)}")
 
 
-def build_messages(item, data_root, split, *, asr=None, text=False):
+def build_messages(item, data_root, split, *, asr=None, text=False, deadline=None):
     """ASR cho mọi lượt user; history đã thực hiện, không replay tool."""
     if text and split != "train":
         raise ValueError("Chế độ text chỉ dùng transcript chuẩn của train.")
@@ -46,7 +46,10 @@ def build_messages(item, data_root, split, *, asr=None, text=False):
     def transcript(turn):
         if text:
             return turn["audio_text"]
-        return asr.transcribe(data_root / split / turn["audio"])
+        path = data_root / split / turn["audio"]
+        if deadline is not None:
+            return asr.transcribe(path, deadline=deadline)
+        return asr.transcribe(path)
 
     context = {
         key: value for key, value in item["context"].items()

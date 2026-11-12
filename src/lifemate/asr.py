@@ -11,15 +11,15 @@ import kaldi_native_fbank as knf
 import numpy as np
 import onnxruntime as ort
 import soundfile as sf
-import torch
+import time
 
 
 class GipformerASR:
     def __init__(self, model_dir, num_threads=4):
-        if not torch.cuda.is_available():
+        if "CUDAExecutionProvider" not in ort.get_available_providers():
             raise RuntimeError("Gipformer FP16 cần GPU CUDA.")
 
-        # Dùng CUDA/cuDNN đi kèm PyTorch trên máy Windows này.
+        # Load packaged CUDA/cuDNN libraries before creating CUDA sessions.
         ort.preload_dlls()
         model_dir = Path(model_dir)
         options = ort.SessionOptions()
@@ -71,7 +71,19 @@ class GipformerASR:
         }
         return session.run(None, inputs)
 
-    def transcribe(self, audio_path):
+    def warmup(self):
+        """Initialize native CUDA kernels without reading participant audio."""
+        encoded, _ = self._run("encoder", np.zeros((1, 100, 80), dtype=np.float16),
+                               np.asarray([100], dtype=np.int64))
+        decoded = self._run("decoder", np.full((1, self.context_size), self.blank_id, dtype=np.int64))[0]
+        self._run("joiner", encoded[:, 0, :], decoded)
+
+    def transcribe(self, audio_path, *, deadline=None):
+        def check_deadline():
+            if deadline is not None and time.monotonic() >= deadline:
+                raise TimeoutError("ASR reached the sample deadline")
+
+        check_deadline()
         waveform, sample_rate = sf.read(audio_path, dtype="float32")
         if sample_rate != 16000:
             raise ValueError("Gipformer hiện nhận audio 16 kHz; chưa tự resample.")
@@ -85,6 +97,7 @@ class GipformerASR:
             fbank.get_frame(i) for i in range(fbank.num_frames_ready)
         ]).astype(np.float16)
 
+        check_deadline()
         encoded, lengths = self._run(
             "encoder",
             features[None, :, :],
@@ -103,6 +116,7 @@ class GipformerASR:
 
         decoded = decode_context()
         for frame in range(int(lengths[0])):
+            check_deadline()
             logits = self._run("joiner", encoded[:, frame, :], decoded)[0]
             if not np.isfinite(logits).all():
                 raise FloatingPointError("ASR FP16 joiner sinh NaN/Inf.")
