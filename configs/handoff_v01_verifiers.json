@@ -1,0 +1,18 @@
+{
+  "contract": "lifemate-harness-proposal-0.1",
+  "note": "Explicit compatibility overlay for the immutable v0.1 handoff. New packages may supply verifiers.json or per-input verification.",
+  "cases": {
+    "TR15_PLANNING_TOMORROW": {
+      "callable": "verifiers.wave15:verify",
+      "arguments": [{"ref":"/private/scenario"},{"ref":"/private/visible"},{"ref":"/private/events"},{"ref":"/private/initial_state"},{"ref":"/execution/calls"},{"ref":"/execution/final_state"},{"ref":"/private/gold_actions"}]
+    },
+    "B02_N_C": {
+      "callable": "verifiers.batch02:verify",
+      "arguments": [{"ref":"/private/initial_state"},{"ref":"/private/scenario"},{"ref":"/execution/calls"},{"ref":"/execution/final_state"},{"ref":"/catalog_kinds"},{"literal":null},{"literal":"Trao đổi mẫu gốm"},{"literal":["Nộp phiếu giao hàng"]}]
+    },
+    "TR16_APP_KEEP": {
+      "callable": "verifiers.wave16:verify",
+      "arguments": [{"ref":"/private/oracle"},{"ref":"/private/visible/allowed_tools"},{"ref":"/private/initial_state"},{"ref":"/execution/calls"}]
+    }
+  }
+}
