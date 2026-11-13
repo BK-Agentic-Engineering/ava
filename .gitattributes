@@ -1,0 +1,2 @@
+docker/predict.sh text eol=lf
+docker/start_jupyter.sh text eol=lf

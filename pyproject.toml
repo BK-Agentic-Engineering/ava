@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lifemate-milestone1"
+version = "0.1.0"
+description = "Khung dự án LifeMate Milestone 1"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "torch==2.13.0",
+    "transformers==5.22.1",
+    "accelerate==1.15.0",
+    "huggingface-hub==1.33.0",
+    "jaz-lang @ git+https://github.com/jaz-lang/jaz.git@10932771c9a7a2424d6c95b20254a185e7f7035d",
+    "numpy",
+    "onnxruntime-gpu==1.31.1",
+    "soundfile==0.14.0",
+    "kaldi-native-fbank==1.22.5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
