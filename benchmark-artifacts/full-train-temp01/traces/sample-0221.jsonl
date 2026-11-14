@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0221","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":42.795066299997416,"returned_calls":1,"prompt_tokens":5843,"completion_tokens":1722}
+{"event":"call","turn":0,"tool":"maps.search_place","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":12.032255900001473,"returned_calls":1,"prompt_tokens":7586,"completion_tokens":345}
+{"event":"call","turn":1,"tool":"maps.search_place","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":24.543433099999675,"returned_calls":1,"prompt_tokens":7952,"completion_tokens":1223}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":79.37321579999843,"error_type":null}
+{"event":"outcome","sample":"sample-0221","termination":"waiting_for_user","error_type":null}

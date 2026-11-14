@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0231","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.72964639999918,"returned_calls":2,"prompt_tokens":4681,"completion_tokens":1522}
+{"event":"call","turn":0,"tool":"robot_vacuum.start","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"robot_vacuum.stop","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":9.070832000001246,"returned_calls":0,"prompt_tokens":6275,"completion_tokens":292}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":44.80133900000146,"error_type":null}
+{"event":"outcome","sample":"sample-0231","termination":"final_answer","error_type":null}

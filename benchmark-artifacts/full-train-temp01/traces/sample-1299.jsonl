@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-1299","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":63.836709499999415,"returned_calls":1,"prompt_tokens":4300,"completion_tokens":3208}
+{"event":"call","turn":0,"tool":"ride_hailing.get_ride","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true,"done":false}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":35.33655870000075,"returned_calls":1,"prompt_tokens":7540,"completion_tokens":1490}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":99.17450499999904,"error_type":null}
+{"event":"outcome","sample":"sample-1299","termination":"waiting_for_user","error_type":null}

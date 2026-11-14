@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-1497","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":50.13963979999971,"returned_calls":1,"prompt_tokens":6375,"completion_tokens":2109}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":13.885379899998952,"returned_calls":1,"prompt_tokens":8915,"completion_tokens":540}
+{"event":"call","turn":1,"tool":"ride_hailing.get_quotes","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":82.80119189999823,"returned_calls":1,"prompt_tokens":9525,"completion_tokens":3869}
+{"event":"call","turn":2,"tool":"tasks.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":35.47645510000075,"returned_calls":1,"prompt_tokens":13540,"completion_tokens":1812}
+{"event":"call","turn":3,"tool":"ride_hailing.get_ride","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":3,"ok":true,"done":false}
+{"event":"assistant","turn":4,"finish_reason":"length","elapsed_seconds":22.99387410000054,"returned_calls":0,"prompt_tokens":15384,"completion_tokens":1000}
+{"event":"end","termination":"generation_truncated","turns":5,"task_seconds":205.29824599999847,"error_type":null}
+{"event":"outcome","sample":"sample-1497","termination":"generation_truncated","error_type":null}

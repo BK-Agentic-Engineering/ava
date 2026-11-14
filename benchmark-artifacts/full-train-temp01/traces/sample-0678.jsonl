@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0678","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":20.83256320000146,"returned_calls":1,"prompt_tokens":5101,"completion_tokens":964}
+{"event":"call","turn":0,"tool":"learning.list_courses","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":55.52037180000116,"returned_calls":1,"prompt_tokens":6277,"completion_tokens":2994}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":76.35442900000271,"error_type":null}
+{"event":"outcome","sample":"sample-0678","termination":"waiting_for_user","error_type":null}

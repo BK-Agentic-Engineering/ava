@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-1213","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":23.7320366999993,"returned_calls":1,"prompt_tokens":6539,"completion_tokens":929}
+{"event":"call","turn":0,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.003587400002289,"returned_calls":1,"prompt_tokens":7526,"completion_tokens":398}
+{"event":"call","turn":1,"tool":"ride_hailing.cancel","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":5.4735815999956685,"returned_calls":0,"prompt_tokens":8018,"completion_tokens":198}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":36.21063120000326,"error_type":null}
+{"event":"outcome","sample":"sample-1213","termination":"final_answer","error_type":null}

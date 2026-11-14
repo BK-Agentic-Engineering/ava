@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0651","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":27.478523799996765,"returned_calls":1,"prompt_tokens":4676,"completion_tokens":1153}
+{"event":"call","turn":0,"tool":"appliances.list","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":28.927250699998694,"returned_calls":1,"prompt_tokens":5943,"completion_tokens":1181}
+{"event":"call","turn":1,"tool":"notes.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":18.635204899997916,"returned_calls":0,"prompt_tokens":7188,"completion_tokens":1051}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":75.04594380000344,"error_type":null}
+{"event":"outcome","sample":"sample-0651","termination":"final_answer","error_type":null}

@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0908","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":28.451944999998886,"returned_calls":1,"prompt_tokens":6245,"completion_tokens":1071}
+{"event":"call","turn":0,"tool":"weather.get_current","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":46.21338979999928,"returned_calls":1,"prompt_tokens":7353,"completion_tokens":1910}
+{"event":"call","turn":1,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":17.180526399999508,"returned_calls":1,"prompt_tokens":9319,"completion_tokens":407}
+{"event":"call","turn":2,"tool":"fitness.log_workout","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":10.146075000000565,"returned_calls":0,"prompt_tokens":9780,"completion_tokens":319}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":101.99319309999919,"error_type":null}
+{"event":"outcome","sample":"sample-0908","termination":"final_answer","error_type":null}

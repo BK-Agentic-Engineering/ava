@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0524","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":75.06422589999784,"returned_calls":1,"prompt_tokens":5295,"completion_tokens":3296}
+{"event":"call","turn":0,"tool":"maps.get_route","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":58.5020508000016,"returned_calls":1,"prompt_tokens":8660,"completion_tokens":2733}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":133.56773319999775,"error_type":null}
+{"event":"outcome","sample":"sample-0524","termination":"waiting_for_user","error_type":null}

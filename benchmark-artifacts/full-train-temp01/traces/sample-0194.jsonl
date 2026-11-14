@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0194","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":15.28180760000032,"returned_calls":1,"prompt_tokens":3446,"completion_tokens":746}
+{"event":"call","turn":0,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":93.14318540000022,"returned_calls":1,"prompt_tokens":4356,"completion_tokens":4784}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":108.42593560000023,"error_type":null}
+{"event":"outcome","sample":"sample-0194","termination":"waiting_for_user","error_type":null}

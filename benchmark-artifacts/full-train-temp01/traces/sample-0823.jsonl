@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0823","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.381022400000802,"returned_calls":1,"prompt_tokens":3396,"completion_tokens":662}
+{"event":"call","turn":0,"tool":"medication.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":21.36126879999938,"returned_calls":1,"prompt_tokens":4139,"completion_tokens":1092}
+{"event":"call","turn":1,"tool":"food_delivery.list_restaurants","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":28.418165099999896,"returned_calls":1,"prompt_tokens":5387,"completion_tokens":1044}
+{"event":"call","turn":2,"tool":"food_delivery.get_menu","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":10.154778799998894,"returned_calls":1,"prompt_tokens":6517,"completion_tokens":515}
+{"event":"call","turn":3,"tool":"food_delivery.place_order","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":34.18114570000034,"returned_calls":0,"prompt_tokens":7124,"completion_tokens":1369}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":110.4978895000022,"error_type":null}
+{"event":"outcome","sample":"sample-0823","termination":"final_answer","error_type":null}

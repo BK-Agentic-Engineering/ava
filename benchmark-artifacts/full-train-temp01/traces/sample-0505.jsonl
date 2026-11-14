@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0505","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":81.96477030000096,"returned_calls":1,"prompt_tokens":4558,"completion_tokens":4218}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":92.5429284999991,"returned_calls":1,"prompt_tokens":8797,"completion_tokens":3939}
+{"event":"call","turn":1,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":7.436951100000442,"returned_calls":1,"prompt_tokens":12897,"completion_tokens":247}
+{"event":"call","turn":2,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"length","elapsed_seconds":66.49841799999922,"returned_calls":0,"prompt_tokens":13165,"completion_tokens":3219}
+{"event":"end","termination":"generation_truncated","turns":4,"task_seconds":248.4449354999997,"error_type":null}
+{"event":"outcome","sample":"sample-0505","termination":"generation_truncated","error_type":null}

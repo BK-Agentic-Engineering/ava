@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-1234","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":17.216432899997017,"returned_calls":1,"prompt_tokens":9106,"completion_tokens":466}
+{"event":"call","turn":0,"tool":"bill_payment.list_bills","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":28.240034800001013,"returned_calls":3,"prompt_tokens":9735,"completion_tokens":868}
+{"event":"call","turn":1,"tool":"bill_payment.pay","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"bill_payment.pay","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"bill_payment.pay","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":23.394667200002004,"returned_calls":0,"prompt_tokens":10774,"completion_tokens":700}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":68.85252820000096,"error_type":null}
+{"event":"outcome","sample":"sample-1234","termination":"final_answer","error_type":null}

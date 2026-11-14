@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0302","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":13.570332100000087,"returned_calls":1,"prompt_tokens":5291,"completion_tokens":384}
+{"event":"call","turn":0,"tool":"door_lock.set_lock","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":0.9671920999990107,"returned_calls":1,"prompt_tokens":5724,"completion_tokens":38}
+{"event":"call","turn":1,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":6.5502962000009575,"returned_calls":1,"prompt_tokens":5905,"completion_tokens":304}
+{"event":"call","turn":2,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":6.8467255999985355,"returned_calls":0,"prompt_tokens":6258,"completion_tokens":242}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":27.935999399998764,"error_type":null}
+{"event":"outcome","sample":"sample-0302","termination":"final_answer","error_type":null}

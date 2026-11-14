@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-0654","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":64.05825449999975,"returned_calls":3,"prompt_tokens":6662,"completion_tokens":2769}
+{"event":"call","turn":0,"tool":"tasks.add","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"tasks.add","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"tasks.add","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":5.903914499998791,"returned_calls":1,"prompt_tokens":9624,"completion_tokens":241}
+{"event":"call","turn":1,"tool":"tasks.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":8.893175900000642,"returned_calls":0,"prompt_tokens":10137,"completion_tokens":397}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":78.8590435999995,"error_type":null}
+{"event":"outcome","sample":"sample-0654","termination":"final_answer","error_type":null}

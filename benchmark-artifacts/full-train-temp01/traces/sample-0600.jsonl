@@ -1,0 +1,7 @@
+{"event":"attempt","sample":"sample-0600","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.66635800000222,"returned_calls":1,"prompt_tokens":6200,"completion_tokens":1400}
+{"event":"call","turn":0,"tool":"shopping_list.add","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":6.461240300006466,"returned_calls":0,"prompt_tokens":7641,"completion_tokens":313}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":42.130453599995235,"error_type":null}
+{"event":"outcome","sample":"sample-0600","termination":"final_answer","error_type":null}

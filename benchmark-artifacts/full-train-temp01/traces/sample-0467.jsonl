@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0467","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":26.94439659999989,"returned_calls":1,"prompt_tokens":6044,"completion_tokens":807}
+{"event":"call","turn":0,"tool":"weather.get_current","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":4.279401799998595,"returned_calls":1,"prompt_tokens":6890,"completion_tokens":225}
+{"event":"call","turn":1,"tool":"appliances.list","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":7.263014500000281,"returned_calls":1,"prompt_tokens":7292,"completion_tokens":347}
+{"event":"call","turn":2,"tool":"appliances.start_cycle","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":8.525122200000624,"returned_calls":0,"prompt_tokens":7736,"completion_tokens":425}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":47.01405159999922,"error_type":null}
+{"event":"outcome","sample":"sample-0467","termination":"final_answer","error_type":null}

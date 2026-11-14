@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0457","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":19.52344090000406,"returned_calls":1,"prompt_tokens":8988,"completion_tokens":792}
+{"event":"call","turn":0,"tool":"household_chores.list_chores","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.094223500003864,"returned_calls":1,"prompt_tokens":9924,"completion_tokens":289}
+{"event":"call","turn":1,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":2.9333774999977322,"returned_calls":1,"prompt_tokens":10259,"completion_tokens":122}
+{"event":"call","turn":2,"tool":"household_chores.assign","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":4.623060700003407,"returned_calls":0,"prompt_tokens":10426,"completion_tokens":236}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":34.175646299998334,"error_type":null}
+{"event":"outcome","sample":"sample-0457","termination":"final_answer","error_type":null}

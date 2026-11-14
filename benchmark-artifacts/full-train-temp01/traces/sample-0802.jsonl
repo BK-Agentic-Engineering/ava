@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0802","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":88.4036257000007,"returned_calls":1,"prompt_tokens":5246,"completion_tokens":4306}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":4.3847399999976915,"returned_calls":1,"prompt_tokens":9733,"completion_tokens":80}
+{"event":"call","turn":1,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"length","elapsed_seconds":141.43224740000005,"returned_calls":0,"prompt_tokens":9938,"completion_tokens":6446}
+{"event":"end","termination":"generation_truncated","turns":3,"task_seconds":234.2219284999992,"error_type":null}
+{"event":"outcome","sample":"sample-0802","termination":"generation_truncated","error_type":null}

@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0992","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":39.70009099999879,"returned_calls":1,"prompt_tokens":6216,"completion_tokens":1450}
+{"event":"call","turn":0,"tool":"tv.guide","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":51.18077099999937,"returned_calls":1,"prompt_tokens":8040,"completion_tokens":2772}
+{"event":"call","turn":1,"tool":"tasks.add","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":14.163498400001117,"returned_calls":0,"prompt_tokens":10878,"completion_tokens":660}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":105.04571360000045,"error_type":null}
+{"event":"outcome","sample":"sample-0992","termination":"final_answer","error_type":null}

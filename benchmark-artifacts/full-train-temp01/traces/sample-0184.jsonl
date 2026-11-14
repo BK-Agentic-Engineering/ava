@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0184","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":34.53655230000004,"returned_calls":1,"prompt_tokens":4992,"completion_tokens":1455}
+{"event":"call","turn":0,"tool":"medication.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":54.72211769999922,"returned_calls":1,"prompt_tokens":6553,"completion_tokens":2554}
+{"event":"call","turn":1,"tool":"medication.remove","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":4.1992203000008885,"returned_calls":1,"prompt_tokens":9125,"completion_tokens":149}
+{"event":"call","turn":2,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":21.240223000000697,"returned_calls":0,"prompt_tokens":9419,"completion_tokens":639}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":114.69934450000073,"error_type":null}
+{"event":"outcome","sample":"sample-0184","termination":"final_answer","error_type":null}

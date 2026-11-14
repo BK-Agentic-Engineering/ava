@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-1118","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.860604599998624,"returned_calls":1,"prompt_tokens":5653,"completion_tokens":808}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.577050699999745,"returned_calls":1,"prompt_tokens":6520,"completion_tokens":197}
+{"event":"call","turn":1,"tool":"home_automation.create_rule","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":4.057385500000237,"returned_calls":0,"prompt_tokens":6775,"completion_tokens":122}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":28.496013500000117,"error_type":null}
+{"event":"outcome","sample":"sample-1118","termination":"final_answer","error_type":null}

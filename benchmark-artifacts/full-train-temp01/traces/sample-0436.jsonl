@@ -1,0 +1,11 @@
+{"event":"attempt","sample":"sample-0436","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":31.822618900001544,"returned_calls":2,"prompt_tokens":7958,"completion_tokens":1140}
+{"event":"call","turn":0,"tool":"alarm.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":12.228972699998849,"returned_calls":1,"prompt_tokens":9206,"completion_tokens":398}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":44.05270920000112,"error_type":null}
+{"event":"outcome","sample":"sample-0436","termination":"waiting_for_user","error_type":null}

@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-0967","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.774482500000886,"returned_calls":3,"prompt_tokens":8389,"completion_tokens":1436}
+{"event":"call","turn":0,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":32.16074429999935,"returned_calls":1,"prompt_tokens":10071,"completion_tokens":1572}
+{"event":"call","turn":1,"tool":"ride_hailing.book","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":14.870880500002386,"returned_calls":0,"prompt_tokens":11731,"completion_tokens":540}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":82.80813489999855,"error_type":null}
+{"event":"outcome","sample":"sample-0967","termination":"final_answer","error_type":null}

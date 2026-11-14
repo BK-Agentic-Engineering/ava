@@ -1,0 +1,4 @@
+{"event":"attempt","sample":"sample-0549","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"stop","elapsed_seconds":89.7156857000009,"returned_calls":0,"prompt_tokens":4137,"completion_tokens":3665}
+{"event":"end","termination":"final_answer","turns":1,"task_seconds":89.71632580000005,"error_type":null}
+{"event":"outcome","sample":"sample-0549","termination":"final_answer","error_type":null}

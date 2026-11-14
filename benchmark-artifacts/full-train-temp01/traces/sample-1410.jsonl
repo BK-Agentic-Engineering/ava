@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-1410","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":100.43514759999925,"returned_calls":1,"prompt_tokens":4182,"completion_tokens":4411}
+{"event":"call","turn":0,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":14.15244569999959,"returned_calls":1,"prompt_tokens":8615,"completion_tokens":608}
+{"event":"call","turn":1,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":27.430926200000613,"returned_calls":1,"prompt_tokens":9244,"completion_tokens":906}
+{"event":"call","turn":2,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":5.445386800000051,"returned_calls":1,"prompt_tokens":10172,"completion_tokens":291}
+{"event":"call","turn":3,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":9.404038599999694,"returned_calls":0,"prompt_tokens":10485,"completion_tokens":565}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":156.86965149999924,"error_type":null}
+{"event":"outcome","sample":"sample-1410","termination":"final_answer","error_type":null}

@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0341","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":173.2962802999973,"returned_calls":1,"prompt_tokens":5774,"completion_tokens":8129}
+{"event":"call","turn":0,"tool":"home_security.arm","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":23.73316459999478,"returned_calls":1,"prompt_tokens":13925,"completion_tokens":842}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":197.0309200000047,"error_type":null}
+{"event":"outcome","sample":"sample-0341","termination":"waiting_for_user","error_type":null}

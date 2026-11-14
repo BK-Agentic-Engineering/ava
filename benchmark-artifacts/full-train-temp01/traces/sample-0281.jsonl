@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0281","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":69.0495710000032,"returned_calls":1,"prompt_tokens":5661,"completion_tokens":2764}
+{"event":"call","turn":0,"tool":"tv.guide","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":22.365311499997915,"returned_calls":1,"prompt_tokens":8801,"completion_tokens":867}
+{"event":"call","turn":1,"tool":"reminders.list","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":127.1015281,"returned_calls":1,"prompt_tokens":9739,"completion_tokens":5913}
+{"event":"call","turn":2,"tool":"reminders.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"length","elapsed_seconds":13.873010000002978,"returned_calls":0,"prompt_tokens":15810,"completion_tokens":574}
+{"event":"end","termination":"generation_truncated","turns":4,"task_seconds":232.39097110000148,"error_type":null}
+{"event":"outcome","sample":"sample-0281","termination":"generation_truncated","error_type":null}

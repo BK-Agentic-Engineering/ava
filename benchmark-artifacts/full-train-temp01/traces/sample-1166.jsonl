@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-1166","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.5631203999983,"returned_calls":1,"prompt_tokens":8559,"completion_tokens":1460}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":44.769197800000256,"returned_calls":1,"prompt_tokens":10122,"completion_tokens":1334}
+{"event":"call","turn":1,"tool":"ride_hailing.book","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":3.9365432999984478,"returned_calls":1,"prompt_tokens":11562,"completion_tokens":174}
+{"event":"call","turn":2,"tool":"reminders.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":14.907491999998456,"returned_calls":0,"prompt_tokens":11802,"completion_tokens":764}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":99.17781670000113,"error_type":null}
+{"event":"outcome","sample":"sample-1166","termination":"final_answer","error_type":null}

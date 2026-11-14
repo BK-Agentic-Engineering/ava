@@ -1,0 +1,7 @@
+{"event":"attempt","sample":"sample-1228","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":23.01976669999931,"returned_calls":1,"prompt_tokens":4222,"completion_tokens":849}
+{"event":"call","turn":0,"tool":"notes.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":19.126483999998527,"returned_calls":0,"prompt_tokens":5170,"completion_tokens":486}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":42.14729579999948,"error_type":null}
+{"event":"outcome","sample":"sample-1228","termination":"final_answer","error_type":null}

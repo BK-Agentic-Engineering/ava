@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-1117","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":39.30508089999785,"returned_calls":1,"prompt_tokens":8968,"completion_tokens":1505}
+{"event":"call","turn":0,"tool":"weather.get_current","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":2.45354569999472,"returned_calls":1,"prompt_tokens":10509,"completion_tokens":77}
+{"event":"call","turn":1,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":3.6040276999992784,"returned_calls":1,"prompt_tokens":10785,"completion_tokens":172}
+{"event":"call","turn":2,"tool":"chat_ott.send_location","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":3.499688800002332,"returned_calls":0,"prompt_tokens":10993,"completion_tokens":170}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":48.86394740000105,"error_type":null}
+{"event":"outcome","sample":"sample-1117","termination":"final_answer","error_type":null}

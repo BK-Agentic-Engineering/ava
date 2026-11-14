@@ -1,0 +1,11 @@
+{"event":"attempt","sample":"sample-1212","attempt":"initial"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":24.843602399998417,"returned_calls":2,"prompt_tokens":7516,"completion_tokens":698}
+{"event":"call","turn":0,"tool":"banking.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"banking.list_beneficiaries","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":47.09686379999948,"returned_calls":1,"prompt_tokens":8383,"completion_tokens":1577}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":71.94157660000019,"error_type":null}
+{"event":"outcome","sample":"sample-1212","termination":"waiting_for_user","error_type":null}

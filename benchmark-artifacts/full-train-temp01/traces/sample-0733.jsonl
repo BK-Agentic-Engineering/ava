@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0733","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":21.972125500000402,"returned_calls":1,"prompt_tokens":9249,"completion_tokens":582}
+{"event":"call","turn":0,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":4.392507600001409,"returned_calls":1,"prompt_tokens":9978,"completion_tokens":190}
+{"event":"call","turn":1,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":13.082641499997408,"returned_calls":0,"prompt_tokens":10203,"completion_tokens":391}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":39.4484678000008,"error_type":null}
+{"event":"outcome","sample":"sample-0733","termination":"final_answer","error_type":null}

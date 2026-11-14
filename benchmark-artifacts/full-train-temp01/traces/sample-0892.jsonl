@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0892","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":34.20325589999993,"returned_calls":1,"prompt_tokens":6633,"completion_tokens":1443}
+{"event":"call","turn":0,"tool":"robot_vacuum.stop","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":61.095764199999394,"returned_calls":1,"prompt_tokens":8104,"completion_tokens":2906}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":95.30032429999846,"error_type":null}
+{"event":"outcome","sample":"sample-0892","termination":"waiting_for_user","error_type":null}

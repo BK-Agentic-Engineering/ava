@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-1542","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":70.87759430000006,"returned_calls":1,"prompt_tokens":3007,"completion_tokens":3606}
+{"event":"call","turn":0,"tool":"shopping_list.get","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":3.5884860000005574,"returned_calls":1,"prompt_tokens":6696,"completion_tokens":69}
+{"event":"call","turn":1,"tool":"notes.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":31.193458300000202,"returned_calls":1,"prompt_tokens":6885,"completion_tokens":1875}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":105.66145490000054,"error_type":null}
+{"event":"outcome","sample":"sample-1542","termination":"waiting_for_user","error_type":null}

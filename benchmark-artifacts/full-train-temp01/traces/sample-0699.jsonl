@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0699","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":36.35675540000011,"returned_calls":1,"prompt_tokens":4127,"completion_tokens":1784}
+{"event":"call","turn":0,"tool":"exchange_rate.get_rate","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":60.50890209999852,"returned_calls":1,"prompt_tokens":5946,"completion_tokens":2764}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":96.86657180000111,"error_type":null}
+{"event":"outcome","sample":"sample-0699","termination":"waiting_for_user","error_type":null}

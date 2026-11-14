@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0057","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":65.17788039999868,"returned_calls":1,"prompt_tokens":5578,"completion_tokens":2602}
+{"event":"call","turn":0,"tool":"banking.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.874344200004998,"returned_calls":1,"prompt_tokens":8242,"completion_tokens":378}
+{"event":"call","turn":1,"tool":"banking.open_savings","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":44.36864329999662,"returned_calls":0,"prompt_tokens":8678,"completion_tokens":2015}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":117.42353739999817,"error_type":null}
+{"event":"outcome","sample":"sample-0057","termination":"final_answer","error_type":null}

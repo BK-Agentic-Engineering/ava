@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-0179","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":27.263213400001405,"returned_calls":2,"prompt_tokens":8128,"completion_tokens":1143}
+{"event":"call","turn":0,"tool":"alarm.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.942045899999357,"returned_calls":1,"prompt_tokens":9384,"completion_tokens":373}
+{"event":"call","turn":1,"tool":"ewallet.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":6.527317200001562,"returned_calls":1,"prompt_tokens":9781,"completion_tokens":284}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":41.733972700003505,"error_type":null}
+{"event":"outcome","sample":"sample-0179","termination":"waiting_for_user","error_type":null}

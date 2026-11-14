@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0829","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":33.31661460000032,"returned_calls":1,"prompt_tokens":6021,"completion_tokens":1405}
+{"event":"call","turn":0,"tool":"maps.get_route","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":10.458300799997232,"returned_calls":1,"prompt_tokens":7487,"completion_tokens":573}
+{"event":"call","turn":1,"tool":"calculator.calculate","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":2.347305100000085,"returned_calls":1,"prompt_tokens":8092,"completion_tokens":114}
+{"event":"call","turn":2,"tool":"tasks.add","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":13.63272119999965,"returned_calls":0,"prompt_tokens":8287,"completion_tokens":690}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":59.75818889999937,"error_type":null}
+{"event":"outcome","sample":"sample-0829","termination":"final_answer","error_type":null}

@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0859","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":7.673686999998608,"returned_calls":1,"prompt_tokens":4403,"completion_tokens":228}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":44.09097629999815,"returned_calls":1,"prompt_tokens":5003,"completion_tokens":1679}
+{"event":"call","turn":1,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":11.440335799998138,"returned_calls":0,"prompt_tokens":7054,"completion_tokens":585}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":63.207206700000825,"error_type":null}
+{"event":"outcome","sample":"sample-0859","termination":"final_answer","error_type":null}

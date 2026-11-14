@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0831","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":25.127467099999194,"returned_calls":2,"prompt_tokens":8923,"completion_tokens":482}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":23.085458300000028,"returned_calls":2,"prompt_tokens":9532,"completion_tokens":1141}
+{"event":"call","turn":1,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":48.214509699999326,"error_type":null}
+{"event":"outcome","sample":"sample-0831","termination":"waiting_for_user","error_type":null}

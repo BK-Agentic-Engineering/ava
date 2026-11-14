@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-1238","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":30.431155400001444,"returned_calls":1,"prompt_tokens":7812,"completion_tokens":1032}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":60.88769390000016,"returned_calls":3,"prompt_tokens":9216,"completion_tokens":2248}
+{"event":"call","turn":1,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"smart_home.climate_set","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":6.9949196000015945,"returned_calls":0,"prompt_tokens":11640,"completion_tokens":283}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":98.31553750000239,"error_type":null}
+{"event":"outcome","sample":"sample-1238","termination":"final_answer","error_type":null}

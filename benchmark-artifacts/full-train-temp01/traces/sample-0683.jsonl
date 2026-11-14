@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0683","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":31.925197200000184,"returned_calls":1,"prompt_tokens":4387,"completion_tokens":1434}
+{"event":"call","turn":0,"tool":"home_energy.get_usage","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":42.67387249999956,"returned_calls":1,"prompt_tokens":5914,"completion_tokens":1779}
+{"event":"call","turn":1,"tool":"notes.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":16.229113600000346,"returned_calls":1,"prompt_tokens":7902,"completion_tokens":513}
+{"event":"call","turn":2,"tool":"notes.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":13.923873100000492,"returned_calls":0,"prompt_tokens":8531,"completion_tokens":745}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":104.75418940000054,"error_type":null}
+{"event":"outcome","sample":"sample-0683","termination":"final_answer","error_type":null}

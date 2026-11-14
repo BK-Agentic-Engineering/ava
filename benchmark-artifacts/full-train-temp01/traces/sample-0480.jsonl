@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0480","attempt":"initial"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":18.350517200000468,"returned_calls":1,"prompt_tokens":7553,"completion_tokens":474}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":13.753376000000571,"returned_calls":1,"prompt_tokens":8399,"completion_tokens":401}
+{"event":"call","turn":1,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":20.618810699999813,"returned_calls":1,"prompt_tokens":8859,"completion_tokens":867}
+{"event":"call","turn":2,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":2.8522910000010597,"returned_calls":0,"prompt_tokens":9785,"completion_tokens":63}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":55.577784499999325,"error_type":null}
+{"event":"outcome","sample":"sample-0480","termination":"final_answer","error_type":null}

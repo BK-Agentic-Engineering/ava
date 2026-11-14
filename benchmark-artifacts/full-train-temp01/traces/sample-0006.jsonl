@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0006","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":14.828771000000415,"returned_calls":2,"prompt_tokens":6322,"completion_tokens":478}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"home_energy.get_usage","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":22.343605699999898,"returned_calls":0,"prompt_tokens":7025,"completion_tokens":1181}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":37.17349020000256,"error_type":null}
+{"event":"outcome","sample":"sample-0006","termination":"final_answer","error_type":null}

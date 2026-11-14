@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0893","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.979008900001645,"returned_calls":1,"prompt_tokens":7647,"completion_tokens":1463}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":87.1209785999963,"returned_calls":2,"prompt_tokens":9184,"completion_tokens":3453}
+{"event":"call","turn":1,"tool":"contacts.get","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"contacts.get","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"length","elapsed_seconds":72.05673419999948,"returned_calls":0,"prompt_tokens":12728,"completion_tokens":3656}
+{"event":"end","termination":"generation_truncated","turns":3,"task_seconds":195.1584215000039,"error_type":null}
+{"event":"outcome","sample":"sample-0893","termination":"generation_truncated","error_type":null}

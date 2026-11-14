@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-1010","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":19.52607540000099,"returned_calls":1,"prompt_tokens":3928,"completion_tokens":822}
+{"event":"call","turn":0,"tool":"package_tracking.track","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":9.592820700003358,"returned_calls":1,"prompt_tokens":5010,"completion_tokens":283}
+{"event":"call","turn":1,"tool":"package_tracking.reschedule_delivery","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":9.782664700000169,"returned_calls":0,"prompt_tokens":5396,"completion_tokens":510}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":38.90271389999907,"error_type":null}
+{"event":"outcome","sample":"sample-1010","termination":"final_answer","error_type":null}

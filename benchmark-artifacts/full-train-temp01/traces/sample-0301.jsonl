@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0301","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":20.924997900001472,"returned_calls":1,"prompt_tokens":6323,"completion_tokens":980}
+{"event":"call","turn":0,"tool":"robot_vacuum.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":4.301937800002634,"returned_calls":1,"prompt_tokens":7356,"completion_tokens":214}
+{"event":"call","turn":1,"tool":"home_energy.get_usage","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":24.631526299999678,"returned_calls":1,"prompt_tokens":7663,"completion_tokens":1000}
+{"event":"call","turn":2,"tool":"robot_vacuum.start","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":11.493440800000826,"returned_calls":0,"prompt_tokens":8708,"completion_tokens":579}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":61.354170200000226,"error_type":null}
+{"event":"outcome","sample":"sample-0301","termination":"final_answer","error_type":null}

@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-1421","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":6.905827299997327,"returned_calls":1,"prompt_tokens":4814,"completion_tokens":228}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":2.935054900000978,"returned_calls":1,"prompt_tokens":5064,"completion_tokens":158}
+{"event":"call","turn":1,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":7.700263400001859,"returned_calls":1,"prompt_tokens":5551,"completion_tokens":443}
+{"event":"call","turn":2,"tool":"tv.control","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":5.624976200000674,"returned_calls":1,"prompt_tokens":6020,"completion_tokens":326}
+{"event":"call","turn":3,"tool":"tv.control","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":1.7330690999988292,"returned_calls":0,"prompt_tokens":6372,"completion_tokens":83}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":24.901291199999832,"error_type":null}
+{"event":"outcome","sample":"sample-1421","termination":"final_answer","error_type":null}

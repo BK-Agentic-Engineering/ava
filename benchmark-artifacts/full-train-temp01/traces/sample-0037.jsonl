@@ -1,0 +1,15 @@
+{"event":"attempt","sample":"sample-0037","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":19.840724100002262,"returned_calls":1,"prompt_tokens":4149,"completion_tokens":955}
+{"event":"call","turn":0,"tool":"tv.guide","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":11.839971300003526,"returned_calls":1,"prompt_tokens":5154,"completion_tokens":501}
+{"event":"call","turn":1,"tool":"tv.guide","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":32.66365819999919,"returned_calls":1,"prompt_tokens":5705,"completion_tokens":1391}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":false}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":32.512191599998914,"returned_calls":1,"prompt_tokens":7126,"completion_tokens":1728}
+{"event":"call","turn":3,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":4,"task_seconds":96.8586215999967,"error_type":null}
+{"event":"outcome","sample":"sample-0037","termination":"waiting_for_user","error_type":null}
