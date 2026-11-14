@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-1006","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":23.379141000001255,"returned_calls":1,"prompt_tokens":4931,"completion_tokens":1017}
+{"event":"call","turn":0,"tool":"medication.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":106.99880979999944,"returned_calls":1,"prompt_tokens":6032,"completion_tokens":4543}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":130.3790454000009,"error_type":null}
+{"event":"outcome","sample":"sample-1006","termination":"waiting_for_user","error_type":null}

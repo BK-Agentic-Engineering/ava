@@ -1,0 +1,6 @@
+{"event":"attempt","sample":"sample-0323","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":85.82055229999969,"returned_calls":1,"prompt_tokens":4397,"completion_tokens":3667}
+{"event":"call","turn":0,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":1,"task_seconds":85.82139839999581,"error_type":null}
+{"event":"outcome","sample":"sample-0323","termination":"waiting_for_user","error_type":null}

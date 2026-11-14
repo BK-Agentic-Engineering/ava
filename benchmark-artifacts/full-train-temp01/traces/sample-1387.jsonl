@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-1387","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":30.777951799998846,"returned_calls":1,"prompt_tokens":9504,"completion_tokens":1429}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":13.70087550000244,"returned_calls":1,"prompt_tokens":11003,"completion_tokens":744}
+{"event":"call","turn":1,"tool":"reminders.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":11.76135559999966,"returned_calls":1,"prompt_tokens":11813,"completion_tokens":656}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":56.24186190000182,"error_type":null}
+{"event":"outcome","sample":"sample-1387","termination":"waiting_for_user","error_type":null}

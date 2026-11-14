@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-1102","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":17.262922300000355,"returned_calls":1,"prompt_tokens":5114,"completion_tokens":789}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":41.50411600000007,"returned_calls":1,"prompt_tokens":6062,"completion_tokens":1799}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":58.76816829999734,"error_type":null}
+{"event":"outcome","sample":"sample-1102","termination":"waiting_for_user","error_type":null}

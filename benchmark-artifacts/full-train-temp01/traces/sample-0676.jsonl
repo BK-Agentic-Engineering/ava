@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0676","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":69.31671020000067,"returned_calls":3,"prompt_tokens":7873,"completion_tokens":2704}
+{"event":"call","turn":0,"tool":"banking.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"ewallet.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":1,"task_seconds":69.31851069999902,"error_type":null}
+{"event":"outcome","sample":"sample-0676","termination":"waiting_for_user","error_type":null}

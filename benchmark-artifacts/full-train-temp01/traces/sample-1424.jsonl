@@ -1,0 +1,17 @@
+{"event":"attempt","sample":"sample-1424","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":27.636411799998314,"returned_calls":2,"prompt_tokens":6211,"completion_tokens":1214}
+{"event":"call","turn":0,"tool":"flights.check_in","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":5.4740531999996165,"returned_calls":1,"prompt_tokens":7499,"completion_tokens":280}
+{"event":"call","turn":1,"tool":"banking.list_beneficiaries","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":6.0398607999959495,"returned_calls":1,"prompt_tokens":7924,"completion_tokens":326}
+{"event":"call","turn":2,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":15.29938140000013,"returned_calls":1,"prompt_tokens":8298,"completion_tokens":918}
+{"event":"call","turn":3,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":4,"task_seconds":54.45121790000121,"error_type":null}
+{"event":"outcome","sample":"sample-1424","termination":"waiting_for_user","error_type":null}

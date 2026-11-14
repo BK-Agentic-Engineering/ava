@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0491","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":11.099697799996648,"returned_calls":1,"prompt_tokens":6230,"completion_tokens":410}
+{"event":"call","turn":0,"tool":"food_delivery.list_restaurants","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":5.179015100002289,"returned_calls":1,"prompt_tokens":6864,"completion_tokens":96}
+{"event":"call","turn":1,"tool":"food_delivery.order_history","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":54.466592600001604,"returned_calls":1,"prompt_tokens":7292,"completion_tokens":2001}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":70.7468372000003,"error_type":null}
+{"event":"outcome","sample":"sample-0491","termination":"waiting_for_user","error_type":null}

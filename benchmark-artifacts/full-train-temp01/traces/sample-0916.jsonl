@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0916","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":8.749099600005138,"returned_calls":1,"prompt_tokens":7261,"completion_tokens":253}
+{"event":"call","turn":0,"tool":"home_security.list_alerts","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":27.995364599999448,"returned_calls":1,"prompt_tokens":7694,"completion_tokens":1109}
+{"event":"call","turn":1,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":46.82749999999942,"returned_calls":1,"prompt_tokens":8898,"completion_tokens":2059}
+{"event":"call","turn":2,"tool":"sms.read_recent","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":8.236740599997574,"returned_calls":1,"prompt_tokens":10978,"completion_tokens":419}
+{"event":"call","turn":3,"tool":"home_security.list_alerts","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":13.406184300001769,"returned_calls":0,"prompt_tokens":11577,"completion_tokens":781}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":105.21993549999752,"error_type":null}
+{"event":"outcome","sample":"sample-0916","termination":"final_answer","error_type":null}

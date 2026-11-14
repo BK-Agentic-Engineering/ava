@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0822","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":18.09741859999849,"returned_calls":1,"prompt_tokens":3805,"completion_tokens":795}
+{"event":"call","turn":0,"tool":"robot_vacuum.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":10.925032400000418,"returned_calls":1,"prompt_tokens":4667,"completion_tokens":486}
+{"event":"call","turn":1,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":10.299060699999245,"returned_calls":1,"prompt_tokens":5520,"completion_tokens":391}
+{"event":"call","turn":2,"tool":"robot_vacuum.start","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":1.8393715000001976,"returned_calls":1,"prompt_tokens":5957,"completion_tokens":86}
+{"event":"call","turn":3,"tool":"home_automation.create_rule","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":16.718338000000585,"returned_calls":0,"prompt_tokens":6094,"completion_tokens":776}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":57.88098629999877,"error_type":null}
+{"event":"outcome","sample":"sample-0822","termination":"final_answer","error_type":null}

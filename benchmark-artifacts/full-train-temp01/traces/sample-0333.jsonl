@@ -1,0 +1,15 @@
+{"event":"attempt","sample":"sample-0333","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":32.1227790999983,"returned_calls":1,"prompt_tokens":4731,"completion_tokens":1226}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":12.038531199999852,"returned_calls":1,"prompt_tokens":6002,"completion_tokens":390}
+{"event":"call","turn":1,"tool":"contacts.get","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":29.481439499999397,"returned_calls":1,"prompt_tokens":6437,"completion_tokens":1404}
+{"event":"call","turn":2,"tool":"sms.read_recent","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":26.643088600001647,"returned_calls":1,"prompt_tokens":7862,"completion_tokens":1230}
+{"event":"call","turn":3,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":4,"task_seconds":100.28716949999944,"error_type":null}
+{"event":"outcome","sample":"sample-0333","termination":"waiting_for_user","error_type":null}

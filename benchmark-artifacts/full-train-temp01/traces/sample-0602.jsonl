@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0602","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":30.672505899998214,"returned_calls":2,"prompt_tokens":6087,"completion_tokens":1342}
+{"event":"call","turn":0,"tool":"ride_hailing.cancel","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"fitness.get_activity","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":142.3038532999999,"returned_calls":1,"prompt_tokens":7549,"completion_tokens":6755}
+{"event":"call","turn":1,"tool":"fitness.set_goal","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":16.484188200000062,"returned_calls":0,"prompt_tokens":14329,"completion_tokens":532}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":189.4622477999983,"error_type":null}
+{"event":"outcome","sample":"sample-0602","termination":"final_answer","error_type":null}

@@ -1,0 +1,14 @@
+{"event":"attempt","sample":"sample-0642","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":17.598424700001488,"returned_calls":1,"prompt_tokens":4008,"completion_tokens":881}
+{"event":"call","turn":0,"tool":"maps.search_place","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":18.415580000000773,"returned_calls":2,"prompt_tokens":5071,"completion_tokens":583}
+{"event":"call","turn":1,"tool":"maps.get_route","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"maps.get_route","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":27.89191909999863,"returned_calls":1,"prompt_tokens":5786,"completion_tokens":1272}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":63.90720870000223,"error_type":null}
+{"event":"outcome","sample":"sample-0642","termination":"waiting_for_user","error_type":null}

@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0316","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.846857099997578,"returned_calls":1,"prompt_tokens":4088,"completion_tokens":542}
+{"event":"call","turn":0,"tool":"flights.my_bookings","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"end","termination":"runtime_error","turns":1,"task_seconds":196.88072699999975,"error_type":"TimeoutError"}
+{"event":"attempt","sample":"sample-0316","attempt":"retry"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":19.025671800001874,"returned_calls":1,"prompt_tokens":4088,"completion_tokens":767}
+{"event":"call","turn":0,"tool":"flights.my_bookings","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":130.23972720000165,"returned_calls":0,"prompt_tokens":5021,"completion_tokens":6975}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":149.26753860000463,"error_type":null}
+{"event":"outcome","sample":"sample-0316","termination":"final_answer","error_type":null}

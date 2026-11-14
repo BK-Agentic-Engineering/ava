@@ -1,0 +1,17 @@
+{"event":"attempt","sample":"sample-0312","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":33.631377200003044,"returned_calls":2,"prompt_tokens":5167,"completion_tokens":1499}
+{"event":"call","turn":0,"tool":"home_security.list_alerts","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"door_lock.list_locks","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":12.9755327999992,"returned_calls":1,"prompt_tokens":7085,"completion_tokens":669}
+{"event":"call","turn":1,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":8.61393820000012,"returned_calls":2,"prompt_tokens":7879,"completion_tokens":481}
+{"event":"call","turn":2,"tool":"door_lock.set_lock","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"call","turn":2,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":25.5011631999987,"returned_calls":0,"prompt_tokens":8456,"completion_tokens":1192}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":80.7231993000023,"error_type":null}
+{"event":"outcome","sample":"sample-0312","termination":"final_answer","error_type":null}

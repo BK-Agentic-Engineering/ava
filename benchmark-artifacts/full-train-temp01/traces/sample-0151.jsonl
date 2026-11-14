@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0151","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":22.512222599998495,"returned_calls":1,"prompt_tokens":7028,"completion_tokens":1062}
+{"event":"call","turn":0,"tool":"calendar.list_events","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":12.636382099997718,"returned_calls":1,"prompt_tokens":8248,"completion_tokens":398}
+{"event":"call","turn":1,"tool":"learning.list_courses","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":21.989862100002938,"returned_calls":1,"prompt_tokens":8856,"completion_tokens":1171}
+{"event":"call","turn":2,"tool":"calendar.list_events","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":72.44273599999724,"returned_calls":1,"prompt_tokens":10251,"completion_tokens":3675}
+{"event":"call","turn":3,"tool":"learning.schedule_lesson","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":13.84376930000144,"returned_calls":0,"prompt_tokens":13984,"completion_tokens":672}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":143.42655000000013,"error_type":null}
+{"event":"outcome","sample":"sample-0151","termination":"final_answer","error_type":null}

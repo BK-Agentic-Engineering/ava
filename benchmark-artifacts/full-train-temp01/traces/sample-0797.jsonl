@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0797","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":28.210360100005346,"returned_calls":1,"prompt_tokens":5610,"completion_tokens":1343}
+{"event":"call","turn":0,"tool":"banking.transfer","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true,"done":false}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":4.691777699998056,"returned_calls":1,"prompt_tokens":6986,"completion_tokens":180}
+{"event":"call","turn":1,"tool":"banking.list_beneficiaries","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":46.39683109999896,"returned_calls":1,"prompt_tokens":7279,"completion_tokens":1822}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":79.30084160000115,"error_type":null}
+{"event":"outcome","sample":"sample-0797","termination":"waiting_for_user","error_type":null}

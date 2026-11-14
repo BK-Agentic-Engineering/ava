@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-1095","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":5.517100899998695,"returned_calls":1,"prompt_tokens":5039,"completion_tokens":91}
+{"event":"call","turn":0,"tool":"bike_rental.reserve","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.241930899999716,"returned_calls":1,"prompt_tokens":5186,"completion_tokens":389}
+{"event":"call","turn":1,"tool":"maps.get_route","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":7.983902899999521,"returned_calls":0,"prompt_tokens":5639,"completion_tokens":200}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":20.743911800000205,"error_type":null}
+{"event":"outcome","sample":"sample-1095","termination":"final_answer","error_type":null}

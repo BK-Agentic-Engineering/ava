@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-1442","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":10.718652399998973,"returned_calls":1,"prompt_tokens":4840,"completion_tokens":406}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":10.738213299999188,"returned_calls":1,"prompt_tokens":5311,"completion_tokens":585}
+{"event":"call","turn":1,"tool":"email.create_draft","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":5.367973699998402,"returned_calls":0,"prompt_tokens":6032,"completion_tokens":279}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":26.82620329999918,"error_type":null}
+{"event":"outcome","sample":"sample-1442","termination":"final_answer","error_type":null}

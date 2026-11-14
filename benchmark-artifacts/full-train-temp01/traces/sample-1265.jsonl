@@ -1,0 +1,17 @@
+{"event":"attempt","sample":"sample-1265","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":68.70768449999741,"returned_calls":2,"prompt_tokens":4223,"completion_tokens":2740}
+{"event":"call","turn":0,"tool":"bike_rental.reserve","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":6.334941000000981,"returned_calls":2,"prompt_tokens":7029,"completion_tokens":253}
+{"event":"call","turn":1,"tool":"contacts.search","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"call","turn":1,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":8.38373490000231,"returned_calls":1,"prompt_tokens":7685,"completion_tokens":428}
+{"event":"call","turn":2,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":13.479284000000916,"returned_calls":0,"prompt_tokens":8181,"completion_tokens":723}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":96.90859760000603,"error_type":null}
+{"event":"outcome","sample":"sample-1265","termination":"final_answer","error_type":null}

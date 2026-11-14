@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0639","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":34.50031119999949,"returned_calls":1,"prompt_tokens":4108,"completion_tokens":1627}
+{"event":"call","turn":0,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":21.764956099999836,"returned_calls":1,"prompt_tokens":5757,"completion_tokens":781}
+{"event":"call","turn":1,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":117.19867549999981,"returned_calls":1,"prompt_tokens":6560,"completion_tokens":5382}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":173.46541920000163,"error_type":null}
+{"event":"outcome","sample":"sample-0639","termination":"waiting_for_user","error_type":null}

@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0488","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":26.016605799999525,"returned_calls":1,"prompt_tokens":5820,"completion_tokens":953}
+{"event":"call","turn":0,"tool":"loyalty.list_vouchers","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":15.673488599997654,"returned_calls":1,"prompt_tokens":6885,"completion_tokens":611}
+{"event":"call","turn":1,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":8.9094877000025,"returned_calls":0,"prompt_tokens":7573,"completion_tokens":511}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":50.60097619999942,"error_type":null}
+{"event":"outcome","sample":"sample-0488","termination":"final_answer","error_type":null}

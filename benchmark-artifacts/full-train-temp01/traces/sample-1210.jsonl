@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-1210","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.33963869999934,"returned_calls":1,"prompt_tokens":3536,"completion_tokens":616}
+{"event":"call","turn":0,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":8.778372500000842,"returned_calls":1,"prompt_tokens":4208,"completion_tokens":521}
+{"event":"call","turn":1,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":23.592120299999806,"returned_calls":1,"prompt_tokens":4785,"completion_tokens":1369}
+{"event":"call","turn":2,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":8.73636709999846,"returned_calls":0,"prompt_tokens":6210,"completion_tokens":427}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":57.44791950000035,"error_type":null}
+{"event":"outcome","sample":"sample-1210","termination":"final_answer","error_type":null}

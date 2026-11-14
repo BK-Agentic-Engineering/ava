@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0836","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":49.40219490000163,"returned_calls":1,"prompt_tokens":5380,"completion_tokens":2352}
+{"event":"call","turn":0,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":2.63947460000054,"returned_calls":1,"prompt_tokens":7754,"completion_tokens":62}
+{"event":"call","turn":1,"tool":"contacts.search","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":6.806043600001431,"returned_calls":1,"prompt_tokens":7838,"completion_tokens":377}
+{"event":"call","turn":2,"tool":"notes.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":28.374295800000255,"returned_calls":1,"prompt_tokens":8350,"completion_tokens":1146}
+{"event":"call","turn":3,"tool":"notes.create","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":6.8314303000006475,"returned_calls":0,"prompt_tokens":9618,"completion_tokens":364}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":94.05519469999854,"error_type":null}
+{"event":"outcome","sample":"sample-0836","termination":"final_answer","error_type":null}

@@ -1,0 +1,7 @@
+{"event":"attempt","sample":"sample-1415","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.04918970000108,"returned_calls":1,"prompt_tokens":5512,"completion_tokens":555}
+{"event":"call","turn":0,"tool":"maps.get_route","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":8.182032999999137,"returned_calls":0,"prompt_tokens":6135,"completion_tokens":341}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":24.232062299999598,"error_type":null}
+{"event":"outcome","sample":"sample-1415","termination":"final_answer","error_type":null}

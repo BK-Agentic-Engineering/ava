@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-0479","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":89.05053580000094,"returned_calls":2,"prompt_tokens":5673,"completion_tokens":3943}
+{"event":"call","turn":0,"tool":"package_tracking.schedule_pickup","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"email.send","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":9.27271550000296,"returned_calls":0,"prompt_tokens":9788,"completion_tokens":406}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":98.32546249999723,"error_type":null}
+{"event":"outcome","sample":"sample-0479","termination":"final_answer","error_type":null}

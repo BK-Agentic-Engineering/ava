@@ -1,0 +1,15 @@
+{"event":"attempt","sample":"sample-0680","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":38.63604459999988,"returned_calls":1,"prompt_tokens":5070,"completion_tokens":1655}
+{"event":"call","turn":0,"tool":"food_delivery.list_restaurants","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":7.759020000001328,"returned_calls":1,"prompt_tokens":6883,"completion_tokens":348}
+{"event":"call","turn":1,"tool":"food_delivery.order_history","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":77.14741620000132,"returned_calls":1,"prompt_tokens":7433,"completion_tokens":3679}
+{"event":"call","turn":2,"tool":"food_delivery.cancel_order","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":54.56598109999686,"returned_calls":1,"prompt_tokens":11224,"completion_tokens":2624}
+{"event":"call","turn":3,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":4,"task_seconds":178.11094369999773,"error_type":null}
+{"event":"outcome","sample":"sample-0680","termination":"waiting_for_user","error_type":null}

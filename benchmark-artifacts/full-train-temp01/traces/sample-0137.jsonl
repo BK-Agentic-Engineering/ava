@@ -1,0 +1,12 @@
+{"event":"attempt","sample":"sample-0137","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":33.16209610000078,"returned_calls":2,"prompt_tokens":6105,"completion_tokens":1229}
+{"event":"call","turn":0,"tool":"fitness.get_activity","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"notes.list","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":5.163360099999409,"returned_calls":1,"prompt_tokens":7549,"completion_tokens":212}
+{"event":"call","turn":1,"tool":"shopping_list.remove","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":6.073502999999619,"returned_calls":0,"prompt_tokens":7779,"completion_tokens":338}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":44.40116589999889,"error_type":null}
+{"event":"outcome","sample":"sample-0137","termination":"final_answer","error_type":null}

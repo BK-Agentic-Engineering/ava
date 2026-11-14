@@ -1,0 +1,13 @@
+{"event":"attempt","sample":"sample-0500","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":31.329580800000258,"returned_calls":1,"prompt_tokens":6408,"completion_tokens":1191}
+{"event":"call","turn":0,"tool":"loyalty.get_points","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":3.433099300000322,"returned_calls":1,"prompt_tokens":7903,"completion_tokens":145}
+{"event":"call","turn":1,"tool":"loyalty.list_vouchers","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":15.195341599999665,"returned_calls":1,"prompt_tokens":8071,"completion_tokens":804}
+{"event":"call","turn":2,"tool":"loyalty.redeem","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"stop","elapsed_seconds":25.83285690000048,"returned_calls":0,"prompt_tokens":8954,"completion_tokens":1273}
+{"event":"end","termination":"final_answer","turns":4,"task_seconds":75.79377870000098,"error_type":null}
+{"event":"outcome","sample":"sample-0500","termination":"final_answer","error_type":null}

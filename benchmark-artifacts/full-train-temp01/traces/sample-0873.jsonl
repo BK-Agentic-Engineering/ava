@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0873","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":35.51325999999972,"returned_calls":3,"prompt_tokens":5701,"completion_tokens":1060}
+{"event":"call","turn":0,"tool":"banking.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"banking.list_beneficiaries","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"call","turn":0,"tool":"bill_payment.list_bills","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":23.182250899997598,"returned_calls":1,"prompt_tokens":7090,"completion_tokens":1172}
+{"event":"call","turn":1,"tool":"banking.list_transactions","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":136.78885620000074,"returned_calls":1,"prompt_tokens":8284,"completion_tokens":5719}
+{"event":"call","turn":2,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":3,"task_seconds":195.48579190000237,"error_type":null}
+{"event":"outcome","sample":"sample-0873","termination":"waiting_for_user","error_type":null}

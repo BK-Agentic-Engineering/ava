@@ -1,0 +1,9 @@
+{"event":"attempt","sample":"sample-1365","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":53.65898870000092,"returned_calls":1,"prompt_tokens":6295,"completion_tokens":2333}
+{"event":"call","turn":0,"tool":"tv.control","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":29.852451100006874,"returned_calls":1,"prompt_tokens":8654,"completion_tokens":1419}
+{"event":"call","turn":1,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":2,"task_seconds":83.51320929999929,"error_type":null}
+{"event":"outcome","sample":"sample-1365","termination":"waiting_for_user","error_type":null}

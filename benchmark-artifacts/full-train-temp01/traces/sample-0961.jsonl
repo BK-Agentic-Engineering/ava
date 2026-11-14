@@ -1,0 +1,10 @@
+{"event":"attempt","sample":"sample-0961","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":31.967965699999695,"returned_calls":1,"prompt_tokens":4120,"completion_tokens":1239}
+{"event":"call","turn":0,"tool":"flights.search","argument_count":4,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":6.533760300000722,"returned_calls":1,"prompt_tokens":5672,"completion_tokens":353}
+{"event":"call","turn":1,"tool":"flights.book","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"stop","elapsed_seconds":10.659195200001705,"returned_calls":0,"prompt_tokens":6076,"completion_tokens":490}
+{"event":"end","termination":"final_answer","turns":3,"task_seconds":49.162337200001275,"error_type":null}
+{"event":"outcome","sample":"sample-0961","termination":"final_answer","error_type":null}

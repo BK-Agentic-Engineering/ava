@@ -1,0 +1,7 @@
+{"event":"attempt","sample":"sample-1489","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":42.631584200004,"returned_calls":1,"prompt_tokens":5916,"completion_tokens":1884}
+{"event":"call","turn":0,"tool":"chat_ott.send_message","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":6.058996100000513,"returned_calls":0,"prompt_tokens":7874,"completion_tokens":259}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":48.69161780000286,"error_type":null}
+{"event":"outcome","sample":"sample-1489","termination":"final_answer","error_type":null}

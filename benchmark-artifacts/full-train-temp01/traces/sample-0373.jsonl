@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0373","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":16.71564959999887,"returned_calls":1,"prompt_tokens":7993,"completion_tokens":563}
+{"event":"call","turn":0,"tool":"gold_price.get_price","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":25.213979399999516,"returned_calls":1,"prompt_tokens":8603,"completion_tokens":762}
+{"event":"call","turn":1,"tool":"banking.get_balance","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":3.879547000000457,"returned_calls":1,"prompt_tokens":9427,"completion_tokens":123}
+{"event":"call","turn":2,"tool":"banking.list_beneficiaries","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":7.186149400000431,"returned_calls":1,"prompt_tokens":9664,"completion_tokens":266}
+{"event":"call","turn":3,"tool":"alarm.create","argument_count":3,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":8.135065700000268,"returned_calls":0,"prompt_tokens":9998,"completion_tokens":414}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":61.13171700000021,"error_type":null}
+{"event":"outcome","sample":"sample-0373","termination":"final_answer","error_type":null}

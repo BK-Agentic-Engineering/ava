@@ -1,0 +1,7 @@
+{"event":"attempt","sample":"sample-1510","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":18.171507800001564,"returned_calls":1,"prompt_tokens":6261,"completion_tokens":616}
+{"event":"call","turn":0,"tool":"smart_home.scene_run","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"stop","elapsed_seconds":12.476657999999588,"returned_calls":0,"prompt_tokens":7032,"completion_tokens":500}
+{"event":"end","termination":"final_answer","turns":2,"task_seconds":30.6499851999979,"error_type":null}
+{"event":"outcome","sample":"sample-1510","termination":"final_answer","error_type":null}

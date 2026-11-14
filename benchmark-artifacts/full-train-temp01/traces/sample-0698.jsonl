@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-0698","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":36.9635051999976,"returned_calls":1,"prompt_tokens":5378,"completion_tokens":1357}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":1.9112005999995745,"returned_calls":1,"prompt_tokens":6796,"completion_tokens":53}
+{"event":"call","turn":1,"tool":"home_automation.list_rules","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":142.60609209999893,"returned_calls":1,"prompt_tokens":7024,"completion_tokens":6552}
+{"event":"call","turn":2,"tool":"chat_ott.list_chats","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":47.69483749999927,"returned_calls":1,"prompt_tokens":13722,"completion_tokens":2007}
+{"event":"call","turn":3,"tool":"calendar.list_events","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"length","elapsed_seconds":9.320751600000222,"returned_calls":0,"prompt_tokens":15948,"completion_tokens":436}
+{"event":"end","termination":"generation_truncated","turns":5,"task_seconds":238.49996979999923,"error_type":null}
+{"event":"outcome","sample":"sample-0698","termination":"generation_truncated","error_type":null}

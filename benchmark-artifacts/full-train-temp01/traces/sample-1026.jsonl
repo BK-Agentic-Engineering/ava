@@ -1,0 +1,16 @@
+{"event":"attempt","sample":"sample-1026","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":64.68253969999932,"returned_calls":1,"prompt_tokens":7693,"completion_tokens":2463}
+{"event":"call","turn":0,"tool":"smart_home.get_status","argument_count":0,"empty_arguments":true}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":13.497517700001481,"returned_calls":1,"prompt_tokens":10528,"completion_tokens":682}
+{"event":"call","turn":1,"tool":"smart_home.get_status","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":3.6176833999998053,"returned_calls":1,"prompt_tokens":11275,"completion_tokens":145}
+{"event":"call","turn":2,"tool":"smart_home.get_status","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":6.349682699998084,"returned_calls":1,"prompt_tokens":11482,"completion_tokens":342}
+{"event":"call","turn":3,"tool":"smart_home.light_set","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true}
+{"event":"assistant","turn":4,"finish_reason":"stop","elapsed_seconds":10.404566999997769,"returned_calls":0,"prompt_tokens":11888,"completion_tokens":490}
+{"event":"end","termination":"final_answer","turns":5,"task_seconds":98.55569010000181,"error_type":null}
+{"event":"outcome","sample":"sample-1026","termination":"final_answer","error_type":null}

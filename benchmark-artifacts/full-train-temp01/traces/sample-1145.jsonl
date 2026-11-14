@@ -1,0 +1,15 @@
+{"event":"attempt","sample":"sample-1145","attempt":"continuation"}
+{"event":"assistant","turn":0,"finish_reason":"tool_calls","elapsed_seconds":129.84731490000013,"returned_calls":1,"prompt_tokens":3279,"completion_tokens":5833}
+{"event":"call","turn":0,"tool":"weather.get_forecast","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":0,"ok":true}
+{"event":"assistant","turn":1,"finish_reason":"tool_calls","elapsed_seconds":15.462367300000551,"returned_calls":1,"prompt_tokens":9134,"completion_tokens":587}
+{"event":"call","turn":1,"tool":"maps.search_place","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":1,"ok":true}
+{"event":"assistant","turn":2,"finish_reason":"tool_calls","elapsed_seconds":1.5349406999994244,"returned_calls":1,"prompt_tokens":9742,"completion_tokens":57}
+{"event":"call","turn":2,"tool":"maps.search_place","argument_count":1,"empty_arguments":false}
+{"event":"result","turn":2,"ok":true}
+{"event":"assistant","turn":3,"finish_reason":"tool_calls","elapsed_seconds":9.204314500000692,"returned_calls":1,"prompt_tokens":9820,"completion_tokens":480}
+{"event":"call","turn":3,"tool":"sys.ask_missing_info","argument_count":2,"empty_arguments":false}
+{"event":"result","turn":3,"ok":true,"waiting_for_user":true}
+{"event":"end","termination":"waiting_for_user","turns":4,"task_seconds":156.051403200001,"error_type":null}
+{"event":"outcome","sample":"sample-1145","termination":"waiting_for_user","error_type":null}
